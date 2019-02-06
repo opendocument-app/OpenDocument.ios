@@ -21,12 +21,16 @@ class DocumentViewController: UIViewController {
         // Access the document
         document?.open(completionHandler: { (success) in
             if success {
-                // Display the content of the document, e.g.:
-                print(self.document?.fileURL.lastPathComponent)
+                var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
+                tempPath.appendPathComponent("temp.html")
+ 
+                // TODO: remove, just for testing
+                do {
+                    let text = "<html><body><h1>" + (self.document?.fileURL.lastPathComponent)! + "</h1></body></html>"
+                    try text.write(to: tempPath, atomically: false, encoding: .utf8)
+                } catch {/* error handling here */}
                 
-                let url = URL(string: "https://tomtasche.at")
-                let urlRequest = URLRequest(url: url!)
-                self.webview.load(urlRequest)
+                self.webview.loadFileURL(tempPath, allowingReadAccessTo: tempPath)
             } else {
                 // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
             }
