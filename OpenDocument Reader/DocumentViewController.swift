@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import WebKit
 
 class DocumentViewController: UIViewController {
     
-    @IBOutlet weak var documentNameLabel: UILabel!
+    @IBOutlet weak var webview: WKWebView!
     
     var document: UIDocument?
     
@@ -21,7 +22,11 @@ class DocumentViewController: UIViewController {
         document?.open(completionHandler: { (success) in
             if success {
                 // Display the content of the document, e.g.:
-                self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
+                print(self.document?.fileURL.lastPathComponent)
+                
+                let url = URL(string: "https://tomtasche.at")
+                let urlRequest = URLRequest(url: url!)
+                self.webview.load(urlRequest)
             } else {
                 // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
             }
