@@ -11,6 +11,8 @@ import UIKit
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
+    var lastDocument: Document?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,12 +65,16 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     // MARK: Document Presentation
     
     func presentDocument(at documentURL: URL) {
+        lastDocument = Document(fileURL: documentURL)
         
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DocumentViewController") as! DocumentViewController
-        documentViewController.document = Document(fileURL: documentURL)
-        
-        present(documentViewController, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "showDocument", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showDocument") {
+            let documentController = segue.destination as! DocumentViewController
+            documentController.document = lastDocument
+        }
     }
 }
 
