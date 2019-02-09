@@ -23,12 +23,8 @@ class DocumentViewController: UIViewController {
             if success {
                 var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
                 tempPath.appendPathComponent("temp.html")
- 
-                // TODO: remove, just for testing
-                do {
-                    let text = "<html><body><h1>" + (self.document?.fileURL.lastPathComponent)! + "</h1></body></html>"
-                    try text.write(to: tempPath, atomically: false, encoding: .utf8)
-                } catch {/* error handling here */}
+                
+                CoreWrapper().translate(self.document?.fileURL.path, into: tempPath.path)
                 
                 self.webview.loadFileURL(tempPath, allowingReadAccessTo: tempPath)
             } else {
