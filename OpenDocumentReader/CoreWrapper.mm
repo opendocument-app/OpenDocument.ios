@@ -14,10 +14,16 @@
 #include "TextTranslator.h"
 
 @implementation CoreWrapper
-- (void)translate:(NSString *)inputPath into:(NSString *)outputPath {
-    opendocument::OpenDocumentFile file([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+- (BOOL)translate:(NSString *)inputPath into:(NSString *)outputPath {
+    try {
+        opendocument::OpenDocumentFile file([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
 
-    opendocument::TextTranslator translator;
-    translator.translate(file, [outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        opendocument::TextTranslator translator;
+        translator.translate(file, [outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+    } catch (...) {
+        return false;
+    }
+    
+    return true;
 }
 @end

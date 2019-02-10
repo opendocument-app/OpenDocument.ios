@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CoreWrapper : NSObject
-- (void)translate:(NSString *)inputPath into:(NSString *)outputPath;
+- (BOOL)translate:(NSString *)inputPath into:(NSString *)outputPath;
 @end
 
 #endif /* CoreWrapper_h */

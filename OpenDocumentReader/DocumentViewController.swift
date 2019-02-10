@@ -24,7 +24,12 @@ class DocumentViewController: UIViewController {
                 var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
                 tempPath.appendPathComponent("temp.html")
                 
-                CoreWrapper().translate(self.document?.fileURL.path, into: tempPath.path)
+                let translateSuccess = CoreWrapper().translate(self.document?.fileURL.path, into: tempPath.path)
+                if (!translateSuccess) {
+                    self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
+                    
+                    return
+                }
                 
                 self.webview.loadFileURL(tempPath, allowingReadAccessTo: tempPath)
             } else {
