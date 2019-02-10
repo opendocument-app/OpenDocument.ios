@@ -145,17 +145,17 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 5D48C4FEFC564A888F466C61;
+			remoteGlobalIDString = 475387E3B7B247CD8DEC4F7C;
 			remoteInfo = opendocument;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = opendocument.xcodeproj; path = build/opendocument.xcodeproj; sourceTree = SOURCE_ROOT; };
-		E2BB4B60220EF3A10056176B /* OpenDocument Reader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenDocument Reader-Bridging-Header.h"; sourceTree = "<group>"; };
+		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
 		E2C008FC220F1D570097C594 /* CoreWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreWrapper.h; sourceTree = "<group>"; };
-		E2F7ED4F220B54D600D63515 /* OpenDocument Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenDocument Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F7ED52220B54D600D63515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		E2F7ED56220B54D600D63515 /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 		E2F7ED46220B54D600D63515 = {
 			isa = PBXGroup;
 			children = (
-				E2F7ED51220B54D600D63515 /* OpenDocument Reader */,
+				E2F7ED51220B54D600D63515 /* OpenDocumentReader */,
 				E2F7ED50220B54D600D63515 /* Products */,
 				E2BB4B64220EF4F20056176B /* Frameworks */,
 			);
@@ -225,12 +225,12 @@
 		E2F7ED50220B54D600D63515 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E2F7ED4F220B54D600D63515 /* OpenDocument Reader.app */,
+				E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E2F7ED51220B54D600D63515 /* OpenDocument Reader */ = {
+		E2F7ED51220B54D600D63515 /* OpenDocumentReader */ = {
 			isa = PBXGroup;
 			children = (
 				E2F7ED52220B54D600D63515 /* AppDelegate.swift */,
@@ -241,19 +241,19 @@
 				E2F7ED5D220B54D700D63515 /* Assets.xcassets */,
 				E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */,
 				E2F7ED62220B54D700D63515 /* Info.plist */,
-				E2BB4B60220EF3A10056176B /* OpenDocument Reader-Bridging-Header.h */,
+				E2BB4B60220EF3A10056176B /* BridgingHeader.h */,
 				E2C008F9220F1CF80097C594 /* CoreWrapper.mm */,
 				E2C008FC220F1D570097C594 /* CoreWrapper.h */,
 			);
-			path = "OpenDocument Reader";
+			path = OpenDocumentReader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E2F7ED4E220B54D600D63515 /* OpenDocument Reader */ = {
+		E2F7ED4E220B54D600D63515 /* OpenDocumentReader */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E2F7ED65220B54D700D63515 /* Build configuration list for PBXNativeTarget "OpenDocument Reader" */;
+			buildConfigurationList = E2F7ED65220B54D700D63515 /* Build configuration list for PBXNativeTarget "OpenDocumentReader" */;
 			buildPhases = (
 				E2F7ED4B220B54D600D63515 /* Sources */,
 				E2F7ED4C220B54D600D63515 /* Frameworks */,
@@ -264,9 +264,9 @@
 			dependencies = (
 				E2C008D6220F15510097C594 /* PBXTargetDependency */,
 			);
-			name = "OpenDocument Reader";
+			name = OpenDocumentReader;
 			productName = "OpenDocument Reader";
-			productReference = E2F7ED4F220B54D600D63515 /* OpenDocument Reader.app */;
+			productReference = E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -285,7 +285,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E2F7ED4A220B54D600D63515 /* Build configuration list for PBXProject "OpenDocument Reader" */;
+			buildConfigurationList = E2F7ED4A220B54D600D63515 /* Build configuration list for PBXProject "OpenDocumentReader" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -304,7 +304,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E2F7ED4E220B54D600D63515 /* OpenDocument Reader */,
+				E2F7ED4E220B54D600D63515 /* OpenDocumentReader */,
 			);
 		};
 /* End PBXProject section */
@@ -620,7 +620,7 @@
 					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
 					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
 				);
-				INFOPLIST_FILE = "OpenDocument Reader/Info.plist";
+				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -628,7 +628,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "OpenDocument Reader/OpenDocument Reader-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -648,7 +648,7 @@
 					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
 					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
 				);
-				INFOPLIST_FILE = "OpenDocument Reader/Info.plist";
+				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -656,7 +656,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "OpenDocument Reader/OpenDocument Reader-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -665,7 +665,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E2F7ED4A220B54D600D63515 /* Build configuration list for PBXProject "OpenDocument Reader" */ = {
+		E2F7ED4A220B54D600D63515 /* Build configuration list for PBXProject "OpenDocumentReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED63220B54D700D63515 /* Debug */,
@@ -674,7 +674,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E2F7ED65220B54D700D63515 /* Build configuration list for PBXNativeTarget "OpenDocument Reader" */ = {
+		E2F7ED65220B54D700D63515 /* Build configuration list for PBXNativeTarget "OpenDocumentReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED66220B54D700D63515 /* Debug */,

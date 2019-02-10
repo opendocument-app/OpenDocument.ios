@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:OpenDocument Reader.xcodeproj">
+      location = "self:/Users/tom/workspace/OpenDocument.ios/OpenDocumentReader.xcodeproj">
    </FileRef>
 </Workspace>
