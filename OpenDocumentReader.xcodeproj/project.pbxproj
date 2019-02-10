@@ -148,6 +148,27 @@
 			remoteGlobalIDString = 475387E3B7B247CD8DEC4F7C;
 			remoteInfo = opendocument;
 		};
+		E2C6A7152210519D00FD327D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 62D012D3A4104805AED7803E;
+			remoteInfo = tinyxml2;
+		};
+		E2C6A717221051A000FD327D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2BBA25A9D876459C92233158;
+			remoteInfo = glog;
+		};
+		E2C6A719221051A400FD327D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0EDA64B7490C4B949EA6D95E;
+			remoteInfo = miniz;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -262,6 +283,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				E2C6A71A221051A400FD327D /* PBXTargetDependency */,
+				E2C6A718221051A000FD327D /* PBXTargetDependency */,
+				E2C6A7162210519D00FD327D /* PBXTargetDependency */,
 				E2C008D6220F15510097C594 /* PBXTargetDependency */,
 			);
 			name = OpenDocumentReader;
@@ -464,6 +488,21 @@
 			isa = PBXTargetDependency;
 			name = opendocument;
 			targetProxy = E2C008D5220F15510097C594 /* PBXContainerItemProxy */;
+		};
+		E2C6A7162210519D00FD327D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tinyxml2;
+			targetProxy = E2C6A7152210519D00FD327D /* PBXContainerItemProxy */;
+		};
+		E2C6A718221051A000FD327D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = glog;
+			targetProxy = E2C6A717221051A000FD327D /* PBXContainerItemProxy */;
+		};
+		E2C6A71A221051A400FD327D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = miniz;
+			targetProxy = E2C6A719221051A400FD327D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
