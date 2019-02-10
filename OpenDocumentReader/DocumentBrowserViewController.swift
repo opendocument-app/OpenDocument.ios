@@ -30,6 +30,18 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    func importAndLoad(_ url: URL) {
+        revealDocument(at: url, importIfNeeded: true) { (revealedDocumentURL, error) in
+            if let error = error {
+                // Handle the error appropriately
+                print("Failed to reveal the document at URL \(url) with error: '\(error)'")
+                return
+            }
+            
+            // Present the Document View Controller for the revealed URL
+            self.presentDocument(at: revealedDocumentURL!)
+        }
+    }
     
     // MARK: UIDocumentBrowserViewControllerDelegate
     
