@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E2BB4B65220EF4F20056176B /* libopendocument.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B4D220EF36D0056176B /* libopendocument.a */; };
-		E2BB4B66220EF4F60056176B /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B5D220EF36D0056176B /* libminiz.a */; };
-		E2BB4B67220EF4F90056176B /* libtinyxml2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B4F220EF36D0056176B /* libtinyxml2d.a */; };
-		E2BB4BA4220F016E0056176B /* libglogd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B8F220EFFBA0056176B /* libglogd.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
+		E2C6A7692210826100FD327D /* libglogd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B8F220EFFBA0056176B /* libglogd.a */; };
+		E2C6A76A2210826100FD327D /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B5D220EF36D0056176B /* libminiz.a */; };
+		E2C6A76B2210826100FD327D /* libopendocument.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B4D220EF36D0056176B /* libopendocument.a */; };
+		E2C6A76C2210826100FD327D /* libtinyxml2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BB4B4F220EF36D0056176B /* libtinyxml2d.a */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
 		E2F7ED57220B54D600D63515 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED56220B54D600D63515 /* DocumentViewController.swift */; };
@@ -141,33 +141,33 @@
 			remoteGlobalIDString = 4C6CAF074128468DBE3856BA;
 			remoteInfo = utilities_unittest;
 		};
-		E2C008D5220F15510097C594 /* PBXContainerItemProxy */ = {
+		E2C6A7612210825000FD327D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 475387E3B7B247CD8DEC4F7C;
+			remoteGlobalIDString = E1192ACC10974060BE6325D2;
 			remoteInfo = opendocument;
 		};
-		E2C6A7152210519D00FD327D /* PBXContainerItemProxy */ = {
+		E2C6A7632210825000FD327D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 62D012D3A4104805AED7803E;
+			remoteGlobalIDString = 3BE870A217F64A2790391208;
 			remoteInfo = tinyxml2;
 		};
-		E2C6A717221051A000FD327D /* PBXContainerItemProxy */ = {
+		E2C6A7652210825000FD327D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 2BBA25A9D876459C92233158;
-			remoteInfo = glog;
-		};
-		E2C6A719221051A400FD327D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0EDA64B7490C4B949EA6D95E;
+			remoteGlobalIDString = 89076EDA268D43E08C64398A;
 			remoteInfo = miniz;
+		};
+		E2C6A7672210825000FD327D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2BB4B37220EF36D0056176B /* opendocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D8FD63F047541929AA83F8A;
+			remoteInfo = glog;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -192,10 +192,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2BB4BA4220F016E0056176B /* libglogd.a in Frameworks */,
-				E2BB4B67220EF4F90056176B /* libtinyxml2d.a in Frameworks */,
-				E2BB4B66220EF4F60056176B /* libminiz.a in Frameworks */,
-				E2BB4B65220EF4F20056176B /* libopendocument.a in Frameworks */,
+				E2C6A7692210826100FD327D /* libglogd.a in Frameworks */,
+				E2C6A76A2210826100FD327D /* libminiz.a in Frameworks */,
+				E2C6A76B2210826100FD327D /* libopendocument.a in Frameworks */,
+				E2C6A76C2210826100FD327D /* libtinyxml2d.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,10 +283,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				E2C6A71A221051A400FD327D /* PBXTargetDependency */,
-				E2C6A718221051A000FD327D /* PBXTargetDependency */,
-				E2C6A7162210519D00FD327D /* PBXTargetDependency */,
-				E2C008D6220F15510097C594 /* PBXTargetDependency */,
+				E2C6A7622210825000FD327D /* PBXTargetDependency */,
+				E2C6A7642210825000FD327D /* PBXTargetDependency */,
+				E2C6A7662210825000FD327D /* PBXTargetDependency */,
+				E2C6A7682210825000FD327D /* PBXTargetDependency */,
 			);
 			name = OpenDocumentReader;
 			productName = "OpenDocument Reader";
@@ -484,25 +484,25 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E2C008D6220F15510097C594 /* PBXTargetDependency */ = {
+		E2C6A7622210825000FD327D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = opendocument;
-			targetProxy = E2C008D5220F15510097C594 /* PBXContainerItemProxy */;
+			targetProxy = E2C6A7612210825000FD327D /* PBXContainerItemProxy */;
 		};
-		E2C6A7162210519D00FD327D /* PBXTargetDependency */ = {
+		E2C6A7642210825000FD327D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = tinyxml2;
-			targetProxy = E2C6A7152210519D00FD327D /* PBXContainerItemProxy */;
+			targetProxy = E2C6A7632210825000FD327D /* PBXContainerItemProxy */;
 		};
-		E2C6A718221051A000FD327D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = glog;
-			targetProxy = E2C6A717221051A000FD327D /* PBXContainerItemProxy */;
-		};
-		E2C6A71A221051A400FD327D /* PBXTargetDependency */ = {
+		E2C6A7662210825000FD327D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = miniz;
-			targetProxy = E2C6A719221051A400FD327D /* PBXContainerItemProxy */;
+			targetProxy = E2C6A7652210825000FD327D /* PBXContainerItemProxy */;
+		};
+		E2C6A7682210825000FD327D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = glog;
+			targetProxy = E2C6A7672210825000FD327D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -658,6 +658,7 @@
 					"$(PROJECT_DIR)/OpenDocument.core/src",
 					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
 					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
+					"$(PROJECT_DIR)/OpenDocument.core/lib/glog",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -686,6 +687,7 @@
 					"$(PROJECT_DIR)/OpenDocument.core/src",
 					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
 					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
+					"$(PROJECT_DIR)/OpenDocument.core/lib/glog",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
