@@ -10,16 +10,16 @@
 
 #import "CoreWrapper.h"
 
-#include "OpenDocumentFile.h"
-#include "TextTranslator.h"
+#include "TranslationHelper.h"
+#include "TranslationConfig.h"
 
 @implementation CoreWrapper
 - (BOOL)translate:(NSString *)inputPath into:(NSString *)outputPath {
     try {
-        opendocument::OpenDocumentFile file([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
-
-        opendocument::TextTranslator translator;
-        translator.translate(file, [outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        odr::TranslationConfig config = {};
+        auto translator = odr::TranslationHelper::create();
+        translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
     } catch (...) {
         return false;
     }
