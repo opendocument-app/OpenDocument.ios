@@ -7,4 +7,5 @@ target 'OpenDocumentReader' do
 
   # Pods for OpenDocumentReader
   pod 'ScrollableSegmentedControl', '~> 1.4.0'
+  pod 'Firebase/Core'
 end
