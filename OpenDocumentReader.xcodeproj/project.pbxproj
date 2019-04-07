@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
 		E26C392C2250D926009C484A /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39172250D91C009C484A /* libglog.a */; };
 		E26C392D2250D926009C484A /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391B2250D91C009C484A /* libminiz.a */; };
 		E26C392E2250D926009C484A /* libodrlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391D2250D91C009C484A /* libodrlib.a */; };
@@ -180,6 +181,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
+		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
 		E26C38EA2250D91C009C484A /* odr.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = odr.xcodeproj; path = build/odr.xcodeproj; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
@@ -194,6 +197,7 @@
 		E2F7ED5D220B54D700D63515 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2F7ED60220B54D700D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,12 +210,22 @@
 				E26C392C2250D926009C484A /* libglog.a in Frameworks */,
 				E26C392D2250D926009C484A /* libminiz.a in Frameworks */,
 				E26C392E2250D926009C484A /* libodrlib.a in Frameworks */,
+				21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E20D24999F878FB3AAE258B3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */,
+				97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E26C38EB2250D91C009C484A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +256,7 @@
 			children = (
 				E26C39382250DC6E009C484A /* WebKit.framework */,
 				E26C38EA2250D91C009C484A /* odr.xcodeproj */,
+				EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -252,6 +267,7 @@
 				E2F7ED51220B54D600D63515 /* OpenDocumentReader */,
 				E2F7ED50220B54D600D63515 /* Products */,
 				E2BB4B64220EF4F20056176B /* Frameworks */,
+				E20D24999F878FB3AAE258B3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -288,9 +304,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E2F7ED65220B54D700D63515 /* Build configuration list for PBXNativeTarget "OpenDocumentReader" */;
 			buildPhases = (
+				46370D9C7EFB4B0E291C2D0B /* [CP] Check Pods Manifest.lock */,
 				E2F7ED4B220B54D600D63515 /* Sources */,
 				E2F7ED4C220B54D600D63515 /* Frameworks */,
 				E2F7ED4D220B54D600D63515 /* Resources */,
+				F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -487,6 +505,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		46370D9C7EFB4B0E291C2D0B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenDocumentReader-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableSegmentedControl.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E2F7ED4B220B54D600D63515 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -667,6 +732,7 @@
 		};
 		E2F7ED66220B54D700D63515 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -696,6 +762,7 @@
 		};
 		E2F7ED67220B54D700D63515 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

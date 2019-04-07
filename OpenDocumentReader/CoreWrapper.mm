@@ -14,9 +14,11 @@
 #include "TranslationConfig.h"
 
 @implementation CoreWrapper
-- (BOOL)translate:(NSString *)inputPath into:(NSString *)outputPath {
+- (BOOL)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page {
     try {
         odr::TranslationConfig config = {};
+        config.entryOffset = page.intValue;
+        config.entryCount = 50;
         auto translator = odr::TranslationHelper::create();
         translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
         translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
