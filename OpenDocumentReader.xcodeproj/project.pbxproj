@@ -10,8 +10,8 @@
 		E26C392C2250D926009C484A /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39172250D91C009C484A /* libglog.a */; };
 		E26C392D2250D926009C484A /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391B2250D91C009C484A /* libminiz.a */; };
 		E26C392E2250D926009C484A /* libodrlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391D2250D91C009C484A /* libodrlib.a */; };
-		E26C392F2250D926009C484A /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39292250D91C009C484A /* libtinyxml2.a */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
+		E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39292250D91C009C484A /* libtinyxml2.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
@@ -153,28 +153,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 67B795C48DAC4DE5A2CF6876;
+			remoteGlobalIDString = 4E9670D98D6C474BA36ADDF0;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = EE34C226C806486BB1F37B52;
+			remoteGlobalIDString = 18D3FA109DAF4A84A60B2BA9;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 440213DBD1EC471CB8D41697;
+			remoteGlobalIDString = DBA770BABF964502BF413A63;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = E3EB0C1CED8D449A9AAB7E27;
+			remoteGlobalIDString = 844B523D9D6E44C88851E960;
 			remoteInfo = tinyxml2;
 		};
 /* End PBXContainerItemProxy section */
@@ -201,11 +201,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
 				E26C392C2250D926009C484A /* libglog.a in Frameworks */,
 				E26C392D2250D926009C484A /* libminiz.a in Frameworks */,
 				E26C392E2250D926009C484A /* libodrlib.a in Frameworks */,
-				E26C392F2250D926009C484A /* libtinyxml2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
