@@ -1,3 +1,6 @@
 [submodule "OpenDocument.core"]
 	path = OpenDocument.core
 	url = https://github.com/andiwand/OpenDocument.core.git
+[submodule "ios-cmake"]
+	path = ios-cmake
+	url = git@github.com:leetal/ios-cmake.git
