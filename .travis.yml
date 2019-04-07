@@ -1,3 +1,0 @@
-language: swift
-os: osx
-script: xcodebuild archive -project OpenDocumentReader.xcodeproj/ -scheme "OpenDocumentReader" -configuration Release -archivePath odr.xcarchive
