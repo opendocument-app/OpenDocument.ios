@@ -1,5 +1,3 @@
 language: swift
 os: osx
-xcode_project: OpenDocumentReader.xcodeproj
-xcode_scheme: OpenDocumentReader
-xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone X
+script: xcodebuild archive -project OpenDocumentReader.xcodeproj/ -scheme "OpenDocumentReader" -configuration Release -archivePath odr.xcarchive
