@@ -68,6 +68,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fu3-cc-2Yp"/>
                     <connections>
+                        <outlet property="controlHeight" destination="dDG-6R-jJ0" id="OWG-sB-Y3R"/>
                         <outlet property="segmentedControl" destination="TDa-zP-HQ4" id="jzg-ki-bM6"/>
                         <outlet property="webview" destination="AlM-VB-l5E" id="aQW-2y-l3k"/>
                     </connections>

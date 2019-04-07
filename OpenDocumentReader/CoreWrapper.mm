@@ -12,20 +12,32 @@
 
 #include "TranslationHelper.h"
 #include "TranslationConfig.h"
+#include "DocumentMeta.h"
 
 @implementation CoreWrapper
-- (BOOL)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page {
+- (int)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page {
+    odr::TranslationConfig config = {};
+    
     try {
-        odr::TranslationConfig config = {};
-        config.entryOffset = page.intValue;
-        config.entryCount = 50;
         auto translator = odr::TranslationHelper::create();
         translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+        config.entryOffset = page.intValue;
+        
+        const odr::DocumentMeta& meta = translator->getMeta();
+        if (meta.type == odr::DocumentType::PRESENTATION) {
+            config.entryCount = meta.presentation.pageCount;
+        } else if (meta.type == odr::DocumentType::SPREADSHEET) {
+            config.entryCount = meta.spreadsheet.tableCount;
+        } else {
+            config.entryCount = 1;
+        }
+        
         translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
     } catch (...) {
-        return false;
+        return -1;
     }
     
-    return true;
+    return config.entryCount;
 }
 @end

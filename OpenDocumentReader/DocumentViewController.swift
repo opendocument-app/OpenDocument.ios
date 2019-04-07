@@ -14,31 +14,52 @@ class DocumentViewController: UIViewController {
     
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
+    @IBOutlet var controlHeight: NSLayoutConstraint!
     
     var document: UIDocument?
+    var initialSelect: Bool = false
+    var defaultControlHeight: CGFloat?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        defaultControlHeight = controlHeight.constant
+        
         segmentedControl.segmentStyle = .textOnly
-        segmentedControl.insertSegment(withTitle: "1", at: 0)
-        segmentedControl.insertSegment(withTitle: "2", at: 1)
-        segmentedControl.insertSegment(withTitle: "3", at: 2)
-        segmentedControl.insertSegment(withTitle: "4", at: 3)
-        segmentedControl.insertSegment(withTitle: "5", at: 4)
-        segmentedControl.insertSegment(withTitle: "6", at: 5)
         
         segmentedControl.underlineSelected = true
-        segmentedControl.selectedSegmentIndex = 0
         
         segmentedControl.addTarget(self, action: #selector(DocumentViewController.segmentSelected(sender:)), for: .valueChanged)
         
         openPage(index: 0)
     }
     
+    func refreshSegmentedControl(pageCount: Int) {
+        if (segmentedControl.numberOfSegments > 0) {
+            for i in 0...segmentedControl.numberOfSegments {
+                segmentedControl.removeSegment(at: i)
+            }
+        }
+        
+        for i in 1...pageCount {
+            segmentedControl.insertSegment(withTitle: String(i), at: i - 1)
+        }
+        
+        segmentedControl.isHidden = pageCount <= 1
+        controlHeight.constant = segmentedControl.isHidden ? 0 : defaultControlHeight!
+        
+        initialSelect = true
+        segmentedControl.selectedSegmentIndex = 0
+    }
+    
     @objc func segmentSelected(sender:ScrollableSegmentedControl) {
+        if (initialSelect) {
+            initialSelect = false
+            
+            return
+        }
+        
         openPage(index: sender.selectedSegmentIndex)
-        print("Segment at index \(sender.selectedSegmentIndex)  selected")
     }
     
     func openPage(index: Int) {
@@ -47,12 +68,14 @@ class DocumentViewController: UIViewController {
                 var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
                 tempPath.appendPathComponent("temp.html")
                 
-                let translateSuccess = CoreWrapper().translate(self.document?.fileURL.path, into: tempPath.path, at: NSNumber(value: index))
-                if (!translateSuccess) {
+                let pageCount = CoreWrapper().translate(self.document?.fileURL.path, into: tempPath.path, at: NSNumber(value: index))
+                if (pageCount < 0) {
                     self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
                     
                     return
                 }
+                
+                self.refreshSegmentedControl(pageCount: Int(pageCount))
                 
                 self.webview.loadFileURL(tempPath, allowingReadAccessTo: tempPath)
             } else {
