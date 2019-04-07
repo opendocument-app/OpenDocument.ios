@@ -12,6 +12,7 @@
 		E26C392D2250D926009C484A /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391B2250D91C009C484A /* libminiz.a */; };
 		E26C392E2250D926009C484A /* libodrlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391D2250D91C009C484A /* libodrlib.a */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
+		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
 		E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39292250D91C009C484A /* libtinyxml2.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
@@ -154,28 +155,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 4E9670D98D6C474BA36ADDF0;
+			remoteGlobalIDString = 8AFCEA0F3859428A8BDA3414;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 18D3FA109DAF4A84A60B2BA9;
+			remoteGlobalIDString = CA1A05B1308348F4AE230941;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = DBA770BABF964502BF413A63;
+			remoteGlobalIDString = 9B987769D9FA4F99A640D1D7;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 844B523D9D6E44C88851E960;
+			remoteGlobalIDString = E2D1A77DE5BA4095B6541D16;
 			remoteInfo = tinyxml2;
 		};
 /* End PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
 		E26C38EA2250D91C009C484A /* odr.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = odr.xcodeproj; path = build/odr.xcodeproj; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E29E4076225A4672002C06E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
 		E2C008FC220F1D570097C594 /* CoreWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreWrapper.h; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				E2BB4B60220EF3A10056176B /* BridgingHeader.h */,
 				E2C008F9220F1CF80097C594 /* CoreWrapper.mm */,
 				E2C008FC220F1D570097C594 /* CoreWrapper.h */,
+				E29E4076225A4672002C06E6 /* GoogleService-Info.plist */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -367,49 +370,56 @@
 		E26C39092250D91C009C484A /* demangle_unittest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = demangle_unittest;
+			name = demangle_unittest;
+			path = demangle_unittest.app;
 			remoteRef = E26C39082250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C390B2250D91C009C484A /* example1 */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = example1;
+			name = example1;
+			path = example1.app;
 			remoteRef = E26C390A2250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C390D2250D91C009C484A /* example2 */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = example2;
+			name = example2;
+			path = example2.app;
 			remoteRef = E26C390C2250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C390F2250D91C009C484A /* example3 */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = example3;
+			name = example3;
+			path = example3.app;
 			remoteRef = E26C390E2250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C39112250D91C009C484A /* example4 */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = example4;
+			name = example4;
+			path = example4.app;
 			remoteRef = E26C39102250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C39132250D91C009C484A /* example5 */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = example5;
+			name = example5;
+			path = example5.app;
 			remoteRef = E26C39122250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C39152250D91C009C484A /* example6 */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = example6;
+			name = example6;
+			path = example6.app;
 			remoteRef = E26C39142250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -423,7 +433,8 @@
 		E26C39192250D91C009C484A /* logging_unittest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = logging_unittest;
+			name = logging_unittest;
+			path = logging_unittest.app;
 			remoteRef = E26C39182250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -444,35 +455,40 @@
 		E26C391F2250D91C009C484A /* odrtests */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = odrtests;
+			name = odrtests;
+			path = odrtests.app;
 			remoteRef = E26C391E2250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C39212250D91C009C484A /* signalhandler_unittest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = signalhandler_unittest;
+			name = signalhandler_unittest;
+			path = signalhandler_unittest.app;
 			remoteRef = E26C39202250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C39232250D91C009C484A /* stacktrace_unittest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = stacktrace_unittest;
+			name = stacktrace_unittest;
+			path = stacktrace_unittest.app;
 			remoteRef = E26C39222250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C39252250D91C009C484A /* stl_logging_unittest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = stl_logging_unittest;
+			name = stl_logging_unittest;
+			path = stl_logging_unittest.app;
 			remoteRef = E26C39242250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E26C39272250D91C009C484A /* symbolize_unittest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = symbolize_unittest;
+			name = symbolize_unittest;
+			path = symbolize_unittest.app;
 			remoteRef = E26C39262250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -486,7 +502,8 @@
 		E26C392B2250D91C009C484A /* utilities_unittest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = utilities_unittest;
+			name = utilities_unittest;
+			path = utilities_unittest.app;
 			remoteRef = E26C392A2250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -498,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */,
+				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
 				E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */,
 				E2F7ED5C220B54D600D63515 /* Main.storyboard in Resources */,
 			);
@@ -537,13 +555,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
