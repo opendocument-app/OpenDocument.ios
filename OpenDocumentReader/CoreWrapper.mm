@@ -25,13 +25,7 @@
         config.entryOffset = page.intValue;
         
         const odr::DocumentMeta& meta = translator->getMeta();
-        if (meta.type == odr::DocumentType::PRESENTATION) {
-            config.entryCount = meta.presentation.pageCount;
-        } else if (meta.type == odr::DocumentType::SPREADSHEET) {
-            config.entryCount = meta.spreadsheet.tableCount;
-        } else {
-            config.entryCount = 1;
-        }
+        config.entryCount = meta.entryCount;
         
         translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
     } catch (...) {

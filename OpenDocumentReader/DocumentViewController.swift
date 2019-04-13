@@ -31,16 +31,10 @@ class DocumentViewController: UIViewController {
         
         segmentedControl.addTarget(self, action: #selector(DocumentViewController.segmentSelected(sender:)), for: .valueChanged)
         
-        openPage(index: 0)
+        openPage(index: 0, refreshSegments: true)
     }
     
     func refreshSegmentedControl(pageCount: Int) {
-        if (segmentedControl.numberOfSegments > 0) {
-            for i in 0...segmentedControl.numberOfSegments {
-                segmentedControl.removeSegment(at: i)
-            }
-        }
-        
         for i in 1...pageCount {
             segmentedControl.insertSegment(withTitle: String(i), at: i - 1)
         }
@@ -59,10 +53,10 @@ class DocumentViewController: UIViewController {
             return
         }
         
-        openPage(index: sender.selectedSegmentIndex)
+        openPage(index: sender.selectedSegmentIndex, refreshSegments: false)
     }
     
-    func openPage(index: Int) {
+    func openPage(index: Int, refreshSegments: Bool) {
         document?.open(completionHandler: { (success) in
             if success {
                 var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -75,7 +69,9 @@ class DocumentViewController: UIViewController {
                     return
                 }
                 
-                self.refreshSegmentedControl(pageCount: Int(pageCount))
+                if (refreshSegments) {
+                    self.refreshSegmentedControl(pageCount: Int(pageCount))
+                }
                 
                 self.webview.loadFileURL(tempPath, allowingReadAccessTo: tempPath)
             } else {
