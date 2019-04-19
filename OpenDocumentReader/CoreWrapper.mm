@@ -27,6 +27,10 @@
         const odr::DocumentMeta& meta = translator->getMeta();
         config.entryCount = meta.entryCount;
         
+        if (meta.type == odr::DocumentType::TEXT) {
+            config.entryCount = 1;
+        }
+        
         translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
     } catch (...) {
         return -1;
