@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1TV-Fx-mym">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Document Browser View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="DocumentBrowserViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="0fo-ii-Aj5"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pJZ-2i-1cv"/>
+                    <connections>
+                        <segue destination="M2k-L8-Olo" kind="show" identifier="showDocument" id="O8A-Y3-Zee"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="964" y="653.52323838080963"/>
+        </scene>
+        <!--Document View Controller-->
+        <scene sceneID="dkP-xk-x6W">
+            <objects>
+                <viewController storyboardIdentifier="DocumentViewController" id="M2k-L8-Olo" customClass="DocumentViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SIE-Uh-Zny">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDa-zP-HQ4" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
+                                <rect key="frame" x="0.0" y="64" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="dDG-6R-jJ0"/>
+                                </constraints>
+                            </view>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AlM-VB-l5E">
+                                <rect key="frame" x="0.0" y="94" width="375" height="573"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TDa-zP-HQ4" firstAttribute="top" secondItem="BoZ-jc-2Y8" secondAttribute="top" id="DzF-4S-fv8"/>
+                            <constraint firstItem="AlM-VB-l5E" firstAttribute="bottom" secondItem="BoZ-jc-2Y8" secondAttribute="bottom" id="Etj-qd-0IP"/>
+                            <constraint firstItem="TDa-zP-HQ4" firstAttribute="trailing" secondItem="BoZ-jc-2Y8" secondAttribute="trailing" id="JTA-q9-Lev"/>
+                            <constraint firstItem="AlM-VB-l5E" firstAttribute="leading" secondItem="BoZ-jc-2Y8" secondAttribute="leading" id="NbO-Rb-8C7"/>
+                            <constraint firstItem="AlM-VB-l5E" firstAttribute="trailing" secondItem="BoZ-jc-2Y8" secondAttribute="trailing" id="ZhU-GS-aNy"/>
+                            <constraint firstItem="TDa-zP-HQ4" firstAttribute="bottom" secondItem="AlM-VB-l5E" secondAttribute="top" id="a2h-L9-Dhl"/>
+                            <constraint firstItem="TDa-zP-HQ4" firstAttribute="leading" secondItem="BoZ-jc-2Y8" secondAttribute="leading" id="vQQ-lN-1Zb"/>
+                            <constraint firstItem="AlM-VB-l5E" firstAttribute="top" secondItem="TDa-zP-HQ4" secondAttribute="bottom" id="wwp-h6-Pg9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BoZ-jc-2Y8"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fu3-cc-2Yp"/>
+                    <connections>
+                        <outlet property="controlHeight" destination="dDG-6R-jJ0" id="OWG-sB-Y3R"/>
+                        <outlet property="segmentedControl" destination="TDa-zP-HQ4" id="jzg-ki-bM6"/>
+                        <outlet property="webview" destination="AlM-VB-l5E" id="aQW-2y-l3k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rl9-ES-qQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1860" y="653.52323838080963"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Dct-GB-MjJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1TV-Fx-mym" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0V7-6N-Qsf">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="X0Y-Jq-GuT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2kf-iR-EUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="653.52323838080963"/>
+        </scene>
+    </scenes>
+</document>
