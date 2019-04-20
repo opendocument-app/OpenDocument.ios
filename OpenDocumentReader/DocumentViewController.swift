@@ -31,7 +31,7 @@ class DocumentViewController: UIViewController {
         
         segmentedControl.addTarget(self, action: #selector(DocumentViewController.segmentSelected(sender:)), for: .valueChanged)
         
-        openPage(index: 0, refreshSegments: true)
+        openPage(index: 0, refreshSegments: true, password: nil)
     }
     
     func refreshSegmentedControl(pageCount: Int) {
@@ -53,16 +53,32 @@ class DocumentViewController: UIViewController {
             return
         }
         
-        openPage(index: sender.selectedSegmentIndex, refreshSegments: false)
+        openPage(index: sender.selectedSegmentIndex, refreshSegments: false, password: nil)
     }
     
-    func openPage(index: Int, refreshSegments: Bool) {
+    func openPage(index: Int, refreshSegments: Bool, password: String?) {
         document?.open(completionHandler: { (success) in
             if success {
                 var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
                 tempPath.appendPathComponent("temp.html")
                 
-                let pageCount = CoreWrapper().translate(self.document?.fileURL.path, into: tempPath.path, at: NSNumber(value: index))
+                let pageCount = CoreWrapper().translate(self.document?.fileURL.path, into: tempPath.path, at: NSNumber(value: index), with: password)
+                if (pageCount == -2) {
+                    self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document because it is encrypted. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
+
+                    let alert = UIAlertController(title: "Document encrypted", message: "Please enter the password to decrypt this document", preferredStyle: .alert)
+                    alert.addTextField { (textField) in
+                        textField.text = ""
+                    }
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                        let textField = alert?.textFields![0]
+                        self.openPage(index: index, refreshSegments: refreshSegments, password: textField?.text)
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    return;
+                }
+                
                 if (pageCount < 0) {
                     self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
                     
