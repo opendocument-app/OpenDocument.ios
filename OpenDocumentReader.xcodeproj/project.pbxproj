@@ -15,7 +15,7 @@
 		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
 		E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39292250D91C009C484A /* libtinyxml2.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
-		E2CDC533226A4BA900E9FCED /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */; };
+		E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
 		E2F7ED57220B54D600D63515 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED56220B54D600D63515 /* DocumentViewController.swift */; };
@@ -156,28 +156,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 3F790F8761424C5D948C9FEA;
+			remoteGlobalIDString = 3F8E13AB8DC741898CD8FC5D;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9BD0B22AF7F44533A1B87AE3;
+			remoteGlobalIDString = 33A1348CEA2448389562926D;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = A237A774A0404ED8A71C2560;
+			remoteGlobalIDString = 749DD95F25F946489167CCB2;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 26F9B78C6C6A43C1B3265C0D;
+			remoteGlobalIDString = 6E2EC164A7524074B4045435;
 			remoteInfo = tinyxml2;
 		};
 		E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */ = {
@@ -208,12 +208,12 @@
 			remoteGlobalIDString = 4A280009CAAA4A3CA1C33D3F;
 			remoteInfo = "cryptopp-static";
 		};
-		E2CDC52F226A48B000E9FCED /* PBXContainerItemProxy */ = {
+		E2D920CF226B1C4C0042A774 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 4CD7DA7503BA4C98BE8CDDFB;
-			remoteInfo = "cryptopp-static";
+			remoteGlobalIDString = 83F5A0CB291B49BD98BA7137;
+			remoteInfo = "cryptopp-object";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -243,7 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2CDC533226A4BA900E9FCED /* libcryptopp-object.a in Frameworks */,
+				E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */,
 				E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
 				E26C392C2250D926009C484A /* libglog.a in Frameworks */,
@@ -357,7 +357,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E2CDC530226A48B000E9FCED /* PBXTargetDependency */,
+				E2D920D0226B1C4C0042A774 /* PBXTargetDependency */,
 				E26C39312250D976009C484A /* PBXTargetDependency */,
 				E26C39332250D976009C484A /* PBXTargetDependency */,
 				E26C39352250D976009C484A /* PBXTargetDependency */,
@@ -682,10 +682,10 @@
 			name = tinyxml2;
 			targetProxy = E26C39362250D976009C484A /* PBXContainerItemProxy */;
 		};
-		E2CDC530226A48B000E9FCED /* PBXTargetDependency */ = {
+		E2D920D0226B1C4C0042A774 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "cryptopp-static";
-			targetProxy = E2CDC52F226A48B000E9FCED /* PBXContainerItemProxy */;
+			name = "cryptopp-object";
+			targetProxy = E2D920CF226B1C4C0042A774 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
