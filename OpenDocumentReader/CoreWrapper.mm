@@ -15,16 +15,25 @@
 #include "DocumentMeta.h"
 
 @implementation CoreWrapper
-- (int)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page {
+- (int)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
     odr::TranslationConfig config = {};
     
     try {
         auto translator = odr::TranslationHelper::create();
         translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
-    
-        config.entryOffset = page.intValue;
         
         const odr::DocumentMeta& meta = translator->getMeta();
+        
+        bool decrypted = !meta.encrypted;
+        if (password != nil) {
+            decrypted = translator->decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
+        
+        if (!decrypted) {
+            return -2;
+        }
+        
+        config.entryOffset = page.intValue;
         config.entryCount = meta.entryCount;
         
         if (meta.type == odr::DocumentType::TEXT) {

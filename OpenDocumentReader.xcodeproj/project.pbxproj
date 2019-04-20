@@ -15,6 +15,7 @@
 		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
 		E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39292250D91C009C484A /* libtinyxml2.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
+		E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
 		E2F7ED57220B54D600D63515 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED56220B54D600D63515 /* DocumentViewController.swift */; };
@@ -155,29 +156,64 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 1F455F9589B74C8880BF870E;
+			remoteGlobalIDString = 3F8E13AB8DC741898CD8FC5D;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = E66B9B8D1D014D03960288E1;
+			remoteGlobalIDString = 33A1348CEA2448389562926D;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = CF6096A804F44F5E99E42C01;
+			remoteGlobalIDString = 749DD95F25F946489167CCB2;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 6CDDCC9F6D36447A84FD741F;
+			remoteGlobalIDString = 6E2EC164A7524074B4045435;
 			remoteInfo = tinyxml2;
+		};
+		E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6A32E6F03058423EABB7DA69;
+			remoteInfo = cryptest;
+		};
+		E2CDC4BC226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B7DBA4588FB4881B9C19395;
+			remoteInfo = "cryptopp-object";
+		};
+		E2CDC4BE226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D92A12F6263E4421AACE3E5A;
+			remoteInfo = "cryptopp-shared";
+		};
+		E2CDC4C0226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A280009CAAA4A3CA1C33D3F;
+			remoteInfo = "cryptopp-static";
+		};
+		E2D920CF226B1C4C0042A774 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 83F5A0CB291B49BD98BA7137;
+			remoteInfo = "cryptopp-object";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -207,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */,
 				E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
 				E26C392C2250D926009C484A /* libglog.a in Frameworks */,
@@ -231,6 +268,10 @@
 		E26C38EB2250D91C009C484A /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				E2CDC4BB226A407500E9FCED /* cryptest.exe */,
+				E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */,
+				E2CDC4BF226A407500E9FCED /* libcryptopp.dylib */,
+				E2CDC4C1226A407500E9FCED /* libcryptopp.a */,
 				E26C39092250D91C009C484A /* demangle_unittest */,
 				E26C390B2250D91C009C484A /* example1 */,
 				E26C390D2250D91C009C484A /* example2 */,
@@ -316,6 +357,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E2D920D0226B1C4C0042A774 /* PBXTargetDependency */,
 				E26C39312250D976009C484A /* PBXTargetDependency */,
 				E26C39332250D976009C484A /* PBXTargetDependency */,
 				E26C39352250D976009C484A /* PBXTargetDependency */,
@@ -507,6 +549,36 @@
 			remoteRef = E26C392A2250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		E2CDC4BB226A407500E9FCED /* cryptest.exe */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			name = cryptest.exe;
+			path = cryptest.exe.app;
+			remoteRef = E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libcryptopp-object.a";
+			remoteRef = E2CDC4BC226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2CDC4BF226A407500E9FCED /* libcryptopp.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			name = libcryptopp.dylib;
+			path = libcryptopp.7.0.dylib;
+			remoteRef = E2CDC4BE226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2CDC4C1226A407500E9FCED /* libcryptopp.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libcryptopp.a;
+			remoteRef = E2CDC4C0226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -609,6 +681,11 @@
 			isa = PBXTargetDependency;
 			name = tinyxml2;
 			targetProxy = E26C39362250D976009C484A /* PBXContainerItemProxy */;
+		};
+		E2D920D0226B1C4C0042A774 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "cryptopp-object";
+			targetProxy = E2D920CF226B1C4C0042A774 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -763,9 +840,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenDocument.core/include/**",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/glog",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -793,9 +867,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenDocument.core/include/**",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/glog",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
