@@ -1,91 +1,155 @@
-//
-//  DocumentBrowserViewController.swift
-//  OpenDocument Reader
-//
-//  Created by Thomas Taschauer on 06.02.19.
-//  Copyright © 2019 Thomas Taschauer. All rights reserved.
-//
+/*
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ A document browser view controller subclass that implements methods for creating, opening, and importing documents.
+ */
 
 import UIKit
+import os.log
 
-
+/// - Tag: DocumentBrowserViewController
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
-    var lastDocument: Document?
-
+    /// - Tag: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         delegate = self
         
         allowsDocumentCreation = false
         allowsPickingMultipleItems = false
-        
-        // Update the style of the UIDocumentBrowserViewController
-        // browserUserInterfaceStyle = .dark
-        // view.tintColor = .white
-        
-        // Specify the allowed content types of your application via the Info.plist.
-        
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    func importAndLoad(_ url: URL) {
-        revealDocument(at: url, importIfNeeded: true) { (revealedDocumentURL, error) in
-            if let error = error {
-                // Handle the error appropriately
-                print("Failed to reveal the document at URL \(url) with error: '\(error)'")
-                return
-            }
-            
-            // Present the Document View Controller for the revealed URL
-            self.presentDocument(at: revealedDocumentURL!)
-        }
     }
     
     // MARK: UIDocumentBrowserViewControllerDelegate
     
-    func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
-        let newDocumentURL: URL? = nil
+    // Create a new document.
+    func documentBrowser(_ controller: UIDocumentBrowserViewController,
+                         didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
         
-        // Set the URL for the new document here. Optionally, you can present a template chooser before calling the importHandler.
-        // Make sure the importHandler is always called, even if the user cancels the creation request.
-        if newDocumentURL != nil {
-            importHandler(newDocumentURL, .move)
-        } else {
-            importHandler(nil, .none)
+        os_log("==> Creating A New Document.", log: OSLog.default, type: .debug)
+        
+        let doc = TextDocument()
+        let url = doc.fileURL
+        
+        // Create a new document in a temporary location.
+        doc.save(to: url, for: .forCreating) { (saveSuccess) in
+            
+            // Make sure the document saved successfully.
+            guard saveSuccess else {
+                os_log("*** Unable to create a new document. ***", log: OSLog.default, type: .error)
+                
+                // Cancel document creation.
+                importHandler(nil, .none)
+                return
+            }
+            
+            // Close the document.
+            doc.close(completionHandler: { (closeSuccess) in
+                
+                // Make sure the document closed successfully.
+                guard closeSuccess else {
+                    os_log("*** Unable to create a new document. ***", log: OSLog.default, type: .error)
+                    
+                    // Cancel document creation.
+                    importHandler(nil, .none)
+                    return
+                }
+                
+                // Pass the document's temporary URL to the import handler.
+                importHandler(url, .move)
+            })
         }
     }
     
-    func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
-        guard let sourceURL = documentURLs.first else { return }
-        
-        // Present the Document View Controller for the first document that was picked.
-        // If you support picking multiple items, make sure you handle them all.
-        presentDocument(at: sourceURL)
-    }
-    
+    // Import a document.
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
-        // Present the Document View Controller for the new newly created document
+        os_log("==> Imported A Document from %@ to %@.",
+               log: OSLog.default,
+               type: .debug,
+               sourceURL.path,
+               destinationURL.path)
+        
         presentDocument(at: destinationURL)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, failedToImportDocumentAt documentURL: URL, error: Error?) {
-        // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
+        
+        let alert = UIAlertController(
+            title: "Unable to Import Document",
+            message: "An error occurred while trying to import a document: \(error?.localizedDescription ?? "No Description")",
+            preferredStyle: .alert)
+        
+        let action = UIAlertAction(
+            title: "OK",
+            style: .cancel,
+            handler: nil)
+        
+        alert.addAction(action)
+        
+        controller.present(alert, animated: true, completion: nil)
+    }
+    
+    // User selected a document.
+    
+    func documentBrowser(_ controller: UIDocumentBrowserViewController,
+                         didPickDocumentURLs documentURLs: [URL]) {
+        
+        assert(controller.allowsPickingMultipleItems == false)
+        
+        assert(!documentURLs.isEmpty,
+               "*** We received an empty array of documents ***")
+        
+        assert(documentURLs.count <= 1,
+               "*** We received more than one document ***")
+        
+        guard let url = documentURLs.first else {
+            fatalError("*** No URL Found! ***")
+        }
+        
+        presentDocument(at: url)
     }
     
     // MARK: Document Presentation
-    
+    /// - Tag: presentDocuments
     func presentDocument(at documentURL: URL) {
-        lastDocument = Document(fileURL: documentURL)
         
-        self.performSegue(withIdentifier: "showDocument", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "showDocument") {
-            let documentController = segue.destination as! DocumentViewController
-            documentController.document = lastDocument
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let tempController = storyBoard.instantiateViewController(withIdentifier: "TextDocumentViewController")
+        
+        guard let documentViewController = tempController as? TextDocumentViewController else {
+            fatalError("*** Unable to cast \(tempController) into a TextDocumentViewController ***")
+        }
+        
+        // Load the document view.
+        documentViewController.loadViewIfNeeded()
+        
+        let doc = TextDocument(fileURL: documentURL)
+        
+        // Get the transition controller.
+        let transitionController = self.transitionController(forDocumentURL: documentURL)
+        
+        // Set up the transition animation.
+        transitionController.targetView = documentViewController.webview
+        documentViewController.transitionController = transitionController
+        
+        // Set up the loading animation.
+        transitionController.loadingProgress = doc.loadProgress
+        
+        // Set and open the document.
+        documentViewController.document = doc
+        
+        doc.open { [weak self](success) in
+            
+            // Remove the loading animation.
+            transitionController.loadingProgress = nil
+            
+            guard success else {
+                fatalError("*** Unable to open the text file ***")
+            }
+            
+            os_log("==> Document Opened!", log: OSLog.default, type: .debug)
+            self?.present(documentViewController, animated: true, completion: nil)
         }
     }
 }

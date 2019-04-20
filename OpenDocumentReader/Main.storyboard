@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Document Browser View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="DocumentBrowserViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="26" y="654"/>
+        </scene>
+        <!--Text Document View Controller-->
+        <scene sceneID="dkP-xk-x6W">
+            <objects>
+                <viewController storyboardIdentifier="TextDocumentViewController" id="M2k-L8-Olo" customClass="TextDocumentViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="D52-mk-miw"/>
+                        <viewControllerLayoutGuide type="bottom" id="YLO-LQ-f6M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SIE-Uh-Zny">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="7HG-pa-6VL"/>
+                                        </constraints>
+                                        <items>
+                                            <barButtonItem title="Back to documents" id="yhO-7V-lbn">
+                                                <connections>
+                                                    <action selector="returnToDocuments:" destination="M2k-L8-Olo" id="ILH-TV-slT"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
+                                        </items>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="7HG-pa-6VL"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="7HG-pa-6VL"/>
+                                            </mask>
+                                        </variation>
+                                    </toolbar>
+                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="595"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <wkWebViewConfiguration key="configuration">
+                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                            <wkPreferences key="preferences"/>
+                                        </wkWebViewConfiguration>
+                                    </wkWebView>
+                                </subviews>
+                            </stackView>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
+                                <rect key="frame" x="20" y="332.5" width="335" height="2"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ePk-bQ-fV8" firstAttribute="centerY" secondItem="SIE-Uh-Zny" secondAttribute="centerY" id="Lsn-Is-SL7"/>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="SIE-Uh-Zny" secondAttribute="leadingMargin" constant="-16" id="UTs-f9-tNS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ePk-bQ-fV8" secondAttribute="trailing" constant="4" id="ce7-QQ-IaX"/>
+                            <constraint firstItem="ePk-bQ-fV8" firstAttribute="leading" secondItem="SIE-Uh-Zny" secondAttribute="leadingMargin" constant="4" id="fgT-yN-VCT"/>
+                            <constraint firstAttribute="bottom" secondItem="9mi-yf-jXf" secondAttribute="bottom" id="mfM-uu-maw"/>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="tub-Q4-eAe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9mi-yf-jXf" secondAttribute="trailing" constant="-16" id="uCU-E7-seO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="mfM-uu-maw" id="EkE-G9-pX0"/>
+                        <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
+                        <outlet property="toolbarHeightConstraint" destination="7HG-pa-6VL" id="mjG-kg-RrI"/>
+                        <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rl9-ES-qQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1029.5999999999999" y="653.52323838080963"/>
+        </scene>
+    </scenes>
+</document>
