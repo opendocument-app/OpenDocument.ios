@@ -20,7 +20,10 @@
     
     try {
         auto translator = odr::TranslationHelper::create();
-        translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        bool opened = translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        if (!opened) {
+            return -1;
+        }
         
         const odr::DocumentMeta& meta = translator->getMeta();
         

@@ -93,7 +93,7 @@ class TextDocumentViewController: UIViewController, TextDocumentDelegate {
     }
     
     func textDocumentEncrypted(_ doc: TextDocument) {
-        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document because it is encrypted. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
+//        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document because it is encrypted. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
         
         let alert = UIAlertController(title: "Document encrypted", message: "Please enter the password to decrypt this document", preferredStyle: .alert)
         alert.addTextField { (textField) in
