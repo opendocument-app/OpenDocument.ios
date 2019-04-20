@@ -21,6 +21,7 @@
     try {
         auto translator = odr::TranslationHelper::create();
         translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        translator->decrypt("passwort");
     
         config.entryOffset = page.intValue;
         
