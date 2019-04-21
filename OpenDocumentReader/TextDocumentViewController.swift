@@ -8,6 +8,7 @@ A view controller for displaying and editing documents.
 import UIKit
 import os.log
 import WebKit
+import ScrollableSegmentedControl
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 
@@ -31,6 +32,9 @@ class TextDocumentViewController: UIViewController, TextDocumentDelegate {
         }
     }
     
+    @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
+    private var initialSelect = false
+    
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -46,6 +50,12 @@ class TextDocumentViewController: UIViewController, TextDocumentDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        segmentedControl.segmentStyle = .textOnly
+        segmentedControl.underlineSelected = true
+        segmentedControl.addTarget(self, action: #selector(DocumentViewController.segmentSelected(sender:)), for: .valueChanged)
+        
+        initialSelect = false
         
         guard let path = document?.result else {
             print("*** No Document Found! ***")
@@ -74,6 +84,16 @@ class TextDocumentViewController: UIViewController, TextDocumentDelegate {
             
             os_log("==> file Saved!", log: OSLog.default, type: .debug)
         }
+    }
+    
+    @objc func segmentSelected(sender:ScrollableSegmentedControl) {
+        if (initialSelect) {
+            initialSelect = false
+            
+            return
+        }
+        
+        document?.setPage(page: sender.selectedSegmentIndex)
     }
     
     @IBAction func returnToDocuments(_ sender: Any) {
@@ -118,5 +138,18 @@ class TextDocumentViewController: UIViewController, TextDocumentDelegate {
     
     func textDocumentLoadingCompleted(_ doc: TextDocument) {
         progressBar.isHidden = true
+    }
+    
+    func textDocumentPageCountChanged(_ doc: TextDocument) {
+        let pageCount = doc.pageCount
+        
+        for i in 1...pageCount {
+            segmentedControl.insertSegment(withTitle: String(i), at: i - 1)
+        }
+        
+        segmentedControl.isHidden = pageCount <= 1
+        
+        initialSelect = true
+        segmentedControl.selectedSegmentIndex = 0
     }
 }

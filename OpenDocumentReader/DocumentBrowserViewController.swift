@@ -115,6 +115,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         
+        if (presentedViewController != nil) {
+            presentedViewController?.dismiss(animated: false, completion: nil)
+        }
+        
         let tempController = storyBoard.instantiateViewController(withIdentifier: "TextDocumentViewController")
         
         guard let documentViewController = tempController as? TextDocumentViewController else {

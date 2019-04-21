@@ -13,18 +13,22 @@ protocol TextDocumentDelegate: class {
     func textDocumentLoadingError(_ doc: TextDocument)
     func textDocumentLoadingStarted(_ doc: TextDocument)
     func textDocumentLoadingCompleted(_ doc: TextDocument)
+    func textDocumentPageCountChanged(_ doc: TextDocument)
 }
 
 /// - Tag: TextDocument
 class TextDocument: UIDocument {
     
     public var result: URL?
+    public var pageCount: Int = 0
     
     public weak var delegate: TextDocumentDelegate?
     public var loadProgress = Progress(totalUnitCount: 1)
     
     private var page: Int = 0
     private var password: String?
+    
+    private var wasPageCountAnnounced = false
     
     override init(fileURL url: URL) {
         super.init(fileURL: url)
@@ -42,7 +46,7 @@ class TextDocument: UIDocument {
         
         result = nil
         delegate?.textDocumentUpdateContent(self)
-        
+
         var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
         tempPath.appendPathComponent("temp.html")
         
@@ -63,14 +67,19 @@ class TextDocument: UIDocument {
             return
         }
         
-        //        if (refreshSegments) {
-        //            self.refreshSegmentedControl(pageCount: Int(pageCount))
-        //        }
-        
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
         
+        self.pageCount = Int(pageCount)
         result = tempPath
+        
         delegate?.textDocumentUpdateContent(self)
+        
+        if (!wasPageCountAnnounced) {
+            delegate?.textDocumentPageCountChanged(self)
+            
+            wasPageCountAnnounced = true
+        }
+        
         delegate?.textDocumentLoadingCompleted(self)
     }
     

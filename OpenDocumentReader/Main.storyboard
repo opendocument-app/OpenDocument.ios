@@ -14,8 +14,8 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="DocumentBrowserViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="JCg-Yp-JI7"/>
+                        <viewControllerLayoutGuide type="bottom" id="hAi-w7-sTw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -32,14 +32,14 @@
             <objects>
                 <viewController storyboardIdentifier="TextDocumentViewController" id="M2k-L8-Olo" customClass="TextDocumentViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="D52-mk-miw"/>
-                        <viewControllerLayoutGuide type="bottom" id="YLO-LQ-f6M"/>
+                        <viewControllerLayoutGuide type="top" id="AMW-PC-cPn"/>
+                        <viewControllerLayoutGuide type="bottom" id="LvO-fG-AYW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SIE-Uh-Zny">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
@@ -66,8 +66,15 @@
                                             </mask>
                                         </variation>
                                     </toolbar>
+                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
+                                        <rect key="frame" x="0.0" y="64" width="375" height="30"/>
+                                        <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="P24-FV-92V"/>
+                                        </constraints>
+                                    </view>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="595"/>
+                                        <rect key="frame" x="0.0" y="94" width="375" height="573"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -94,6 +101,7 @@
                     <connections>
                         <outlet property="bottomConstraint" destination="mfM-uu-maw" id="EkE-G9-pX0"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
+                        <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
                         <outlet property="toolbarHeightConstraint" destination="7HG-pa-6VL" id="mjG-kg-RrI"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
