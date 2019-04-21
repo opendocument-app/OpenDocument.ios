@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
 		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
-		E22EB718226B633500053B86 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB717226B633500053B86 /* TextDocument.swift */; };
-		E22EB71A226B65E300053B86 /* TextDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB719226B65E300053B86 /* TextDocumentViewController.swift */; };
+		E22EB718226B633500053B86 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB717226B633500053B86 /* Document.swift */; };
+		E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB719226B65E300053B86 /* DocumentViewController.swift */; };
 		E22EB71C226B66B300053B86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E22EB71B226B66B300053B86 /* Main.storyboard */; };
 		E26C392C2250D926009C484A /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39172250D91C009C484A /* libglog.a */; };
 		E26C392D2250D926009C484A /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391B2250D91C009C484A /* libminiz.a */; };
@@ -22,7 +22,6 @@
 		E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
-		E2F7ED57220B54D600D63515 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED56220B54D600D63515 /* DocumentViewController.swift */; };
 		E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5D220B54D700D63515 /* Assets.xcassets */; };
 		E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -223,8 +222,8 @@
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
 		E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
-		E22EB717226B633500053B86 /* TextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
-		E22EB719226B65E300053B86 /* TextDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextDocumentViewController.swift; sourceTree = "<group>"; };
+		E22EB717226B633500053B86 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		E22EB719226B65E300053B86 /* DocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
 		E22EB71B226B66B300053B86 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E26C38EA2250D91C009C484A /* odr.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = odr.xcodeproj; path = build/odr.xcodeproj; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -235,7 +234,6 @@
 		E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F7ED52220B54D600D63515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
-		E2F7ED56220B54D600D63515 /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
 		E2F7ED5D220B54D700D63515 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2F7ED60220B54D700D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -332,9 +330,8 @@
 				E2F7ED52220B54D600D63515 /* AppDelegate.swift */,
 				E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */,
 				E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */,
-				E2F7ED56220B54D600D63515 /* DocumentViewController.swift */,
-				E22EB719226B65E300053B86 /* TextDocumentViewController.swift */,
-				E22EB717226B633500053B86 /* TextDocument.swift */,
+				E22EB719226B65E300053B86 /* DocumentViewController.swift */,
+				E22EB717226B633500053B86 /* Document.swift */,
 				E22EB71B226B66B300053B86 /* Main.storyboard */,
 				E2F7ED5D220B54D700D63515 /* Assets.xcassets */,
 				E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */,
@@ -657,11 +654,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E22EB71A226B65E300053B86 /* TextDocumentViewController.swift in Sources */,
-				E22EB718226B633500053B86 /* TextDocument.swift in Sources */,
+				E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */,
+				E22EB718226B633500053B86 /* Document.swift in Sources */,
 				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
 				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
-				E2F7ED57220B54D600D63515 /* DocumentViewController.swift in Sources */,
 				E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */,
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,
 			);

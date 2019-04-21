@@ -7,7 +7,6 @@ A transitioning delegate that animates segues for a document browser.
 
 import UIKit
 
-/// - Tag: DocumentBrowserTransitioningDelegate
 class DocumentBrowserTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     let transitionController: UIDocumentBrowserTransitionController

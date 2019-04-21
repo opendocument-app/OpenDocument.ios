@@ -42,9 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Reveal and import the document at the URL.
         guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else {
-            fatalError("*** The root view is not a document browser! ***")
+            print("*** The root view is not a document browser! ***")
+            return false
         }
         
         documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
@@ -56,16 +56,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             guard let url = revealedDocumentURL else {
                 print("*** No URL revealed. ***")
-                
                 return
             }
             
-            // You can do something
-            // with the revealed document here.
-            print("==> Revealed URL: %@.")
+            print("==> Revealed URL")
             
-            // Present the Document View Controller for the revealed URL.
-            documentBrowserViewController.presentDocument(at: revealedDocumentURL!)
+            documentBrowserViewController.presentDocument(at: url)
         }
 
         return true

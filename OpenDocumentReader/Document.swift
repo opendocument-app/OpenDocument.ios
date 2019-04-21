@@ -7,22 +7,21 @@ A document that manages UTF8 text files.
 
 import UIKit
 
-protocol TextDocumentDelegate: class {
-    func textDocumentUpdateContent(_ doc: TextDocument)
-    func textDocumentEncrypted(_ doc: TextDocument)
-    func textDocumentLoadingError(_ doc: TextDocument)
-    func textDocumentLoadingStarted(_ doc: TextDocument)
-    func textDocumentLoadingCompleted(_ doc: TextDocument)
-    func textDocumentPageCountChanged(_ doc: TextDocument)
+protocol DocumentDelegate: class {
+    func documentUpdateContent(_ doc: Document)
+    func documentEncrypted(_ doc: Document)
+    func documentLoadingError(_ doc: Document)
+    func documentLoadingStarted(_ doc: Document)
+    func documentLoadingCompleted(_ doc: Document)
+    func documentPageCountChanged(_ doc: Document)
 }
 
-/// - Tag: TextDocument
-class TextDocument: UIDocument {
+class Document: UIDocument {
     
     public var result: URL?
     public var pageCount: Int = 0
     
-    public weak var delegate: TextDocumentDelegate?
+    public weak var delegate: DocumentDelegate?
     public var loadProgress = Progress(totalUnitCount: 1)
     
     private var page: Int = 0
@@ -39,13 +38,13 @@ class TextDocument: UIDocument {
     }
     
     func parse() {
-        delegate?.textDocumentLoadingStarted(self)
+        delegate?.documentLoadingStarted(self)
         
         loadProgress.completedUnitCount = 0
         loadProgress.resume()
         
         result = nil
-        delegate?.textDocumentUpdateContent(self)
+        delegate?.documentUpdateContent(self)
 
         var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
         tempPath.appendPathComponent("temp.html")
@@ -55,14 +54,14 @@ class TextDocument: UIDocument {
         if (pageCount == -2) {
             // delay because ViewController might not be visible yet
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                self.delegate?.textDocumentEncrypted(self)
+                self.delegate?.documentEncrypted(self)
             })
             
             return;
         }
         
         if (pageCount < 0) {
-            delegate?.textDocumentLoadingError(self)
+            delegate?.documentLoadingError(self)
             
             return
         }
@@ -72,15 +71,15 @@ class TextDocument: UIDocument {
         self.pageCount = Int(pageCount)
         result = tempPath
         
-        delegate?.textDocumentUpdateContent(self)
+        delegate?.documentUpdateContent(self)
         
         if (!wasPageCountAnnounced) {
-            delegate?.textDocumentPageCountChanged(self)
+            delegate?.documentPageCountChanged(self)
             
             wasPageCountAnnounced = true
         }
         
-        delegate?.textDocumentLoadingCompleted(self)
+        delegate?.documentLoadingCompleted(self)
     }
     
     func setPassword(password: String) {
