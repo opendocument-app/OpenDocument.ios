@@ -12,7 +12,7 @@
 
 #include "TranslationHelper.h"
 #include "TranslationConfig.h"
-#include "DocumentMeta.h"
+#include "FileMeta.h"
 
 @implementation CoreWrapper
 - (int)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
@@ -25,7 +25,7 @@
             return -1;
         }
         
-        const odr::DocumentMeta& meta = translator->getMeta();
+        const odr::FileMeta& meta = translator->getMeta();
         
         bool decrypted = !meta.encrypted;
         if (password != nil) {
@@ -39,7 +39,7 @@
         config.entryOffset = page.intValue;
         config.entryCount = meta.entryCount;
         
-        if (meta.type == odr::DocumentType::TEXT) {
+        if (meta.type == odr::FileType::OPENDOCUMENT_TEXT) {
             config.entryCount = 1;
         }
         
