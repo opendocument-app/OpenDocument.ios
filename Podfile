@@ -8,4 +8,6 @@ target 'OpenDocumentReader' do
   # Pods for OpenDocumentReader
   pod 'ScrollableSegmentedControl', '~> 1.4.0'
   pod 'Firebase/Core'
+  pod 'Fabric', '~> 1.9.0'
+  pod 'Crashlytics', '~> 3.12.0'
 end
