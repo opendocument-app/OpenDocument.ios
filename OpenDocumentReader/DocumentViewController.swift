@@ -100,6 +100,10 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         document?.setPage(page: sender.selectedSegmentIndex)
     }
     
+    func showWebsite() {
+        UIApplication.shared.openURL(URL(string: "https://opendocument.app")!)
+    }
+    
     func toggleFullscreen() {
         isFullscreen = !isFullscreen
         setNeedsStatusBarAppearanceUpdate()
