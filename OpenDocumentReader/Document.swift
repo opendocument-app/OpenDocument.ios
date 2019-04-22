@@ -22,7 +22,7 @@ class Document: UIDocument {
     public var pageNames: [String]?
     
     public weak var delegate: DocumentDelegate?
-    public var loadProgress = Progress(totalUnitCount: 1)
+    public var loadProgress = Progress(totalUnitCount: 5)
     
     private var page: Int = 0
     private var password: String?
@@ -40,7 +40,7 @@ class Document: UIDocument {
     func parse() {
         delegate?.documentLoadingStarted(self)
         
-        loadProgress.completedUnitCount = 0
+        loadProgress.completedUnitCount = 2
         loadProgress.resume()
         
         result = nil

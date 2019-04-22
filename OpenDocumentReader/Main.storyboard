@@ -39,10 +39,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="612"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="64" id="7HG-pa-6VL"/>
@@ -55,6 +56,7 @@
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
+                                            <barButtonItem style="plain" systemItem="action" id="Wnb-un-pvc"/>
                                         </items>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -68,15 +70,18 @@
                                             </mask>
                                         </variation>
                                     </toolbar>
-                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
+                                    <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
                                         <rect key="frame" x="0.0" y="64" width="375" height="30"/>
                                         <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="P24-FV-92V"/>
                                         </constraints>
                                     </view>
-                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                        <rect key="frame" x="0.0" y="94" width="375" height="573"/>
+                                    <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
+                                        <rect key="frame" x="0.0" y="64" width="375" height="0.0"/>
+                                    </progressView>
+                                    <wkWebView contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
+                                        <rect key="frame" x="0.0" y="64" width="375" height="548"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -85,20 +90,8 @@
                                     </wkWebView>
                                 </subviews>
                             </stackView>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
-                                <rect key="frame" x="20" y="332.5" width="335" height="2"/>
-                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ePk-bQ-fV8" firstAttribute="centerY" secondItem="SIE-Uh-Zny" secondAttribute="centerY" id="Lsn-Is-SL7"/>
-                            <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="SIE-Uh-Zny" secondAttribute="leadingMargin" constant="-16" id="UTs-f9-tNS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ePk-bQ-fV8" secondAttribute="trailing" constant="4" id="ce7-QQ-IaX"/>
-                            <constraint firstItem="ePk-bQ-fV8" firstAttribute="leading" secondItem="SIE-Uh-Zny" secondAttribute="leadingMargin" constant="4" id="fgT-yN-VCT"/>
-                            <constraint firstAttribute="bottom" secondItem="9mi-yf-jXf" secondAttribute="bottom" id="mfM-uu-maw"/>
-                            <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="tub-Q4-eAe"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9mi-yf-jXf" secondAttribute="trailing" constant="-16" id="uCU-E7-seO"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
