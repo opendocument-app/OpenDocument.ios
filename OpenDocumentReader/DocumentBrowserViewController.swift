@@ -6,6 +6,7 @@
  */
 
 import UIKit
+import FirebaseAnalytics
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
@@ -80,6 +81,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         transitionController.loadingProgress = doc.loadProgress
         
         documentViewController.document = doc
+        
+        Analytics.logEvent(AnalyticsEventViewItem, parameters: [
+            AnalyticsParameterItemName: documentURL.absoluteString
+        ])
         
         doc.open { [weak self](success) in
             transitionController.loadingProgress = nil

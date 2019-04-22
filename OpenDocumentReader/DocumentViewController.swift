@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import ScrollableSegmentedControl
 import UIKit.UIPrinter
+import FirebaseAnalytics
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate {
@@ -39,6 +40,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var toolbarDefaultHeight: NSLayoutConstraint!
     @IBOutlet weak var toolbarFullscreenHeight: NSLayoutConstraint!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     private var isFullscreen = false
     
@@ -101,11 +103,25 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func showWebsite() {
+        Analytics.logEvent("menu_help", parameters: nil)
+        
         UIApplication.shared.openURL(URL(string: "https://opendocument.app")!)
     }
     
     func toggleFullscreen() {
         isFullscreen = !isFullscreen
+        
+        let event: String
+        if (isFullscreen) {
+            event = "menu_fullscreen_enter"
+        } else {
+            event = "menu_fullscreen_leave"
+        }
+        Analytics.logEvent(event, parameters: nil)
+        
+        let topInset = isFullscreen ? 0 : 8
+        menuButton.imageInsets = UIEdgeInsets(top: CGFloat(topInset), left: 0, bottom: 0, right: 0)
+        
         setNeedsStatusBarAppearanceUpdate()
     }
     
@@ -132,10 +148,13 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         alert.addAction(UIAlertAction(title: "Help!?", style: .default, handler: { (_) in
             self.showWebsite()
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
     func printDocument() {
+        Analytics.logEvent("menu_print", parameters: nil)
+
         let printController = UIPrintInteractionController.shared
         let printInfo : UIPrintInfo = UIPrintInfo(dictionary: nil)
         
