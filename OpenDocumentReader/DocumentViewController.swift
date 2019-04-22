@@ -121,6 +121,20 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func showMenu(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Fullscreen", style: .default, handler: { (_) in
+            self.toggleFullscreen()
+        }))
+        alert.addAction(UIAlertAction(title: "Print", style: .default, handler: { (_) in
+            self.printDocument()
+        }))
+        alert.addAction(UIAlertAction(title: "Help!?", style: .default, handler: { (_) in
+            self.showWebsite()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func printDocument() {
         let printController = UIPrintInteractionController.shared
         let printInfo : UIPrintInfo = UIPrintInfo(dictionary: nil)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hAi-w7-sTw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -36,15 +36,14 @@
                         <viewControllerLayoutGuide type="bottom" id="LvO-fG-AYW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SIE-Uh-Zny">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="612"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="64" id="7HG-pa-6VL"/>
                                             <constraint firstAttribute="height" priority="999" constant="44" id="wgs-N3-sP6"/>
@@ -56,7 +55,12 @@
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
-                                            <barButtonItem style="plain" systemItem="action" id="Wnb-un-pvc"/>
+                                            <barButtonItem systemItem="action" id="Vsd-IL-ujz">
+                                                <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
+                                                <connections>
+                                                    <action selector="showMenu:" destination="M2k-L8-Olo" id="ZQ1-Aa-9D0"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </items>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -71,17 +75,17 @@
                                         </variation>
                                     </toolbar>
                                     <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
-                                        <rect key="frame" x="0.0" y="64" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="64" width="320" height="30"/>
                                         <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="P24-FV-92V"/>
                                         </constraints>
                                     </view>
                                     <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
-                                        <rect key="frame" x="0.0" y="64" width="375" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="64" width="320" height="0.0"/>
                                     </progressView>
-                                    <wkWebView contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                        <rect key="frame" x="0.0" y="64" width="375" height="548"/>
+                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -92,6 +96,12 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="SIE-Uh-Zny" secondAttribute="leadingMargin" constant="-16" id="5Hh-GZ-aPw"/>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="bottom" secondItem="SIE-Uh-Zny" secondAttribute="bottom" id="WfC-A6-p6P"/>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="rED-wA-6gv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9mi-yf-jXf" secondAttribute="trailing" constant="-16" id="tPc-vX-Egd"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
