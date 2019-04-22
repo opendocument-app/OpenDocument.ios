@@ -9,6 +9,8 @@ import UIKit
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
+    var documentController: DocumentViewController? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -65,6 +67,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             return
         }
         
+        documentController = documentViewController
+        
+        documentViewController.modalPresentationCapturesStatusBarAppearance = true;
         documentViewController.loadViewIfNeeded()
         
         let doc = Document(fileURL: documentURL)

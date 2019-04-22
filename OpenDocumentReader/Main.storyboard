@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hAi-w7-sTw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -32,16 +36,17 @@
                         <viewControllerLayoutGuide type="bottom" id="LvO-fG-AYW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SIE-Uh-Zny">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
-                                <rect key="frame" x="4" y="0.0" width="592" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
-                                        <rect key="frame" x="0.0" y="0.0" width="592" height="29"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="64" id="7HG-pa-6VL"/>
+                                            <constraint firstAttribute="height" priority="999" constant="44" id="wgs-N3-sP6"/>
                                         </constraints>
                                         <items>
                                             <barButtonItem title="Back to documents" id="yhO-7V-lbn">
@@ -54,6 +59,7 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="7HG-pa-6VL"/>
+                                                <exclude reference="wgs-N3-sP6"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular">
@@ -63,14 +69,14 @@
                                         </variation>
                                     </toolbar>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
-                                        <rect key="frame" x="0.0" y="29" width="592" height="30"/>
+                                        <rect key="frame" x="0.0" y="64" width="375" height="30"/>
                                         <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="P24-FV-92V"/>
                                         </constraints>
                                     </view>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                        <rect key="frame" x="0.0" y="59" width="592" height="541"/>
+                                        <rect key="frame" x="0.0" y="94" width="375" height="573"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -80,7 +86,7 @@
                                 </subviews>
                             </stackView>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
-                                <rect key="frame" x="24" y="299" width="552" height="2"/>
+                                <rect key="frame" x="20" y="332.5" width="335" height="2"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -95,10 +101,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomConstraint" destination="mfM-uu-maw" id="EkE-G9-pX0"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
                         <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
-                        <outlet property="toolbarHeightConstraint" destination="7HG-pa-6VL" id="mjG-kg-RrI"/>
+                        <outlet property="toolbar" destination="N1x-QM-Qks" id="PLi-vF-UnF"/>
+                        <outlet property="toolbarDefaultHeight" destination="7HG-pa-6VL" id="JBe-4t-6dM"/>
+                        <outlet property="toolbarFullscreenHeight" destination="wgs-N3-sP6" id="r1r-Cs-BMt"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
                 </viewController>

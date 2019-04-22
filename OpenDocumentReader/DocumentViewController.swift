@@ -8,6 +8,7 @@ A view controller for displaying and editing documents.
 import UIKit
 import WebKit
 import ScrollableSegmentedControl
+import UIKit.UIPrinter
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate {
@@ -34,8 +35,12 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var toolbarHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var toolbarDefaultHeight: NSLayoutConstraint!
+    @IBOutlet weak var toolbarFullscreenHeight: NSLayoutConstraint!
+    
+    private var isFullscreen = false
     
     public var document: Document? {
         didSet {
@@ -95,8 +100,34 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         document?.setPage(page: sender.selectedSegmentIndex)
     }
     
+    func toggleFullscreen() {
+        isFullscreen = !isFullscreen
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        let constraint = (isFullscreen ? toolbarFullscreenHeight : toolbarDefaultHeight)!
+        toolbar.removeConstraints([toolbarFullscreenHeight, toolbarDefaultHeight])
+        toolbar.addConstraint(constraint)
+        
+        return isFullscreen
+    }
+    
     @IBAction func returnToDocuments(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func printDocument() {
+        let printController = UIPrintInteractionController.shared
+        let printInfo : UIPrintInfo = UIPrintInfo(dictionary: nil)
+        
+        printInfo.outputType = UIPrintInfo.OutputType.general
+        printInfo.jobName = "OpenDocument Reader - Document"
+        
+        printController.printInfo = printInfo
+        printController.printFormatter = webview.viewPrintFormatter()
+        
+        printController.present(animated: true, completionHandler: nil)
     }
     
     func documentUpdateContent(_ doc: Document) {
