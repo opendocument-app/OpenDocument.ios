@@ -13,13 +13,13 @@ protocol DocumentDelegate: class {
     func documentLoadingError(_ doc: Document)
     func documentLoadingStarted(_ doc: Document)
     func documentLoadingCompleted(_ doc: Document)
-    func documentPageCountChanged(_ doc: Document)
+    func documentPagesChanged(_ doc: Document)
 }
 
 class Document: UIDocument {
     
     public var result: URL?
-    public var pageCount: Int = 0
+    public var pageNames: [String]?
     
     public weak var delegate: DocumentDelegate?
     public var loadProgress = Progress(totalUnitCount: 1)
@@ -49,9 +49,12 @@ class Document: UIDocument {
         var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
         tempPath.appendPathComponent("temp.html")
         
-        let pageCount = CoreWrapper().translate(fileURL.path, into: tempPath.path, at: NSNumber(value: page), with: password)
+        let core = CoreWrapper()
+        core.translate(fileURL.path, into: tempPath.path, at: NSNumber(value: page), with: password)
         
-        if (pageCount == -2) {
+        let errorCode = core.errorCode != nil ? core.errorCode.intValue : 0
+        
+        if (errorCode == -2) {
             // delay because ViewController might not be visible yet
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 self.delegate?.documentEncrypted(self)
@@ -60,7 +63,7 @@ class Document: UIDocument {
             return;
         }
         
-        if (pageCount < 0) {
+        if (errorCode < 0) {
             delegate?.documentLoadingError(self)
             
             return
@@ -68,13 +71,20 @@ class Document: UIDocument {
         
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
         
-        self.pageCount = Int(pageCount)
+        var pageNames = [String]()
+        for object in core.pageNames {
+            if let pageName = object as? String {
+                pageNames.append(pageName)
+            }
+        }
+        
+        self.pageNames = pageNames
         result = tempPath
         
         delegate?.documentUpdateContent(self)
         
         if (!wasPageCountAnnounced) {
-            delegate?.documentPageCountChanged(self)
+            delegate?.documentPagesChanged(self)
             
             wasPageCountAnnounced = true
         }

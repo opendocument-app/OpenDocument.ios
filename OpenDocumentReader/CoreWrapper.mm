@@ -15,14 +15,13 @@
 #include "FileMeta.h"
 
 @implementation CoreWrapper
-- (int)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
-    int pageCount;
-    
+- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
     try {
         auto translator = odr::TranslationHelper::create();
         bool opened = translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
         if (!opened) {
-            return -1;
+            _errorCode = @(-1);
+            return false;
         }
         
         const odr::FileMeta& meta = translator->getMeta();
@@ -33,24 +32,32 @@
         }
         
         if (!decrypted) {
-            return -2;
+            _errorCode = @(-2);
+            return false;
         }
         
         odr::TranslationConfig config = {};
         config.entryOffset = page.intValue;
         config.entryCount = 1;
         
+        NSMutableArray *pageNames = [[NSMutableArray alloc] init];
         if (meta.type == odr::FileType::OPENDOCUMENT_TEXT) {
-            pageCount = 1;
+            [pageNames addObject:@"Text document"];
         } else {
-            pageCount = meta.entryCount;
+            for (auto page = meta.entries.begin(); page != meta.entries.end(); page++) {
+                auto pageName = page->name;
+                
+                [pageNames addObject:[NSString stringWithCString:pageName.c_str() encoding:[NSString defaultCStringEncoding]]];
+            }
         }
+        _pageNames = pageNames;
         
         translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
     } catch (...) {
-        return -1;
+        _errorCode = @(-3);
+        return false;
     }
     
-    return pageCount;
+    return true;
 }
 @end

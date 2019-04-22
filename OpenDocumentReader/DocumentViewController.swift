@@ -137,14 +137,17 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         progressBar.isHidden = true
     }
     
-    func documentPageCountChanged(_ doc: Document) {
-        let pageCount = doc.pageCount
+    func documentPagesChanged(_ doc: Document) {
+        let pageNames = doc.pageNames
         
-        for i in 1...pageCount {
-            segmentedControl.insertSegment(withTitle: String(i), at: i - 1)
+        var i = 0
+        for pageName in pageNames! {
+            segmentedControl.insertSegment(withTitle: pageName, at: i)
+            
+            i += 1
         }
         
-        segmentedControl.isHidden = pageCount <= 1
+        segmentedControl.isHidden = i <= 1
         
         initialSelect = true
         segmentedControl.selectedSegmentIndex = 0
