@@ -16,7 +16,7 @@
 
 @implementation CoreWrapper
 - (int)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
-    odr::TranslationConfig config = {};
+    int pageCount;
     
     try {
         auto translator = odr::TranslationHelper::create();
@@ -36,11 +36,14 @@
             return -2;
         }
         
+        odr::TranslationConfig config = {};
         config.entryOffset = page.intValue;
-        config.entryCount = meta.entryCount;
+        config.entryCount = 1;
         
         if (meta.type == odr::FileType::OPENDOCUMENT_TEXT) {
-            config.entryCount = 1;
+            pageCount = 1;
+        } else {
+            pageCount = meta.entryCount;
         }
         
         translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
@@ -48,6 +51,6 @@
         return -1;
     }
     
-    return config.entryCount;
+    return pageCount;
 }
 @end

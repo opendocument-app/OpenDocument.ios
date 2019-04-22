@@ -19,6 +19,7 @@
 		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
 		E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39292250D91C009C484A /* libtinyxml2.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
+		E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */; };
 		E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
@@ -157,28 +158,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = BDCAB8D8162E4B3EB5C17291;
+			remoteGlobalIDString = DA4E7B9938AA4102BE60C872;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = AADB03F3E7E243EDAE51C0A9;
+			remoteGlobalIDString = 59E861706DE74FBE83A95540;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = BFC5731F3FD641B19C16F822;
+			remoteGlobalIDString = 96B2CCC9BADA4F4CA7A6D6C1;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 2635C590D78F451ABAD9F35B;
+			remoteGlobalIDString = 7D68283BF0F54F51963794E4;
 			remoteInfo = tinyxml2;
 		};
 		E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */ = {
@@ -213,7 +214,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 2D66AE2D101340139EEC1B4D;
+			remoteGlobalIDString = D98AA50E7908420CAD0D441E;
 			remoteInfo = "cryptopp-object";
 		};
 /* End PBXContainerItemProxy section */
@@ -231,6 +232,7 @@
 		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
 		E2C008FC220F1D570097C594 /* CoreWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreWrapper.h; sourceTree = "<group>"; };
+		E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
 		E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F7ED52220B54D600D63515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				E2C008F9220F1CF80097C594 /* CoreWrapper.mm */,
 				E2C008FC220F1D570097C594 /* CoreWrapper.h */,
 				E29E4076225A4672002C06E6 /* GoogleService-Info.plist */,
+				E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */,
 				E22EB718226B633500053B86 /* Document.swift in Sources */,
 				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
+				E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */,
 				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
 				E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */,
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,

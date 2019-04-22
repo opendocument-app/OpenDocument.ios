@@ -13,6 +13,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         super.viewDidLoad()
         delegate = self
         
+        StoreReviewHelper.checkAndAskForReview()
+        
         allowsDocumentCreation = false
         allowsPickingMultipleItems = false
     }
