@@ -149,6 +149,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             self.showWebsite()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.popoverPresentationController?.sourceView = menuButton.value(forKey: "view") as? UIView
         self.present(alert, animated: true, completion: nil)
     }
     
