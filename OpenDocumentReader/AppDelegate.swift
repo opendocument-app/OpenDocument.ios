@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        
+        StoreReviewHelper.incrementAppOpenedCount()
+        
         return true
     }
 
@@ -42,12 +45,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Ensure the URL is a file URL
-        guard inputURL.isFileURL else { return false }
+        guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else {
+            print("*** The root view is not a document browser! ***")
+            return false
+        }
         
-        guard let controller = window?.rootViewController as? UINavigationController else { return false }
-        let browserController = controller.viewControllers.first as! DocumentBrowserViewController
-        browserController.importAndLoad(inputURL)
+        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
+            
+            guard error == nil else {
+                print("*** Failed to reveal the document at %@. Error: %@. ***")
+                return
+            }
+            
+            guard let url = revealedDocumentURL else {
+                print("*** No URL revealed. ***")
+                return
+            }
+            
+            print("==> Revealed URL")
+            
+            documentBrowserViewController.presentDocument(at: url)
+        }
 
         return true
     }

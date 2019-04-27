@@ -12,7 +12,11 @@
 #import <Foundation/Foundation.h>
 
 @interface CoreWrapper : NSObject
-- (int)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page;
+
+@property NSArray *pageNames;
+@property NSNumber *errorCode;
+
+- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password;
 @end
 
 #endif /* CoreWrapper_h */

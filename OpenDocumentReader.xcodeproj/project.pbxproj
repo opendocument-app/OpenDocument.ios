@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
+		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
+		E22EB718226B633500053B86 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB717226B633500053B86 /* Document.swift */; };
+		E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB719226B65E300053B86 /* DocumentViewController.swift */; };
+		E22EB71C226B66B300053B86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E22EB71B226B66B300053B86 /* Main.storyboard */; };
+		E23795302274844400BA7238 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E237952F2274844400BA7238 /* AdSupport.framework */; };
 		E26C392C2250D926009C484A /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39172250D91C009C484A /* libglog.a */; };
 		E26C392D2250D926009C484A /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391B2250D91C009C484A /* libminiz.a */; };
 		E26C392E2250D926009C484A /* libodrlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C391D2250D91C009C484A /* libodrlib.a */; };
@@ -15,11 +20,10 @@
 		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
 		E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39292250D91C009C484A /* libtinyxml2.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
+		E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */; };
+		E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
-		E2F7ED57220B54D600D63515 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED56220B54D600D63515 /* DocumentViewController.swift */; };
-		E2F7ED59220B54D600D63515 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED58220B54D600D63515 /* Document.swift */; };
-		E2F7ED5C220B54D600D63515 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5A220B54D600D63515 /* Main.storyboard */; };
 		E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5D220B54D700D63515 /* Assets.xcassets */; };
 		E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -155,47 +159,85 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 1F455F9589B74C8880BF870E;
+			remoteGlobalIDString = DA4E7B9938AA4102BE60C872;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = E66B9B8D1D014D03960288E1;
+			remoteGlobalIDString = 59E861706DE74FBE83A95540;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = CF6096A804F44F5E99E42C01;
+			remoteGlobalIDString = 96B2CCC9BADA4F4CA7A6D6C1;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 6CDDCC9F6D36447A84FD741F;
+			remoteGlobalIDString = 7D68283BF0F54F51963794E4;
 			remoteInfo = tinyxml2;
+		};
+		E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6A32E6F03058423EABB7DA69;
+			remoteInfo = cryptest;
+		};
+		E2CDC4BC226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B7DBA4588FB4881B9C19395;
+			remoteInfo = "cryptopp-object";
+		};
+		E2CDC4BE226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D92A12F6263E4421AACE3E5A;
+			remoteInfo = "cryptopp-shared";
+		};
+		E2CDC4C0226A407500E9FCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A280009CAAA4A3CA1C33D3F;
+			remoteInfo = "cryptopp-static";
+		};
+		E2D920CF226B1C4C0042A774 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D98AA50E7908420CAD0D441E;
+			remoteInfo = "cryptopp-object";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
+		E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
+		E22EB717226B633500053B86 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		E22EB719226B65E300053B86 /* DocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
+		E22EB71B226B66B300053B86 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E237952F2274844400BA7238 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E26C38EA2250D91C009C484A /* odr.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = odr.xcodeproj; path = build/odr.xcodeproj; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E29E4076225A4672002C06E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
 		E2C008FC220F1D570097C594 /* CoreWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreWrapper.h; sourceTree = "<group>"; };
+		E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
 		E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F7ED52220B54D600D63515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
-		E2F7ED56220B54D600D63515 /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
-		E2F7ED58220B54D600D63515 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		E2F7ED5B220B54D600D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E2F7ED5D220B54D700D63515 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2F7ED60220B54D700D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,6 +249,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
+				E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */,
 				E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
 				E26C392C2250D926009C484A /* libglog.a in Frameworks */,
@@ -231,6 +275,10 @@
 		E26C38EB2250D91C009C484A /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				E2CDC4BB226A407500E9FCED /* cryptest.exe */,
+				E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */,
+				E2CDC4BF226A407500E9FCED /* libcryptopp.dylib */,
+				E2CDC4C1226A407500E9FCED /* libcryptopp.a */,
 				E26C39092250D91C009C484A /* demangle_unittest */,
 				E26C390B2250D91C009C484A /* example1 */,
 				E26C390D2250D91C009C484A /* example2 */,
@@ -256,6 +304,7 @@
 		E2BB4B64220EF4F20056176B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E237952F2274844400BA7238 /* AdSupport.framework */,
 				E26C39382250DC6E009C484A /* WebKit.framework */,
 				E26C38EA2250D91C009C484A /* odr.xcodeproj */,
 				EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */,
@@ -286,9 +335,10 @@
 			children = (
 				E2F7ED52220B54D600D63515 /* AppDelegate.swift */,
 				E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */,
-				E2F7ED56220B54D600D63515 /* DocumentViewController.swift */,
-				E2F7ED58220B54D600D63515 /* Document.swift */,
-				E2F7ED5A220B54D600D63515 /* Main.storyboard */,
+				E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */,
+				E22EB719226B65E300053B86 /* DocumentViewController.swift */,
+				E22EB717226B633500053B86 /* Document.swift */,
+				E22EB71B226B66B300053B86 /* Main.storyboard */,
 				E2F7ED5D220B54D700D63515 /* Assets.xcassets */,
 				E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */,
 				E2F7ED62220B54D700D63515 /* Info.plist */,
@@ -296,6 +346,7 @@
 				E2C008F9220F1CF80097C594 /* CoreWrapper.mm */,
 				E2C008FC220F1D570097C594 /* CoreWrapper.h */,
 				E29E4076225A4672002C06E6 /* GoogleService-Info.plist */,
+				E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -312,10 +363,12 @@
 				E2F7ED4C220B54D600D63515 /* Frameworks */,
 				E2F7ED4D220B54D600D63515 /* Resources */,
 				F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */,
+				E2C41D0F226DEF390049EF8E /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E2D920D0226B1C4C0042A774 /* PBXTargetDependency */,
 				E26C39312250D976009C484A /* PBXTargetDependency */,
 				E26C39332250D976009C484A /* PBXTargetDependency */,
 				E26C39352250D976009C484A /* PBXTargetDependency */,
@@ -507,6 +560,36 @@
 			remoteRef = E26C392A2250D91C009C484A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		E2CDC4BB226A407500E9FCED /* cryptest.exe */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			name = cryptest.exe;
+			path = cryptest.exe.app;
+			remoteRef = E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2CDC4BD226A407500E9FCED /* libcryptopp-object.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libcryptopp-object.a";
+			remoteRef = E2CDC4BC226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2CDC4BF226A407500E9FCED /* libcryptopp.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			name = libcryptopp.dylib;
+			path = libcryptopp.7.0.dylib;
+			remoteRef = E2CDC4BE226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2CDC4C1226A407500E9FCED /* libcryptopp.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libcryptopp.a;
+			remoteRef = E2CDC4C0226A407500E9FCED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -515,9 +598,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */,
+				E22EB71C226B66B300053B86 /* Main.storyboard in Resources */,
 				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
 				E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */,
-				E2F7ED5C220B54D600D63515 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +628,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E2C41D0F226DEF390049EF8E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -579,9 +680,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */,
+				E22EB718226B633500053B86 /* Document.swift in Sources */,
 				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
-				E2F7ED59220B54D600D63515 /* Document.swift in Sources */,
-				E2F7ED57220B54D600D63515 /* DocumentViewController.swift in Sources */,
+				E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */,
+				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
 				E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */,
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,
 			);
@@ -610,17 +713,14 @@
 			name = tinyxml2;
 			targetProxy = E26C39362250D976009C484A /* PBXContainerItemProxy */;
 		};
+		E2D920D0226B1C4C0042A774 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "cryptopp-object";
+			targetProxy = E2D920CF226B1C4C0042A774 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E2F7ED5A220B54D600D63515 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E2F7ED5B220B54D600D63515 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -684,7 +784,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -741,7 +841,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -763,11 +863,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenDocument.core/include/**",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/glog",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -793,11 +891,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenDocument.core/include/**",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/miniz",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/tinyxml2",
-					"$(PROJECT_DIR)/OpenDocument.core/lib/glog",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
