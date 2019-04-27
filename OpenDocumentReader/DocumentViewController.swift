@@ -196,6 +196,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     func documentLoadingError(_ doc: Document) {
         self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
+        
+        Analytics.logEvent("load_error", parameters: nil)
     }
     
     func documentLoadingStarted(_ doc: Document) {
@@ -205,6 +207,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     func documentLoadingCompleted(_ doc: Document) {
         progressBar.isHidden = true
+        
+        Analytics.logEvent("load_success", parameters: nil)
     }
     
     func documentPagesChanged(_ doc: Document) {
