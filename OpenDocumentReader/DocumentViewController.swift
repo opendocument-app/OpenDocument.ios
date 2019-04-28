@@ -195,7 +195,17 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func documentLoadingError(_ doc: Document) {
-        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
+        if (doc.fileURL.pathExtension == "pdf") {
+            self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
+            
+            progressBar.isHidden = true
+            
+            Analytics.logEvent("load_pdf", parameters: nil)
+            
+            return;
+        }
+        
+        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.</html>", baseURL: nil)
         
         Analytics.logEvent("load_error", parameters: nil)
     }
