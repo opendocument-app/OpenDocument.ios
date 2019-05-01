@@ -31,6 +31,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
     }
     
+    private var EXTENSION_WHITELIST = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png", "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv", "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba", "webm", "webp", "xhtml", "xml"]
+    
     @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
     private var initialSelect = false
     
@@ -195,7 +197,12 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func documentLoadingError(_ doc: Document) {
-        if (doc.fileURL.pathExtension == "pdf") {
+        let fileType = doc.fileURL.pathExtension.lowercased()
+        for type in EXTENSION_WHITELIST {
+            if (!fileType.starts(with: type)) {
+                continue;
+            }
+
             self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
             
             progressBar.isHidden = true

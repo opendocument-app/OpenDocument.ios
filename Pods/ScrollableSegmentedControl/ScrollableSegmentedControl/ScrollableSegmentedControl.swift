@@ -74,7 +74,7 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
                     
                     if indexPath != nil {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-                            self.collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionView.ScrollPosition.left)
+                            self.collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .left)
                         })
                     }
                 }
@@ -224,8 +224,13 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
     /**
      Removes segment at a specific position from the receiver.
      */
-    @objc public func removeSegment(at segment: Int){
-        segmentsData.remove(at: segment)
+    @objc public func removeSegment(at index: Int){
+        segmentsData.remove(at: index)
+        if(selectedSegmentIndex == index) {
+            selectedSegmentIndex = selectedSegmentIndex - 1
+        } else if(selectedSegmentIndex > segmentsData.count) {
+            selectedSegmentIndex = -1
+        }
         reloadSegments()
     }
     
@@ -260,8 +265,18 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
             }
             
             if selectedSegmentIndex >= 0 {
+                var scrollPossition:UICollectionView.ScrollPosition = .bottom
                 let indexPath = IndexPath(item: selectedSegmentIndex, section: 0)
-                collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+                if let atribs = collectionView?.layoutAttributesForItem(at: indexPath) {
+                    let frame = atribs.frame
+                    if frame.origin.x < collectionView!.contentOffset.x {
+                        scrollPossition = .left
+                    } else if frame.origin.x + frame.size.width > (collectionView!.frame.size.width + collectionView!.contentOffset.x) {
+                        scrollPossition = .right
+                    }
+                }
+            
+                collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: scrollPossition)
             } else {
                 if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
                     collectionView?.deselectItem(at: indexPath, animated: true)
@@ -382,7 +397,7 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
             collectionView_.reloadData()
             if selectedSegmentIndex >= 0 {
                 let indexPath = IndexPath(item: selectedSegmentIndex, section: 0)
-                collectionView_.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+                collectionView_.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
             }
         }
     }
@@ -566,7 +581,7 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
         private func configureConstraints() {
             if let underline = underlineView {
                 underline.translatesAutoresizingMaskIntoConstraints = false
-                underline.heightAnchor.constraint(equalToConstant: 3.0).isActive = true
+                underline.heightAnchor.constraint(equalToConstant: 4.0).isActive = true
                 underline.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
                 underline.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
                 underline.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
@@ -581,7 +596,7 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
         
         override var isHighlighted: Bool {
             didSet {
-                underlineView?.isHidden = !isHighlighted
+                underlineView?.isHidden = !isHighlighted && !isSelected
             }
         }
         
