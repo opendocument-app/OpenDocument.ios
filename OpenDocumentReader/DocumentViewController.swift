@@ -31,6 +31,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
     }
     
+    private var EXTENSION_WHITELIST = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png", "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv", "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba", "webm", "webp", "xhtml", "xml"]
+    
     @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
     private var initialSelect = false
     
@@ -195,7 +197,22 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func documentLoadingError(_ doc: Document) {
-        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
+        let fileType = doc.fileURL.pathExtension.lowercased()
+        for type in EXTENSION_WHITELIST {
+            if (!fileType.starts(with: type)) {
+                continue;
+            }
+
+            self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
+            
+            progressBar.isHidden = true
+            
+            Analytics.logEvent("load_pdf", parameters: nil)
+            
+            return;
+        }
+        
+        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.</html>", baseURL: nil)
         
         Analytics.logEvent("load_error", parameters: nil)
     }

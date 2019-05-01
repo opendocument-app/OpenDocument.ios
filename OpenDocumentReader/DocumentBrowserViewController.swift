@@ -82,8 +82,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         documentViewController.document = doc
         
+        let shortenedDocumentUrl = documentURL.absoluteString.prefix(49) + ".." + documentURL.absoluteString.suffix(49)
         Analytics.logEvent(AnalyticsEventViewItem, parameters: [
-            AnalyticsParameterItemName: documentURL.absoluteString
+            AnalyticsParameterItemName: shortenedDocumentUrl
         ])
         
         doc.open { [weak self](success) in
