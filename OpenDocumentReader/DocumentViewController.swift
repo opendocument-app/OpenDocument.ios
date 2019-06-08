@@ -214,7 +214,12 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.</html>", baseURL: nil)
         
-        Analytics.logEvent("load_error", parameters: nil)
+        Analytics.logEvent(
+            "load_error",
+            parameters: [
+                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
+                AnalyticsParameterContentType: fileType
+            ])
     }
     
     func documentLoadingStarted(_ doc: Document) {
@@ -225,7 +230,14 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     func documentLoadingCompleted(_ doc: Document) {
         progressBar.isHidden = true
         
-        Analytics.logEvent("load_success", parameters: nil)
+        let fileType = doc.fileURL.pathExtension.lowercased()
+        
+        Analytics.logEvent(
+            "load_success",
+            parameters: [
+                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
+                AnalyticsParameterContentType: fileType
+            ])
     }
     
     func documentPagesChanged(_ doc: Document) {
