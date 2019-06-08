@@ -104,3 +104,11 @@ class Document: UIDocument {
         parse()
     }
 }
+
+extension Document {
+    
+    var shortenedDocumentUrl: String {
+        return fileURL.absoluteString.prefix(49) + ".." + fileURL.absoluteString.suffix(49)
+    }
+    
+}
