@@ -17,18 +17,18 @@
 @implementation CoreWrapper
 - (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
     try {
-        auto translator = odr::TranslationHelper::create();
-        bool opened = translator->open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        auto translator = odr::TranslationHelper();
+        bool opened = translator.open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
         if (!opened) {
             _errorCode = @(-1);
             return false;
         }
         
-        const odr::FileMeta& meta = translator->getMeta();
+        const odr::FileMeta& meta = translator.getMeta();
         
         bool decrypted = !meta.encrypted;
         if (password != nil) {
-            decrypted = translator->decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
+            decrypted = translator.decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
         }
         
         if (!decrypted) {
@@ -52,7 +52,7 @@
         }
         _pageNames = pageNames;
         
-        translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
+        translator.translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
     } catch (...) {
         _errorCode = @(-3);
         return false;

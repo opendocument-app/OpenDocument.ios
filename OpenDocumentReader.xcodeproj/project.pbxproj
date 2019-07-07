@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
+		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
 		E22EB718226B633500053B86 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB717226B633500053B86 /* Document.swift */; };
 		E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB719226B65E300053B86 /* DocumentViewController.swift */; };
@@ -159,28 +160,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 0F8A108E2C594911A247D0AC;
+			remoteGlobalIDString = 8D4E2F0BCFAD4292AE1273E6;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 38511368D2F6490DAC6010ED;
+			remoteGlobalIDString = 757CD8A4AB3B4664A378839E;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9BC43A20109B4428920064F9;
+			remoteGlobalIDString = 670CFA8E9DBD4C75B0F5E2B4;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 02E9C2F28FAF47A7B44B0EB1;
+			remoteGlobalIDString = 7EB41FC0D1724584A85196BA;
 			remoteInfo = tinyxml2;
 		};
 		E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */ = {
@@ -215,7 +216,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = CBE800DAB4894B91A1AB68A8;
+			remoteGlobalIDString = E3B45187C92B47DCB57902A1;
 			remoteInfo = "cryptopp-object";
 		};
 /* End PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 /* Begin PBXFileReference section */
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
+		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
 		E22EB717226B633500053B86 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		E22EB719226B65E300053B86 /* DocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
 				E2D920F0226B1C7D0042A774 /* libcryptopp-object.a in Frameworks */,
 				E2A3EE742259FA3100511BD2 /* libtinyxml2.a in Frameworks */,
@@ -304,6 +307,7 @@
 		E2BB4B64220EF4F20056176B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E2064DDF22CFA1BA006441F8 /* iAd.framework */,
 				E237952F2274844400BA7238 /* AdSupport.framework */,
 				E26C39382250DC6E009C484A /* WebKit.framework */,
 				E26C38EA2250D91C009C484A /* odr.xcodeproj */,
@@ -391,7 +395,7 @@
 				TargetAttributes = {
 					E2F7ED4E220B54D600D63515 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -653,26 +657,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableSegmentedControl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -877,7 +870,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -904,7 +897,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
