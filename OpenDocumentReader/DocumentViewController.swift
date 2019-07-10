@@ -228,6 +228,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func documentLoadingCompleted(_ doc: Document) {
+        Analytics.logEvent("load_odf_success", parameters: nil)
+        
         progressBar.isHidden = true
         
         let fileType = doc.fileURL.pathExtension.lowercased()
