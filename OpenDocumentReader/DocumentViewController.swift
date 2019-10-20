@@ -39,9 +39,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
     
-    @IBOutlet weak var toolbar: UIToolbar!
-    @IBOutlet weak var toolbarDefaultHeight: NSLayoutConstraint!
-    @IBOutlet weak var toolbarFullscreenHeight: NSLayoutConstraint!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     private var isFullscreen = false
@@ -121,17 +118,10 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
         Analytics.logEvent(event, parameters: nil)
         
-        let topInset = isFullscreen ? 0 : 8
-        menuButton.imageInsets = UIEdgeInsets(top: CGFloat(topInset), left: 0, bottom: 0, right: 0)
-        
         setNeedsStatusBarAppearanceUpdate()
     }
     
     override var prefersStatusBarHidden: Bool {
-        let constraint = (isFullscreen ? toolbarFullscreenHeight : toolbarDefaultHeight)!
-        toolbar.removeConstraints([toolbarFullscreenHeight, toolbarDefaultHeight])
-        toolbar.addConstraint(constraint)
-        
         return isFullscreen
     }
     

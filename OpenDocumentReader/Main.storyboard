@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,14 +12,11 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="DocumentBrowserViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JCg-Yp-JI7"/>
-                        <viewControllerLayoutGuide type="bottom" id="hAi-w7-sTw"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Ps8-jH-9pK"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -31,23 +27,22 @@
         <scene sceneID="dkP-xk-x6W">
             <objects>
                 <viewController storyboardIdentifier="TextDocumentViewController" id="M2k-L8-Olo" customClass="DocumentViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AMW-PC-cPn"/>
-                        <viewControllerLayoutGuide type="bottom" id="LvO-fG-AYW"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SIE-Uh-Zny">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKS-nk-f6M">
+                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="7HG-pa-6VL"/>
-                                            <constraint firstAttribute="height" priority="999" constant="44" id="wgs-N3-sP6"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                         <items>
                                             <barButtonItem title="Back to documents" id="yhO-7V-lbn">
                                                 <connections>
@@ -62,60 +57,54 @@
                                                 </connections>
                                             </barButtonItem>
                                         </items>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="7HG-pa-6VL"/>
-                                                <exclude reference="wgs-N3-sP6"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="7HG-pa-6VL"/>
-                                            </mask>
-                                        </variation>
                                     </toolbar>
                                     <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                         <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="P24-FV-92V"/>
                                         </constraints>
                                     </view>
                                     <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                     </progressView>
-                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <wkWebViewConfiguration key="configuration">
-                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                            <wkPreferences key="preferences"/>
-                                        </wkWebViewConfiguration>
-                                    </wkWebView>
                                 </subviews>
                             </stackView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="SIE-Uh-Zny" secondAttribute="leadingMargin" constant="-16" id="5Hh-GZ-aPw"/>
-                            <constraint firstItem="9mi-yf-jXf" firstAttribute="bottom" secondItem="SIE-Uh-Zny" secondAttribute="bottom" id="WfC-A6-p6P"/>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="5Hh-GZ-aPw"/>
+                            <constraint firstItem="VF5-Do-xh9" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="bottom" id="8K3-ke-I1G"/>
+                            <constraint firstItem="sKS-nk-f6M" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="HjQ-CN-3cF"/>
+                            <constraint firstItem="VF5-Do-xh9" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="OvL-SW-INd"/>
+                            <constraint firstItem="VF5-Do-xh9" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="Qyj-ei-4NG"/>
+                            <constraint firstItem="N1x-QM-Qks" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="top" id="Yiq-pe-hl5"/>
+                            <constraint firstItem="N1x-QM-Qks" firstAttribute="bottom" secondItem="sKS-nk-f6M" secondAttribute="bottom" constant="44" id="fDF-Mx-Nxy"/>
+                            <constraint firstItem="VF5-Do-xh9" firstAttribute="bottom" secondItem="SIE-Uh-Zny" secondAttribute="bottom" id="ftB-8D-F6n"/>
+                            <constraint firstItem="sKS-nk-f6M" firstAttribute="bottom" secondItem="HAk-oU-gAF" secondAttribute="top" id="gWh-EO-FK9"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="rED-wA-6gv"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9mi-yf-jXf" secondAttribute="trailing" constant="-16" id="tPc-vX-Egd"/>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="tPc-vX-Egd"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="HAk-oU-gAF"/>
                     </view>
                     <connections>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
                         <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
-                        <outlet property="toolbar" destination="N1x-QM-Qks" id="PLi-vF-UnF"/>
-                        <outlet property="toolbarDefaultHeight" destination="7HG-pa-6VL" id="JBe-4t-6dM"/>
-                        <outlet property="toolbarFullscreenHeight" destination="wgs-N3-sP6" id="r1r-Cs-BMt"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rl9-ES-qQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1029.5999999999999" y="653.52323838080963"/>
+            <point key="canvasLocation" x="1028.985507246377" y="652.90178571428567"/>
         </scene>
     </scenes>
 </document>
