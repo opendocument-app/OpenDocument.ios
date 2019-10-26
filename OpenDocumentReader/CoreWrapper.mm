@@ -17,16 +17,16 @@
 @implementation CoreWrapper
 - (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
     try {
-        auto translator = odr::TranslationHelper();
-        bool opened = translator.open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        odr::TranslationHelper translator;
+        bool opened = translator.openOpenDocument([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
         if (!opened) {
             _errorCode = @(-1);
             return false;
         }
         
-        const odr::FileMeta& meta = translator.getMeta();
+        const auto meta = translator.getMeta();
         
-        bool decrypted = !meta.encrypted;
+        bool decrypted = !meta->encrypted;
         if (password != nil) {
             decrypted = translator.decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
         }
@@ -41,10 +41,10 @@
         config.entryCount = 1;
         
         NSMutableArray *pageNames = [[NSMutableArray alloc] init];
-        if (meta.type == odr::FileType::OPENDOCUMENT_TEXT) {
+        if (meta->type == odr::FileType::OPENDOCUMENT_TEXT) {
             [pageNames addObject:@"Text document"];
         } else {
-            for (auto page = meta.entries.begin(); page != meta.entries.end(); page++) {
+            for (auto page = meta->entries.begin(); page != meta->entries.end(); page++) {
                 auto pageName = page->name;
                 
                 [pageNames addObject:[NSString stringWithCString:pageName.c_str() encoding:[NSString defaultCStringEncoding]]];
