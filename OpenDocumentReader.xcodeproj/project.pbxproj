@@ -160,28 +160,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = E8750BA65D65423EB75AC563;
+			remoteGlobalIDString = 68722AEF2DC64BF8AB2DF7D5;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = B47238B8891F4586873EEF82;
+			remoteGlobalIDString = DBADB6840206443A97F2A76D;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = AE495395BBBE4F7B9CEF6C48;
+			remoteGlobalIDString = CD40E84D34284EF7A80FB402;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 3E01C15B40E6472FABEEAEAC;
+			remoteGlobalIDString = B382587C51824ECE8AB80585;
 			remoteInfo = tinyxml2;
 		};
 		E29A02212365EF7800BD6A96 /* PBXContainerItemProxy */ = {
@@ -251,7 +251,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 58D71E509A434B40833DD053;
+			remoteGlobalIDString = E08901684B824F61ACF4B07B;
 			remoteInfo = "cryptopp-object";
 		};
 /* End PBXContainerItemProxy section */
@@ -930,7 +930,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -943,7 +943,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -960,7 +960,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -973,7 +973,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;

@@ -14,45 +14,67 @@
 #include "TranslationConfig.h"
 #include "FileMeta.h"
 
-@implementation CoreWrapper
-- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password {
+@implementation CoreWrapper {
+    odr::TranslationHelper *translator;
+}
+
+- (void)close {
+    if (translator != nullptr) {
+        delete translator;
+        translator = nullptr;
+    }
+}
+
+- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password editable:(bool)editable {
     try {
-        odr::TranslationHelper translator;
-        bool opened = translator.openOpenDocument([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
-        if (!opened) {
-            _errorCode = @(-1);
-            return false;
-        }
+        _errorCode = 0;
         
-        const auto meta = translator.getMeta();
-        
-        bool decrypted = !meta->encrypted;
-        if (password != nil) {
-            decrypted = translator.decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
-        }
-        
-        if (!decrypted) {
-            _errorCode = @(-2);
-            return false;
+        if (translator == nullptr) {
+            translator = new odr::TranslationHelper();
+            
+            bool opened = translator->openOpenDocument([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+            if (!opened) {
+                _errorCode = @(-1);
+                return false;
+            }
+            
+            const auto meta = translator->getMeta();
+            
+            bool decrypted = !meta->encrypted;
+            if (password != nil) {
+                decrypted = translator->decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
+            }
+            
+            if (!decrypted) {
+                [self close];
+                
+                _errorCode = @(-2);
+                return false;
+            }
+            
+            NSMutableArray *pageNames = [[NSMutableArray alloc] init];
+            if (meta->type == odr::FileType::OPENDOCUMENT_TEXT) {
+                [pageNames addObject:@"Text document"];
+            } else {
+                for (auto page = meta->entries.begin(); page != meta->entries.end(); page++) {
+                    auto pageName = page->name;
+                    
+                    [pageNames addObject:[NSString stringWithCString:pageName.c_str() encoding:[NSString defaultCStringEncoding]]];
+                }
+            }
+            _pageNames = pageNames;
         }
         
         odr::TranslationConfig config = {};
+        config.editable = editable;
         config.entryOffset = page.intValue;
         config.entryCount = 1;
         
-        NSMutableArray *pageNames = [[NSMutableArray alloc] init];
-        if (meta->type == odr::FileType::OPENDOCUMENT_TEXT) {
-            [pageNames addObject:@"Text document"];
-        } else {
-            for (auto page = meta->entries.begin(); page != meta->entries.end(); page++) {
-                auto pageName = page->name;
-                
-                [pageNames addObject:[NSString stringWithCString:pageName.c_str() encoding:[NSString defaultCStringEncoding]]];
-            }
+        bool translated = translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
+        if (!translated) {
+            _errorCode = @(-4);
+            return false;
         }
-        _pageNames = pageNames;
-        
-        translator.translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
     } catch (...) {
         _errorCode = @(-3);
         return false;
@@ -60,4 +82,22 @@
     
     return true;
 }
+
+- (bool)backTranslate:(NSString *)inputPath into:(NSString *)outputPath {
+    try {
+        _errorCode = 0;
+
+        bool translated = translator->backTranslate([inputPath cStringUsingEncoding:NSUTF8StringEncoding], [outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        if (!translated) {
+            _errorCode = @(-4);
+            return false;
+        }
+    } catch (...) {
+        _errorCode = @(-3);
+        return false;
+    }
+    
+    return true;
+}
+
 @end
