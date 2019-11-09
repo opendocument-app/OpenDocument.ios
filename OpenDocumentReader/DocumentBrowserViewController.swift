@@ -6,7 +6,7 @@
  */
 
 import UIKit
-import FirebaseAnalytics
+import Firebase
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
@@ -47,7 +47,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     func documentBrowser(_ controller: UIDocumentBrowserViewController,
                          didPickDocumentURLs documentURLs: [URL]) {
         guard let url = documentURLs.first else {
-            print("*** No URL Found! ***")
+            Crashlytics.sharedInstance().throwException()
+
             return
         }
         
@@ -62,15 +63,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         }
         
         let tempController = storyBoard.instantiateViewController(withIdentifier: "TextDocumentViewController")
-        
-        guard let documentViewController = tempController as? DocumentViewController else {
-            print("*** Unable to cast \(tempController) into a TextDocumentViewController ***")
-            return
-        }
-        
+        let documentViewController = tempController as! DocumentViewController
         documentController = documentViewController
         
-        documentViewController.modalPresentationCapturesStatusBarAppearance = true;
+        documentViewController.modalPresentationCapturesStatusBarAppearance = true
         documentViewController.loadViewIfNeeded()
         
         let doc = Document(fileURL: documentURL)
@@ -91,11 +87,11 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             transitionController.loadingProgress = nil
             
             guard success else {
-                print("*** Unable to open the text file ***")
+                Crashlytics.sharedInstance().throwException()
+
                 return
             }
             
-            print("==> Document Opened!")
             self?.present(documentViewController, animated: true, completion: nil)
         }
     }

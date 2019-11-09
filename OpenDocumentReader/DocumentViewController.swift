@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 import ScrollableSegmentedControl
 import UIKit.UIPrinter
-import FirebaseAnalytics
+import Firebase
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate {
@@ -18,7 +18,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     public var transitionController: UIDocumentBrowserTransitionController? {
         didSet {
             if let controller = transitionController {
-                // Set the transition animation.
                 modalPresentationStyle = .custom
                 browserTransition = DocumentBrowserTransitioningDelegate(withTransitionController: controller)
                 transitioningDelegate = browserTransition
@@ -39,9 +38,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
     
-    @IBOutlet weak var toolbar: UIToolbar!
-    @IBOutlet weak var toolbarDefaultHeight: NSLayoutConstraint!
-    @IBOutlet weak var toolbarFullscreenHeight: NSLayoutConstraint!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     private var isFullscreen = false
@@ -59,16 +55,12 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         segmentedControl.segmentStyle = .textOnly
         segmentedControl.underlineSelected = true
+        segmentedControl.fixedSegmentWidth = true
         segmentedControl.addTarget(self, action: #selector(DocumentViewController.segmentSelected(sender:)), for: .valueChanged)
         
         initialSelect = false
         
-        guard let path = document?.result else {
-            print("*** No Document Found! ***")
-            return
-        }
-        
-        self.webview.loadFileURL(path, allowingReadAccessTo: path)
+        document?.webview = self.webview
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,18 +71,15 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         super.viewDidDisappear(animated)
         
         guard let doc = document else {
-            print("*** No Document Found! ***")
+            Crashlytics.sharedInstance().throwException()
+
             return
         }
         
         doc.close { (success) in
-            guard success else {
-                print( "*** Error saving document ***")
-                
-                return
+            if (!success) {
+                Crashlytics.sharedInstance().throwException()
             }
-            
-            print("==> file Saved!")
         }
     }
     
@@ -101,7 +90,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             return
         }
         
-        document?.setPage(page: sender.selectedSegmentIndex)
+        document?.page = sender.selectedSegmentIndex
     }
     
     func showWebsite() {
@@ -121,17 +110,10 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
         Analytics.logEvent(event, parameters: nil)
         
-        let topInset = isFullscreen ? 0 : 8
-        menuButton.imageInsets = UIEdgeInsets(top: CGFloat(topInset), left: 0, bottom: 0, right: 0)
-        
         setNeedsStatusBarAppearanceUpdate()
     }
     
     override var prefersStatusBarHidden: Bool {
-        let constraint = (isFullscreen ? toolbarFullscreenHeight : toolbarDefaultHeight)!
-        toolbar.removeConstraints([toolbarFullscreenHeight, toolbarDefaultHeight])
-        toolbar.addConstraint(constraint)
-        
         return isFullscreen
     }
     
@@ -141,6 +123,13 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     @IBAction func showMenu(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        if (document?.isOdf ?? false && !(document?.edit ?? false)) {
+            alert.addAction(UIAlertAction(title: "Edit (EXPERIMENTAL)", style: .default, handler: { (_) in
+                self.editDocument()
+            }))
+        }
+        
         alert.addAction(UIAlertAction(title: "Fullscreen", style: .default, handler: { (_) in
             self.toggleFullscreen()
         }))
@@ -154,6 +143,12 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         alert.popoverPresentationController?.sourceView = menuButton.value(forKey: "view") as? UIView
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func editDocument() {
+        Analytics.logEvent("menu_edit", parameters: nil)
+
+        document?.edit = true
     }
     
     func printDocument() {
@@ -184,30 +179,44 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     func documentEncrypted(_ doc: Document) {
 //        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document because it is encrypted. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
         
+        if (viewIfLoaded?.window == nil) {
+            // delay because ViewController might not be visible yet
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self.documentEncrypted(doc)
+            })
+        }
+        
         let alert = UIAlertController(title: "Document encrypted", message: "Please enter the password to decrypt this document", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.text = ""
         }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [] (_) in
+            self.returnToDocuments("nil" as Any)
+        }))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             
-            self.document?.setPassword(password: textField!.text!)
+            self.document?.password = textField!.text!
         }))
+        
         self.present(alert, animated: true, completion: nil)
     }
     
-    func documentLoadingError(_ doc: Document) {
+    func documentLoadingError(_ doc: Document, errorCode: Int) {
         let fileType = doc.fileURL.pathExtension.lowercased()
         for type in EXTENSION_WHITELIST {
             if (!fileType.starts(with: type)) {
-                continue;
+                continue
             }
 
             self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
             
             progressBar.isHidden = true
             
-            Analytics.logEvent("load_pdf", parameters: nil)
+            Analytics.logEvent("load_success", parameters: [
+                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
+                AnalyticsParameterContentType: fileType
+            ])
             
             return;
         }
@@ -217,6 +226,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         Analytics.logEvent(
             "load_error",
             parameters: [
+                "code": errorCode,
                 AnalyticsParameterItemName: doc.shortenedDocumentUrl,
                 AnalyticsParameterContentType: fileType
             ])
@@ -228,6 +238,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func documentLoadingCompleted(_ doc: Document) {
+        Analytics.logEvent("load_odf_success", parameters: nil)
+        
         progressBar.isHidden = true
         
         let fileType = doc.fileURL.pathExtension.lowercased()
@@ -254,5 +266,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         initialSelect = true
         segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.layoutSubviews()
     }
 }

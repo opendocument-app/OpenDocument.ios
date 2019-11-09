@@ -160,29 +160,64 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D4E2F0BCFAD4292AE1273E6;
+			remoteGlobalIDString = 68722AEF2DC64BF8AB2DF7D5;
 			remoteInfo = glog;
 		};
 		E26C39322250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 757CD8A4AB3B4664A378839E;
+			remoteGlobalIDString = DBADB6840206443A97F2A76D;
 			remoteInfo = miniz;
 		};
 		E26C39342250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 670CFA8E9DBD4C75B0F5E2B4;
+			remoteGlobalIDString = CD40E84D34284EF7A80FB402;
 			remoteInfo = odrlib;
 		};
 		E26C39362250D976009C484A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 7EB41FC0D1724584A85196BA;
+			remoteGlobalIDString = B382587C51824ECE8AB80585;
 			remoteInfo = tinyxml2;
+		};
+		E29A02212365EF7800BD6A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 48C1E359B46B47C5B2EC8386;
+			remoteInfo = gmock;
+		};
+		E29A02232365EF7800BD6A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9C0C7A13E604FABAB50807E;
+			remoteInfo = gmock_main;
+		};
+		E29A02252365EF7800BD6A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A3FBC799E3946AFBC52340F;
+			remoteInfo = gtest;
+		};
+		E29A02272365EF7800BD6A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9A974A6917734F869FAF1CC6;
+			remoteInfo = gtest_main;
+		};
+		E29A02292365EF7800BD6A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2A920CCD2EC04ED8BF0FCC37;
+			remoteInfo = odrmain;
 		};
 		E2CDC4BA226A407500E9FCED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -216,7 +251,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E26C38EA2250D91C009C484A /* odr.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = E3B45187C92B47DCB57902A1;
+			remoteGlobalIDString = E08901684B824F61ACF4B07B;
 			remoteInfo = "cryptopp-object";
 		};
 /* End PBXContainerItemProxy section */
@@ -290,9 +325,14 @@
 				E26C39132250D91C009C484A /* example5 */,
 				E26C39152250D91C009C484A /* example6 */,
 				E26C39172250D91C009C484A /* libglog.a */,
+				E29A02222365EF7800BD6A96 /* libgmockd.a */,
+				E29A02242365EF7800BD6A96 /* libgmock_maind.a */,
+				E29A02262365EF7800BD6A96 /* libgtestd.a */,
+				E29A02282365EF7800BD6A96 /* libgtest_maind.a */,
 				E26C39192250D91C009C484A /* logging_unittest */,
 				E26C391B2250D91C009C484A /* libminiz.a */,
 				E26C391D2250D91C009C484A /* libodrlib.a */,
+				E29A022A2365EF7800BD6A96 /* odrmain */,
 				E26C391F2250D91C009C484A /* odrtests */,
 				E26C39212250D91C009C484A /* signalhandler_unittest */,
 				E26C39232250D91C009C484A /* stacktrace_unittest */,
@@ -562,6 +602,42 @@
 			name = utilities_unittest;
 			path = utilities_unittest.app;
 			remoteRef = E26C392A2250D91C009C484A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E29A02222365EF7800BD6A96 /* libgmockd.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgmockd.a;
+			remoteRef = E29A02212365EF7800BD6A96 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E29A02242365EF7800BD6A96 /* libgmock_maind.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgmock_maind.a;
+			remoteRef = E29A02232365EF7800BD6A96 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E29A02262365EF7800BD6A96 /* libgtestd.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgtestd.a;
+			remoteRef = E29A02252365EF7800BD6A96 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E29A02282365EF7800BD6A96 /* libgtest_maind.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgtest_maind.a;
+			remoteRef = E29A02272365EF7800BD6A96 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E29A022A2365EF7800BD6A96 /* odrmain */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			name = odrmain;
+			path = odrmain.app;
+			remoteRef = E29A02292365EF7800BD6A96 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E2CDC4BB226A407500E9FCED /* cryptest.exe */ = {
@@ -854,6 +930,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -866,6 +943,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -882,6 +960,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -894,6 +973,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
