@@ -18,6 +18,12 @@ protocol DocumentDelegate: class {
     func documentPagesChanged(_ doc: Document)
 }
 
+enum DocumentError: Error {
+    case getHtml
+    case backTranslate
+}
+
+
 class Document: UIDocument {
     
     public var result: URL?
@@ -72,7 +78,6 @@ class Document: UIDocument {
         tempPath.appendPathComponent("temp.html")
         
         coreWrapper.translate(fileURL.path, into: tempPath.path, at: page as NSNumber, with: password, editable: edit)
-        
         let errorCode = coreWrapper.errorCode != nil ? coreWrapper.errorCode.intValue : 0
         
         if (errorCode == -2) {
@@ -139,23 +144,23 @@ class Document: UIDocument {
     override func writeContents(_ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?) throws {
         let tempPath = contents as! URL
         
-        // TODO: set timeout
-        saveGroup.wait()
+        let waitResult = saveGroup.wait(timeout: .now() + 30)
+        if (waitResult != DispatchTimeoutResult.success) {
+            throw DocumentError.getHtml
+        }
         
-        coreWrapper.backTranslate(tempPath.path, into: url.path)
+        // running on main-thread to make sure CoreWrapper is always called from the same thread
+        // TODO: run on background thread instead?
+        DispatchQueue.main.sync {
+            coreWrapper.backTranslate(tempPath.path, into: url.path)
+        }
         
         let errorCode = coreWrapper.errorCode != nil ? coreWrapper.errorCode.intValue : 0
-        // TODO: how to propagate error here?
-        print(errorCode)
-    }
-    
-    override func close(completionHandler: ((Bool) -> Void)? = nil) {
-        super.close(completionHandler: { (success) in
-            // do AFTER writeContents has completed
-            self.coreWrapper.close()
+        if (errorCode < 0) {
+            print(errorCode)
             
-            // TODO: call completionHandler
-        })
+            throw DocumentError.backTranslate
+        }
     }
 }
 

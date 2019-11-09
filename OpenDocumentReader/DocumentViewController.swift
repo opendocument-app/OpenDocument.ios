@@ -77,13 +77,9 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
         
         doc.close { (success) in
-            guard success else {
+            if (!success) {
                 Crashlytics.sharedInstance().throwException()
-
-                return
             }
-            
-            // TODO: handle save error here?
         }
     }
     
@@ -129,7 +125,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         if (document?.isOdf ?? false && !(document?.edit ?? false)) {
-            alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: "Edit (EXPERIMENTAL)", style: .default, handler: { (_) in
                 self.editDocument()
             }))
         }
@@ -230,7 +226,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         Analytics.logEvent(
             "load_error",
             parameters: [
-                // TODO: check name on android
                 "code": errorCode,
                 AnalyticsParameterItemName: doc.shortenedDocumentUrl,
                 AnalyticsParameterContentType: fileType
