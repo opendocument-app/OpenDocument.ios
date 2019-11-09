@@ -46,24 +46,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else {
-            print("*** The root view is not a document browser! ***")
+            Crashlytics.sharedInstance().throwException()
+            
             return false
         }
         
         documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
             
             guard error == nil else {
-                print("*** Failed to reveal the document at %@. Error: %@. ***")
+                Crashlytics.sharedInstance().recordError(error!)
+                Crashlytics.sharedInstance().throwException()
+                
                 return
             }
             
             guard let url = revealedDocumentURL else {
-                print("*** No URL revealed. ***")
+                Crashlytics.sharedInstance().throwException()
+                
                 return
             }
-            
-            print("==> Revealed URL")
-            
+                        
             documentBrowserViewController.presentDocument(at: url)
         }
 
