@@ -107,4 +107,7 @@
             <point key="canvasLocation" x="1028.985507246377" y="652.90178571428567"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ellipsis" catalog="system" width="64" height="18"/>
+    </resources>
 </document>

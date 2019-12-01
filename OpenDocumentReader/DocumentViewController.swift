@@ -69,18 +69,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        guard let doc = document else {
-            Crashlytics.sharedInstance().throwException()
 
-            return
-        }
-        
-        doc.close { (success) in
-            if (!success) {
-                Crashlytics.sharedInstance().throwException()
-            }
-        }
+        closeCurrentDocument()
     }
     
     @objc func segmentSelected(sender:ScrollableSegmentedControl) {
@@ -118,7 +108,46 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     @IBAction func returnToDocuments(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        guard let doc = document else {
+            Crashlytics.sharedInstance().throwException()
+
+            return
+        }
+        
+        if doc.hasUnsavedChanges {
+            let alert = UIAlertController(title: "You have unsaved changes", message: "Save it?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (_) in
+                self.discardChanges()
+                self.closeCurrentDocument()
+            }))
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                self.closeCurrentDocument() //doc.close calls autosave
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            closeCurrentDocument()
+        }
+
+    }
+    
+    func closeCurrentDocument() {
+        guard let doc = document else {
+            Crashlytics.sharedInstance().throwException()
+
+            return
+        }
+        
+        doc.close { (success) in
+            if (!success) {
+                self.showToast(controller: self, message: "Error while saving", seconds: 1, color: .red) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+
+        }
     }
     
     @IBAction func showMenu(_ sender: Any) {
@@ -127,6 +156,16 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         if (document?.isOdf ?? false && !(document?.edit ?? false)) {
             alert.addAction(UIAlertAction(title: "Edit (EXPERIMENTAL)", style: .default, handler: { (_) in
                 self.editDocument()
+            }))
+        }
+
+        if document?.hasUnsavedChanges ?? false {
+            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+                self.saveContent()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Discard changes", style: .default, handler: { (_) in
+                self.discardChanges()
             }))
         }
         
@@ -143,6 +182,45 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         alert.popoverPresentationController?.sourceView = menuButton.value(forKey: "view") as? UIView
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func discardChanges() {
+        guard let doc = document else {
+            Crashlytics.sharedInstance().throwException()
+
+            return
+        }
+        
+        doc.revert(toContentsOf: doc.fileURL, completionHandler: nil)
+    }
+    
+    func saveContent() {
+        if let URL = document?.fileURL {
+            document?.save(to: URL, for: .forOverwriting) { success in
+                if success {
+                    self.showToast(controller: self, message: "Successfully saved", seconds: 1, color: .green)
+                } else {
+                    self.showToast(controller: self, message: "Error while saving", seconds: 1, color: .red)
+                }
+                
+            }
+            
+        }
+    }
+    
+    func showToast(controller: UIViewController, message : String, seconds: Double, color: UIColor? = .gray, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        alert.view.backgroundColor = color
+        alert.view.layer.cornerRadius = 15
+        
+        controller.present(alert, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true)
+            
+            completion?()
+        }
+            
     }
     
     func editDocument() {
