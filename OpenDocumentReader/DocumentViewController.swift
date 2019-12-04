@@ -128,7 +128,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         } else {
             closeCurrentDocument()
         }
-
     }
     
     func closeCurrentDocument() {
@@ -146,7 +145,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             } else {
                 self.dismiss(animated: true, completion: nil)
             }
-
         }
     }
     
@@ -195,16 +193,18 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func saveContent() {
-        if let URL = document?.fileURL {
-            document?.save(to: URL, for: .forOverwriting) { success in
-                if success {
-                    self.showToast(controller: self, message: "Successfully saved", seconds: 1, color: .green)
-                } else {
-                    self.showToast(controller: self, message: "Error while saving", seconds: 1, color: .red)
-                }
-                
+        guard let doc = document else {
+            Crashlytics.sharedInstance().throwException()
+
+            return
+        }
+        
+        doc.save(to: doc.fileURL, for: .forOverwriting) { success in
+            if success {
+                self.showToast(controller: self, message: "Successfully saved", seconds: 1, color: .green)
+            } else {
+                self.showToast(controller: self, message: "Error while saving", seconds: 1, color: .red)
             }
-            
         }
     }
     
@@ -220,7 +220,6 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             
             completion?()
         }
-            
     }
     
     func editDocument() {
