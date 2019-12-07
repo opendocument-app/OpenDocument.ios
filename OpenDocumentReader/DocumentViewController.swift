@@ -115,16 +115,22 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
         
         if doc.hasUnsavedChanges {
-            let alert = UIAlertController(title: "You have unsaved changes", message: "Save it?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "You have unsaved changes", message: "Save them now?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (_) in
+                Analytics.logEvent("alert_unsaved_changes_no", parameters: nil)
+
                 self.discardChanges()
                 self.closeCurrentDocument()
             }))
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                Analytics.logEvent("alert_unsaved_changes_yes", parameters: nil)
+
                 self.closeCurrentDocument() //doc.close calls autosave
             }))
             
             self.present(alert, animated: true, completion: nil)
+            
+            Analytics.logEvent("show_alert_unsaved_changes", parameters: nil)
         } else {
             closeCurrentDocument()
         }
@@ -139,7 +145,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         doc.close { (success) in
             if (!success) {
-                self.showToast(controller: self, message: "Error while saving", seconds: 1, color: .red) {
+                self.showToast(controller: self, message: "Error while saving", seconds: 1.5, color: .red) {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
@@ -183,6 +189,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func discardChanges() {
+        Analytics.logEvent("menu_discard_changes", parameters: nil)
+
         guard let doc = document else {
             Crashlytics.sharedInstance().throwException()
 
@@ -193,6 +201,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func saveContent() {
+        Analytics.logEvent("menu_save_content", parameters: nil)
+
         guard let doc = document else {
             Crashlytics.sharedInstance().throwException()
 
@@ -201,9 +211,9 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         doc.save(to: doc.fileURL, for: .forOverwriting) { success in
             if success {
-                self.showToast(controller: self, message: "Successfully saved", seconds: 1, color: .green)
+                self.showToast(controller: self, message: "Successfully saved", seconds: 1.5, color: .green)
             } else {
-                self.showToast(controller: self, message: "Error while saving", seconds: 1, color: .red)
+                self.showToast(controller: self, message: "Error while saving", seconds: 1.5, color: .red)
             }
         }
     }
