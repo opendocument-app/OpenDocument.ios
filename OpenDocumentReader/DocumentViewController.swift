@@ -189,7 +189,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func discardChanges() {
-        Analytics.logEvent("menu_discard_changes", parameters: nil)
+        Analytics.logEvent("menu_edit_discard", parameters: nil)
 
         guard let doc = document else {
             Crashlytics.sharedInstance().throwException()
@@ -201,7 +201,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     }
     
     func saveContent() {
-        Analytics.logEvent("menu_save_content", parameters: nil)
+        Analytics.logEvent("menu_edit_save", parameters: nil)
 
         guard let doc = document else {
             Crashlytics.sharedInstance().throwException()
@@ -212,6 +212,9 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         doc.save(to: doc.fileURL, for: .forOverwriting) { success in
             if success {
                 self.showToast(controller: self, message: "Successfully saved", seconds: 1.5, color: .green)
+                
+                // makes sure UI stays in edit-mode
+                self.document?.updateChangeCount(.done)
             } else {
                 self.showToast(controller: self, message: "Error while saving", seconds: 1.5, color: .red)
             }
