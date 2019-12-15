@@ -1,7 +1,7 @@
 on: [push]
 name: iOS
 jobs:
-  test:
+  build:
     name: iOS
     runs-on: macOS-latest
     strategy:
