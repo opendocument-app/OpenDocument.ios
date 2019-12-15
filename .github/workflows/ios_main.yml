@@ -1,8 +1,8 @@
-on: pull_request
-name: Test
+on: [push]
+name: iOS
 jobs:
   test:
-    name: Test
+    name: iOS
     runs-on: macOS-latest
     strategy:
         matrix:
