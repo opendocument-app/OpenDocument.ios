@@ -14,7 +14,7 @@
     },
     {
       "idiom" : "iphone",
-      "filename" : "launch_image-2.png",
+      "filename" : "launch_image.png",
       "scale" : "1x"
     },
     {
@@ -24,7 +24,7 @@
     },
     {
       "idiom" : "iphone",
-      "filename" : "launch_image.png",
+      "filename" : "launch_image-2.png",
       "scale" : "3x"
     }
   ],
