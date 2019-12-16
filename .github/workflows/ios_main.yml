@@ -1,5 +1,6 @@
-on: [push]
 name: iOS
+on: [push]
+
 jobs:
   build:
     name: iOS
