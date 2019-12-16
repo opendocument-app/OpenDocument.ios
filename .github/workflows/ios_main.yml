@@ -17,7 +17,7 @@ jobs:
         run: pod install
       - name: Build and test
         run: |
-          xcodebuild clean -project OpenDocumentReader.xcodeproj -scheme "${scheme}" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          xcodebuild clean build -project OpenDocumentReader.xcodeproj -scheme "${scheme}" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
         env: 
           destination: ${{ matrix.destination }}
           scheme: ${{ matrix.scheme }}
