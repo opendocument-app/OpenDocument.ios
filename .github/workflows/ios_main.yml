@@ -10,10 +10,9 @@ jobs:
           destination: ['platform=iOS Simulator,OS=13.1,name=iPhone 11']
           scheme: [OpenDocumentReader]
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Update submodule
-        run: git submodule update --init --recursive
+      - uses: actions/checkout@v1
+      - name: Checkout submodule
+        run: git submodule sync --recursive && git submodule update --init --recursive
       - name: Install pods
         run: pod install
       - name: Run build.sh
