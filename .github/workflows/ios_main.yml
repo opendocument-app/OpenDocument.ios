@@ -19,7 +19,7 @@ jobs:
         run: bash build.sh
       - name: Build and test
         run: |
-          xcodebuild clean build -project OpenDocumentReader.xcodeproj -scheme "${scheme}" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          xcodebuild clean build -workspace OpenDocumentReader.xcworkspace -scheme "${scheme}" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
         env: 
           destination: ${{ matrix.destination }}
           scheme: ${{ matrix.scheme }}
