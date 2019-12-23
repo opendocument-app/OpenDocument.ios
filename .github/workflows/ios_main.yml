@@ -7,17 +7,17 @@ jobs:
     runs-on: macos-latest
     strategy:
         matrix:
-          destination: ['platform=iOS Simulator,OS=13.1,name=iPhone 11']
+          destination: ['platform=iOS Simulator']
           scheme: [OpenDocumentReader]
     steps:
       - uses: actions/checkout@v1
       - name: Checkout submodule
-        run: git submodule sync --recursive && git submodule update --init --recursive
+        run: git submodule update --init --recursive
       - name: Install pods
         run: pod install
       - name: Run build.sh
         run: bash build.sh
-      - name: Build and test
+      - name: Build
         run: |
           xcodebuild clean build -workspace OpenDocumentReader.xcworkspace -scheme "${scheme}" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
         env: 
