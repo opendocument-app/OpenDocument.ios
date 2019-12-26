@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
-		AC384BCC23B4FFA700C7BF47 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BA523B4FFA700C7BF47 /* AppUtility.swift */; };
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
 		AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCA23B4FFA700C7BF47 /* Constants.swift */; };
 		AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */; };
@@ -262,7 +261,6 @@
 
 /* Begin PBXFileReference section */
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
-		AC384BA523B4FFA700C7BF47 /* AppUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		AC384BCA23B4FFA700C7BF47 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
@@ -389,7 +387,6 @@
 				E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */,
 				E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */,
 				E22EB719226B65E300053B86 /* DocumentViewController.swift */,
-				AC384BA523B4FFA700C7BF47 /* AppUtility.swift */,
 				AC384BCA23B4FFA700C7BF47 /* Constants.swift */,
 				AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */,
 				AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */,
@@ -770,7 +767,6 @@
 				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
 				E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */,
 				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
-				AC384BCC23B4FFA700C7BF47 /* AppUtility.swift in Sources */,
 				AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */,
 				E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */,
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,

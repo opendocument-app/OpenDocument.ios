@@ -32,19 +32,6 @@ class PageViewController: UIPageViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        AppUtility.lockOrientation(.portrait)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        //Reset when view is being removed
-        AppUtility.lockOrientation(.all)
-    }
-    
     func displayViewController(at index: Int) -> ContentViewController? {
         guard index < headersArray.count && index >= 0 else { return nil }
         guard let contentVC =
