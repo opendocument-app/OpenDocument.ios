@@ -197,7 +197,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             return
         }
         
-        doc.revert(toContentsOf: doc.fileURL, completionHandler: nil)
+        doc.edit = true
     }
     
     func saveContent() {
