@@ -223,9 +223,11 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     func showToast(controller: UIViewController, message : String, seconds: Double, color: UIColor? = .gray, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
-        alert.view.backgroundColor = color
+        // TODO: fix text invisible on iPad: https://github.com/TomTasche/OpenDocument.ios/issues/42
+        //alert.view.backgroundColor = color
         alert.view.layer.cornerRadius = 15
         
+        alert.popoverPresentationController?.sourceView = menuButton.value(forKey: "view") as? UIView
         controller.present(alert, animated: true)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
