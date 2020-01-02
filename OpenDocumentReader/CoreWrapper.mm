@@ -62,6 +62,7 @@
             config.editable = editable;
             config.entryOffset = page.intValue;
             config.entryCount = 1;
+            config.tableLimitRows = 10000;
             
             bool translated = translator.translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
             if (!translated) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,7 +50,7 @@
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
-                                            <barButtonItem systemItem="action" id="Vsd-IL-ujz">
+                                            <barButtonItem image="ellipsis" catalog="system" id="Vsd-IL-ujz">
                                                 <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
                                                 <connections>
                                                     <action selector="showMenu:" destination="M2k-L8-Olo" id="ZQ1-Aa-9D0"/>
@@ -106,5 +106,104 @@
             </objects>
             <point key="canvasLocation" x="1028.985507246377" y="652.90178571428567"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Eae-fc-jpm">
+            <objects>
+                <pageViewController storyboardIdentifier="pageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="wgM-CS-OHl" customClass="PageViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wq2-xw-nG5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="25" y="1409"/>
+        </scene>
+        <!--Content View Controller-->
+        <scene sceneID="GKG-xC-aGa">
+            <objects>
+                <viewController storyboardIdentifier="contentViewController" id="j3v-2A-vTf" customClass="ContentViewController" customModule="OpenDocumentReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rdl-av-fpl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="83" translatesAutoresizingMaskIntoConstraints="NO" id="nfe-JJ-89b">
+                                <rect key="frame" x="56.666666666666657" y="813" width="301" height="39"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLV-WY-zIj">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Skip">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageButtonPressed:" destination="j3v-2A-vTf" eventType="touchUpInside" id="ElH-au-ZCA"/>
+                                            <action selector="skipButtonPressed:" destination="j3v-2A-vTf" eventType="touchUpInside" id="fCO-dq-vjw"/>
+                                        </connections>
+                                    </button>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Eq9-2L-Y0h">
+                                        <rect key="frame" x="128" y="0.0" width="45" height="39"/>
+                                        <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </pageControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJ9-WO-km9">
+                                        <rect key="frame" x="256" y="0.0" width="45" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pageButtonPressed:" destination="j3v-2A-vTf" eventType="touchUpInside" id="O9h-7h-qi8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-Lv-N7s">
+                                <rect key="frame" x="15" y="44" width="384" height="778"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Eqj-3O-0hy">
+                                        <rect key="frame" x="42" y="0.0" width="300" height="389"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="JPv-Mc-T5Q">
+                                        <rect key="frame" x="140" y="389" width="104.33333333333331" height="389"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Header " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dnY-xL-bHh">
+                                                <rect key="frame" x="0.0" y="0.0" width="104.33333333333333" height="224.66666666666666"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Subheader" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jic-3b-2I7">
+                                                <rect key="frame" x="0.0" y="224.66666666666663" width="104.33333333333333" height="164.33333333333337"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="19r-M9-NT1" firstAttribute="bottom" secondItem="nfe-JJ-89b" secondAttribute="bottom" constant="10" id="3n6-rA-Oua"/>
+                            <constraint firstItem="nfe-JJ-89b" firstAttribute="centerX" secondItem="19r-M9-NT1" secondAttribute="centerX" id="8q6-eN-xbY"/>
+                            <constraint firstItem="19r-M9-NT1" firstAttribute="trailing" secondItem="RSj-Lv-N7s" secondAttribute="trailing" constant="15" id="gM8-DB-J2A"/>
+                            <constraint firstItem="RSj-Lv-N7s" firstAttribute="top" secondItem="19r-M9-NT1" secondAttribute="top" id="qn1-PB-GcS"/>
+                            <constraint firstItem="RSj-Lv-N7s" firstAttribute="leading" secondItem="19r-M9-NT1" secondAttribute="leading" constant="15" id="srH-sh-jXs"/>
+                            <constraint firstItem="RSj-Lv-N7s" firstAttribute="bottom" secondItem="nfe-JJ-89b" secondAttribute="bottom" constant="-30" id="vAp-4c-dIi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="19r-M9-NT1"/>
+                    </view>
+                    <connections>
+                        <outlet property="headerLabel" destination="dnY-xL-bHh" id="GxF-Ni-SSZ"/>
+                        <outlet property="imageView" destination="Eqj-3O-0hy" id="vpx-IU-yHm"/>
+                        <outlet property="pageButton" destination="BJ9-WO-km9" id="Cwh-4l-b8f"/>
+                        <outlet property="pageControl" destination="Eq9-2L-Y0h" id="xFr-gd-g2O"/>
+                        <outlet property="subHeaderLabel" destination="jic-3b-2I7" id="hML-1t-P9n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vek-qX-cs8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1700.0000000000002" y="1589.7321428571429"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="ellipsis" catalog="system" width="64" height="18"/>
+    </resources>
 </document>
