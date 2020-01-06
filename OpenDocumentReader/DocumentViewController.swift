@@ -114,7 +114,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             return
         }
         
-        if doc.hasUnsavedChanges {
+        if doc.edit {
             let alert = UIAlertController(title: "You have unsaved changes", message: "Save them now?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (_) in
                 Analytics.logEvent("alert_unsaved_changes_no", parameters: nil)
@@ -125,7 +125,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
                 Analytics.logEvent("alert_unsaved_changes_yes", parameters: nil)
 
-                self.closeCurrentDocument() //doc.close calls autosave
+                self.saveContent()
+                self.closeCurrentDocument()
             }))
             
             self.present(alert, animated: true, completion: nil)
@@ -143,15 +144,8 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             return
         }
         
-        doc.close { (success) in
-            if (!success) {
-                self.showToast(controller: self, message: "Error while saving", seconds: 1.5, color: .red) {
-                    self.dismiss(animated: true, completion: nil)
-                }
-            } else {
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
+        doc.close()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func showMenu(_ sender: Any) {
@@ -163,7 +157,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             }))
         }
 
-        if document?.hasUnsavedChanges ?? false {
+        if document?.edit ?? false {
             alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
                 self.saveContent()
             }))
@@ -210,14 +204,17 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
         
         doc.save(to: doc.fileURL, for: .forOverwriting) { success in
+            let message: String
+            let color: UIColor
             if success {
-                self.showToast(controller: self, message: "Successfully saved", seconds: 1.5, color: .green)
-                
-                // makes sure UI stays in edit-mode
-                self.document?.updateChangeCount(.done)
+                message = "Successfully saved"
+                color = .green
             } else {
-                self.showToast(controller: self, message: "Error while saving", seconds: 1.5, color: .red)
+                message = "Error while saving"
+                color = .red
             }
+            
+            self.showToast(controller: self, message: message, seconds: 1.5, color: color)
         }
     }
     

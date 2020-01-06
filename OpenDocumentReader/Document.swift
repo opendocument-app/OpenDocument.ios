@@ -48,7 +48,6 @@ class Document: UIDocument {
     public var edit = false {
         didSet {
             parse()
-            updateChangeCount(.done)
         }
     }
     
@@ -117,32 +116,25 @@ class Document: UIDocument {
         delegate?.documentLoadingCompleted(self)
     }
     
-    override func contents(forType typeName: String) throws -> Any {
-        saveGroup.enter()
-        
-        var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
-        tempPath.appendPathComponent("tempSave.html")
-
-        webview?.evaluateJavaScript("document.documentElement.outerHTML", completionHandler: { (value: Any!, error: Error!) -> Void in
-            if error != nil {
-                Crashlytics.sharedInstance().recordError(error)
-                Crashlytics.sharedInstance().throwException()
-
-                return
-            }
-            
-            let content = value as? String
-            let data = content?.data(using: .utf8)
-            try? data?.write(to: tempPath, options: .atomic)
-            
-            self.saveGroup.leave()
-        })
-
-        return tempPath as Any
-    }
-    
     override func writeContents(_ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?) throws {
-        let tempPath = contents as! URL
+        var diff = ""
+
+        DispatchQueue.main.sync {
+            self.saveGroup.enter()
+
+            webview?.evaluateJavaScript("generateDiff()", completionHandler: { (value: Any!, error: Error!) -> Void in
+                if error != nil {
+                    Crashlytics.sharedInstance().recordError(error)
+                    Crashlytics.sharedInstance().throwException()
+
+                    return
+                }
+                
+                diff = (value as? String)!
+
+                self.saveGroup.leave()
+            })
+        }
         
         let waitResult = saveGroup.wait(timeout: .now() + 30)
         if (waitResult != DispatchTimeoutResult.success) {
@@ -152,7 +144,7 @@ class Document: UIDocument {
         // running on main-thread to make sure CoreWrapper is always called from the same thread
         // TODO: run on background thread instead?
         DispatchQueue.main.sync {
-            coreWrapper.backTranslate(tempPath.path, into: url.path)
+            coreWrapper.backTranslate(diff, into: url.path)
         }
         
         let errorCode = coreWrapper.errorCode != nil ? coreWrapper.errorCode.intValue : 0
