@@ -1,4 +1,4 @@
-# OpenDocument.ios
+# OpenDocument.ios ![](https://github.com/TomTasche/OpenDocument.ios/workflows/build/badge.svg)
 It's Android's first OpenOffice Document Reader... for iOS!
 
 ## Setup
