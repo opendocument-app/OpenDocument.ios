@@ -17,7 +17,7 @@
 @property NSNumber *errorCode;
 
 - (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password editable:(bool)editable;
-- (bool)backTranslate:(NSString *)inputPath into:(NSString *)outputPath;
+- (bool)backTranslate:(NSString *)diff into:(NSString *)outputPath;
 @end
 
 #endif /* CoreWrapper_h */

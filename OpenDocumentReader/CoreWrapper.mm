@@ -78,12 +78,12 @@
     }
 }
 
-- (bool)backTranslate:(NSString *)inputPath into:(NSString *)outputPath {
+- (bool)backTranslate:(NSString *)diff into:(NSString *)outputPath {
     @synchronized(self) {
         try {
             _errorCode = 0;
             
-            bool translated = translator.backTranslate([inputPath cStringUsingEncoding:NSUTF8StringEncoding], [outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+            bool translated = translator.backTranslate([diff cStringUsingEncoding:NSUTF8StringEncoding], [outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
             if (!translated) {
                 _errorCode = @(-4);
                 return false;
