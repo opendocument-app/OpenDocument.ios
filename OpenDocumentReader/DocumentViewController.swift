@@ -12,7 +12,7 @@ import UIKit.UIPrinter
 import Firebase
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate {
+class DocumentViewController: UIViewController, UISearchBarDelegate, DocumentDelegate {
     
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -32,6 +32,10 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     private var EXTENSION_WHITELIST = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png", "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv", "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba", "webm", "webp", "xhtml", "xml"]
     
+    @IBOutlet weak var searchBarHeigt: NSLayoutConstraint!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBarTop: NSLayoutConstraint!
+    @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
     private var initialSelect = false
     
@@ -53,6 +57,11 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        searchBar.delegate = self
+        searchBar.isHidden = true
+        searchBar.showsCancelButton = true
+        searchBarHeigt.constant = 0.0
+
         segmentedControl.segmentStyle = .textOnly
         segmentedControl.underlineSelected = true
         segmentedControl.fixedSegmentWidth = true
@@ -105,6 +114,40 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     override var prefersStatusBarHidden: Bool {
         return isFullscreen
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.isHidden = true
+        searchBarHeigt.constant = 0.0
+        searchBarTop.constant = 40.0
+
+        self.view.endEditing(true)
+    }
+
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        print("Find next")
+        findNext()
+    
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("Find all")
+        findAllAsync(text: searchText)
+    }
+
+    private func findNext() {
+        
+    }
+    
+    private func findAllAsync(text searchText: String) {
+
+    }
+    
+    @IBAction func searchButton(_ sender: UIBarButtonItem) {
+        searchBar.isHidden = false
+        searchBarHeigt.constant = 56.0
+        searchBarTop.constant = 0.0
     }
     
     @IBAction func returnToDocuments(_ sender: Any) {

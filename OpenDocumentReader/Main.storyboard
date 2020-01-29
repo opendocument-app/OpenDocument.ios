@@ -33,31 +33,14 @@
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKS-nk-f6M">
                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
                                 <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                        <items>
-                                            <barButtonItem title="Back to documents" id="yhO-7V-lbn">
-                                                <connections>
-                                                    <action selector="returnToDocuments:" destination="M2k-L8-Olo" id="ILH-TV-slT"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
-                                            <barButtonItem image="ellipsis" catalog="system" id="Vsd-IL-ujz">
-                                                <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
-                                                <connections>
-                                                    <action selector="showMenu:" destination="M2k-L8-Olo" id="ZQ1-Aa-9D0"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </items>
-                                    </toolbar>
                                     <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="ScrollableSegmentedControl">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                         <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -68,37 +51,79 @@
                                     <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                     </progressView>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                                        <items>
+                                            <barButtonItem title="Back to documents" id="yhO-7V-lbn">
+                                                <connections>
+                                                    <action selector="returnToDocuments:" destination="M2k-L8-Olo" id="ILH-TV-slT"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
+                                            <barButtonItem systemItem="search" id="XnY-Ok-Ets">
+                                                <connections>
+                                                    <action selector="searchButton:" destination="M2k-L8-Olo" id="RCr-fL-3y7"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="AVt-qb-Afh"/>
+                                            <barButtonItem image="ellipsis" catalog="system" id="Vsd-IL-ujz">
+                                                <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
+                                                <connections>
+                                                    <action selector="showMenu:" destination="M2k-L8-Olo" id="ZQ1-Aa-9D0"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                    </toolbar>
                                 </subviews>
                             </stackView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <searchBar contentMode="redraw" showsSearchResultsButton="YES" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="emf-4C-4vu">
+                                <rect key="frame" x="0.0" y="84" width="414" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="e3K-3F-yVb"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="5Hh-GZ-aPw"/>
-                            <constraint firstItem="VF5-Do-xh9" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="bottom" id="8K3-ke-I1G"/>
                             <constraint firstItem="sKS-nk-f6M" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="HjQ-CN-3cF"/>
-                            <constraint firstItem="VF5-Do-xh9" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="OvL-SW-INd"/>
-                            <constraint firstItem="VF5-Do-xh9" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="Qyj-ei-4NG"/>
+                            <constraint firstItem="emf-4C-4vu" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="Jn3-iG-0Qx"/>
+                            <constraint firstItem="emf-4C-4vu" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="Xv4-rs-ThJ"/>
                             <constraint firstItem="N1x-QM-Qks" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="top" id="Yiq-pe-hl5"/>
-                            <constraint firstItem="N1x-QM-Qks" firstAttribute="bottom" secondItem="sKS-nk-f6M" secondAttribute="bottom" constant="44" id="fDF-Mx-Nxy"/>
+                            <constraint firstItem="VF5-Do-xh9" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="bX9-K0-kIN"/>
+                            <constraint firstItem="N1x-QM-Qks" firstAttribute="bottom" secondItem="sKS-nk-f6M" secondAttribute="bottom" constant="40" id="fDF-Mx-Nxy"/>
                             <constraint firstItem="VF5-Do-xh9" firstAttribute="bottom" secondItem="SIE-Uh-Zny" secondAttribute="bottom" id="ftB-8D-F6n"/>
                             <constraint firstItem="sKS-nk-f6M" firstAttribute="bottom" secondItem="HAk-oU-gAF" secondAttribute="top" id="gWh-EO-FK9"/>
+                            <constraint firstItem="emf-4C-4vu" firstAttribute="top" secondItem="sKS-nk-f6M" secondAttribute="bottom" constant="40" id="imW-6k-HXG"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="rED-wA-6gv"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="tPc-vX-Egd"/>
+                            <constraint firstItem="VF5-Do-xh9" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="vMf-NI-Mlq"/>
+                            <constraint firstAttribute="bottom" secondItem="VF5-Do-xh9" secondAttribute="bottom" id="wOG-hc-oZ7"/>
+                            <constraint firstItem="VF5-Do-xh9" firstAttribute="top" secondItem="emf-4C-4vu" secondAttribute="bottom" id="zvL-60-HRL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HAk-oU-gAF"/>
                     </view>
                     <connections>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
+                        <outlet property="searchBar" destination="emf-4C-4vu" id="xq7-Vj-7h6"/>
+                        <outlet property="searchBarHeigt" destination="e3K-3F-yVb" id="v8U-1E-jcZ"/>
+                        <outlet property="searchBarTop" destination="imW-6k-HXG" id="PLj-75-lMh"/>
                         <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
+                        <outlet property="toolBar" destination="N1x-QM-Qks" id="zac-Zs-Ss4"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
                 </viewController>
