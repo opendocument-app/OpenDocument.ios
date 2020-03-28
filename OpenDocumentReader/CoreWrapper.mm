@@ -10,9 +10,9 @@
 
 #import "CoreWrapper.h"
 
-#include "OpenDocumentReader.h"
-#include "TranslationConfig.h"
-#include "FileMeta.h"
+#include "odr/OpenDocumentReader.h"
+#include "odr/Config.h"
+#include "odr/Meta.h"
 
 @implementation CoreWrapper {
     odr::OpenDocumentReader translator;
@@ -58,7 +58,7 @@
                 initialized = true;
             }
             
-            odr::TranslationConfig config = {};
+            odr::Config config = {};
             config.editable = editable;
             config.entryOffset = page.intValue;
             config.entryCount = 1;
