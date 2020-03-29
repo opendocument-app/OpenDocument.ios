@@ -7,7 +7,7 @@ jobs:
     runs-on: macos-latest
     strategy:
         matrix:
-          destination: ['platform=iOS Simulator,name=iPhone 11']
+          destination: ['generic/platform=iOS']
           scheme: [OpenDocumentReader]
     steps:
       - uses: actions/checkout@v1
