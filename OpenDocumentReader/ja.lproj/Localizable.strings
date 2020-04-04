@@ -1,0 +1,74 @@
+/*  */
+"alert_error_generic" = "何か問題が発生しました。ファイルを開くことができませんでした。";
+
+/*  */
+"ok" = "OK";
+
+/*  */
+"no_description" = "No Description";
+
+/*  */
+"alert_unsaved_changes" = "You have unsaved changes";
+
+/*  */
+"alert_save_now" = "Save them now?";
+
+/*  */
+"yes" = "Yes";
+
+/*  */
+"no" = "No";
+
+/*  */
+"menu_edit" = "ドキュメントを編集";
+
+/*  */
+"menu_save" = "保存";
+
+/*  */
+"menu_discard_changes" = "Discard changes";
+
+/*  */
+"menu_fullscreen" = "全画面表示を開く";
+
+/*  */
+"menu_cloud_print" = "ドキュメントを印刷";
+
+/*  */
+"menu_help" = "ヘルプ!?";
+
+/*  */
+"cancel" = "Cancel";
+
+/*  */
+"alert_document_saved" = "Document saved";
+
+/*  */
+"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+
+/*  */
+"alert_error_password_protected" = "ドキュメントがパスワードで保護されています";
+
+/*  */
+"alert_enter_password" = "Please enter the password to decrypt this document";
+
+/*  */
+"intro_title_1" = "外出先で ODF ファイルを開いたり読み込みます!";
+
+/*  */
+"intro_title_2" = "ドキュメントにタイプミスを発見しましたか? 変更をサポートするようになりました!";
+
+/*  */
+"intro_title_3" = "他のアプリを使用してドキュメントを読む";
+
+/*  */
+"intro_description_1" = "OpenDocument リーダーは OpenDocument 形式 (.odt、.ods、.odp、.odg) で格納されているドキュメントを表示することができます。通常これらのファイルは、LibreOffice または OpenOffice を使用して作成されます。このアプリは、モバイルデバイスでこのようなファイルを開くことができるので、外出先でそれらを読み取ることができます。";
+
+/*  */
+"intro_description_2" = "OpenDocument リーダーは、お使いのモバイルデバイス上でドキュメントを読むことができるだけでなく、変更もサポートしています。タイプミスは、電車の中でもすぐに修正できます!";
+
+/*  */
+"intro_description_3" = "OpenDocument リーダーは、ドキュメントを開く他のアプリを幅広くサポートしています。同僚が Gmail でプレゼンテーションを送信しましたか? 添付ファイルをクリックすると、このアプリがすぐに開くことができます!";
+
+
+

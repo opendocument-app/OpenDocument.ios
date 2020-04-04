@@ -1,0 +1,74 @@
+/*  */
+"alert_error_generic" = "Etwas schlimmes ist passiert. Datei konnte nicht geöffnet werden.";
+
+/*  */
+"ok" = "OK";
+
+/*  */
+"no_description" = "Keine Beschreibung";
+
+/*  */
+"alert_unsaved_changes" = "You have unsaved changes";
+
+/*  */
+"alert_save_now" = "Save them now?";
+
+/*  */
+"yes" = "Ja";
+
+/*  */
+"no" = "Nein";
+
+/*  */
+"menu_edit" = "Dokument bearbeiten";
+
+/*  */
+"menu_save" = "Speichern";
+
+/*  */
+"menu_discard_changes" = "Discard changes";
+
+/*  */
+"menu_fullscreen" = "Vollbildmodus aktivieren";
+
+/*  */
+"menu_cloud_print" = "Dokument drucken";
+
+/*  */
+"menu_help" = "Hilfe!?";
+
+/*  */
+"cancel" = "Cancel";
+
+/*  */
+"alert_document_saved" = "Dokument gespeichert";
+
+/*  */
+"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+
+/*  */
+"alert_error_password_protected" = "Dokument ist passwort-geschützt";
+
+/*  */
+"alert_enter_password" = "Please enter the password to decrypt this document";
+
+/*  */
+"intro_title_1" = "Öffnen und lesen Sie Ihre ODF-Datei unterwegs!";
+
+/*  */
+"intro_title_2" = "Einen Tippfehler gefunden? Änderungen werden jetzt auch unterstützt!";
+
+/*  */
+"intro_title_3" = "Lesen Sie Ihre Dokumente aus anderen Apps heraus";
+
+/*  */
+"intro_description_1" = "OpenDocument Reader kann Dokumente anzeigen, die im OpenDocument-Format (.odt, .ods, .odp und .odg) gespeichert sind. Diese Dateien werden in der Regel mit LibreOffice oder OpenOffice erstellt. Diese App ermöglicht es solche Dateien auf Ihrem mobilen Gerät zu öffnen, so dass Sie unterwegs gelesen werden können.";
+
+/*  */
+"intro_description_2" = "OpenDocument Reader erlaubt nicht nur Dokumente auf Ihrem mobilen Gerät zu lesen, sondern unterstützt auch, sie zu ändern. Tippfehler sind schnell behoben, auch unterwegs!";
+
+/*  */
+"intro_description_3" = "OpenDocument Reader unterstützt eine Vielzahl anderer Apps, um Dokumente zu öffnen. Ein Kollege hat eine Präsentation via Gmail gesendet? Klicken Sie auf den Anhang und diese App wird sofort geöffnet!";
+
+
+
