@@ -1,0 +1,74 @@
+/*  */
+"alert_error_generic" = "Something bad happened. Couldn't open file.";
+
+/*  */
+"ok" = "OK";
+
+/*  */
+"no_description" = "No Description";
+
+/*  */
+"alert_unsaved_changes" = "You have unsaved changes";
+
+/*  */
+"alert_save_now" = "Save them now?";
+
+/*  */
+"yes" = "Yes";
+
+/*  */
+"no" = "No";
+
+/*  */
+"menu_edit" = "Edit document";
+
+/*  */
+"menu_save" = "Save";
+
+/*  */
+"menu_discard_changes" = "Discard changes";
+
+/*  */
+"menu_fullscreen" = "Open fullscreen mode";
+
+/*  */
+"menu_cloud_print" = "Print document";
+
+/*  */
+"menu_help" = "Help!?";
+
+/*  */
+"cancel" = "Cancel";
+
+/*  */
+"alert_document_saved" = "Document saved";
+
+/*  */
+"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+
+/*  */
+"alert_error_password_protected" = "This document is password-protected";
+
+/*  */
+"alert_enter_password" = "Please enter the password to decrypt this document";
+
+/*  */
+"intro_title_1" = "Open and read your ODF file on the go!";
+
+/*  */
+"intro_title_2" = "Found a typo in your document? Now supports modification!";
+
+/*  */
+"intro_title_3" = "Read your documents from within other apps";
+
+/*  */
+"intro_description_1" = "OpenDocument Reader allows you to view documents that are stored in OpenDocument format (.odt, .ods, .odp and .odg). These files are usually created using LibreOffice or OpenOffice. This app allows to open such files on your mobile device too, so you can read them on the go.";
+
+/*  */
+"intro_description_2" = "OpenDocument Reader not only allows to read documents on your mobile device, but also supports modifying them too. Typos are fixed in a breeze, even on the train!";
+
+/*  */
+"intro_description_3" = "OpenDocument Reader supports a huge range of other apps to open documents from. A colleague sent a presentation via Gmail? Click the attachment and this app is going to open right away!";
+
+
+

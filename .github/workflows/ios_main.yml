@@ -16,7 +16,7 @@ jobs:
       - name: Install pods
         run: pod install
       - name: Run build.sh
-        run: bash build.sh
+        run: bash build-simulator.sh
       - name: Build
         run: |
           xcodebuild clean build -workspace OpenDocumentReader.xcworkspace -scheme "${scheme}" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO

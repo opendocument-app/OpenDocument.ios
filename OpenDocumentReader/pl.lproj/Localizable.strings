@@ -1,0 +1,74 @@
+/*  */
+"alert_error_generic" = "Jest jakaś przeszkoda. Nie można otworzyć pliku.";
+
+/*  */
+"ok" = "OK";
+
+/*  */
+"no_description" = "No Description";
+
+/*  */
+"alert_unsaved_changes" = "You have unsaved changes";
+
+/*  */
+"alert_save_now" = "Save them now?";
+
+/*  */
+"yes" = "Yes";
+
+/*  */
+"no" = "No";
+
+/*  */
+"menu_edit" = "Edytuj dokument";
+
+/*  */
+"menu_save" = "Zapisz";
+
+/*  */
+"menu_discard_changes" = "Discard changes";
+
+/*  */
+"menu_fullscreen" = "Otwórz tryb pełnoekranowy";
+
+/*  */
+"menu_cloud_print" = "Drukuj dokument";
+
+/*  */
+"menu_help" = "Potrzebujesz pomocy?";
+
+/*  */
+"cancel" = "Cancel";
+
+/*  */
+"alert_document_saved" = "Document saved";
+
+/*  */
+"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+
+/*  */
+"alert_error_password_protected" = "Dokument zabezpieczony jest hasłem";
+
+/*  */
+"alert_enter_password" = "Please enter the password to decrypt this document";
+
+/*  */
+"intro_title_1" = "Otwórz i czytaj swój plik ODF nawet w podróży!";
+
+/*  */
+"intro_title_2" = "Znajdujesz literówkę w swoim dokumencie? Czytnik obsługuje teraz zmiany!";
+
+/*  */
+"intro_title_3" = "Czytaj swoje dokumenty pochodzące z innych aplikacji";
+
+/*  */
+"intro_description_1" = "Przeglądarka OpenDocument Reader umożliwia przeglądanie dokumentów przechowywanych w formacie OpenDocument (.odt, .ods, .odp i .odg). Pliki te są zazwyczaj tworzone przy użyciu programów LibreOffice lub OpenOffice. Ta aplikacja umożliwia również otwieranie tego typu plików na urządzeniu mobilnym, dzięki czemu możesz je czytać również w podróży.";
+
+/*  */
+"intro_description_2" = "Przeglądarka OpenDocument Reader nie tylko pozwala czytać dokumenty na urządzeniu mobilnym, ale także obsługuje ich modyfikowanie. Literówki są usuwane natychmiast, nawet w pociągu!";
+
+/*  */
+"intro_description_3" = "Przeglądarka OpenDocument Reader obsługuje wiele różnych aplikacji, umożliwiając otwieranie w nich dokumentów. Kolega wysłał prezentację za pośrednictwem poczty Gmail? Kliknij załącznik i aplikacja ta natychmiast się otworzy!";
+
+
+

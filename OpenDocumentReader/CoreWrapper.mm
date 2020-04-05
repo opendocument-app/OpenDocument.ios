@@ -10,12 +10,12 @@
 
 #import "CoreWrapper.h"
 
-#include "TranslationHelper.h"
-#include "TranslationConfig.h"
-#include "FileMeta.h"
+#include "odr/OpenDocumentReader.h"
+#include "odr/Config.h"
+#include "odr/Meta.h"
 
 @implementation CoreWrapper {
-    odr::TranslationHelper translator;
+    odr::OpenDocumentReader translator;
     bool initialized;
 }
 
@@ -25,7 +25,7 @@
             _errorCode = 0;
                     
             if (!initialized) {
-                bool opened = translator.openOpenDocument([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+                bool opened = translator.open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
                 if (!opened) {
                     _errorCode = @(-1);
                     return false;
@@ -33,7 +33,7 @@
                 
                 const auto meta = translator.getMeta();
                 
-                bool decrypted = !meta->encrypted;
+                bool decrypted = !meta.encrypted;
                 if (password != nil) {
                     decrypted = translator.decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
                 }
@@ -44,10 +44,10 @@
                 }
                 
                 NSMutableArray *pageNames = [[NSMutableArray alloc] init];
-                if (meta->type == odr::FileType::OPENDOCUMENT_TEXT) {
+                if (meta.type == odr::FileType::OPENDOCUMENT_TEXT) {
                     [pageNames addObject:@"Text document"];
                 } else {
-                    for (auto page = meta->entries.begin(); page != meta->entries.end(); page++) {
+                    for (auto page = meta.entries.begin(); page != meta.entries.end(); page++) {
                         auto pageName = page->name;
                         
                         [pageNames addObject:[NSString stringWithCString:pageName.c_str() encoding:[NSString defaultCStringEncoding]]];
@@ -58,7 +58,7 @@
                 initialized = true;
             }
             
-            odr::TranslationConfig config = {};
+            odr::Config config = {};
             config.editable = editable;
             config.entryOffset = page.intValue;
             config.entryCount = 1;

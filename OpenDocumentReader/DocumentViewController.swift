@@ -115,14 +115,14 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         }
         
         if doc.edit {
-            let alert = UIAlertController(title: "You have unsaved changes", message: "Save them now?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (_) in
+            let alert = UIAlertController(title: NSLocalizedString("alert_unsaved_changes", comment: ""), message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .destructive, handler: { (_) in
                 Analytics.logEvent("alert_unsaved_changes_no", parameters: nil)
 
                 self.discardChanges()
                 self.closeCurrentDocument()
             }))
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default, handler: { (_) in
                 Analytics.logEvent("alert_unsaved_changes_yes", parameters: nil)
 
                 self.saveContent()
@@ -152,31 +152,31 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         if (document?.isOdf ?? false && !(document?.edit ?? false)) {
-            alert.addAction(UIAlertAction(title: "Edit (EXPERIMENTAL)", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("menu_edit", comment: ""), style: .default, handler: { (_) in
                 self.editDocument()
             }))
         }
 
         if document?.edit ?? false {
-            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("menu_save", comment: ""), style: .default, handler: { (_) in
                 self.saveContent()
             }))
             
-            alert.addAction(UIAlertAction(title: "Discard changes", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("menu_discard_changes", comment: ""), style: .default, handler: { (_) in
                 self.discardChanges()
             }))
         }
         
-        alert.addAction(UIAlertAction(title: "Fullscreen", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("menu_fullscreen", comment: ""), style: .default, handler: { (_) in
             self.toggleFullscreen()
         }))
-        alert.addAction(UIAlertAction(title: "Print", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("menu_cloud_print", comment: ""), style: .default, handler: { (_) in
             self.printDocument()
         }))
-        alert.addAction(UIAlertAction(title: "Help!?", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("menu_help", comment: ""), style: .default, handler: { (_) in
             self.showWebsite()
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         
         alert.popoverPresentationController?.sourceView = menuButton.value(forKey: "view") as? UIView
         self.present(alert, animated: true, completion: nil)
@@ -207,10 +207,10 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             let message: String
             let color: UIColor
             if success {
-                message = "Successfully saved"
+                message = NSLocalizedString("alert_document_saved", comment: "")
                 color = .green
             } else {
-                message = "Error while saving"
+                message = NSLocalizedString("alert_error_save_failed", comment: "")
                 color = .red
             }
             
@@ -280,14 +280,14 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             })
         }
         
-        let alert = UIAlertController(title: "Document encrypted", message: "Please enter the password to decrypt this document", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("alert_error_password_protected", comment: ""), message: NSLocalizedString("alert_enter_password", comment: ""), preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.text = ""
         }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { [] (_) in
             self.returnToDocuments("nil" as Any)
         }))
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             
             self.document?.password = textField!.text!

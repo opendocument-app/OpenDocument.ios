@@ -1,0 +1,74 @@
+/*  */
+"alert_error_generic" = "Nekaj je šlo narobe. Datoteke ni bilo mogoče odpreti.";
+
+/*  */
+"ok" = "OK";
+
+/*  */
+"no_description" = "No Description";
+
+/*  */
+"alert_unsaved_changes" = "You have unsaved changes";
+
+/*  */
+"alert_save_now" = "Save them now?";
+
+/*  */
+"yes" = "Yes";
+
+/*  */
+"no" = "No";
+
+/*  */
+"menu_edit" = "Uredi";
+
+/*  */
+"menu_save" = "Shrani";
+
+/*  */
+"menu_discard_changes" = "Discard changes";
+
+/*  */
+"menu_fullscreen" = "Celozaslonski način";
+
+/*  */
+"menu_cloud_print" = "Natisni";
+
+/*  */
+"menu_help" = "Pomoč!?";
+
+/*  */
+"cancel" = "Cancel";
+
+/*  */
+"alert_document_saved" = "Document saved";
+
+/*  */
+"alert_error_save_failed" = "Datoteke ni bilo mogoče shraniti. Prosimo, pišite na support@opendocument.app";
+
+/*  */
+"alert_error_password_protected" = "Dokument je zaščiten z geslom";
+
+/*  */
+"alert_enter_password" = "Please enter the password to decrypt this document";
+
+/*  */
+"intro_title_1" = "Odprite in berite vašo datoteko ODF na poti!!";
+
+/*  */
+"intro_title_2" = "Ste v dokumentu našli napako? Sedaj podpira tudi urejanje!";
+
+/*  */
+"intro_title_3" = "Berite svoje dokumente iz drugih programov";
+
+/*  */
+"intro_description_1" = "OpenDocument Reader omogoča ogled dokumentov, ki so shranjeni v obliki OpenDocument (.odt, .ods, .odp in .odg). Te datoteke se običajno ustvarijo z LibreOfficeom ali OpenOfficeom. Ta program omogoča odpiranje takih datotek tudi na vaši prenosni napravi, da jih lahko berete na poti.";
+
+/*  */
+"intro_description_2" = "OpenDocument Reader ne omogoča samo branje dokumentov na vaši prenosni napravi, ampak tudi njihovo urejanje. Napake lahko popravite v trenutku, tudi na vlaku!";
+
+/*  */
+"intro_description_3" = "OpenDocument Reader supports a huge range of other apps to open documents from. A colleague sent a presentation via Gmail? Click the attachment and this app is going to open right away!";
+
+
+
