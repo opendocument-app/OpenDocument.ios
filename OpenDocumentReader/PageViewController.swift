@@ -12,12 +12,12 @@ class PageViewController: UIPageViewController {
     
     let contentViewController = "contentViewController"
     
-    var headersArray = [Constants.onboarding_header_1,
-                        Constants.onboarding_header_2,
-                        Constants.onboarding_header_3]
-    var subHeadersArray = [Constants.onboarding_subheader_1,
-                           Constants.onboarding_subheader_2,
-                           Constants.onboarding_subheader_3]
+    var headersArray = [NSLocalizedString("intro_title_1", comment: ""),
+                        NSLocalizedString("intro_title_2", comment: ""),
+                        NSLocalizedString("intro_title_3", comment: ""),]
+    var subHeadersArray = [NSLocalizedString("intro_description_1", comment: ""),
+                           NSLocalizedString("intro_description_2", comment: ""),
+                           NSLocalizedString("intro_description_3", comment: ""),]
     var imagesArray = [Constants.onboarding_image_1,
                        Constants.onboarding_image_2,
                        Constants.onboarding_image_3]
