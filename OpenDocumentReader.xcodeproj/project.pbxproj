@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
+		AC125F162435311A008AD515 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC125F182435311A008AD515 /* Localizable.strings */; };
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
 		AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCA23B4FFA700C7BF47 /* Constants.swift */; };
 		AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E21C59A124308C590076C37C /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598224308C3E0076C37C /* libcryptopp-object.a */; };
-		E21C59A324308C590076C37C /* libglogd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598824308C3E0076C37C /* libglogd.a */; };
+		E21C59A324308C590076C37C /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598824308C3E0076C37C /* libglog.a */; };
 		E21C59A424308C590076C37C /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598E24308C3E0076C37C /* libminiz.a */; };
 		E21C59A524308C590076C37C /* libodr_access.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599224308C3E0076C37C /* libodr_access.a */; };
 		E21C59A624308C590076C37C /* libodr_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599424308C3E0076C37C /* libodr_common.a */; };
@@ -162,86 +163,102 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 483F221658B64C798729DBA6;
+			remoteGlobalIDString = 59DBB53456484CB0983C9A43;
 			remoteInfo = "cryptopp-object";
 		};
 		E21C59B124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = EB3EA1E685234474A8FC6AC4;
+			remoteGlobalIDString = CC12E08925BE42A0AA294E15;
 			remoteInfo = glog;
 		};
 		E21C59B324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 6F607BFB2BA846A088D98C30;
+			remoteGlobalIDString = 8EACE2CBC6E34210A50D99F0;
 			remoteInfo = miniz;
 		};
 		E21C59B524308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = BA922A7D95284F5790141791;
+			remoteGlobalIDString = EA8D6D3A69944DD3B6ED464B;
 			remoteInfo = odr;
 		};
 		E21C59B724308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 45C61071D67F4ED1994C6F71;
+			remoteGlobalIDString = E4812450E4264EA3BD05F075;
 			remoteInfo = odr_access;
 		};
 		E21C59B924308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 2AA041F0110141749D4C63FC;
+			remoteGlobalIDString = 55C82E1E9A1C4FB3ADDB6D3C;
 			remoteInfo = odr_common;
 		};
 		E21C59BB24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8C7B74D4C2514560AFF2E42C;
+			remoteGlobalIDString = 8955837D11E449258913A737;
 			remoteInfo = odr_crypto;
 		};
 		E21C59BD24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 50812718488C455E90430EF5;
+			remoteGlobalIDString = EF0C4D7C888C4C7DB71A8BBC;
 			remoteInfo = odr_odf;
 		};
 		E21C59BF24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = FB2996AB774D46358BCEC3BF;
+			remoteGlobalIDString = 7217A617658D40FDA1DDF157;
 			remoteInfo = odr_ooxml;
 		};
 		E21C59C124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = F5E76FDA3FE64060BF9648D1;
+			remoteGlobalIDString = 888A4486ED384BE1B26365E4;
 			remoteInfo = odr_svm;
 		};
 		E21C59C324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = C5AAC7B36DDD4EC0ABA03424;
+			remoteGlobalIDString = 5A020867743D4E9AB2DF2737;
 			remoteInfo = tinyxml2;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
+		AC125F172435311A008AD515 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC125F1924353135008AD515 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC125F1A24353140008AD515 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C12436848F00040B87 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C22436849900040B87 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		AC2D94C3243684B600040B87 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C4243684BF00040B87 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C5243684C700040B87 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C6243684DD00040B87 /* ga */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ga; path = ga.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C7243684E500040B87 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C8243684ED00040B87 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94C9243684F700040B87 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94CA2436854300040B87 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		AC2D94CC2436856600040B87 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC2D94CD2436857100040B87 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		AC384BCA23B4FFA700C7BF47 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		AC73790F2438E52B00F9F3B5 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E21C596324308C3E0076C37C /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = build/Project.xcodeproj; sourceTree = "<group>"; };
@@ -282,7 +299,7 @@
 				E21C59AC24308C5A0076C37C /* libtinyxml2.a in Frameworks */,
 				E21C59A924308C590076C37C /* libodr_ooxml.a in Frameworks */,
 				E21C59A724308C590076C37C /* libodr_crypto.a in Frameworks */,
-				E21C59A324308C590076C37C /* libglogd.a in Frameworks */,
+				E21C59A324308C590076C37C /* libglog.a in Frameworks */,
 				21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */,
 				E21C59A424308C590076C37C /* libminiz.a in Frameworks */,
 			);
@@ -307,7 +324,7 @@
 				E21C598224308C3E0076C37C /* libcryptopp-object.a */,
 				E21C598424308C3E0076C37C /* libcryptopp.dylib */,
 				E21C598624308C3E0076C37C /* libcryptopp.a */,
-				E21C598824308C3E0076C37C /* libglogd.a */,
+				E21C598824308C3E0076C37C /* libglog.a */,
 				E21C598A24308C3E0076C37C /* libgtestd.a */,
 				E21C598C24308C3E0076C37C /* libgtest_maind.a */,
 				E21C598E24308C3E0076C37C /* libminiz.a */,
@@ -374,6 +391,7 @@
 				E2C008FC220F1D570097C594 /* CoreWrapper.h */,
 				E29E4076225A4672002C06E6 /* GoogleService-Info.plist */,
 				E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */,
+				AC125F182435311A008AD515 /* Localizable.strings */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -435,6 +453,21 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				ru,
+				ca,
+				"zh-Hans",
+				cs,
+				da,
+				fr,
+				ga,
+				it,
+				ja,
+				pl,
+				"pt-BR",
+				es,
+				tr,
+				sl,
 			);
 			mainGroup = E2F7ED46220B54D600D63515;
 			productRefGroup = E2F7ED50220B54D600D63515 /* Products */;
@@ -483,10 +516,10 @@
 			remoteRef = E21C598524308C3E0076C37C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		E21C598824308C3E0076C37C /* libglogd.a */ = {
+		E21C598824308C3E0076C37C /* libglog.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libglogd.a;
+			path = libglog.a;
 			remoteRef = E21C598724308C3E0076C37C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -582,6 +615,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC125F162435311A008AD515 /* Localizable.strings in Resources */,
 				E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */,
 				E22EB71C226B66B300053B86 /* Main.storyboard in Resources */,
 				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
@@ -731,6 +765,29 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		AC125F182435311A008AD515 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC125F172435311A008AD515 /* en */,
+				AC125F1924353135008AD515 /* de */,
+				AC125F1A24353140008AD515 /* ru */,
+				AC2D94C12436848F00040B87 /* ca */,
+				AC2D94C22436849900040B87 /* zh-Hans */,
+				AC2D94C3243684B600040B87 /* cs */,
+				AC2D94C4243684BF00040B87 /* da */,
+				AC2D94C5243684C700040B87 /* fr */,
+				AC2D94C6243684DD00040B87 /* ga */,
+				AC2D94C7243684E500040B87 /* it */,
+				AC2D94C8243684ED00040B87 /* ja */,
+				AC2D94C9243684F700040B87 /* pl */,
+				AC2D94CA2436854300040B87 /* pt-BR */,
+				AC2D94CC2436856600040B87 /* es */,
+				AC2D94CD2436857100040B87 /* tr */,
+				AC73790F2438E52B00F9F3B5 /* sl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -746,6 +803,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -809,6 +867,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
