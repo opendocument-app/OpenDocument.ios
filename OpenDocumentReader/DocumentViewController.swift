@@ -10,6 +10,7 @@ import WebKit
 import ScrollableSegmentedControl
 import UIKit.UIPrinter
 import Firebase
+import GoogleMobileAds
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate {
@@ -37,8 +38,9 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
-    
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var bannerView: GADBannerView!
+    @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
     
     private var isFullscreen = false
     
@@ -61,6 +63,15 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         initialSelect = false
         
         document?.webview = self.webview
+        
+        if ConfigurationManager.manager.configuration == Constants.configurationLite {
+            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+        } else {
+            bannerView.isHidden = true
+            bannerViewHeight.constant = 0.0
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

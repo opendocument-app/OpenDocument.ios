@@ -9,4 +9,5 @@ target 'OpenDocumentReader' do
   pod 'Firebase/Storage'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'Google-Mobile-Ads-SDK'
 end
