@@ -7,6 +7,6 @@ target 'OpenDocumentReader' do
   pod 'ScrollableSegmentedControl'
   pod 'Firebase/Core'
   pod 'Firebase/Storage'
-  pod 'Fabric'
-  pod 'Crashlytics'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
 end

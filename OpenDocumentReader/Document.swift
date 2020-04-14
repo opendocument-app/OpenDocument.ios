@@ -124,8 +124,8 @@ class Document: UIDocument {
 
             webview?.evaluateJavaScript("generateDiff()", completionHandler: { (value: Any!, error: Error!) -> Void in
                 if error != nil {
-                    Crashlytics.sharedInstance().recordError(error)
-                    Crashlytics.sharedInstance().throwException()
+                    Crashlytics.crashlytics().record(error: error)
+                    fatalError("generateDiff failed")
 
                     return
                 }
