@@ -12,7 +12,7 @@
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
 		AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCA23B4FFA700C7BF47 /* Constants.swift */; };
 		AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */; };
-		AC6A1CD9243E6B8400CD42EC /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		AC6A1CD9243E6B8400CD42EC /* (null) in Sources */ = {isa = PBXBuildFile; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E21C59A124308C590076C37C /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598224308C3E0076C37C /* libcryptopp-object.a */; };
@@ -165,77 +165,77 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = CA6722A76250494E9FA44E09;
+			remoteGlobalIDString = F0748587B1254DEAB7FA3307;
 			remoteInfo = "cryptopp-object";
 		};
 		E21C59B124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = ECEFA7C8BC7343DDB8899965;
+			remoteGlobalIDString = EA9CE84B8EC446B6A71B3BE1;
 			remoteInfo = glog;
 		};
 		E21C59B324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = EE47534111604DCAA4834544;
+			remoteGlobalIDString = DD6C0AAA92C04B31885F0E9D;
 			remoteInfo = miniz;
 		};
 		E21C59B524308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = A01EA98CC85640BEA360502D;
+			remoteGlobalIDString = EB2C2476E7ED44DE9FD26BEB;
 			remoteInfo = odr;
 		};
 		E21C59B724308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = DF35244C2C104661BCC4D2C9;
+			remoteGlobalIDString = 2FFA20A1CED34888B0CFE2C5;
 			remoteInfo = odr_access;
 		};
 		E21C59B924308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9751D76AA4A94D469A81C366;
+			remoteGlobalIDString = A5CF250CA03B4D1FB203B8F3;
 			remoteInfo = odr_common;
 		};
 		E21C59BB24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 4E4BCA79568347FBA174C1CD;
+			remoteGlobalIDString = 56BDBD0290FB454F9E65CA81;
 			remoteInfo = odr_crypto;
 		};
 		E21C59BD24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8C96B54154A24BADAD04C13A;
+			remoteGlobalIDString = A180E8089EFD4125A128CEBF;
 			remoteInfo = odr_odf;
 		};
 		E21C59BF24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 44F008A19F7A4232B067BC8C;
+			remoteGlobalIDString = D4D6F925BDC74B84AC9755AC;
 			remoteInfo = odr_ooxml;
 		};
 		E21C59C124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9CD38C9F8B2943FBBF96B8D6;
+			remoteGlobalIDString = 8131FA5850C34C8787D8D9D5;
 			remoteInfo = odr_svm;
 		};
 		E21C59C324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 424F312439B64A95962F1546;
+			remoteGlobalIDString = DB950AD031B8403A8CE920BC;
 			remoteInfo = tinyxml2;
 		};
 /* End PBXContainerItemProxy section */
@@ -702,7 +702,7 @@
 				E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */,
 				AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */,
 				E22EB718226B633500053B86 /* Document.swift in Sources */,
-				AC6A1CD9243E6B8400CD42EC /* BuildFile in Sources */,
+				AC6A1CD9243E6B8400CD42EC /* (null) in Sources */,
 				AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */,
 				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
 				E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */,
@@ -809,7 +809,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		ACD9BE412444A5BB009014E6 /* Full */ = {
+		AC3AE6432447ACD20006C394 /* Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -844,17 +844,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -864,24 +858,24 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Full;
 		};
-		ACD9BE422444A5BB009014E6 /* Full */ = {
+		AC3AE6442447ACD20006C394 /* Full */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9486CF1B73BC18A67EE4DB5B /* Pods-OpenDocumentReader.full.xcconfig */;
+			baseConfigurationReference = 97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
-				DEVELOPMENT_TEAM = WFGT6GW29Z;
+				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
@@ -897,13 +891,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = metaxa.odr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Full;
 		};
-		ACD9BE432444A5C1009014E6 /* Lite */ = {
+		AC3AE64B2447AD230006C394 /* Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -938,17 +931,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -958,24 +945,24 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Lite;
 		};
-		ACD9BE442444A5C1009014E6 /* Lite */ = {
+		AC3AE64C2447AD230006C394 /* Lite */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0AFB82E80A876C70BD198AC /* Pods-OpenDocumentReader.lite.xcconfig */;
+			baseConfigurationReference = 97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
-				DEVELOPMENT_TEAM = WFGT6GW29Z;
+				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
@@ -1185,9 +1172,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED63220B54D700D63515 /* Debug */,
-				ACD9BE432444A5C1009014E6 /* Lite */,
-				ACD9BE412444A5BB009014E6 /* Full */,
 				E2F7ED64220B54D700D63515 /* Release */,
+				AC3AE64B2447AD230006C394 /* Lite */,
+				AC3AE6432447ACD20006C394 /* Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1196,9 +1183,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED66220B54D700D63515 /* Debug */,
-				ACD9BE442444A5C1009014E6 /* Lite */,
-				ACD9BE422444A5BB009014E6 /* Full */,
 				E2F7ED67220B54D700D63515 /* Release */,
+				AC3AE64C2447AD230006C394 /* Lite */,
+				AC3AE6442447ACD20006C394 /* Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
