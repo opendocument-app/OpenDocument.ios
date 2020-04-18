@@ -64,9 +64,24 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         document?.webview = self.webview
         
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        
+        loadBannerAd()
+    }
+    
+    func loadBannerAd() {
         if ConfigurationManager.manager.configuration == Constants.configurationLite {
-            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-            bannerView.rootViewController = self
+            let frame = { () -> CGRect in
+              if #available(iOS 11.0, *) {
+                return view.frame.inset(by: view.safeAreaInsets)
+              } else {
+                return view.frame
+              }
+            }()
+            let viewWidth = frame.size.width
+
+            bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
             bannerView.load(GADRequest())
         } else {
             bannerView.isHidden = true
