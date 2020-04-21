@@ -3,11 +3,12 @@ import Foundation
 struct ConfigurationManager {
     static let manager = ConfigurationManager()
     
-    private(set) var configuration: String!
+    private(set) var configuration: AppType!
     
     private init () {
-        if let configuration = Bundle.main.infoDictionary?["Configurations"] as? String {
-            self.configuration = configuration
-        } 
+        
+        if let productId = Bundle.main.bundleIdentifier {
+            configuration = AppType(rawValue: productId.lowercased()) ?? .lite
+        }
     }
 }
