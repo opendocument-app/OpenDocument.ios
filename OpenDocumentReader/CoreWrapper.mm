@@ -83,9 +83,15 @@
         try {
             _errorCode = 0;
             
-            bool translated = translator.backTranslate([diff cStringUsingEncoding:NSUTF8StringEncoding], [outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
-            if (!translated) {
+            bool success = translator.edit([diff cStringUsingEncoding:NSUTF8StringEncoding]);
+            if (!success) {
                 _errorCode = @(-4);
+                return false;
+            }
+            
+            success = translator.save([outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+            if (!success) {
+                _errorCode = @(-5);
                 return false;
             }
         } catch (...) {

@@ -135,7 +135,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     @IBAction func returnToDocuments(_ sender: Any) {
         guard let doc = document else {
-            Crashlytics.sharedInstance().throwException()
+            fatalError("document is null")
 
             return
         }
@@ -165,7 +165,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     func closeCurrentDocument() {
         guard let doc = document else {
-            Crashlytics.sharedInstance().throwException()
+            fatalError("document is null")
 
             return
         }
@@ -212,7 +212,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         Analytics.logEvent("menu_edit_discard", parameters: nil)
 
         guard let doc = document else {
-            Crashlytics.sharedInstance().throwException()
+            fatalError("document is null")
 
             return
         }
@@ -224,7 +224,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         Analytics.logEvent("menu_edit_save", parameters: nil)
 
         guard let doc = document else {
-            Crashlytics.sharedInstance().throwException()
+            fatalError("document is null")
 
             return
         }
