@@ -13,7 +13,7 @@ import Firebase
 import GoogleMobileAds
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate {
+class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate {
     
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -64,6 +64,7 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         
         document?.webview = self.webview
         
+        bannerView.delegate = self
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerView.rootViewController = self
         
@@ -84,11 +85,19 @@ class DocumentViewController: UIViewController, DocumentDelegate {
             bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
             bannerView.load(GADRequest())
         } else {
-            bannerView.isHidden = true
-            bannerViewHeight.constant = 0.0
+            hideBannerView()
         }
     }
+
+    func hideBannerView() {
+        bannerView.isHidden = true
+        bannerViewHeight.constant = 0.0
+    }
     
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        hideBannerView()
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
