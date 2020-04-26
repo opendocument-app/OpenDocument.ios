@@ -20,6 +20,7 @@
 #import "GDTCORLifecycle.h"
 #import "GDTCORPlatform.h"
 #import "GDTCORPrioritizer.h"
+#import "GDTCORReachability.h"
 #import "GDTCORRegistrar.h"
 #import "GDTCORStoredEvent.h"
 #import "GDTCORTargets.h"
