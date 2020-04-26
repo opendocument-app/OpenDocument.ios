@@ -10,12 +10,12 @@
 
 #import "CoreWrapper.h"
 
-#include "odr/OpenDocumentReader.h"
+#include "odr/Reader.h"
 #include "odr/Config.h"
 #include "odr/Meta.h"
 
 @implementation CoreWrapper {
-    odr::OpenDocumentReader translator;
+    odr::Reader translator;
     bool initialized;
 }
 
@@ -31,7 +31,7 @@
                     return false;
                 }
                 
-                const auto meta = translator.getMeta();
+                const auto meta = translator.meta();
                 
                 bool decrypted = !meta.encrypted;
                 if (password != nil) {
