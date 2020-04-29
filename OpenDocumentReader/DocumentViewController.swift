@@ -10,9 +10,10 @@ import WebKit
 import ScrollableSegmentedControl
 import UIKit.UIPrinter
 import Firebase
+import GoogleMobileAds
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate {
+class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate {
     
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -37,8 +38,9 @@ class DocumentViewController: UIViewController, DocumentDelegate {
     
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
-    
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var bannerView: GADBannerView!
+    @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
     
     private var isFullscreen = false
     
@@ -61,8 +63,41 @@ class DocumentViewController: UIViewController, DocumentDelegate {
         initialSelect = false
         
         document?.webview = self.webview
+        
+        bannerView.delegate = self
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        
+        loadBannerAd()
     }
     
+    func loadBannerAd() {
+        if ConfigurationManager.manager.configuration == .lite {
+            let frame = { () -> CGRect in
+              if #available(iOS 11.0, *) {
+                return view.frame.inset(by: view.safeAreaInsets)
+              } else {
+                return view.frame
+              }
+            }()
+            let viewWidth = frame.size.width
+
+            bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+            bannerView.load(GADRequest())
+        } else {
+            hideBannerView()
+        }
+    }
+
+    func hideBannerView() {
+        bannerView.isHidden = true
+        bannerViewHeight.constant = 0.0
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        hideBannerView()
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }

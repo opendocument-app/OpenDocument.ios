@@ -7,6 +7,7 @@ target 'OpenDocumentReader' do
   pod 'ScrollableSegmentedControl'
   pod 'Firebase/Core'
   pod 'Firebase/Storage'
+  pod 'Google-Mobile-Ads-SDK'
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
 end

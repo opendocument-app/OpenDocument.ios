@@ -12,6 +12,8 @@
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
 		AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCA23B4FFA700C7BF47 /* Constants.swift */; };
 		AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */; };
+		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
+		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
 		E22EB718226B633500053B86 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB717226B633500053B86 /* Document.swift */; };
@@ -253,6 +255,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release lite.xcconfig"; sourceTree = "<group>"; };
+		9486CF1B73BC18A67EE4DB5B /* Pods-OpenDocumentReader.full.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.full.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.full.xcconfig"; sourceTree = "<group>"; };
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
 		AC125F172435311A008AD515 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC125F1924353135008AD515 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -273,7 +277,10 @@
 		AC384BCA23B4FFA700C7BF47 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AC73790F2438E52B00F9F3B5 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ACA46528244E403900A5DA7A /* AppType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppType.swift; sourceTree = "<group>"; };
+		ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
+		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E21C596324308C3E0076C37C /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = build/Project.xcodeproj; sourceTree = "<group>"; };
 		E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -294,6 +301,7 @@
 		E2F7ED60220B54D700D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0AFB82E80A876C70BD198AC /* Pods-OpenDocumentReader.lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.lite.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +335,10 @@
 			children = (
 				B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */,
 				97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */,
+				F0AFB82E80A876C70BD198AC /* Pods-OpenDocumentReader.lite.xcconfig */,
+				9486CF1B73BC18A67EE4DB5B /* Pods-OpenDocumentReader.full.xcconfig */,
+				C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */,
+				481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -391,12 +403,14 @@
 			isa = PBXGroup;
 			children = (
 				E2F7ED52220B54D600D63515 /* AppDelegate.swift */,
+				ACA46528244E403900A5DA7A /* AppType.swift */,
 				E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */,
 				E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */,
 				E22EB719226B65E300053B86 /* DocumentViewController.swift */,
 				AC384BCA23B4FFA700C7BF47 /* Constants.swift */,
 				AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */,
 				AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */,
+				ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */,
 				E22EB717226B633500053B86 /* Document.swift */,
 				E22EB71B226B66B300053B86 /* Main.storyboard */,
 				E2F7ED5D220B54D700D63515 /* Assets.xcassets */,
@@ -729,6 +743,8 @@
 				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
 				E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */,
 				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
+				ACA46529244E403900A5DA7A /* AppType.swift in Sources */,
+				ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */,
 				AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */,
 				E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */,
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,
@@ -830,6 +846,191 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AC8468CB244E255400E96707 /* Debug Lite */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug Lite";
+		};
+		AC8468CC244E255400E96707 /* Debug Lite */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
+				BUNDLE_ID_SUFFIX = .lite;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 18;
+				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
+				);
+				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.14;
+				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug Lite";
+		};
+		AC8468CF244E256900E96707 /* Release Lite */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release Lite";
+		};
+		AC8468D0244E256900E96707 /* Release Lite */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
+				BUNDLE_ID_SUFFIX = .lite;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 18;
+				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
+				);
+				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.14;
+				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release Lite";
+		};
 		E2F7ED63220B54D700D63515 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -957,6 +1158,8 @@
 			baseConfigurationReference = B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
+				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
@@ -973,8 +1176,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.14;
-				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -987,6 +1190,8 @@
 			baseConfigurationReference = 97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
+				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
@@ -1003,8 +1208,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.14;
-				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1018,7 +1223,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED63220B54D700D63515 /* Debug */,
+				AC8468CB244E255400E96707 /* Debug Lite */,
 				E2F7ED64220B54D700D63515 /* Release */,
+				AC8468CF244E256900E96707 /* Release Lite */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1027,7 +1234,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED66220B54D700D63515 /* Debug */,
+				AC8468CC244E255400E96707 /* Debug Lite */,
 				E2F7ED67220B54D700D63515 /* Release */,
+				AC8468D0244E256900E96707 /* Release Lite */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
