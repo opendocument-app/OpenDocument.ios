@@ -22,6 +22,7 @@
 		E23795302274844400BA7238 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E237952F2274844400BA7238 /* AdSupport.framework */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
 		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
+		E2B55504245F13570077ED85 /* libodr_oldms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B55503245F13570077ED85 /* libodr_oldms.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
 		E2C8C15C2441B27F00B46ABE /* libodr-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E22E08EB2441B187001A374C /* libodr-static.a */; };
 		E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */; };
@@ -158,70 +159,70 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 863F42349A2B4C2DAA6F4BF4;
+			remoteGlobalIDString = 4B6E795B0D8C417A98BD129E;
 			remoteInfo = "cryptopp-object";
 		};
 		E21C59B124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 60818655F7794064BBA36A8B;
+			remoteGlobalIDString = E0ABB238A9EC470EBEBB62B5;
 			remoteInfo = glog;
 		};
 		E21C59B324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9BF06105F33B4BCBB05D5967;
+			remoteGlobalIDString = EEAA521A80BA460389C970FA;
 			remoteInfo = miniz;
 		};
 		E21C59B724308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 84FA96B9189D4AE7B520FB4D;
+			remoteGlobalIDString = C6EFE10CADE1477989491291;
 			remoteInfo = odr_access;
 		};
 		E21C59B924308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = B2BD8B2346414E67A2654A47;
+			remoteGlobalIDString = 4F3F25AF554D46488C577608;
 			remoteInfo = odr_common;
 		};
 		E21C59BB24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = C20B4F00424241B3A7416861;
+			remoteGlobalIDString = 40524A5BF9B24973BA48EBC1;
 			remoteInfo = odr_crypto;
 		};
 		E21C59BD24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 2D9075A052EF4DDC94D2010B;
+			remoteGlobalIDString = 010BFDD8714043BC86CBA0CF;
 			remoteInfo = odr_odf;
 		};
 		E21C59BF24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 74E01B09B06E4D5ABBACC785;
+			remoteGlobalIDString = 3F5AABCACC2A4378A239114A;
 			remoteInfo = odr_ooxml;
 		};
 		E21C59C124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = CF2AC648DB984EE4A4D59C4B;
+			remoteGlobalIDString = 91BA4DA8A3204A52B26474EA;
 			remoteInfo = odr_svm;
 		};
 		E21C59C324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = B225F7F4ECA74B2EBB0F905B;
+			remoteGlobalIDString = A23EED49777444A892DE00A7;
 			remoteInfo = tinyxml2;
 		};
 		E22E08E62441B187001A374C /* PBXContainerItemProxy */ = {
@@ -245,11 +246,25 @@
 			remoteGlobalIDString = 94CADBFF2C3C41F7BD0C332C;
 			remoteInfo = "odr-static";
 		};
+		E2B55502245F13570077ED85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B07595C8B31F496C995B72CD;
+			remoteInfo = odr_oldms;
+		};
+		E2B55505245F13660077ED85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E1A516391F9743A599E88280;
+			remoteInfo = odr_oldms;
+		};
 		E2C8C15D2441B28900B46ABE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 94E93754000A4FB18C74638A;
+			remoteGlobalIDString = AD8F5D553FD64F7AA415E03E;
 			remoteInfo = "odr-static";
 		};
 /* End PBXContainerItemProxy section */
@@ -316,6 +331,7 @@
 				E2C8C15C2441B27F00B46ABE /* libodr-static.a in Frameworks */,
 				E2D2F06C2441BB5600C2F88E /* libtinyxml2.a in Frameworks */,
 				E2D2F0692441BB5600C2F88E /* libodr_odf.a in Frameworks */,
+				E2B55504245F13570077ED85 /* libodr_oldms.a in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
 				E2D2F0662441BB5500C2F88E /* libodr_access.a in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
@@ -361,6 +377,7 @@
 				E21C599424308C3E0076C37C /* libodr_common.a */,
 				E21C599624308C3E0076C37C /* libodr_crypto.a */,
 				E21C599824308C3E0076C37C /* libodr_odf.a */,
+				E2B55503245F13570077ED85 /* libodr_oldms.a */,
 				E21C599A24308C3E0076C37C /* libodr_ooxml.a */,
 				E21C599C24308C3E0076C37C /* libodr_svm.a */,
 				E21C599E24308C3E0076C37C /* libtinyxml2.a */,
@@ -443,6 +460,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E2B55506245F13660077ED85 /* PBXTargetDependency */,
 				E2C8C15E2441B28900B46ABE /* PBXTargetDependency */,
 				E21C59AE24308C720076C37C /* PBXTargetDependency */,
 				E21C59B224308C720076C37C /* PBXTargetDependency */,
@@ -653,6 +671,13 @@
 			remoteRef = E22E08EA2441B187001A374C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		E2B55503245F13570077ED85 /* libodr_oldms.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libodr_oldms.a;
+			remoteRef = E2B55502245F13570077ED85 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -804,6 +829,11 @@
 			name = tinyxml2;
 			targetProxy = E21C59C324308C720076C37C /* PBXContainerItemProxy */;
 		};
+		E2B55506245F13660077ED85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = odr_oldms;
+			targetProxy = E2B55505245F13660077ED85 /* PBXContainerItemProxy */;
+		};
 		E2C8C15E2441B28900B46ABE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "odr-static";
@@ -919,7 +949,7 @@
 				BUNDLE_ID_SUFFIX = .lite;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -932,7 +962,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1009,7 +1039,7 @@
 				BUNDLE_ID_SUFFIX = .lite;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1022,7 +1052,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1162,7 +1192,7 @@
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1175,7 +1205,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1194,7 +1224,7 @@
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1207,7 +1237,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;

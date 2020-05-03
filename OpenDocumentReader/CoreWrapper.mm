@@ -10,12 +10,12 @@
 
 #import "CoreWrapper.h"
 
-#include "odr/Reader.h"
+#include "odr/Document.h"
 #include "odr/Config.h"
 #include "odr/Meta.h"
 
 @implementation CoreWrapper {
-    odr::Reader translator;
+    odr::DocumentNoExcept *translator;
     bool initialized;
 }
 
@@ -25,17 +25,18 @@
             _errorCode = 0;
                     
             if (!initialized) {
-                bool opened = translator.open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
-                if (!opened) {
+                translator = odr::DocumentNoExcept::open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]).release();
+                
+                if (translator == nullptr) {
                     _errorCode = @(-1);
                     return false;
                 }
                 
-                const auto meta = translator.meta();
+                const auto meta = translator->meta();
                 
                 bool decrypted = !meta.encrypted;
                 if (password != nil) {
-                    decrypted = translator.decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
+                    decrypted = translator->decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
                 }
                 
                 if (!decrypted) {
@@ -64,7 +65,7 @@
             config.entryCount = 1;
             config.tableLimitRows = 10000;
             
-            bool translated = translator.translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
+            bool translated = translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
             if (!translated) {
                 _errorCode = @(-4);
                 return false;
@@ -83,13 +84,13 @@
         try {
             _errorCode = 0;
             
-            bool success = translator.edit([diff cStringUsingEncoding:NSUTF8StringEncoding]);
+            bool success = translator->edit([diff cStringUsingEncoding:NSUTF8StringEncoding]);
             if (!success) {
                 _errorCode = @(-4);
                 return false;
             }
             
-            success = translator.save([outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+            success = translator->save([outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
             if (!success) {
                 _errorCode = @(-5);
                 return false;
