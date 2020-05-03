@@ -12,18 +12,9 @@
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
 		AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCA23B4FFA700C7BF47 /* Constants.swift */; };
 		AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */; };
+		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
+		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
-		E21C59A124308C590076C37C /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598224308C3E0076C37C /* libcryptopp-object.a */; };
-		E21C59A324308C590076C37C /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598824308C3E0076C37C /* libglog.a */; };
-		E21C59A424308C590076C37C /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598E24308C3E0076C37C /* libminiz.a */; };
-		E21C59A524308C590076C37C /* libodr_access.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599224308C3E0076C37C /* libodr_access.a */; };
-		E21C59A624308C590076C37C /* libodr_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599424308C3E0076C37C /* libodr_common.a */; };
-		E21C59A724308C590076C37C /* libodr_crypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599624308C3E0076C37C /* libodr_crypto.a */; };
-		E21C59A824308C590076C37C /* libodr_odf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599824308C3E0076C37C /* libodr_odf.a */; };
-		E21C59A924308C590076C37C /* libodr_ooxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599A24308C3E0076C37C /* libodr_ooxml.a */; };
-		E21C59AA24308C5A0076C37C /* libodr_svm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599C24308C3E0076C37C /* libodr_svm.a */; };
-		E21C59AB24308C5A0076C37C /* libodr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599024308C3E0076C37C /* libodr.a */; };
-		E21C59AC24308C5A0076C37C /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599E24308C3E0076C37C /* libtinyxml2.a */; };
 		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
 		E22EB718226B633500053B86 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB717226B633500053B86 /* Document.swift */; };
 		E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB719226B65E300053B86 /* DocumentViewController.swift */; };
@@ -31,8 +22,20 @@
 		E23795302274844400BA7238 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E237952F2274844400BA7238 /* AdSupport.framework */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
 		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
+		E2B55504245F13570077ED85 /* libodr_oldms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B55503245F13570077ED85 /* libodr_oldms.a */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
+		E2C8C15C2441B27F00B46ABE /* libodr-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E22E08EB2441B187001A374C /* libodr-static.a */; };
 		E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */; };
+		E2D2F0642441BB5500C2F88E /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598824308C3E0076C37C /* libglog.a */; };
+		E2D2F0652441BB5500C2F88E /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598E24308C3E0076C37C /* libminiz.a */; };
+		E2D2F0662441BB5500C2F88E /* libodr_access.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599224308C3E0076C37C /* libodr_access.a */; };
+		E2D2F0672441BB5500C2F88E /* libodr_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599424308C3E0076C37C /* libodr_common.a */; };
+		E2D2F0682441BB5600C2F88E /* libodr_crypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599624308C3E0076C37C /* libodr_crypto.a */; };
+		E2D2F0692441BB5600C2F88E /* libodr_odf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599824308C3E0076C37C /* libodr_odf.a */; };
+		E2D2F06A2441BB5600C2F88E /* libodr_ooxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599A24308C3E0076C37C /* libodr_ooxml.a */; };
+		E2D2F06B2441BB5600C2F88E /* libodr_svm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599C24308C3E0076C37C /* libodr_svm.a */; };
+		E2D2F06C2441BB5600C2F88E /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C599E24308C3E0076C37C /* libtinyxml2.a */; };
+		E2D2F06D2441BBA200C2F88E /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21C598224308C3E0076C37C /* libcryptopp-object.a */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
 		E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5D220B54D700D63515 /* Assets.xcassets */; };
@@ -96,13 +99,6 @@
 			remoteGlobalIDString = FE69BCE5C804491F8937A7B3;
 			remoteInfo = miniz;
 		};
-		E21C598F24308C3E0076C37C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 12E6C7F674EF41DB8F412071;
-			remoteInfo = odr;
-		};
 		E21C599124308C3E0076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
@@ -163,82 +159,119 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = A62509A9557F4E92908A067C;
+			remoteGlobalIDString = 4B6E795B0D8C417A98BD129E;
 			remoteInfo = "cryptopp-object";
 		};
 		E21C59B124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = CEDAD0E387D14D49B22887C9;
+			remoteGlobalIDString = E0ABB238A9EC470EBEBB62B5;
 			remoteInfo = glog;
 		};
 		E21C59B324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 9BE247E39ACC4A35B0310BDF;
+			remoteGlobalIDString = EEAA521A80BA460389C970FA;
 			remoteInfo = miniz;
-		};
-		E21C59B524308C720076C37C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B3312A6E2A5642299390910E;
-			remoteInfo = odr;
 		};
 		E21C59B724308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 7B66EE5A409C4E8CBF03C55B;
+			remoteGlobalIDString = C6EFE10CADE1477989491291;
 			remoteInfo = odr_access;
 		};
 		E21C59B924308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 7FCA09740AE0412C973751F4;
+			remoteGlobalIDString = 4F3F25AF554D46488C577608;
 			remoteInfo = odr_common;
 		};
 		E21C59BB24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 714662803DFB448890C736E9;
+			remoteGlobalIDString = 40524A5BF9B24973BA48EBC1;
 			remoteInfo = odr_crypto;
 		};
 		E21C59BD24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = A5B45BFEEFFA47C8A8570F1C;
+			remoteGlobalIDString = 010BFDD8714043BC86CBA0CF;
 			remoteInfo = odr_odf;
 		};
 		E21C59BF24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 75EB44DB7B02498A841AADF1;
+			remoteGlobalIDString = 3F5AABCACC2A4378A239114A;
 			remoteInfo = odr_ooxml;
 		};
 		E21C59C124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 07C09E9DBF0C46D7AE25AB14;
+			remoteGlobalIDString = 91BA4DA8A3204A52B26474EA;
 			remoteInfo = odr_svm;
 		};
 		E21C59C324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = B951B32DE6CB476FBF4105AF;
+			remoteGlobalIDString = A23EED49777444A892DE00A7;
 			remoteInfo = tinyxml2;
+		};
+		E22E08E62441B187001A374C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BFEB5B61E0EF47BE9D850FDB;
+			remoteInfo = meta;
+		};
+		E22E08E82441B187001A374C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B11FD0616A5344BDA2F2F7AA;
+			remoteInfo = "odr-shared";
+		};
+		E22E08EA2441B187001A374C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 94CADBFF2C3C41F7BD0C332C;
+			remoteInfo = "odr-static";
+		};
+		E2B55502245F13570077ED85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B07595C8B31F496C995B72CD;
+			remoteInfo = odr_oldms;
+		};
+		E2B55505245F13660077ED85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E1A516391F9743A599E88280;
+			remoteInfo = odr_oldms;
+		};
+		E2C8C15D2441B28900B46ABE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AD8F5D553FD64F7AA415E03E;
+			remoteInfo = "odr-static";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release lite.xcconfig"; sourceTree = "<group>"; };
+		9486CF1B73BC18A67EE4DB5B /* Pods-OpenDocumentReader.full.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.full.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.full.xcconfig"; sourceTree = "<group>"; };
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
 		AC125F172435311A008AD515 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC125F1924353135008AD515 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -259,7 +292,10 @@
 		AC384BCA23B4FFA700C7BF47 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AC73790F2438E52B00F9F3B5 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ACA46528244E403900A5DA7A /* AppType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppType.swift; sourceTree = "<group>"; };
+		ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
+		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E21C596324308C3E0076C37C /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = build/Project.xcodeproj; sourceTree = "<group>"; };
 		E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -280,6 +316,7 @@
 		E2F7ED60220B54D700D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0AFB82E80A876C70BD198AC /* Pods-OpenDocumentReader.lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.lite.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,21 +324,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E21C59AA24308C5A0076C37C /* libodr_svm.a in Frameworks */,
-				E21C59A624308C590076C37C /* libodr_common.a in Frameworks */,
+				E2D2F06B2441BB5600C2F88E /* libodr_svm.a in Frameworks */,
+				E2D2F06D2441BBA200C2F88E /* libcryptopp-object.a in Frameworks */,
+				E2D2F0672441BB5500C2F88E /* libodr_common.a in Frameworks */,
 				E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */,
-				E21C59A124308C590076C37C /* libcryptopp-object.a in Frameworks */,
-				E21C59A824308C590076C37C /* libodr_odf.a in Frameworks */,
+				E2C8C15C2441B27F00B46ABE /* libodr-static.a in Frameworks */,
+				E2D2F06C2441BB5600C2F88E /* libtinyxml2.a in Frameworks */,
+				E2D2F0692441BB5600C2F88E /* libodr_odf.a in Frameworks */,
+				E2B55504245F13570077ED85 /* libodr_oldms.a in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
-				E21C59A524308C590076C37C /* libodr_access.a in Frameworks */,
+				E2D2F0662441BB5500C2F88E /* libodr_access.a in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
-				E21C59AB24308C5A0076C37C /* libodr.a in Frameworks */,
-				E21C59AC24308C5A0076C37C /* libtinyxml2.a in Frameworks */,
-				E21C59A924308C590076C37C /* libodr_ooxml.a in Frameworks */,
-				E21C59A724308C590076C37C /* libodr_crypto.a in Frameworks */,
-				E21C59A324308C590076C37C /* libglog.a in Frameworks */,
+				E2D2F06A2441BB5600C2F88E /* libodr_ooxml.a in Frameworks */,
+				E2D2F0682441BB5600C2F88E /* libodr_crypto.a in Frameworks */,
+				E2D2F0642441BB5500C2F88E /* libglog.a in Frameworks */,
 				21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */,
-				E21C59A424308C590076C37C /* libminiz.a in Frameworks */,
+				E2D2F0652441BB5500C2F88E /* libminiz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +351,10 @@
 			children = (
 				B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */,
 				97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */,
+				F0AFB82E80A876C70BD198AC /* Pods-OpenDocumentReader.lite.xcconfig */,
+				9486CF1B73BC18A67EE4DB5B /* Pods-OpenDocumentReader.full.xcconfig */,
+				C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */,
+				481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -327,12 +369,15 @@
 				E21C598824308C3E0076C37C /* libglog.a */,
 				E21C598A24308C3E0076C37C /* libgtestd.a */,
 				E21C598C24308C3E0076C37C /* libgtest_maind.a */,
+				E22E08E72441B187001A374C /* meta */,
 				E21C598E24308C3E0076C37C /* libminiz.a */,
-				E21C599024308C3E0076C37C /* libodr.a */,
+				E22E08E92441B187001A374C /* libodr-shared.dylib */,
+				E22E08EB2441B187001A374C /* libodr-static.a */,
 				E21C599224308C3E0076C37C /* libodr_access.a */,
 				E21C599424308C3E0076C37C /* libodr_common.a */,
 				E21C599624308C3E0076C37C /* libodr_crypto.a */,
 				E21C599824308C3E0076C37C /* libodr_odf.a */,
+				E2B55503245F13570077ED85 /* libodr_oldms.a */,
 				E21C599A24308C3E0076C37C /* libodr_ooxml.a */,
 				E21C599C24308C3E0076C37C /* libodr_svm.a */,
 				E21C599E24308C3E0076C37C /* libtinyxml2.a */,
@@ -375,12 +420,14 @@
 			isa = PBXGroup;
 			children = (
 				E2F7ED52220B54D600D63515 /* AppDelegate.swift */,
+				ACA46528244E403900A5DA7A /* AppType.swift */,
 				E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */,
 				E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */,
 				E22EB719226B65E300053B86 /* DocumentViewController.swift */,
 				AC384BCA23B4FFA700C7BF47 /* Constants.swift */,
 				AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */,
 				AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */,
+				ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */,
 				E22EB717226B633500053B86 /* Document.swift */,
 				E22EB71B226B66B300053B86 /* Main.storyboard */,
 				E2F7ED5D220B54D700D63515 /* Assets.xcassets */,
@@ -413,10 +460,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				E2B55506245F13660077ED85 /* PBXTargetDependency */,
+				E2C8C15E2441B28900B46ABE /* PBXTargetDependency */,
 				E21C59AE24308C720076C37C /* PBXTargetDependency */,
 				E21C59B224308C720076C37C /* PBXTargetDependency */,
 				E21C59B424308C720076C37C /* PBXTargetDependency */,
-				E21C59B624308C720076C37C /* PBXTargetDependency */,
 				E21C59B824308C720076C37C /* PBXTargetDependency */,
 				E21C59BA24308C720076C37C /* PBXTargetDependency */,
 				E21C59BC24308C720076C37C /* PBXTargetDependency */,
@@ -544,13 +592,6 @@
 			remoteRef = E21C598D24308C3E0076C37C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		E21C599024308C3E0076C37C /* libodr.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libodr.a;
-			remoteRef = E21C598F24308C3E0076C37C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		E21C599224308C3E0076C37C /* libodr_access.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -606,6 +647,35 @@
 			name = translate;
 			path = translate.app;
 			remoteRef = E21C599F24308C3E0076C37C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E22E08E72441B187001A374C /* meta */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			name = meta;
+			path = meta.app;
+			remoteRef = E22E08E62441B187001A374C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E22E08E92441B187001A374C /* libodr-shared.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = "libodr-shared.dylib";
+			remoteRef = E22E08E82441B187001A374C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E22E08EB2441B187001A374C /* libodr-static.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libodr-static.a";
+			remoteRef = E22E08EA2441B187001A374C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E2B55503245F13570077ED85 /* libodr_oldms.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libodr_oldms.a;
+			remoteRef = E2B55502245F13570077ED85 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -665,7 +735,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
+			shellScript = "${PODS_ROOT}/FirebaseCrashlytics/run\n";
 		};
 		F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -698,6 +768,8 @@
 				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
 				E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */,
 				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
+				ACA46529244E403900A5DA7A /* AppType.swift in Sources */,
+				ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */,
 				AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */,
 				E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */,
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,
@@ -721,11 +793,6 @@
 			isa = PBXTargetDependency;
 			name = miniz;
 			targetProxy = E21C59B324308C720076C37C /* PBXContainerItemProxy */;
-		};
-		E21C59B624308C720076C37C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = odr;
-			targetProxy = E21C59B524308C720076C37C /* PBXContainerItemProxy */;
 		};
 		E21C59B824308C720076C37C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -761,6 +828,16 @@
 			isa = PBXTargetDependency;
 			name = tinyxml2;
 			targetProxy = E21C59C324308C720076C37C /* PBXContainerItemProxy */;
+		};
+		E2B55506245F13660077ED85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = odr_oldms;
+			targetProxy = E2B55505245F13660077ED85 /* PBXContainerItemProxy */;
+		};
+		E2C8C15E2441B28900B46ABE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "odr-static";
+			targetProxy = E2C8C15D2441B28900B46ABE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -799,6 +876,191 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AC8468CB244E255400E96707 /* Debug Lite */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug Lite";
+		};
+		AC8468CC244E255400E96707 /* Debug Lite */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
+				BUNDLE_ID_SUFFIX = .lite;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
+				);
+				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.15;
+				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug Lite";
+		};
+		AC8468CF244E256900E96707 /* Release Lite */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release Lite";
+		};
+		AC8468D0244E256900E96707 /* Release Lite */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
+				BUNDLE_ID_SUFFIX = .lite;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
+				);
+				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.15;
+				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release Lite";
+		};
 		E2F7ED63220B54D700D63515 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -926,9 +1188,11 @@
 			baseConfigurationReference = B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
+				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -941,9 +1205,9 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.14;
-				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -956,9 +1220,11 @@
 			baseConfigurationReference = 97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
+				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -971,9 +1237,9 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.14;
-				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -987,7 +1253,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED63220B54D700D63515 /* Debug */,
+				AC8468CB244E255400E96707 /* Debug Lite */,
 				E2F7ED64220B54D700D63515 /* Release */,
+				AC8468CF244E256900E96707 /* Release Lite */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -996,7 +1264,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E2F7ED66220B54D700D63515 /* Debug */,
+				AC8468CC244E255400E96707 /* Debug Lite */,
 				E2F7ED67220B54D700D63515 /* Release */,
+				AC8468D0244E256900E96707 /* Release Lite */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

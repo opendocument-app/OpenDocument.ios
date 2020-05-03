@@ -122,10 +122,10 @@ class Document: UIDocument {
         DispatchQueue.main.sync {
             self.saveGroup.enter()
 
-            webview?.evaluateJavaScript("generateDiff()", completionHandler: { (value: Any!, error: Error!) -> Void in
+            webview?.evaluateJavaScript("odr.generateDiff()", completionHandler: { (value: Any!, error: Error!) -> Void in
                 if error != nil {
-                    Crashlytics.sharedInstance().recordError(error)
-                    Crashlytics.sharedInstance().throwException()
+                    Crashlytics.crashlytics().record(error: error)
+                    fatalError("generateDiff failed")
 
                     return
                 }

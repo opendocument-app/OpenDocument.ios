@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else {
-            Crashlytics.sharedInstance().throwException()
+            fatalError("documentBrowserViewController is null")
             
             return false
         }
@@ -54,14 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
             
             guard error == nil else {
-                Crashlytics.sharedInstance().recordError(error!)
-                Crashlytics.sharedInstance().throwException()
+                Crashlytics.crashlytics().record(error: error!)
+                fatalError("error is not null")
                 
                 return
             }
             
             guard let url = revealedDocumentURL else {
-                Crashlytics.sharedInstance().throwException()
+                fatalError("revealedDocumentURL is null")
                 
                 return
             }

@@ -8,10 +8,10 @@
 "no_description" = "Keine Beschreibung";
 
 /*  */
-"alert_unsaved_changes" = "You have unsaved changes";
+"alert_unsaved_changes" = "Du hast ungespeicherte Änderungen";
 
 /*  */
-"alert_save_now" = "Save them now?";
+"alert_save_now" = "Änderungen speichern?";
 
 /*  */
 "yes" = "Ja";
@@ -26,7 +26,7 @@
 "menu_save" = "Speichern";
 
 /*  */
-"menu_discard_changes" = "Discard changes";
+"menu_discard_changes" = "Änderungen verwerfen";
 
 /*  */
 "menu_fullscreen" = "Vollbildmodus aktivieren";
@@ -38,19 +38,19 @@
 "menu_help" = "Hilfe!?";
 
 /*  */
-"cancel" = "Cancel";
+"cancel" = "Abbrechen";
 
 /*  */
 "alert_document_saved" = "Dokument gespeichert";
 
 /*  */
-"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"alert_error_save_failed" = "Dokument konnte nicht gespeichert werden. Bitte kontaktiere uns unter support@opendocument.app";
 
 /*  */
 "alert_error_password_protected" = "Dokument ist passwort-geschützt";
 
 /*  */
-"alert_enter_password" = "Please enter the password to decrypt this document";
+"alert_enter_password" = "Bitte gib das Passwort für dieses Dokument ein";
 
 /*  */
 "intro_title_1" = "Öffnen und lesen Sie Ihre ODF-Datei unterwegs!";

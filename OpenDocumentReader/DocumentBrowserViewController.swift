@@ -63,7 +63,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     func documentBrowser(_ controller: UIDocumentBrowserViewController,
                          didPickDocumentURLs documentURLs: [URL]) {
         guard let url = documentURLs.first else {
-            Crashlytics.sharedInstance().throwException()
+            fatalError("documentURL is null")
 
             return
         }
@@ -103,7 +103,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             transitionController.loadingProgress = nil
             
             guard success else {
-                Crashlytics.sharedInstance().throwException()
+                fatalError("opening document failed")
 
                 return
             }

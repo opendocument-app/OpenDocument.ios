@@ -22,4 +22,6 @@ class Constants {
     static let onboarding_image_2 = "onboard2"
     static let onboarding_image_3 = "onboard3"
     static let key_was_intro_watched = "wasIntroWatched"
+    static let configurationFull = "Full"
+    static let configurationLite = "Lite"
 }
