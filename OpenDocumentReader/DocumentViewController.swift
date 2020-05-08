@@ -65,7 +65,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         document?.webview = self.webview
         
         bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
         bannerView.rootViewController = self
         
         loadBannerAd()
