@@ -160,8 +160,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default, handler: { (_) in
                 Analytics.logEvent("alert_unsaved_changes_yes", parameters: nil)
 
-                self.saveContent()
-                self.closeCurrentDocument()
+                self.saveContent() { (success) -> () in
+                    if (success) {
+                        self.closeCurrentDocument()
+                    }
+                }
             }))
             
             self.present(alert, animated: true, completion: nil)
@@ -194,7 +197,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
 
         if document?.edit ?? false {
             alert.addAction(UIAlertAction(title: NSLocalizedString("menu_save", comment: ""), style: .default, handler: { (_) in
-                self.saveContent()
+                self.saveContent(completion: nil)
             }))
             
             alert.addAction(UIAlertAction(title: NSLocalizedString("menu_discard_changes", comment: ""), style: .default, handler: { (_) in
@@ -229,7 +232,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         doc.edit = true
     }
     
-    func saveContent() {
+    func saveContent(completion: ((Bool) -> ())?) {
         Analytics.logEvent("menu_edit_save", parameters: nil)
 
         guard let doc = document else {
@@ -249,7 +252,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
                 color = .red
             }
             
-            self.showToast(controller: self, message: message, seconds: 1.5, color: color)
+            self.showToast(controller: self, message: message, seconds: 1.5, color: color) {
+                completion?(success)
+            }
         }
     }
     
