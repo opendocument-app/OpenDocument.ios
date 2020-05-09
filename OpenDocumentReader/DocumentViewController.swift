@@ -337,9 +337,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func documentLoadingError(_ doc: Document, errorCode: Int) {
+        // attention: wrong for extensions like ".pages.zip"
         let fileType = doc.fileURL.pathExtension.lowercased()
+        
+        let fileName = doc.fileURL.absoluteString.lowercased()
         for type in EXTENSION_WHITELIST {
-            if (!fileType.starts(with: type)) {
+            if (!fileName.hasSuffix(type)) {
                 continue
             }
 
