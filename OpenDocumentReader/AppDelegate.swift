@@ -15,7 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
+        
+        if ConfigurationManager.manager.configuration == .lite {
+            let filePath = Bundle.main.path(forResource: "GoogleService-Info-Lite", ofType: "plist")!
+            let options = FirebaseOptions(contentsOfFile: filePath)
+            FirebaseApp.configure(options: options!)
+        } else {
+            FirebaseApp.configure()
+        }
         
         StoreReviewHelper.incrementAppOpenedCount()
         
