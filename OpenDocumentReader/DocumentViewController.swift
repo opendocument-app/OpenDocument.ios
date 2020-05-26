@@ -41,6 +41,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
     
     private var isFullscreen = false
     
@@ -54,6 +55,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
         
         segmentedControl.segmentStyle = .textOnly
         segmentedControl.underlineSelected = true
@@ -302,7 +305,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     func documentUpdateContent(_ doc: Document) {
         guard let path = document?.result else {
-            self.webview.loadHTMLString("<html><h1>Loading</h1></html>", baseURL: nil)
+            self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("loading", comment: ""))</h1></html>", baseURL: nil)
             
             return
         }
@@ -358,7 +361,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             return;
         }
         
-        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.</html>", baseURL: nil)
+        self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("failed_to_load_document", comment: ""))</html>", baseURL: nil)
         
         Analytics.logEvent(
             "load_error",

@@ -70,5 +70,15 @@
 /*  */
 "intro_description_3" = "O OpenDocument Reader suporta uma grande variedade de outros aplicativos para abrir documentos. Um colega enviou uma apresentação através do Gmail? Clique no anexo e este aplicativo vai abrir imediatamente!";
 
+/*  */
+"back_to_documents" = "Back to documents";
 
+/*  */
+"loading" = "Loading";
+
+/*  */
+"error" = "Error";
+
+/*  */
+"failed_to_load_document" = "Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.";
 

@@ -70,5 +70,16 @@
 /*  */
 "intro_description_3" = "OpenDocument Reader supports a huge range of other apps to open documents from. A colleague sent a presentation via Gmail? Click the attachment and this app is going to open right away!";
 
+/*  */
+"back_to_documents" = "Back to documents";
+
+/*  */
+"loading" = "Loading";
+
+/*  */
+"error" = "Error";
+
+/*  */
+"failed_to_load_document" = "Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.";
 
 

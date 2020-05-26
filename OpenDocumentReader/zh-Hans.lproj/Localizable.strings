@@ -70,5 +70,15 @@
 /*  */
 "intro_description_3" = "超级文件管理大师支持通过大量其他的app打开文件。一位同事通过Gmail发来一份演示文稿？只需点击附件，立刻将其打开！";
 
+/*  */
+"back_to_documents" = "Back to documents";
 
+/*  */
+"loading" = "Loading";
+
+/*  */
+"error" = "Error";
+
+/*  */
+"failed_to_load_document" = "Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.";
 
