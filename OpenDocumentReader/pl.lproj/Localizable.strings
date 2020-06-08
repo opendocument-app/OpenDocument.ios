@@ -1,11 +1,8 @@
 /*  */
-"alert_error_generic" = "Jest jakaś przeszkoda. Nie można otworzyć pliku.";
+"toast_error_generic" = "Jest jakaś przeszkoda. Nie można otworzyć pliku.";
 
 /*  */
 "ok" = "OK";
-
-/*  */
-"no_description" = "No Description";
 
 /*  */
 "alert_unsaved_changes" = "You have unsaved changes";
@@ -23,7 +20,7 @@
 "menu_edit" = "Edytuj dokument";
 
 /*  */
-"menu_save" = "Zapisz";
+"action_edit_save" = "Zapisz";
 
 /*  */
 "menu_discard_changes" = "Discard changes";
@@ -35,40 +32,37 @@
 "menu_cloud_print" = "Drukuj dokument";
 
 /*  */
-"menu_help" = "Potrzebujesz pomocy?";
+"action_edit_help" = "Potrzebujesz pomocy?";
 
 /*  */
 "cancel" = "Cancel";
 
 /*  */
-"alert_document_saved" = "Document saved";
+"toast_edit_status_saved" = "Document saved";
 
 /*  */
-"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
 
 /*  */
-"alert_error_password_protected" = "Dokument zabezpieczony jest hasłem";
+"toast_error_password_protected" = "Dokument zabezpieczony jest hasłem";
 
 /*  */
-"alert_enter_password" = "Please enter the password to decrypt this document";
+"intro_title_open" = "Otwórz i czytaj swój plik ODF nawet w podróży!";
 
 /*  */
-"intro_title_1" = "Otwórz i czytaj swój plik ODF nawet w podróży!";
+"intro_title_edit" = "Znajdujesz literówkę w swoim dokumencie? Czytnik obsługuje teraz zmiany!";
 
 /*  */
-"intro_title_2" = "Znajdujesz literówkę w swoim dokumencie? Czytnik obsługuje teraz zmiany!";
+"intro_title_apps" = "Czytaj swoje dokumenty pochodzące z innych aplikacji";
 
 /*  */
-"intro_title_3" = "Czytaj swoje dokumenty pochodzące z innych aplikacji";
+"intro_description_open" = "Przeglądarka OpenDocument Reader umożliwia przeglądanie dokumentów przechowywanych w formacie OpenDocument (.odt, .ods, .odp i .odg). Pliki te są zazwyczaj tworzone przy użyciu programów LibreOffice lub OpenOffice. Ta aplikacja umożliwia również otwieranie tego typu plików na urządzeniu mobilnym, dzięki czemu możesz je czytać również w podróży.";
 
 /*  */
-"intro_description_1" = "Przeglądarka OpenDocument Reader umożliwia przeglądanie dokumentów przechowywanych w formacie OpenDocument (.odt, .ods, .odp i .odg). Pliki te są zazwyczaj tworzone przy użyciu programów LibreOffice lub OpenOffice. Ta aplikacja umożliwia również otwieranie tego typu plików na urządzeniu mobilnym, dzięki czemu możesz je czytać również w podróży.";
+"intro_description_edit" = "Przeglądarka OpenDocument Reader nie tylko pozwala czytać dokumenty na urządzeniu mobilnym, ale także obsługuje ich modyfikowanie. Literówki są usuwane natychmiast, nawet w pociągu!";
 
 /*  */
-"intro_description_2" = "Przeglądarka OpenDocument Reader nie tylko pozwala czytać dokumenty na urządzeniu mobilnym, ale także obsługuje ich modyfikowanie. Literówki są usuwane natychmiast, nawet w pociągu!";
-
-/*  */
-"intro_description_3" = "Przeglądarka OpenDocument Reader obsługuje wiele różnych aplikacji, umożliwiając otwieranie w nich dokumentów. Kolega wysłał prezentację za pośrednictwem poczty Gmail? Kliknij załącznik i aplikacja ta natychmiast się otworzy!";
+"intro_description_apps" = "Przeglądarka OpenDocument Reader obsługuje wiele różnych aplikacji, umożliwiając otwieranie w nich dokumentów. Kolega wysłał prezentację za pośrednictwem poczty Gmail? Kliknij załącznik i aplikacja ta natychmiast się otworzy!";
 
 /*  */
 "back_to_documents" = "Back to documents";
@@ -78,7 +72,3 @@
 
 /*  */
 "error" = "Error";
-
-/*  */
-"failed_to_load_document" = "Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.";
-

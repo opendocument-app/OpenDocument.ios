@@ -1,11 +1,8 @@
 /*  */
-"alert_error_generic" = "Ha pasado algo malo. No se ha podido abrir el archivo.";
+"toast_error_generic" = "Ha pasado algo malo. No se ha podido abrir el archivo.";
 
 /*  */
 "ok" = "OK";
-
-/*  */
-"no_description" = "No Description";
 
 /*  */
 "alert_unsaved_changes" = "You have unsaved changes";
@@ -23,7 +20,7 @@
 "menu_edit" = "Editar";
 
 /*  */
-"menu_save" = "Guardar";
+"action_edit_save" = "Guardar";
 
 /*  */
 "menu_discard_changes" = "Discard changes";
@@ -35,40 +32,37 @@
 "menu_cloud_print" = "Imprimir";
 
 /*  */
-"menu_help" = "¿Ayuda?";
+"action_edit_help" = "¿Ayuda?";
 
 /*  */
 "cancel" = "Cancel";
 
 /*  */
-"alert_document_saved" = "Document saved";
+"toast_edit_status_saved" = "Document saved";
 
 /*  */
-"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
 
 /*  */
-"alert_error_password_protected" = "El documento está protegido con contraseña.";
+"toast_error_password_protected" = "El documento está protegido con contraseña.";
 
 /*  */
-"alert_enter_password" = "Please enter the password to decrypt this document";
+"intro_title_open" = "¡Abra y lea su archivo ODF desde cualquier lugar!";
 
 /*  */
-"intro_title_1" = "¡Abra y lea su archivo ODF desde cualquier lugar!";
+"intro_title_edit" = "¿Encontró un error tipográfico en su documento? ¡Ahora permite hacer modificaciones!";
 
 /*  */
-"intro_title_2" = "¿Encontró un error tipográfico en su documento? ¡Ahora permite hacer modificaciones!";
+"intro_title_apps" = "Lea sus documentos desde otras aplicaciones";
 
 /*  */
-"intro_title_3" = "Lea sus documentos desde otras aplicaciones";
+"intro_description_open" = "OpenDocument Reader le permite ver documentos almacenados en formato OpenDocument (.odt, .ods, .odp y .odg). Estos archivos se suelen crear utilizando LibreOffice u OpenOffice. Esta aplicación permite abrir estos archivos también en su dispositivo móvil, para que pueda leerlos desde cualquier lugar.";
 
 /*  */
-"intro_description_1" = "OpenDocument Reader le permite ver documentos almacenados en formato OpenDocument (.odt, .ods, .odp y .odg). Estos archivos se suelen crear utilizando LibreOffice u OpenOffice. Esta aplicación permite abrir estos archivos también en su dispositivo móvil, para que pueda leerlos desde cualquier lugar.";
+"intro_description_edit" = "OpenDocument Reader no solo permite leer documentos en su dispositivo móvil, sino que también puede modificarlos. ¡Los errores tipográficos se arreglan en un abrir y cerrar de ojos, incluso en el tren!";
 
 /*  */
-"intro_description_2" = "OpenDocument Reader no solo permite leer documentos en su dispositivo móvil, sino que también puede modificarlos. ¡Los errores tipográficos se arreglan en un abrir y cerrar de ojos, incluso en el tren!";
-
-/*  */
-"intro_description_3" = "OpenDocument Reader es compatible con una amplia gama de aplicaciones, y puede abrir los documentos creados con ellas. ¿Un compañero ha enviado una presentación a través de Gmail? ¡Haga clic en el archivo adjunto y la aplicación se abrirá de inmediato!";
+"intro_description_apps" = "OpenDocument Reader es compatible con una amplia gama de aplicaciones, y puede abrir los documentos creados con ellas. ¿Un compañero ha enviado una presentación a través de Gmail? ¡Haga clic en el archivo adjunto y la aplicación se abrirá de inmediato!";
 
 /*  */
 "back_to_documents" = "Back to documents";
@@ -78,7 +72,4 @@
 
 /*  */
 "error" = "Error";
-
-/*  */
-"failed_to_load_document" = "Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.";
 
