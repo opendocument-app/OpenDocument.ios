@@ -32,11 +32,13 @@
                     return false;
                 }
                 
-                const auto meta = translator->meta();
+                auto meta = translator->meta();
                 
                 bool decrypted = !meta.encrypted;
                 if (password != nil) {
                     decrypted = translator->decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
+                    
+                    meta = translator->meta();
                 }
                 
                 if (!decrypted) {
