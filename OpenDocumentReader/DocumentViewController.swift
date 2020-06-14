@@ -41,6 +41,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
     
     private var isFullscreen = false
     
@@ -54,6 +55,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
         
         segmentedControl.segmentStyle = .textOnly
         segmentedControl.underlineSelected = true
@@ -196,7 +199,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         }
 
         if document?.edit ?? false {
-            alert.addAction(UIAlertAction(title: NSLocalizedString("menu_save", comment: ""), style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("action_edit_save", comment: ""), style: .default, handler: { (_) in
                 self.saveContent(completion: nil)
             }))
             
@@ -211,7 +214,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         alert.addAction(UIAlertAction(title: NSLocalizedString("menu_cloud_print", comment: ""), style: .default, handler: { (_) in
             self.printDocument()
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("menu_help", comment: ""), style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("action_edit_help", comment: ""), style: .default, handler: { (_) in
             self.showWebsite()
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
@@ -245,10 +248,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             let message: String
             let color: UIColor
             if success {
-                message = NSLocalizedString("alert_document_saved", comment: "")
+                message = NSLocalizedString("toast_edit_status_saved", comment: "")
                 color = .green
             } else {
-                message = NSLocalizedString("alert_error_save_failed", comment: "")
+                message = NSLocalizedString("toast_error_save_failed", comment: "")
                 color = .red
             }
             
@@ -302,7 +305,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     func documentUpdateContent(_ doc: Document) {
         guard let path = document?.result else {
-            self.webview.loadHTMLString("<html><h1>Loading</h1></html>", baseURL: nil)
+            self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("loading", comment: ""))</h1></html>", baseURL: nil)
             
             return
         }
@@ -320,7 +323,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             })
         }
         
-        let alert = UIAlertController(title: NSLocalizedString("alert_error_password_protected", comment: ""), message: NSLocalizedString("alert_enter_password", comment: ""), preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("toast_error_password_protected", comment: ""), message: "", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.text = ""
         }
@@ -358,7 +361,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             return;
         }
         
-        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.</html>", baseURL: nil)
+        self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))</html>", baseURL: nil)
         
         Analytics.logEvent(
             "load_error",

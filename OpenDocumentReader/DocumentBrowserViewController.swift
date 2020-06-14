@@ -47,7 +47,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     func documentBrowser(_ controller: UIDocumentBrowserViewController, failedToImportDocumentAt documentURL: URL, error: Error?) {
         let alert = UIAlertController(
             title: "",
-            message: NSLocalizedString("alert_error_generic", comment: ""),
+            message: NSLocalizedString("toast_error_generic", comment: ""),
             preferredStyle: .alert)
         
         let action = UIAlertAction(

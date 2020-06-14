@@ -108,6 +108,7 @@
                     <connections>
                         <outlet property="bannerView" destination="yut-lR-gq5" id="28Z-1b-NAN"/>
                         <outlet property="bannerViewHeight" destination="dMZ-rD-IOK" id="pi7-sH-NwC"/>
+                        <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
                         <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
