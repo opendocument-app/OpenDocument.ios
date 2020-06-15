@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,6 +50,12 @@
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
+                                            <barButtonItem title="Search Button" image="magnifyingglass" catalog="system" id="fGi-i7-iOR">
+                                                <connections>
+                                                    <action selector="searchButton:" destination="M2k-L8-Olo" id="6fS-of-qcB"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="Di6-gg-JT6"/>
                                             <barButtonItem image="ellipsis" catalog="system" id="Vsd-IL-ujz">
                                                 <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
                                                 <connections>
@@ -71,16 +77,23 @@
                                 </subviews>
                             </stackView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                <rect key="frame" x="0.0" y="138" width="414" height="758"/>
+                                <rect key="frame" x="0.0" y="190" width="414" height="706"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <searchBar contentMode="redraw" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A5V-8n-dvk">
+                                <rect key="frame" x="0.0" y="84" width="414" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="a6J-0N-RfG"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yut-lR-gq5" customClass="GADBannerView">
-                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="dMZ-rD-IOK"/>
                                 </constraints>
@@ -90,18 +103,21 @@
                         <constraints>
                             <constraint firstItem="VF5-Do-xh9" firstAttribute="top" secondItem="yut-lR-gq5" secondAttribute="bottom" id="2UY-wY-5ad"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="5Hh-GZ-aPw"/>
+                            <constraint firstItem="A5V-8n-dvk" firstAttribute="top" secondItem="HAk-oU-gAF" secondAttribute="top" constant="40" id="DuI-QF-5bJ"/>
                             <constraint firstItem="sKS-nk-f6M" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="HjQ-CN-3cF"/>
+                            <constraint firstItem="A5V-8n-dvk" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="L8H-vT-LAL"/>
                             <constraint firstItem="HAk-oU-gAF" firstAttribute="trailing" secondItem="yut-lR-gq5" secondAttribute="trailing" id="NMY-4I-DYB"/>
                             <constraint firstItem="VF5-Do-xh9" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="OvL-SW-INd"/>
                             <constraint firstItem="VF5-Do-xh9" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="Qyj-ei-4NG"/>
                             <constraint firstItem="yut-lR-gq5" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="WhK-2N-j4f"/>
                             <constraint firstItem="N1x-QM-Qks" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="top" id="Yiq-pe-hl5"/>
+                            <constraint firstItem="HAk-oU-gAF" firstAttribute="trailing" secondItem="A5V-8n-dvk" secondAttribute="trailing" id="bci-XP-0gq"/>
                             <constraint firstItem="N1x-QM-Qks" firstAttribute="bottom" secondItem="sKS-nk-f6M" secondAttribute="bottom" constant="44" id="fDF-Mx-Nxy"/>
                             <constraint firstItem="VF5-Do-xh9" firstAttribute="bottom" secondItem="SIE-Uh-Zny" secondAttribute="bottom" id="ftB-8D-F6n"/>
                             <constraint firstItem="sKS-nk-f6M" firstAttribute="bottom" secondItem="HAk-oU-gAF" secondAttribute="top" id="gWh-EO-FK9"/>
+                            <constraint firstItem="yut-lR-gq5" firstAttribute="top" secondItem="A5V-8n-dvk" secondAttribute="bottom" id="hWn-sT-gEW"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="rED-wA-6gv"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="tPc-vX-Egd"/>
-                            <constraint firstItem="yut-lR-gq5" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="bottom" id="yhh-1s-AmR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HAk-oU-gAF"/>
                     </view>
@@ -111,7 +127,11 @@
                         <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
+                        <outlet property="searchBar" destination="A5V-8n-dvk" id="AIb-1s-JO6"/>
+                        <outlet property="searchBarHeight" destination="a6J-0N-RfG" id="TaC-Vz-Dkq"/>
+                        <outlet property="searchBarTop" destination="DuI-QF-5bJ" id="ces-q7-PG4"/>
                         <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
+                        <outlet property="toolBar" destination="N1x-QM-Qks" id="db4-aA-GH6"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
                 </viewController>
@@ -217,6 +237,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ellipsis" catalog="system" width="64" height="18"/>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
     </resources>
 </document>
