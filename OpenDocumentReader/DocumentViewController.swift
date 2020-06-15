@@ -173,6 +173,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
 
     private func showSearchBar() {
+        searchBar.becomeFirstResponder()
         searchBar.isHidden = false
         searchBarHeight.constant = 56.0
         searchBarTop.constant = 0.0
