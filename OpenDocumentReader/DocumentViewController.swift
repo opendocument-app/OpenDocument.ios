@@ -13,7 +13,7 @@ import Firebase
 import GoogleMobileAds
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate {
+class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate, UISearchBarDelegate {
     
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -33,6 +33,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     private var EXTENSION_WHITELIST = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png", "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv", "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba", "webm", "webp", "xhtml", "xml"]
     
+    @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var searchBarTop: NSLayoutConstraint!
+    @IBOutlet weak var searchBarHeight: NSLayoutConstraint!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
     private var initialSelect = false
     
@@ -55,6 +59,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+
+        hideSearchBar()
         
         barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
         
@@ -143,6 +152,62 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     override var prefersStatusBarHidden: Bool {
         return isFullscreen
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        hideSearchBar()
+    }
+
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text {
+            findNext(searchText: searchText)
+        }
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        findAll(searchText: searchText)
+    }
+
+    @IBAction func searchButton(_ sender: UIBarButtonItem) {
+        showSearchBar()
+    }
+
+    private func showSearchBar() {
+        searchBar.becomeFirstResponder()
+        searchBar.isHidden = false
+        searchBarHeight.constant = 56.0
+        searchBarTop.constant = 0.0
+        
+        toolBar.isHidden = true
+    }
+
+    private func hideSearchBar() {
+        searchBar.text = ""
+        searchBar.isHidden = true
+        searchBarHeight.constant = 0.0
+        searchBarTop.constant = 40.0
+        
+        toolBar.isHidden = false
+
+        self.view.endEditing(true)
+    }
+
+    private func findNext(searchText: String) {
+        webview?.evaluateJavaScript("odr.searchNext(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
+            if error != nil {
+                Crashlytics.crashlytics().record(error: error)
+                fatalError("search failed")
+            }
+        })
+    }
+
+    private func findAll(searchText: String) {
+        webview?.evaluateJavaScript("odr.search(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
+            if error != nil {
+                Crashlytics.crashlytics().record(error: error)
+                fatalError("search failed")
+            }
+        })
     }
     
     @IBAction func returnToDocuments(_ sender: Any) {
