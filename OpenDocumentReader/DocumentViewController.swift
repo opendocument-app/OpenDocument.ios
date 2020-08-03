@@ -67,7 +67,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
         searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
 
-        setVCcontraints()
+        setVCconstraints()
         hideSearchBar()
         
         barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
@@ -88,7 +88,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         loadBannerAd()
     }
     
-    func setVCcontraints() {
+    func setVCconstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
