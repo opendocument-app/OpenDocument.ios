@@ -34,8 +34,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     private var EXTENSION_WHITELIST = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png", "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv", "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba", "webm", "webp", "xhtml", "xml"]
     
     @IBOutlet weak var toolBar: UIToolbar!
-    @IBOutlet weak var searchBarTop: NSLayoutConstraint!
-    @IBOutlet weak var searchBarHeight: NSLayoutConstraint!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
     private var initialSelect = false
@@ -47,6 +45,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     
+    private var searchBarHeightWhenShown: NSLayoutConstraint?
+    private var searchBarHeightWhenHidden: NSLayoutConstraint?
+
     private var isFullscreen = false
     
     public var document: Document? {
@@ -62,7 +63,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
 
         searchBar.delegate = self
         searchBar.showsCancelButton = true
+        
+        searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
+        searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
 
+        setVCconstraints()
         hideSearchBar()
         
         barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
@@ -81,6 +86,32 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         bannerView.rootViewController = self
         
         loadBannerAd()
+    }
+    
+    func setVCconstraints() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        webview.translatesAutoresizingMaskIntoConstraints = false
+        
+        searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor).isActive = true
+
+        bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bannerView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+        bannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        segmentedControl.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
+        segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        webview.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
+        webview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        webview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     func loadBannerAd() {
@@ -175,20 +206,16 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     private func showSearchBar() {
         searchBar.becomeFirstResponder()
         searchBar.isHidden = false
-        searchBarHeight.constant = 56.0
-        searchBarTop.constant = 0.0
-        
-        toolBar.isHidden = true
+        searchBarHeightWhenHidden?.isActive = false
+        searchBarHeightWhenShown?.isActive = true
     }
 
     private func hideSearchBar() {
         searchBar.text = ""
         searchBar.isHidden = true
-        searchBarHeight.constant = 0.0
-        searchBarTop.constant = 40.0
+        searchBarHeightWhenHidden?.isActive = true
+        searchBarHeightWhenShown?.isActive = false
         
-        toolBar.isHidden = false
-
         self.view.endEditing(true)
     }
 
