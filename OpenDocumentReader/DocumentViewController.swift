@@ -106,7 +106,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         segmentedControl.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
         segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         webview.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
         webview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -493,8 +492,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             
             i += 1
         }
-        
-        segmentedControl.isHidden = i <= 1
+                
+        if i <= 1 {
+            segmentedControl.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            segmentedControl.isHidden = true
+        } else {
+            segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            segmentedControl.isHidden = false
+        }
         
         initialSelect = true
         segmentedControl.selectedSegmentIndex = 0
