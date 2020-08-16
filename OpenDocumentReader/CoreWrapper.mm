@@ -47,14 +47,17 @@
                 }
                 
                 NSMutableArray *pageNames = [[NSMutableArray alloc] init];
-                if (meta.type == odr::FileType::OPENDOCUMENT_TEXT) {
+                if (meta.type == odr::FileType::OPENDOCUMENT_TEXT || meta.type == odr::FileType::OPENDOCUMENT_GRAPHICS) {
                     [pageNames addObject:@"Text document"];
-                } else {
+                } else if (meta.type == odr::FileType::OPENDOCUMENT_SPREADSHEET || meta.type == odr::FileType::OPENDOCUMENT_PRESENTATION) {
                     for (auto page = meta.entries.begin(); page != meta.entries.end(); page++) {
                         auto pageName = page->name;
                         
                         [pageNames addObject:[NSString stringWithCString:pageName.c_str() encoding:[NSString defaultCStringEncoding]]];
                     }
+                } else {
+                    _errorCode = @(-5);
+                    return false;
                 }
                 _pageNames = pageNames;
                 
