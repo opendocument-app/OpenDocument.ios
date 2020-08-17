@@ -1,11 +1,8 @@
 /*  */
-"alert_error_generic" = "出现了一些错误，无法打开文件。";
+"toast_error_generic" = "出现了一些错误，无法打开文件。";
 
 /*  */
 "ok" = "OK";
-
-/*  */
-"no_description" = "No Description";
 
 /*  */
 "alert_unsaved_changes" = "You have unsaved changes";
@@ -23,7 +20,7 @@
 "menu_edit" = "编辑文档";
 
 /*  */
-"menu_save" = "保存";
+"action_edit_save" = "保存";
 
 /*  */
 "menu_discard_changes" = "Discard changes";
@@ -35,40 +32,44 @@
 "menu_cloud_print" = "打印文档";
 
 /*  */
-"menu_help" = "帮助";
+"action_edit_help" = "帮助";
 
 /*  */
-"cancel" = "Cancel";
+"cancel" = "cancel";
 
 /*  */
-"alert_document_saved" = "Document saved";
+"toast_edit_status_saved" = "Document saved";
 
 /*  */
-"alert_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
 
 /*  */
-"alert_error_password_protected" = "此文档受密码保护。";
+"toast_error_password_protected" = "此文档受密码保护。";
 
 /*  */
-"alert_enter_password" = "Please enter the password to decrypt this document";
+"intro_title_open" = "随时随地打开并阅读您的 ODF 文件！";
 
 /*  */
-"intro_title_1" = "随时随地打开并阅读您的 ODF 文件！";
+"intro_title_edit" = "发现文件存在一处文稿错误？支持修改！";
 
 /*  */
-"intro_title_2" = "发现文件存在一处文稿错误？支持修改！";
+"intro_title_apps" = "通过其他app阅读文件";
 
 /*  */
-"intro_title_3" = "通过其他app阅读文件";
+"intro_description_open" = "您可以使用 OpenDocument 阅读器查看以 OpenDocument 格式（.odt, .ods, .odp 和 .odg）储存的文档文件。这些文件通常是使用 LibreOffice 或 OpenOffice 创建的。本应用允许您在移动设备上打开这些文档，助您随时随地阅读它们。";
 
 /*  */
-"intro_description_1" = "您可以使用 OpenDocument 阅读器查看以 OpenDocument 格式（.odt, .ods, .odp 和 .odg）储存的文档文件。这些文件通常是使用 LibreOffice 或 OpenOffice 创建的。本应用允许您在移动设备上打开这些文档，助您随时随地阅读它们。";
+"intro_description_edit" = "超级文件管理大师不仅允许用户在移动设备上阅读文件，同时还支持文件修改。用户即使在火车上也可轻松修改文稿错误。";
 
 /*  */
-"intro_description_2" = "超级文件管理大师不仅允许用户在移动设备上阅读文件，同时还支持文件修改。用户即使在火车上也可轻松修改文稿错误。";
+"intro_description_apps" = "超级文件管理大师支持通过大量其他的app打开文件。一位同事通过Gmail发来一份演示文稿？只需点击附件，立刻将其打开！";
 
 /*  */
-"intro_description_3" = "超级文件管理大师支持通过大量其他的app打开文件。一位同事通过Gmail发来一份演示文稿？只需点击附件，立刻将其打开！";
+"back_to_documents" = "Back to documents";
 
+/*  */
+"loading" = "正在加载";
 
+/*  */
+"error" = "error";
 

@@ -13,7 +13,7 @@ import Firebase
 import GoogleMobileAds
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate {
+class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate, UISearchBarDelegate {
     
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -33,6 +33,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     private var EXTENSION_WHITELIST = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png", "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv", "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba", "webm", "webp", "xhtml", "xml"]
     
+    @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
     private var initialSelect = false
     
@@ -41,7 +43,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
     
+    private var searchBarHeightWhenShown: NSLayoutConstraint?
+    private var searchBarHeightWhenHidden: NSLayoutConstraint?
+
     private var isFullscreen = false
     
     public var document: Document? {
@@ -54,6 +60,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+        
+        searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
+        searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
+
+        setVCconstraints()
+        hideSearchBar()
+        
+        barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
         
         segmentedControl.segmentStyle = .textOnly
         segmentedControl.underlineSelected = true
@@ -65,10 +82,35 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         document?.webview = self.webview
         
         bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
         bannerView.rootViewController = self
         
         loadBannerAd()
+    }
+    
+    func setVCconstraints() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        webview.translatesAutoresizingMaskIntoConstraints = false
+        
+        searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor).isActive = true
+
+        bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bannerView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+        bannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        segmentedControl.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
+        segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        webview.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
+        webview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        webview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     func loadBannerAd() {
@@ -142,6 +184,58 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         return isFullscreen
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        hideSearchBar()
+    }
+
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text {
+            findNext(searchText: searchText)
+        }
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        findAll(searchText: searchText)
+    }
+
+    @IBAction func searchButton(_ sender: UIBarButtonItem) {
+        showSearchBar()
+    }
+
+    private func showSearchBar() {
+        searchBar.becomeFirstResponder()
+        searchBar.isHidden = false
+        searchBarHeightWhenHidden?.isActive = false
+        searchBarHeightWhenShown?.isActive = true
+    }
+
+    private func hideSearchBar() {
+        searchBar.text = ""
+        searchBar.isHidden = true
+        searchBarHeightWhenHidden?.isActive = true
+        searchBarHeightWhenShown?.isActive = false
+        
+        self.view.endEditing(true)
+    }
+
+    private func findNext(searchText: String) {
+        webview?.evaluateJavaScript("odr.searchNext(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
+            if error != nil {
+                Crashlytics.crashlytics().record(error: error)
+                fatalError("search failed")
+            }
+        })
+    }
+
+    private func findAll(searchText: String) {
+        webview?.evaluateJavaScript("odr.search(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
+            if error != nil {
+                Crashlytics.crashlytics().record(error: error)
+                fatalError("search failed")
+            }
+        })
+    }
+    
     @IBAction func returnToDocuments(_ sender: Any) {
         guard let doc = document else {
             fatalError("document is null")
@@ -160,8 +254,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default, handler: { (_) in
                 Analytics.logEvent("alert_unsaved_changes_yes", parameters: nil)
 
-                self.saveContent()
-                self.closeCurrentDocument()
+                self.saveContent() { (success) -> () in
+                    if (success) {
+                        self.closeCurrentDocument()
+                    }
+                }
             }))
             
             self.present(alert, animated: true, completion: nil)
@@ -193,8 +290,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         }
 
         if document?.edit ?? false {
-            alert.addAction(UIAlertAction(title: NSLocalizedString("menu_save", comment: ""), style: .default, handler: { (_) in
-                self.saveContent()
+            alert.addAction(UIAlertAction(title: NSLocalizedString("action_edit_save", comment: ""), style: .default, handler: { (_) in
+                self.saveContent(completion: nil)
             }))
             
             alert.addAction(UIAlertAction(title: NSLocalizedString("menu_discard_changes", comment: ""), style: .default, handler: { (_) in
@@ -208,7 +305,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         alert.addAction(UIAlertAction(title: NSLocalizedString("menu_cloud_print", comment: ""), style: .default, handler: { (_) in
             self.printDocument()
         }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("menu_help", comment: ""), style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("action_edit_help", comment: ""), style: .default, handler: { (_) in
             self.showWebsite()
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
@@ -229,7 +326,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         doc.edit = true
     }
     
-    func saveContent() {
+    func saveContent(completion: ((Bool) -> ())?) {
         Analytics.logEvent("menu_edit_save", parameters: nil)
 
         guard let doc = document else {
@@ -242,14 +339,16 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             let message: String
             let color: UIColor
             if success {
-                message = NSLocalizedString("alert_document_saved", comment: "")
+                message = NSLocalizedString("toast_edit_status_saved", comment: "")
                 color = .green
             } else {
-                message = NSLocalizedString("alert_error_save_failed", comment: "")
+                message = NSLocalizedString("toast_error_save_failed", comment: "")
                 color = .red
             }
             
-            self.showToast(controller: self, message: message, seconds: 1.5, color: color)
+            self.showToast(controller: self, message: message, seconds: 1.5, color: color) {
+                completion?(success)
+            }
         }
     }
     
@@ -297,7 +396,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     
     func documentUpdateContent(_ doc: Document) {
         guard let path = document?.result else {
-            self.webview.loadHTMLString("<html><h1>Loading</h1></html>", baseURL: nil)
+            self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("loading", comment: ""))</h1></html>", baseURL: nil)
             
             return
         }
@@ -315,7 +414,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             })
         }
         
-        let alert = UIAlertController(title: NSLocalizedString("alert_error_password_protected", comment: ""), message: NSLocalizedString("alert_enter_password", comment: ""), preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("toast_error_password_protected", comment: ""), message: "", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.text = ""
         }
@@ -332,9 +431,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func documentLoadingError(_ doc: Document, errorCode: Int) {
+        // attention: wrong for extensions like ".pages.zip"
         let fileType = doc.fileURL.pathExtension.lowercased()
+        
+        let fileName = doc.fileURL.absoluteString.lowercased()
         for type in EXTENSION_WHITELIST {
-            if (!fileType.starts(with: type)) {
+            if (!fileName.hasSuffix(type)) {
                 continue
             }
 
@@ -350,7 +452,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             return;
         }
         
-        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document. Please try another one while we are working hard to support as many documents as possible. Feel free to contact us via support@opendocument.app for further questions.</html>", baseURL: nil)
+        self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))</html>", baseURL: nil)
         
         Analytics.logEvent(
             "load_error",
@@ -390,8 +492,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             
             i += 1
         }
-        
-        segmentedControl.isHidden = i <= 1
+                
+        if i <= 1 {
+            segmentedControl.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            segmentedControl.isHidden = true
+        } else {
+            segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            segmentedControl.isHidden = false
+        }
         
         initialSelect = true
         segmentedControl.selectedSegmentIndex = 0

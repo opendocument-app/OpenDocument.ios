@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,8 +16,8 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="Ps8-jH-9pK"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -33,7 +34,7 @@
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKS-nk-f6M">
                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
@@ -50,6 +51,12 @@
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
+                                            <barButtonItem title="Search Button" image="magnifyingglass" catalog="system" id="fGi-i7-iOR">
+                                                <connections>
+                                                    <action selector="searchButton:" destination="M2k-L8-Olo" id="6fS-of-qcB"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="Di6-gg-JT6"/>
                                             <barButtonItem image="ellipsis" catalog="system" id="Vsd-IL-ujz">
                                                 <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
                                                 <connections>
@@ -70,47 +77,49 @@
                                     </progressView>
                                 </subviews>
                             </stackView>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
-                                <rect key="frame" x="0.0" y="138" width="414" height="758"/>
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
+                                <rect key="frame" x="0.0" y="190" width="414" height="706"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yut-lR-gq5" customClass="GADBannerView">
-                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <searchBar contentMode="redraw" fixedFrame="YES" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A5V-8n-dvk">
+                                <rect key="frame" x="0.0" y="84" width="414" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yut-lR-gq5" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="140" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="dMZ-rD-IOK"/>
+                                    <constraint firstAttribute="height" constant="50" id="eXE-Ks-sQc"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="HAk-oU-gAF"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VF5-Do-xh9" firstAttribute="top" secondItem="yut-lR-gq5" secondAttribute="bottom" id="2UY-wY-5ad"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="5Hh-GZ-aPw"/>
                             <constraint firstItem="sKS-nk-f6M" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="HjQ-CN-3cF"/>
-                            <constraint firstItem="HAk-oU-gAF" firstAttribute="trailing" secondItem="yut-lR-gq5" secondAttribute="trailing" id="NMY-4I-DYB"/>
-                            <constraint firstItem="VF5-Do-xh9" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="OvL-SW-INd"/>
-                            <constraint firstItem="VF5-Do-xh9" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="Qyj-ei-4NG"/>
-                            <constraint firstItem="yut-lR-gq5" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="WhK-2N-j4f"/>
                             <constraint firstItem="N1x-QM-Qks" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="top" id="Yiq-pe-hl5"/>
                             <constraint firstItem="N1x-QM-Qks" firstAttribute="bottom" secondItem="sKS-nk-f6M" secondAttribute="bottom" constant="44" id="fDF-Mx-Nxy"/>
-                            <constraint firstItem="VF5-Do-xh9" firstAttribute="bottom" secondItem="SIE-Uh-Zny" secondAttribute="bottom" id="ftB-8D-F6n"/>
                             <constraint firstItem="sKS-nk-f6M" firstAttribute="bottom" secondItem="HAk-oU-gAF" secondAttribute="top" id="gWh-EO-FK9"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="rED-wA-6gv"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="tPc-vX-Egd"/>
-                            <constraint firstItem="yut-lR-gq5" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="bottom" id="yhh-1s-AmR"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="HAk-oU-gAF"/>
                     </view>
                     <connections>
                         <outlet property="bannerView" destination="yut-lR-gq5" id="28Z-1b-NAN"/>
-                        <outlet property="bannerViewHeight" destination="dMZ-rD-IOK" id="pi7-sH-NwC"/>
+                        <outlet property="bannerViewHeight" destination="eXE-Ks-sQc" id="yQ1-l7-wiV"/>
+                        <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
+                        <outlet property="searchBar" destination="A5V-8n-dvk" id="AIb-1s-JO6"/>
                         <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
+                        <outlet property="toolBar" destination="N1x-QM-Qks" id="db4-aA-GH6"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
                 </viewController>
@@ -135,10 +144,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="83" translatesAutoresizingMaskIntoConstraints="NO" id="nfe-JJ-89b">
-                                <rect key="frame" x="56.666666666666657" y="813" width="301" height="39"/>
+                                <rect key="frame" x="-59.333333333333343" y="813" width="532.66666666666663" height="39"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLV-WY-zIj">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="39"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLV-WY-zIj">
+                                        <rect key="frame" x="0.0" y="0.0" width="122.33333333333333" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Skip">
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -149,12 +158,12 @@
                                         </connections>
                                     </button>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Eq9-2L-Y0h">
-                                        <rect key="frame" x="128" y="0.0" width="45" height="39"/>
+                                        <rect key="frame" x="205.33333333333337" y="0.0" width="122" height="39"/>
                                         <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </pageControl>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJ9-WO-km9">
-                                        <rect key="frame" x="256" y="0.0" width="45" height="39"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJ9-WO-km9">
+                                        <rect key="frame" x="410.33333333333331" y="0.0" width="122.33333333333331" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Next">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -191,7 +200,8 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="19r-M9-NT1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="19r-M9-NT1" firstAttribute="bottom" secondItem="nfe-JJ-89b" secondAttribute="bottom" constant="10" id="3n6-rA-Oua"/>
                             <constraint firstItem="nfe-JJ-89b" firstAttribute="centerX" secondItem="19r-M9-NT1" secondAttribute="centerX" id="8q6-eN-xbY"/>
@@ -200,7 +210,6 @@
                             <constraint firstItem="RSj-Lv-N7s" firstAttribute="leading" secondItem="19r-M9-NT1" secondAttribute="leading" constant="15" id="srH-sh-jXs"/>
                             <constraint firstItem="RSj-Lv-N7s" firstAttribute="bottom" secondItem="nfe-JJ-89b" secondAttribute="bottom" constant="-30" id="vAp-4c-dIi"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="19r-M9-NT1"/>
                     </view>
                     <connections>
                         <outlet property="headerLabel" destination="dnY-xL-bHh" id="GxF-Ni-SSZ"/>
@@ -216,6 +225,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ellipsis" catalog="system" width="64" height="18"/>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

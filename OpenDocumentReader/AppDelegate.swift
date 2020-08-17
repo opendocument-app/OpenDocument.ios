@@ -15,7 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
+        
+        if ConfigurationManager.manager.configuration == .lite {
+            let filePath = Bundle.main.path(forResource: "GoogleService-Info-Lite", ofType: "plist")!
+            let options = FirebaseOptions(contentsOfFile: filePath)
+            FirebaseApp.configure(options: options!)
+        } else {
+            FirebaseApp.configure()
+        }
         
         StoreReviewHelper.incrementAppOpenedCount()
         
@@ -51,22 +58,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
-        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
-            
-            guard error == nil else {
-                Crashlytics.crashlytics().record(error: error!)
-                fatalError("error is not null")
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let inboxUrl = documentsUrl.appendingPathComponent("Inbox")
+
+        let destinationUrl: URL
+        if (inputURL.absoluteString.contains(inboxUrl.absoluteString)) {
+            do {
+                destinationUrl = documentsUrl.appendingPathComponent(inputURL.lastPathComponent)
+
+                try FileManager.default.moveItem(at: inputURL, to: destinationUrl)
+            } catch {
+                print(error)
+                fatalError("copying from Inbox failed")
                 
-                return
+                return false
             }
-            
-            guard let url = revealedDocumentURL else {
-                fatalError("revealedDocumentURL is null")
-                
-                return
-            }
+        } else {
+            destinationUrl = inputURL
+        }
+        
+        documentBrowserViewController.revealDocument(at: destinationUrl, importIfNeeded: true) { (revealedDocumentURL, error) in
+            // ignoring errors because they should pop up in failedToImportDocumentAt too
                         
-            documentBrowserViewController.presentDocument(at: url)
+            documentBrowserViewController.presentDocument(at: revealedDocumentURL!)
         }
 
         return true
