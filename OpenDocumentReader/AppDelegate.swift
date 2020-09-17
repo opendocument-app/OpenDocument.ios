@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 try FileManager.default.moveItem(at: inputURL, to: destinationUrl)
             } catch {
-                print(error)
+                Crashlytics.crashlytics().record(error: error)
                 fatalError("copying from Inbox failed")
                 
                 return false

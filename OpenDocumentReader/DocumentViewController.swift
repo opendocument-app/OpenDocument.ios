@@ -11,6 +11,8 @@ import ScrollableSegmentedControl
 import UIKit.UIPrinter
 import Firebase
 import GoogleMobileAds
+import AppTrackingTransparency
+import AdSupport
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate, UISearchBarDelegate {
@@ -85,7 +87,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
         bannerView.rootViewController = self
         
-        loadBannerAd()
+        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+          loadBannerAd()
+        })
     }
     
     func setVCconstraints() {
