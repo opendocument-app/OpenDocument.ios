@@ -10,4 +10,8 @@ target 'OpenDocumentReader' do
   pod 'Google-Mobile-Ads-SDK'
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
+
+  target 'OpenDocumentReaderTests' do
+    inherit! :search_paths
+  end
 end
