@@ -72,6 +72,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     }
     
     func presentDocument(at documentURL: URL) {
+        Crashlytics.crashlytics().setCustomValue("documentUrl", forKey: documentURL.absoluteString)
+
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         
         if (presentedViewController != nil) {
