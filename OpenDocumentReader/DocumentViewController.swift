@@ -46,6 +46,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
+    @IBOutlet weak var searchButton: UIBarButtonItem!
     
     private var searchBarHeightWhenShown: NSLayoutConstraint?
     private var searchBarHeightWhenHidden: NSLayoutConstraint?
@@ -83,13 +84,21 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         
         document?.webview = self.webview
         
-        bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
-        bannerView.rootViewController = self
-        
-        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-          loadBannerAd()
-        })
+        if ConfigurationManager.manager.configuration == .lite {
+            bannerView.delegate = self
+            bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
+            bannerView.rootViewController = self
+            
+            if #available(iOS 14, *) {
+                ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                    DispatchQueue.main.async {
+                        self.loadBannerAd()
+                    }
+                })
+            } else {
+                loadBannerAd()
+            }
+        }
     }
     
     func setVCconstraints() {
@@ -447,6 +456,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
             
             progressBar.isHidden = true
+            searchButton.isEnabled = false
             
             Analytics.logEvent("load_success", parameters: [
                 AnalyticsParameterItemName: doc.shortenedDocumentUrl,
