@@ -98,6 +98,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             } else {
                 loadBannerAd()
             }
+        } else {
+            hideBannerView()
         }
     }
     
@@ -127,21 +129,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func loadBannerAd() {
-        if ConfigurationManager.manager.configuration == .lite {
-            let frame = { () -> CGRect in
-              if #available(iOS 11.0, *) {
+        let frame = { () -> CGRect in
+            if #available(iOS 11.0, *) {
                 return view.frame.inset(by: view.safeAreaInsets)
-              } else {
+            } else {
                 return view.frame
-              }
-            }()
-            let viewWidth = frame.size.width
-
-            bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
-            bannerView.load(GADRequest())
-        } else {
-            hideBannerView()
-        }
+            }
+        }()
+        let viewWidth = frame.size.width
+        
+        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerView.load(GADRequest())
     }
 
     func hideBannerView() {
