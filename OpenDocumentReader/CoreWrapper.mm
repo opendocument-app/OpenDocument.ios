@@ -15,7 +15,7 @@
 #include "odr/Meta.h"
 
 @implementation CoreWrapper {
-    odr::DocumentNoExcept *translator;
+    std::optional<odr::DocumentNoExcept> translator;
     bool initialized;
 }
 
@@ -23,11 +23,15 @@
     @synchronized(self) {
         try {
             _errorCode = 0;
-                    
+            
             if (!initialized) {
-                translator = odr::DocumentNoExcept::open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]).release();
+                if (translator.has_value()) {
+                    translator.reset();
+                }
                 
-                if (translator == nullptr) {
+                translator = odr::DocumentNoExcept::open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+                
+                if (!translator.has_value()) {
                     _errorCode = @(-1);
                     return false;
                 }
