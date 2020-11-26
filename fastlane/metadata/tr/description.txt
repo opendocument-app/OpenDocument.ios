@@ -1,0 +1,15 @@
+OpenDocument Reader'ı kullanarak hareket halindeyken de OpenOffice veya LibreOffice ile oluşturulmuş belgeleri görüntüleyin ve değiştirin!
+
+OpenDocument Reader, ODF* (OpenDocument Format) belgelerinizi nerede olursanız olun okuyabilmenizi sağlar. Otobüsle okula mı gidiyorsunuz? Sorun değil! OpenDocument Reader ile belgelerinizi çok temiz ve basit bir şekilde okuyabilir ve arayabilirsiniz. Belgenizde düzeltilecek son bir yazım hatası mı kaldı? Uygulama artık belgelerin değiştirilmesini de destekliyor! Hızlı, basit ve iyi entegre edilmiş.
+
+Belgelerinizi diğer uygulamalardan okumaya başlayabilirsiniz. Desteklenen uygulamalar arasında GMail, Google Drive, Box.net, Dropbox ve daha fazlası sayılabilir!
+
+Tek bakışta tüm özellikler:
+- .odt, .ods ve .odp dosyalarını kolayca açma
+- yazım hatalarını düzeltmek, cümleler eklemek vb. için temel belge düzenleme
+- tamamen çevrimdışı çalışabilme
+- küçük uygulama boyutu
+
+* ODF, OpenOffice ve LibreOffice gibi ofis paketleri tarafından kullanılan formattır. Karmaşık biçimlendirme ve gömülü resimler için destek de dahil olmak üzere, metin belgeleri (.odt), elektronik tablolar (.ods) ve sunumlar (.odp) desteklenmektedir. Grafikler de sorun teşkil etmez. Verilerinizi korumak istiyorsanız parola korumalı belgeleri bile açabilirsiniz.
+
+Bu uygulama açık kaynaklıdır. OpenOffice, LibreOffice veya benzeri programlar ile herhangi bir bağlantımız yoktur. Avusturya'da üretilmiştir. 

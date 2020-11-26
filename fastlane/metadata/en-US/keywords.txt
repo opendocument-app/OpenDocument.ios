@@ -1,0 +1,1 @@
+doc,docx,pdf,openoffice,editor,docs,to,go,documents,file,opener,suite,writer,viewer,libreoffice
