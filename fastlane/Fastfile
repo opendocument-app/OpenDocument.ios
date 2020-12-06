@@ -18,21 +18,34 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new release build to the App Store"
   lane :deployPro do
+#    sh("bash", "../build-device.sh")
     build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Full")
     upload_to_app_store(
       app_identifier: "at.tomtasche.reader",
       skip_screenshots: true,
       skip_metadata: true
     )
+    sh("bash", "../upload-symbols.sh")
+#    sh("bash", "../build-simulator.sh")
   end
 
   desc "Push a new release build to the App Store"
   lane :deployLite do
+#    sh("bash", "../build-device.sh")
     build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Lite")
     upload_to_app_store(
       app_identifier: "at.tomtasche.reader.lite1",
       skip_screenshots: true,
       skip_metadata: true
+    )
+    sh("bash", "../upload-symbols.sh")
+#    sh("bash", "../build-simulator.sh")
+  end
+
+  lane :tests do
+    run_tests(
+      workspace: "OpenDocumentReader.xcworkspace",
+      scheme: "ODR Full"
     )
   end
 end

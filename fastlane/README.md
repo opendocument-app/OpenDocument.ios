@@ -26,6 +26,11 @@ Push a new release build to the App Store
 fastlane ios deployLite
 ```
 Push a new release build to the App Store
+### ios tests
+```
+fastlane ios tests
+```
+
 
 ----
 
