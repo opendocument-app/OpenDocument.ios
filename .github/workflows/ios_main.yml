@@ -50,4 +50,5 @@ jobs:
       - name: run tests
         run: bundle exec fastlane tests
       - name: logs
+        if: ${{ always() }}
         run: cat /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/Logs/Test/Run-ODR Full-*.xcresult/Staging/2_Test/Diagnostics/OpenDocumentReaderTests-*/OpenDocumentReaderTests-*/Session-OpenDocumentReaderTests-*.log
