@@ -47,5 +47,7 @@ jobs:
       - name: fastlane
         run: bundle install
 
+      - name: simulator
+        run: open -a simulator
       - name: run tests
         run: bundle exec fastlane tests
