@@ -28,10 +28,6 @@ jobs:
     name: test
     runs-on: macos-latest
     steps:
-      # start simulator as early as possible in order to give it enough time to boot
-      - name: simulator
-        run: $(xcode-select --print-path)$(echo /Applications/Simulator.app/Contents/MacOS/Simulator) --args -CurrentDeviceUDID $(xcrun instruments -s | grep -Eo "iPhone 8 .*" | grep -Eo "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/") &
-
       - uses: actions/checkout@v1
       - name: Checkout submodule
         run: git submodule update --init --recursive

@@ -45,7 +45,8 @@ platform :ios do
   lane :tests do
     run_tests(
       workspace: "OpenDocumentReader.xcworkspace",
-      scheme: "ODR Full"
+      scheme: "ODR Full",
+      prelaunch_simulator: true
     )
   end
 end
