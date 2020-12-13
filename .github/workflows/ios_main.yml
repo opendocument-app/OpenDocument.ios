@@ -47,5 +47,5 @@ jobs:
       - name: fastlane
         run: bundle install
 
-     - name: run tests
+      - name: run tests
         run: bundle exec fastlane tests
