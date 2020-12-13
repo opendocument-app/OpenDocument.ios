@@ -48,6 +48,6 @@ jobs:
         run: bundle install
 
       - name: simulator
-        run: $(xcode-select --print-path)$(echo /Applications/Simulator.app/Contents/MacOS/Simulator) &
+        run: $(xcode-select --print-path)$(echo /Applications/Simulator.app/Contents/MacOS/Simulator) --args -CurrentDeviceUDID $(xcrun instruments -s | grep -Eo "iPhone 8 .*" | grep -Eo "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/") &
       - name: run tests
         run: bundle exec fastlane tests
