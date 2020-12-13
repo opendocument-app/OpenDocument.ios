@@ -43,7 +43,7 @@ class OpenDocumentReaderTests: XCTestCase {
             downloadTask.resume()
         } else {
             let filePath = Bundle(for: type(of: self)).path(forResource: "test", ofType: "odt")
-            fileURL = URL(string: filePath!)
+            fileURL = URL(fileURLWithPath: filePath!)
         }
         
         try FileManager.default.moveItem(at: fileURL!, to: self.saveURL!)
