@@ -25,6 +25,7 @@
 		E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB719226B65E300053B86 /* DocumentViewController.swift */; };
 		E22EB71C226B66B300053B86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E22EB71B226B66B300053B86 /* Main.storyboard */; };
 		E23795302274844400BA7238 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E237952F2274844400BA7238 /* AdSupport.framework */; };
+		E24110312586349500800247 /* test.odt in Resources */ = {isa = PBXBuildFile; fileRef = E24110232586349500800247 /* test.odt */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
 		E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E29E4076225A4672002C06E6 /* GoogleService-Info.plist */; };
 		E2B55504245F13570077ED85 /* libodr_oldms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B55503245F13570077ED85 /* libodr_oldms.a */; };
@@ -309,6 +310,7 @@
 		E22EB719226B65E300053B86 /* DocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
 		E22EB71B226B66B300053B86 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E237952F2274844400BA7238 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		E24110232586349500800247 /* test.odt */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odt; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E29E4076225A4672002C06E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 		E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */ = {
 			isa = PBXGroup;
 			children = (
+				E24110232586349500800247 /* test.odt */,
 				E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */,
 				E22B25302557F0E2001D0C52 /* Info.plist */,
 			);
@@ -726,6 +729,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E24110312586349500800247 /* test.odt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

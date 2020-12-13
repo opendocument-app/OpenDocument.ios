@@ -12,10 +12,13 @@ import XCTest
 
 class OpenDocumentReaderTests: XCTestCase {
     
+    // ONLINE fails on GitHub Actions for some reason
+    private let ONLINE = false
+    
     private var saveURL: URL?
 
     override func setUpWithError() throws {
-        let url = URL(string: "https://api.libreoffice.org/examples/cpp/DocumentLoader/test.odt")
+        var fileURL: URL?
         
         let documentsURL = try
             FileManager.default.url(for: .documentDirectory,
@@ -23,20 +26,25 @@ class OpenDocumentReaderTests: XCTestCase {
                                     appropriateFor: nil,
                                     create: false)
         
-        saveURL = documentsURL.appendingPathComponent(url!.lastPathComponent)
+        saveURL = documentsURL.appendingPathComponent("test.odt")
         
         if (FileManager.default.fileExists(atPath: saveURL!.path)) {
             return
         }
         
-        var fileURL: URL?
-        
-        let downloadTask = URLSession.shared.downloadTask(with: url!) {
-            urlOrNil, responseOrNil, errorOrNil in
+        if (ONLINE) {
+            let url = URL(string: "https://api.libreoffice.org/examples/cpp/DocumentLoader/test.odt")
             
-            fileURL = urlOrNil
+            let downloadTask = URLSession.shared.downloadTask(with: url!) {
+                urlOrNil, responseOrNil, errorOrNil in
+                
+                fileURL = urlOrNil
+            }
+            downloadTask.resume()
+        } else {
+            let filePath = Bundle(for: type(of: self)).path(forResource: "test", ofType: "odt")
+            fileURL = URL(string: filePath!)
         }
-        downloadTask.resume()
         
         try FileManager.default.moveItem(at: fileURL!, to: self.saveURL!)
     }
