@@ -2,28 +2,6 @@ name: OpenDocumentReader-iOS
 on: [push]
 
 jobs:
-  build:
-    name: build
-    runs-on: macos-latest
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,name=iPhone 11']
-          scheme: [ODR Full]
-    steps:
-      - uses: actions/checkout@v1
-      - name: Checkout submodule
-        run: git submodule update --init --recursive
-      - name: Install pods
-        run: pod install
-      - name: Run build.sh
-        run: bash build-simulator.sh
-      - name: Build
-        run: |
-          xcodebuild clean build -workspace OpenDocumentReader.xcworkspace -scheme "${scheme}" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-        env: 
-          destination: ${{ matrix.destination }}
-          scheme: ${{ matrix.scheme }}
-
   test:
     name: test
     runs-on: macos-latest
