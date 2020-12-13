@@ -46,7 +46,8 @@ platform :ios do
     run_tests(
       workspace: "OpenDocumentReader.xcworkspace",
       scheme: "ODR Full",
-      prelaunch_simulator: true
+      prelaunch_simulator: true,
+      reset_simulator: true
     )
   end
 end
