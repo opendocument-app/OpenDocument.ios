@@ -29,20 +29,16 @@ class OpenDocumentReaderTests: XCTestCase {
             return
         }
         
+        var fileURL: URL?
+        
         let downloadTask = URLSession.shared.downloadTask(with: url!) {
             urlOrNil, responseOrNil, errorOrNil in
-            // check for and handle errors:
-            // * errorOrNil should be nil
-            // * responseOrNil should be an HTTPURLResponse with statusCode in 200..<299
             
-            guard let fileURL = urlOrNil else { return }
-            do {
-                try FileManager.default.moveItem(at: fileURL, to: self.saveURL!)
-            } catch {
-                print ("file error: \(error)")
-            }
+            fileURL = urlOrNil
         }
         downloadTask.resume()
+        
+        try FileManager.default.moveItem(at: fileURL!, to: self.saveURL!)
     }
     
     func testExample() throws {
