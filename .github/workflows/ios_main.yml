@@ -48,6 +48,6 @@ jobs:
         run: bundle install
 
       - name: simulator
-        run: open -a simulator
+        run: /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator &
       - name: run tests
         run: bundle exec fastlane tests
