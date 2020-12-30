@@ -6,9 +6,11 @@ jobs:
     name: test
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Checkout submodule
-        run: git submodule update --init --recursive
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT_TOMTASCHE }}
+          submodules: true
 
       - name: Install pods
         run: pod install
