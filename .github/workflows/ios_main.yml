@@ -6,17 +6,21 @@ jobs:
     name: test
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Checkout submodule
-        run: git submodule update --init --recursive
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT_TOMTASCHE }}
+          submodules: true
 
-      - name: Install pods
+      - name: pods
         run: pod install
-      - name: Run build.sh
+      - name: build.sh
         run: bash build-simulator.sh
 
       - name: brew
         run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+      - name: fix ninja install
+        run: rm '/usr/local/bin/2to3'
       - name: ninja
         run: brew install ninja
       # https://stackoverflow.com/a/57758679/198996
