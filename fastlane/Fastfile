@@ -25,7 +25,6 @@ platform :ios do
       skip_screenshots: true,
       skip_metadata: true
     )
-    sh("bash", "../upload-symbols.sh")
 #    sh("bash", "../build-simulator.sh")
   end
 
@@ -38,7 +37,6 @@ platform :ios do
       skip_screenshots: true,
       skip_metadata: true
     )
-    sh("bash", "../upload-symbols.sh")
 #    sh("bash", "../build-simulator.sh")
   end
 
@@ -49,5 +47,32 @@ platform :ios do
       prelaunch_simulator: true,
       reset_simulator: true
     )
+  end
+
+  lane :uploadSymbols do
+    version_number = get_version_number(
+      target: "OpenDocumentReader",
+      configuration: "Release Lite"
+    )
+    build_number = get_build_number
+    download_dsyms(
+      app_identifier: "at.tomtasche.reader.lite1",
+      version: version_number,
+      build_number: build_number
+    )
+    
+    version_number = get_version_number(
+      target: "OpenDocumentReader",
+      configuration: "Release"
+    )
+    build_number = get_build_number
+    download_dsyms(
+      app_identifier: "at.tomtasche.reader",
+      version: version_number,
+      build_number: build_number
+    )
+
+    upload_symbols_to_crashlytics(gsp_path: "./OpenDocumentReader/GoogleService-Info-Lite.plist")
+    upload_symbols_to_crashlytics(gsp_path: "./OpenDocumentReader/GoogleService-Info.plist")
   end
 end

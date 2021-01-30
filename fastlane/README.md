@@ -31,6 +31,11 @@ Push a new release build to the App Store
 fastlane ios tests
 ```
 
+### ios uploadSymbols
+```
+fastlane ios uploadSymbols
+```
+
 
 ----
 
