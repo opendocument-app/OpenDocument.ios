@@ -1,0 +1,33 @@
+Просмотр и изменение документов LibreOffice и OpenOffice на ходу с помощью OpenDocument Reader!
+
+OpenDocument Reader позволяет где угодно читать документы формата ODF* (Open Document Format), созданные в программах LibreOffice или OpenOffice. Нужно просмотреть заметки в автобусе на пути в школу перед важным экзаменом? Без проблем! С помощью OpenDocument Reader вы можете легко и просто читать и просматривать свои документы. Нужно исправить ошибку в документе перед тем, как отправить его коллегам? Теперь с приложением OpenDocument Reader можно изменять документы! Быстро, легко и просто.
+
+Вы можете просматривать свои документы из других приложений. Поддерживаемые приложения — GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox и многие другие! Вы также можете использовать наш интегрированный проводник, чтобы открыть локальные файлы на своем устройстве.
+
+Краткий обзор всех функций:
+- легкое открытие файлов форматов ODT, ODS, ODP и ODG
+- простое редактирование документов для исправления ошибок, добавления предложений и т.д.
+- безопасное открытие защищенных паролем документов
+- поиск и выделение ключевых слов в документе
+- распечатка документов, если ваше устройство подключено к принтеру
+- чтение документов, раскрытых во весь экран, чтобы не отвлекаться
+- выделение и копирование текста в документах
+- просмотр документов даже без подключения к интернету, полностью офлайн
+
+Помимо этого, OpenDocument Reader как можно лучше поддерживает другие форматы файлов:
+- Portable Document Format (PDF)
+- Архивы: ZIP
+- Изображения: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG и т.д.
+- Видео: MP4, WEBM и т.д.
+- Аудио: MP3, OGG, и т.д.
+- Текстовые файлы: CSV, TXT, HTML, RTF
+- Файлы офисного пакета Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
+- Apple iWork: Pages, Numbers, Keynote
+- Libre Office и Open Office OpenDocument Format: ODF* (ODT, ODS, ODP, ODG)
+- PostScript (EPS)
+- AutoCAD (DXF)
+- Photoshop (PSD)
+
+Это приложение с открытым кодом. Мы никак не связаны с OpenOffice, LibreOffice или подобными программами.
+
+* ODF (Open Document Format) — формат таких офисных пакетов, как Open Office и Libre Office. Поддерживаются текстовые документы (Writer, ODT), а также электронные таблицы (Calc, ODS) и презентации (Impress, ODP), в том числе сложное форматирование и встроенные изображения. Графики – тоже не проблема. Если вы желаете обеспечить безопасность своих данных, вы можете открыть даже защищенные паролем документы. Другие приложения, использующие этот формат: LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office и 602Office.

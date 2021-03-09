@@ -1,0 +1,1 @@
+doc,docx,pdf,openoffice,odt,ods,odp,odg,odf,opendocumentformat,opendocument,libre office

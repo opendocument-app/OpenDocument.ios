@@ -1,0 +1,78 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new release build to the App Store"
+  lane :deployPro do
+#    sh("bash", "../build-device.sh")
+    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Full")
+    upload_to_app_store(
+      app_identifier: "at.tomtasche.reader",
+      skip_screenshots: true,
+      skip_metadata: true
+    )
+#    sh("bash", "../build-simulator.sh")
+  end
+
+  desc "Push a new release build to the App Store"
+  lane :deployLite do
+#    sh("bash", "../build-device.sh")
+    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Lite")
+    upload_to_app_store(
+      app_identifier: "at.tomtasche.reader.lite1",
+      skip_screenshots: true,
+      skip_metadata: true
+    )
+#    sh("bash", "../build-simulator.sh")
+  end
+
+  lane :tests do
+    run_tests(
+      workspace: "OpenDocumentReader.xcworkspace",
+      scheme: "ODR Full",
+      prelaunch_simulator: true,
+      reset_simulator: true
+    )
+  end
+
+  lane :uploadSymbols do
+    version_number = get_version_number(
+      target: "OpenDocumentReader",
+      configuration: "Release Lite"
+    )
+    build_number = get_build_number
+    download_dsyms(
+      app_identifier: "at.tomtasche.reader.lite1",
+      version: version_number,
+      build_number: build_number
+    )
+    
+    version_number = get_version_number(
+      target: "OpenDocumentReader",
+      configuration: "Release"
+    )
+    build_number = get_build_number
+    download_dsyms(
+      app_identifier: "at.tomtasche.reader",
+      version: version_number,
+      build_number: build_number
+    )
+
+    upload_symbols_to_crashlytics(gsp_path: "./OpenDocumentReader/GoogleService-Info-Lite.plist")
+    upload_symbols_to_crashlytics(gsp_path: "./OpenDocumentReader/GoogleService-Info.plist")
+  end
+end

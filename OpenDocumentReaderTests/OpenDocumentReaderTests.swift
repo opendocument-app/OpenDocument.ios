@@ -12,10 +12,13 @@ import XCTest
 
 class OpenDocumentReaderTests: XCTestCase {
     
+    // ONLINE fails on GitHub Actions for some reason
+    private let ONLINE = false
+    
     private var saveURL: URL?
 
     override func setUpWithError() throws {
-        let url = URL(string: "https://api.libreoffice.org/examples/cpp/DocumentLoader/test.odt")
+        var fileURL: URL?
         
         let documentsURL = try
             FileManager.default.url(for: .documentDirectory,
@@ -23,26 +26,27 @@ class OpenDocumentReaderTests: XCTestCase {
                                     appropriateFor: nil,
                                     create: false)
         
-        saveURL = documentsURL.appendingPathComponent(url!.lastPathComponent)
+        saveURL = documentsURL.appendingPathComponent("test.odt")
         
         if (FileManager.default.fileExists(atPath: saveURL!.path)) {
             return
         }
         
-        let downloadTask = URLSession.shared.downloadTask(with: url!) {
-            urlOrNil, responseOrNil, errorOrNil in
-            // check for and handle errors:
-            // * errorOrNil should be nil
-            // * responseOrNil should be an HTTPURLResponse with statusCode in 200..<299
+        if (ONLINE) {
+            let url = URL(string: "https://api.libreoffice.org/examples/cpp/DocumentLoader/test.odt")
             
-            guard let fileURL = urlOrNil else { return }
-            do {
-                try FileManager.default.moveItem(at: fileURL, to: self.saveURL!)
-            } catch {
-                print ("file error: \(error)")
+            let downloadTask = URLSession.shared.downloadTask(with: url!) {
+                urlOrNil, responseOrNil, errorOrNil in
+                
+                fileURL = urlOrNil
             }
+            downloadTask.resume()
+        } else {
+            let filePath = Bundle(for: type(of: self)).path(forResource: "test", ofType: "odt")
+            fileURL = URL(fileURLWithPath: filePath!)
         }
-        downloadTask.resume()
+        
+        try FileManager.default.moveItem(at: fileURL!, to: self.saveURL!)
     }
     
     func testExample() throws {
@@ -53,7 +57,7 @@ class OpenDocumentReaderTests: XCTestCase {
             translatePath.appendPathComponent("translate.html")
             
             coreWrapper.translate(saveURL?.path, into: translatePath.path, at: 0, with: nil, editable: true)
-            XCTAssert(coreWrapper.errorCode == nil)
+            XCTAssertNil(coreWrapper.errorCode)
             
             var backTranslatePath = URL(fileURLWithPath: NSTemporaryDirectory())
             backTranslatePath.appendPathComponent("backtranslate.html")
@@ -61,7 +65,7 @@ class OpenDocumentReaderTests: XCTestCase {
             let diff = "{\"modifiedText\":{\"3\":\"This is a simple test document to demonstrate the DocumentLoadewwwwr example!\"}}"
             
             coreWrapper.backTranslate(diff, into: backTranslatePath.path)
-            XCTAssert(coreWrapper.errorCode == nil)
+            XCTAssertNil(coreWrapper.errorCode)
         }
     }
 }

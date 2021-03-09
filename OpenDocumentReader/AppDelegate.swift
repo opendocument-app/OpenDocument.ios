@@ -78,9 +78,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         documentBrowserViewController.revealDocument(at: destinationUrl, importIfNeeded: true) { (revealedDocumentURL, error) in
-            // ignoring errors because they should pop up in failedToImportDocumentAt too
-                        
-            documentBrowserViewController.presentDocument(at: revealedDocumentURL!)
+            guard let documentUrl = revealedDocumentURL else {
+                // ignoring errors because they should pop up in failedToImportDocumentAt too
+                
+                return;
+            }
+            
+            documentBrowserViewController.presentDocument(at: documentUrl)
         }
 
         return true
