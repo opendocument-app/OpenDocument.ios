@@ -147,7 +147,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         bannerViewHeight.constant = 0.0
     }
     
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         hideBannerView()
     }
 
