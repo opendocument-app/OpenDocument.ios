@@ -7,7 +7,6 @@ A document that manages UTF8 text files.
 
 import UIKit
 import WebKit
-import Firebase
 
 protocol DocumentDelegate: class {
     func documentUpdateContent(_ doc: Document)
@@ -124,7 +123,6 @@ class Document: UIDocument {
 
             webview?.evaluateJavaScript("odr.generateDiff()", completionHandler: { (value: Any!, error: Error!) -> Void in
                 if error != nil {
-                    Crashlytics.crashlytics().record(error: error)
                     fatalError("generateDiff failed")
 
                     return

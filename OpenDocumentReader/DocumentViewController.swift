@@ -9,15 +9,10 @@ import UIKit
 import WebKit
 import ScrollableSegmentedControl
 import UIKit.UIPrinter
-import Firebase
-import GoogleMobileAds
-#if !targetEnvironment(macCatalyst)
-import AppTrackingTransparency
-#endif
 import AdSupport
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate, UISearchBarDelegate {
+class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDelegate {
     
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -45,7 +40,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var bannerView: GADBannerView!
+    
     @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
@@ -86,12 +81,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         
         document?.webview = self.webview
         
+        #if !targetEnvironment(macCatalyst)
         if ConfigurationManager.manager.configuration == .lite {
             bannerView.delegate = self
             bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
             bannerView.rootViewController = self
             
-            #if !targetEnvironment(macCatalyst)
             if #available(iOS 14, *) {
                 ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
                     DispatchQueue.main.async {
@@ -101,15 +96,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             } else {
                 loadBannerAd()
             }
-            #else
-            loadBannerAd()
-            #endif
         }
+        #endif
     }
     
     func setVCconstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         webview.translatesAutoresizingMaskIntoConstraints = false
         
@@ -117,12 +109,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor).isActive = true
 
-        bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bannerView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-        bannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        segmentedControl.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
@@ -130,33 +117,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         webview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         webview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    func loadBannerAd() {
-        if ConfigurationManager.manager.configuration == .lite {
-            let frame = { () -> CGRect in
-              if #available(iOS 11.0, *) {
-                return view.frame.inset(by: view.safeAreaInsets)
-              } else {
-                return view.frame
-              }
-            }()
-            let viewWidth = frame.size.width
-
-            bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
-            bannerView.load(GADRequest())
-        } else {
-            hideBannerView()
-        }
-    }
-
-    func hideBannerView() {
-        bannerView.isHidden = true
-        bannerViewHeight.constant = 0.0
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        hideBannerView()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -180,7 +140,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func showWebsite() {
-        Analytics.logEvent("menu_help", parameters: nil)
         
         UIApplication.shared.openURL(URL(string: "https://opendocument.app")!)
     }
@@ -194,7 +153,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         } else {
             event = "menu_fullscreen_leave"
         }
-        Analytics.logEvent(event, parameters: nil)
         
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -240,7 +198,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     private func findNext(searchText: String) {
         webview?.evaluateJavaScript("odr.searchNext(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
             if error != nil {
-                Crashlytics.crashlytics().record(error: error)
                 fatalError("search failed")
             }
         })
@@ -249,7 +206,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     private func findAll(searchText: String) {
         webview?.evaluateJavaScript("odr.search(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
             if error != nil {
-                Crashlytics.crashlytics().record(error: error)
                 fatalError("search failed")
             }
         })
@@ -265,13 +221,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         if doc.edit {
             let alert = UIAlertController(title: NSLocalizedString("alert_unsaved_changes", comment: ""), message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .destructive, handler: { (_) in
-                Analytics.logEvent("alert_unsaved_changes_no", parameters: nil)
 
                 self.discardChanges()
                 self.closeCurrentDocument()
             }))
             alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default, handler: { (_) in
-                Analytics.logEvent("alert_unsaved_changes_yes", parameters: nil)
 
                 self.saveContent() { (success) -> () in
                     if (success) {
@@ -282,7 +236,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             
             self.present(alert, animated: true, completion: nil)
             
-            Analytics.logEvent("show_alert_unsaved_changes", parameters: nil)
         } else {
             closeCurrentDocument()
         }
@@ -334,7 +287,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func discardChanges() {
-        Analytics.logEvent("menu_edit_discard", parameters: nil)
 
         guard let doc = document else {
             fatalError("document is null")
@@ -346,7 +298,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func saveContent(completion: ((Bool) -> ())?) {
-        Analytics.logEvent("menu_edit_save", parameters: nil)
 
         guard let doc = document else {
             fatalError("document is null")
@@ -393,13 +344,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func editDocument() {
-        Analytics.logEvent("menu_edit", parameters: nil)
 
         document?.edit = true
     }
     
     func printDocument() {
-        Analytics.logEvent("menu_print", parameters: nil)
 
         let printController = UIPrintInteractionController.shared
         let printInfo : UIPrintInfo = UIPrintInfo(dictionary: nil)
@@ -464,23 +413,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
             progressBar.isHidden = true
             searchButton.isEnabled = false
             
-            Analytics.logEvent("load_success", parameters: [
-                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
-                AnalyticsParameterContentType: fileType
-            ])
             
             return;
         }
         
         self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))</html>", baseURL: nil)
         
-        Analytics.logEvent(
-            "load_error",
-            parameters: [
-                "code": errorCode,
-                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
-                AnalyticsParameterContentType: fileType
-            ])
     }
     
     func documentLoadingStarted(_ doc: Document) {
@@ -489,18 +427,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     }
     
     func documentLoadingCompleted(_ doc: Document) {
-        Analytics.logEvent("load_odf_success", parameters: nil)
         
         progressBar.isHidden = true
         
         let fileType = doc.fileURL.pathExtension.lowercased()
         
-        Analytics.logEvent(
-            "load_success",
-            parameters: [
-                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
-                AnalyticsParameterContentType: fileType
-            ])
     }
     
     func documentPagesChanged(_ doc: Document) {

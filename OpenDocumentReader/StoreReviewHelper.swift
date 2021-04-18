@@ -7,7 +7,6 @@
 //
 import Foundation
 import StoreKit
-import FirebaseAnalytics
 
 // taken from: https://medium.com/@abhimuralidharan/asking-customers-for-ratings-and-reviews-from-inside-the-app-in-ios-d85f256dd4ef
 struct StoreReviewHelper {
@@ -47,7 +46,6 @@ struct StoreReviewHelper {
     
     fileprivate func requestReview() {
         if #available(iOS 10.3, *) {
-            Analytics.logEvent("rating_show", parameters: nil)
             
             SKStoreReviewController.requestReview()
         } else {

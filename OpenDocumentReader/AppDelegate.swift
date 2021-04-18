@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,13 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if ConfigurationManager.manager.configuration == .lite {
-            let filePath = Bundle.main.path(forResource: "GoogleService-Info-Lite", ofType: "plist")!
-            let options = FirebaseOptions(contentsOfFile: filePath)
-            FirebaseApp.configure(options: options!)
-        } else {
-            FirebaseApp.configure()
-        }
         
         StoreReviewHelper.incrementAppOpenedCount()
         
@@ -68,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 try FileManager.default.moveItem(at: inputURL, to: destinationUrl)
             } catch {
-                Crashlytics.crashlytics().record(error: error)
                 fatalError("copying from Inbox failed")
                 
                 return false

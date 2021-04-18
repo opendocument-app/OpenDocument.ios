@@ -25,7 +25,7 @@
             _errorCode = 0;
                     
             if (!initialized) {
-                translator = odr::DocumentNoExcept::open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]).release();
+                //translator = odr::DocumentNoExcept::open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
                 
                 if (translator == nullptr) {
                     _errorCode = @(-1);

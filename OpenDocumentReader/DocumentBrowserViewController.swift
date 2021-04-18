@@ -6,7 +6,6 @@
  */
 
 import UIKit
-import Firebase
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
@@ -72,7 +71,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     }
     
     func presentDocument(at documentURL: URL) {
-        Crashlytics.crashlytics().setCustomValue("documentUrl", forKey: documentURL.absoluteString)
 
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -97,9 +95,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         documentViewController.document = doc
         
         let shortenedDocumentUrl = documentURL.absoluteString.prefix(49) + ".." + documentURL.absoluteString.suffix(49)
-        Analytics.logEvent(AnalyticsEventViewItem, parameters: [
-            AnalyticsParameterItemName: shortenedDocumentUrl
-        ])
         
         doc.open { [weak self](success) in
             transitionController.loadingProgress = nil

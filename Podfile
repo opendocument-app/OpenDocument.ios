@@ -5,11 +5,6 @@ target 'OpenDocumentReader' do
 
   # Pods for OpenDocumentReader
   pod 'ScrollableSegmentedControl'
-  pod 'Firebase/Core'
-  pod 'Firebase/Storage'
-  pod 'Google-Mobile-Ads-SDK'
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
 
   target 'OpenDocumentReaderTests' do
     inherit! :search_paths
