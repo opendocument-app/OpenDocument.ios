@@ -152,63 +152,63 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 6D07C32997A54E5CBF02D310;
+			remoteGlobalIDString = BBA0CDFF7A06459CA0B710F0;
 			remoteInfo = "cryptopp-object";
 		};
 		E21C59B124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 5BBBF076E2D6417C846043ED;
+			remoteGlobalIDString = 57E536E2DAF045039983A5E5;
 			remoteInfo = glog;
 		};
 		E21C59B324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 1CFC3CABEAE24CD6B929D86A;
+			remoteGlobalIDString = 8E841795B65B4E3E802CECD7;
 			remoteInfo = miniz;
 		};
 		E21C59B724308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 0F089E9A555B4FF0BAC4DAE1;
+			remoteGlobalIDString = 9D637FCF5D484719BCE907D8;
 			remoteInfo = odr_access;
 		};
 		E21C59B924308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = BE2CCB34B63340A596DF7BC2;
+			remoteGlobalIDString = 2F8727892C384DCBA9575D42;
 			remoteInfo = odr_common;
 		};
 		E21C59BB24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 148893361F6E4D3F8E8B5714;
+			remoteGlobalIDString = DA6646AA18F14F9EA7C9F878;
 			remoteInfo = odr_crypto;
 		};
 		E21C59BD24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 3AE9BA650F084467B6951508;
+			remoteGlobalIDString = 664EEA82C3D84EDB8C42EF5D;
 			remoteInfo = odr_odf;
 		};
 		E21C59BF24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 15303F29985D4A43A4D79882;
+			remoteGlobalIDString = E4EAC07B1DCA4E57A1637A20;
 			remoteInfo = odr_ooxml;
 		};
 		E21C59C124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 2858671C3826475C9BC474EE;
+			remoteGlobalIDString = 623D2BECB08241318DEB9F09;
 			remoteInfo = odr_svm;
 		};
 		E22B25312557F0E2001D0C52 /* PBXContainerItemProxy */ = {
@@ -250,7 +250,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 627665C2CDDC459CB841C79C;
+			remoteGlobalIDString = E997F732A6AB48CC8E71F4C1;
 			remoteInfo = odr_oldms;
 		};
 		E2C70F4825A764EE0011D423 /* PBXContainerItemProxy */ = {
@@ -264,7 +264,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = EA66C89FB2404D68810DB956;
+			remoteGlobalIDString = 1B9E0A8B9C8E4504B3A964EE;
 			remoteInfo = "odr-static";
 		};
 /* End PBXContainerItemProxy section */
@@ -1169,7 +1169,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				INFOPLIST_FILE = OpenDocumentReaderTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1191,7 +1191,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				INFOPLIST_FILE = OpenDocumentReaderTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1213,7 +1213,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				INFOPLIST_FILE = OpenDocumentReaderTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1235,7 +1235,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				INFOPLIST_FILE = OpenDocumentReaderTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
