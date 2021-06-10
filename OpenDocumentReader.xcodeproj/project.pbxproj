@@ -152,63 +152,63 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = F5D909F572234EA79F6623CE;
+			remoteGlobalIDString = 6D07C32997A54E5CBF02D310;
 			remoteInfo = "cryptopp-object";
 		};
 		E21C59B124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 44ACEB51D27C4797BAD46844;
+			remoteGlobalIDString = 5BBBF076E2D6417C846043ED;
 			remoteInfo = glog;
 		};
 		E21C59B324308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = AFF4407B7B434650ACC39291;
+			remoteGlobalIDString = 1CFC3CABEAE24CD6B929D86A;
 			remoteInfo = miniz;
 		};
 		E21C59B724308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 735CB59EB67C4E21852945A2;
+			remoteGlobalIDString = 0F089E9A555B4FF0BAC4DAE1;
 			remoteInfo = odr_access;
 		};
 		E21C59B924308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 75D211A3A2924890BC41ECFF;
+			remoteGlobalIDString = BE2CCB34B63340A596DF7BC2;
 			remoteInfo = odr_common;
 		};
 		E21C59BB24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 20BE473C32834B7DBE120D0B;
+			remoteGlobalIDString = 148893361F6E4D3F8E8B5714;
 			remoteInfo = odr_crypto;
 		};
 		E21C59BD24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = F6905DDAEBAB40778442B7FF;
+			remoteGlobalIDString = 3AE9BA650F084467B6951508;
 			remoteInfo = odr_odf;
 		};
 		E21C59BF24308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 069537FE22414BF3BFBD9A61;
+			remoteGlobalIDString = 15303F29985D4A43A4D79882;
 			remoteInfo = odr_ooxml;
 		};
 		E21C59C124308C720076C37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 2DD4B2667B8F4BA9985B109A;
+			remoteGlobalIDString = 2858671C3826475C9BC474EE;
 			remoteInfo = odr_svm;
 		};
 		E22B25312557F0E2001D0C52 /* PBXContainerItemProxy */ = {
@@ -250,7 +250,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 6ACF6B3CD48E47BBAF0C6C51;
+			remoteGlobalIDString = 627665C2CDDC459CB841C79C;
 			remoteInfo = odr_oldms;
 		};
 		E2C70F4825A764EE0011D423 /* PBXContainerItemProxy */ = {
@@ -264,7 +264,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E21C596324308C3E0076C37C /* Project.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8C9ED6B7B68348F3BBE96FD8;
+			remoteGlobalIDString = EA66C89FB2404D68810DB956;
 			remoteInfo = "odr-static";
 		};
 /* End PBXContainerItemProxy section */
@@ -1023,7 +1023,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1031,6 +1031,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug Lite";
 		};
@@ -1044,7 +1045,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
@@ -1052,13 +1053,13 @@
 					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
 				);
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.22;
+				MARKETING_VERSION = 1.24;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1115,13 +1116,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release Lite";
@@ -1136,7 +1138,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
@@ -1144,13 +1146,13 @@
 					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
 				);
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.22;
+				MARKETING_VERSION = 1.24;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1300,7 +1302,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1308,6 +1310,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1358,13 +1361,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1379,7 +1383,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
@@ -1387,13 +1391,13 @@
 					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.22;
+				MARKETING_VERSION = 1.24;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1413,7 +1417,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
@@ -1421,13 +1425,13 @@
 					"$(PROJECT_DIR)/OpenDocument.core/odr/include/**",
 				);
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.22;
+				MARKETING_VERSION = 1.24;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
