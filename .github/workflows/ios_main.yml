@@ -14,8 +14,6 @@ jobs:
 
       - name: pods
         run: pod install
-      - name: build.sh
-        run: bash build-simulator.sh
 
       - name: brew
         run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
