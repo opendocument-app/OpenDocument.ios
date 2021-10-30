@@ -28,7 +28,8 @@ class Document: UIDocument {
     
     public var result: URL?
     public var pageNames: [String]?
-    
+    public var pagePaths: [String]?
+
     public weak var delegate: DocumentDelegate?
     public var loadProgress = Progress(totalUnitCount: 5)
     
@@ -73,12 +74,10 @@ class Document: UIDocument {
         result = nil
         delegate?.documentUpdateContent(self)
 
-        var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
-        tempPath.appendPathComponent("temp.html")
+        let tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
+        coreWrapper.translate(fileURL.path, into: tempPath.path, with: password, editable: edit)
         
-        coreWrapper.translate(fileURL.path, into: tempPath.path, at: page as NSNumber, with: password, editable: edit)
         let errorCode = coreWrapper.errorCode != nil ? coreWrapper.errorCode.intValue : 0
-        
         if (errorCode == -2) {
             self.delegate?.documentEncrypted(self)
             
@@ -102,8 +101,18 @@ class Document: UIDocument {
             }
         }
         
+        var pagePaths = [String]()
+        for object in coreWrapper.pagePaths {
+            if let pagePath = object as? String {
+                pagePaths.append(pagePath)
+            }
+        }
+        
+        self.pagePaths = pagePaths
         self.pageNames = pageNames
-        result = tempPath
+        
+        // TODO: use all pages instead of just one!
+        result = URL(fileURLWithPath: pagePaths[page])
         
         delegate?.documentUpdateContent(self)
         

@@ -10,75 +10,63 @@
 
 #import "CoreWrapper.h"
 
-#include "odr/Document.h"
-#include "odr/Config.h"
-#include "odr/Meta.h"
+#include <string>
+#include <optional>
+#include <string>
+#include <optional>
+#include <odr/document.h>
+#include <odr/document_cursor.h>
+#include <odr/document_element.h>
+#include <odr/file.h>
+#include <odr/html.h>
+#include <odr/open_document_reader.h>
+#include <odr/exceptions.h>
 
 @implementation CoreWrapper {
-    std::optional<odr::DocumentNoExcept> translator;
-    bool initialized;
+    std::optional<odr::Html> html;
 }
 
-- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password editable:(bool)editable {
+- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable {
     @synchronized(self) {
         try {
             _errorCode = 0;
             
-            if (!initialized) {
-                if (translator.has_value()) {
-                    translator.reset();
-                }
-                
-                translator = odr::DocumentNoExcept::open([inputPath cStringUsingEncoding:NSUTF8StringEncoding]);
-                
-                if (!translator.has_value()) {
-                    _errorCode = @(-1);
-                    return false;
-                }
-                
-                auto meta = translator->meta();
-                
-                bool decrypted = !meta.encrypted;
-                if (password != nil) {
-                    decrypted = translator->decrypt([password cStringUsingEncoding:NSUTF8StringEncoding]);
-                    
-                    meta = translator->meta();
-                }
-                
-                if (!decrypted) {
-                    _errorCode = @(-2);
-                    return false;
-                }
-                
-                NSMutableArray *pageNames = [[NSMutableArray alloc] init];
-                if (meta.type == odr::FileType::OPENDOCUMENT_TEXT) {
-                    [pageNames addObject:@"Text document"];
-                } else if (meta.type == odr::FileType::OPENDOCUMENT_SPREADSHEET || meta.type == odr::FileType::OPENDOCUMENT_PRESENTATION || meta.type == odr::FileType::OPENDOCUMENT_GRAPHICS) {
-                    for (auto page = meta.entries.begin(); page != meta.entries.end(); page++) {
-                        auto pageName = page->name;
-                        
-                        [pageNames addObject:[NSString stringWithCString:pageName.c_str() encoding:[NSString defaultCStringEncoding]]];
-                    }
-                } else {
-                    _errorCode = @(-5);
-                    return false;
-                }
-                _pageNames = pageNames;
-                
-                initialized = true;
+            if (html.has_value()) {
+                html.reset();
             }
             
-            odr::Config config = {};
+            odr::HtmlConfig config;
             config.editable = editable;
-            config.entryOffset = page.intValue;
-            config.entryCount = 1;
-            config.tableLimitRows = 10000;
             
-            bool translated = translator->translate([outputPath cStringUsingEncoding:NSUTF8StringEncoding], config);
-            if (!translated) {
-                _errorCode = @(-4);
-                return false;
+            const char* passwordC = nullptr;
+            if (password != nil) {
+                passwordC = [password cStringUsingEncoding:NSUTF8StringEncoding];
             }
+            
+            auto inputPathC = [inputPath cStringUsingEncoding:NSUTF8StringEncoding];
+            auto inputPathCpp = std::string(inputPathC);
+            
+            auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
+            auto outputPathCpp = std::string(outputPathC);
+            
+            html = odr::OpenDocumentReader::html(inputPathCpp, passwordC, outputPathCpp, config);
+            
+            NSMutableArray *pageNames = [[NSMutableArray alloc] init];
+            NSMutableArray *pagePaths = [[NSMutableArray alloc] init];
+            for (auto &&page : html->pages()) {
+                [pageNames addObject:[NSString stringWithCString:page.name.c_str() encoding:[NSString defaultCStringEncoding]]];
+                
+                [pagePaths addObject:[NSString stringWithCString:page.path.c_str() encoding:[NSString defaultCStringEncoding]]];
+            }
+            
+            _pageNames = pageNames;
+            _pagePaths = pagePaths;
+        } catch (odr::UnknownFileType) {
+            _errorCode = @(-5);
+            return false;
+        } catch (odr::WrongPassword) {
+            _errorCode = @(-2);
+            return false;
         } catch (...) {
             _errorCode = @(-3);
             return false;
@@ -93,17 +81,9 @@
         try {
             _errorCode = 0;
             
-            bool success = translator->edit([diff cStringUsingEncoding:NSUTF8StringEncoding]);
-            if (!success) {
-                _errorCode = @(-4);
-                return false;
-            }
+            html->edit([diff cStringUsingEncoding:NSUTF8StringEncoding]);
             
-            success = translator->save([outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
-            if (!success) {
-                _errorCode = @(-5);
-                return false;
-            }
+            html->save([outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
         } catch (...) {
             _errorCode = @(-3);
             return false;
