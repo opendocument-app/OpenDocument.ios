@@ -30,6 +30,8 @@
     @synchronized(self) {
         try {
             _errorCode = 0;
+            _pageNames = nil;
+            _pagePaths = nil;
             
             if (html.has_value()) {
                 html.reset();
