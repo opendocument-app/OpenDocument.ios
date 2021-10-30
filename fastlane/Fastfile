@@ -20,7 +20,7 @@ platform :ios do
   lane :deployPro do
     sh("bash", "../build-device.sh")
     clear_derived_data
-    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Full")
+    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Full", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store(
       app_identifier: "at.tomtasche.reader",
       skip_screenshots: true,
@@ -34,7 +34,7 @@ platform :ios do
   lane :deployLite do
     sh("bash", "../build-device.sh")
     clear_derived_data
-    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Lite")
+    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Lite", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store(
       app_identifier: "at.tomtasche.reader.lite1",
       skip_screenshots: true,
@@ -51,7 +51,8 @@ platform :ios do
       workspace: "OpenDocumentReader.xcworkspace",
       scheme: "ODR Full",
       prelaunch_simulator: true,
-      reset_simulator: true
+      reset_simulator: true,
+      xcargs: "-allowProvisioningUpdates"
     )
   end
 
