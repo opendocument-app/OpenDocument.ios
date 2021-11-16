@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
 		52D3B301272D314B00DB425F /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2EC272D312400DB425F /* libcryptopp-object.a */; };
-		52D3B303272D314B00DB425F /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2F2272D312400DB425F /* libglog.a */; };
 		52D3B304272D314B00DB425F /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2F6272D312400DB425F /* libminiz.a */; };
 		52D3B305272D314B00DB425F /* libodr-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2F8272D312400DB425F /* libodr-object.a */; };
 		52D3B307272D314B00DB425F /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2FE272D312400DB425F /* libpugixml.a */; };
@@ -68,13 +67,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 46CC554B58AD484688474163;
 			remoteInfo = "cryptopp-static";
-		};
-		52D3B2F1272D312400DB425F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 52D3B2D3272D312400DB425F /* odr-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 452D0B81DB154D1FBC468174;
-			remoteInfo = glog;
 		};
 		52D3B2F3272D312400DB425F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -213,7 +205,6 @@
 				52D3B301272D314B00DB425F /* libcryptopp-object.a in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
-				52D3B303272D314B00DB425F /* libglog.a in Frameworks */,
 				52D3B307272D314B00DB425F /* libpugixml.a in Frameworks */,
 				21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */,
 				52D3B304272D314B00DB425F /* libminiz.a in Frameworks */,
@@ -230,7 +221,6 @@
 				52D3B2EC272D312400DB425F /* libcryptopp-object.a */,
 				52D3B2EE272D312400DB425F /* libcryptopp.dylib */,
 				52D3B2F0272D312400DB425F /* libcryptopp.a */,
-				52D3B2F2272D312400DB425F /* libglog.a */,
 				52D3B2F4272D312400DB425F /* meta */,
 				52D3B2F6272D312400DB425F /* libminiz.a */,
 				52D3B2F8272D312400DB425F /* libodr-object.a */,
@@ -462,13 +452,6 @@
 			fileType = archive.ar;
 			path = libcryptopp.a;
 			remoteRef = 52D3B2EF272D312400DB425F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		52D3B2F2272D312400DB425F /* libglog.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libglog.a;
-			remoteRef = 52D3B2F1272D312400DB425F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		52D3B2F4272D312400DB425F /* meta */ = {
@@ -780,7 +763,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
@@ -873,7 +856,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
@@ -1118,7 +1101,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
@@ -1152,7 +1135,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				HEADER_SEARCH_PATHS = (
