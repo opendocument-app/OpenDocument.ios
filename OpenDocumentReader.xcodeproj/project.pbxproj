@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
+		52BECDD22746CBF900537B40 /* libuchardet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52BECDCD2746CBF900537B40 /* libuchardet.a */; };
 		52D3B301272D314B00DB425F /* libcryptopp-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2EC272D312400DB425F /* libcryptopp-object.a */; };
 		52D3B304272D314B00DB425F /* libminiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2F6272D312400DB425F /* libminiz.a */; };
 		52D3B305272D314B00DB425F /* libodr-object.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D3B2F8272D312400DB425F /* libodr-object.a */; };
@@ -40,6 +41,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		52BECDCC2746CBF900537B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52D3B2D3272D312400DB425F /* odr-ios.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3BE71A984B674653B2F64FDA;
+			remoteInfo = libuchardet;
+		};
+		52BECDCE2746CBF900537B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52D3B2D3272D312400DB425F /* odr-ios.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0EF6E7E7089F488BB1D1C29E;
+			remoteInfo = uchardet;
+		};
+		52BECDD02746CBF900537B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52D3B2D3272D312400DB425F /* odr-ios.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4354083D6A9E436DA19C623D;
+			remoteInfo = "uchardet-tests";
+		};
 		52D3B2E9272D312400DB425F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 52D3B2D3272D312400DB425F /* odr-ios.xcodeproj */;
@@ -208,6 +230,7 @@
 				52D3B307272D314B00DB425F /* libpugixml.a in Frameworks */,
 				21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */,
 				52D3B304272D314B00DB425F /* libminiz.a in Frameworks */,
+				52BECDD22746CBF900537B40 /* libuchardet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +244,7 @@
 				52D3B2EC272D312400DB425F /* libcryptopp-object.a */,
 				52D3B2EE272D312400DB425F /* libcryptopp.dylib */,
 				52D3B2F0272D312400DB425F /* libcryptopp.a */,
+				52BECDCD2746CBF900537B40 /* libuchardet.a */,
 				52D3B2F4272D312400DB425F /* meta */,
 				52D3B2F6272D312400DB425F /* libminiz.a */,
 				52D3B2F8272D312400DB425F /* libodr-object.a */,
@@ -228,6 +252,8 @@
 				52D3B2FC272D312400DB425F /* libodr-static.a */,
 				52D3B2FE272D312400DB425F /* libpugixml.a */,
 				52D3B300272D312400DB425F /* translate */,
+				52BECDCF2746CBF900537B40 /* uchardet */,
+				52BECDD12746CBF900537B40 /* uchardet-tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -424,6 +450,29 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		52BECDCD2746CBF900537B40 /* libuchardet.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libuchardet.a;
+			remoteRef = 52BECDCC2746CBF900537B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		52BECDCF2746CBF900537B40 /* uchardet */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			name = uchardet;
+			path = uchardet.app;
+			remoteRef = 52BECDCE2746CBF900537B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		52BECDD12746CBF900537B40 /* uchardet-tests */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			name = "uchardet-tests";
+			path = "uchardet-tests.app";
+			remoteRef = 52BECDD02746CBF900537B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		52D3B2EA272D312400DB425F /* back_translate */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
