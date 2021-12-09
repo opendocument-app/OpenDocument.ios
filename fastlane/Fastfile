@@ -52,7 +52,7 @@ platform :ios do
       scheme: "ODR Full",
       prelaunch_simulator: true,
       reset_simulator: true,
-      xcargs: "-allowProvisioningUpdates"
+      skip_codesigning: true
     )
   end
 
