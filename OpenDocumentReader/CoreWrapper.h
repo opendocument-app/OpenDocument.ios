@@ -14,9 +14,10 @@
 @interface CoreWrapper : NSObject
 
 @property NSArray *pageNames;
+@property NSArray *pagePaths;
 @property NSNumber *errorCode;
 
-- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath at:(NSNumber *)page with:(NSString *)password editable:(bool)editable;
+- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable;
 - (bool)backTranslate:(NSString *)diff into:(NSString *)outputPath;
 @end
 
