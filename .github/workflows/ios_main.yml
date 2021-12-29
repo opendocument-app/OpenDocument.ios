@@ -31,7 +31,7 @@ jobs:
       - name: pip
         run: python3 -m ensurepip
       - name: conan
-        run: pip install conan
+        run: pip3 install conan
 
       - name: run tests
         run: bundle exec fastlane tests
