@@ -12,6 +12,10 @@ jobs:
           token: ${{ secrets.PAT_TOMTASCHE }}
           submodules: true
 
+      - uses: futureware-tech/simulator-action@v1
+        with:
+          os_version: ">=14.5"
+
       - name: pods
         run: pod install
 
