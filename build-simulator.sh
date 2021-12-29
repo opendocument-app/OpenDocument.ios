@@ -4,9 +4,4 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 
-rm -rf build
-
-mkdir build/
-cd build/
-cmake -G "Xcode" -DGIT_EXECUTABLE=/usr/bin/git -DCMAKE_TOOLCHAIN_FILE=../ios-cmake/ios.toolchain.cmake -DIOS_DEPLOYMENT_TARGET=14.0 -DPLATFORM=OS64COMBINED ../ -DDISABLE_ASM=ON
-cd ../
+conan install . --profile ios-simulator --build missing

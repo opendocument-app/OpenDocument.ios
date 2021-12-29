@@ -1,0 +1,6 @@
+[requires]
+odr.core/1.0.0@
+
+[generators]
+xcode
+

@@ -26,6 +26,8 @@ jobs:
         run: gem install bundler:1.17.3
       - name: fastlane
         run: bundle install
+      - name: conan
+        run: python3 -m ensurepip && pip install conan
 
       - name: run tests
         run: bundle exec fastlane tests
