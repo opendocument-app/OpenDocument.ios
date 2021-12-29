@@ -4,4 +4,4 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 
-conan install . --profile ios --build missing
+CONAN_REVISIONS_ENABLED=1 conan install . --profile ios --build missing
