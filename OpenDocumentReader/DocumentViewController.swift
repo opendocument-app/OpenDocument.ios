@@ -233,7 +233,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         webview?.evaluateJavaScript("odr.searchNext(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
             if error != nil {
                 Crashlytics.crashlytics().record(error: error)
-                fatalError("search failed")
             }
         })
     }
@@ -242,7 +241,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         webview?.evaluateJavaScript("odr.search(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
             if error != nil {
                 Crashlytics.crashlytics().record(error: error)
-                fatalError("search failed")
             }
         })
     }

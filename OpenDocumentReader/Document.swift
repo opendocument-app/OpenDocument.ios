@@ -125,6 +125,10 @@ class Document: UIDocument {
         delegate?.documentLoadingCompleted(self)
     }
     
+    override func handleError(_ error: Error, userInteractionPermitted: Bool) {
+        Crashlytics.crashlytics().record(error: error)
+    }
+    
     override func writeContents(_ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?) throws {
         var diff = ""
 
