@@ -63,10 +63,10 @@
             
             _pageNames = pageNames;
             _pagePaths = pagePaths;
-        } catch (odr::UnknownFileType) {
+        } catch (odr::UnknownFileType&) {
             _errorCode = @(-5);
             return false;
-        } catch (odr::WrongPassword) {
+        } catch (odr::WrongPassword&) {
             _errorCode = @(-2);
             return false;
         } catch (...) {

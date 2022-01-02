@@ -2,7 +2,6 @@
 It's Android's first OpenOffice Document Reader... for iOS!
 
 ## Setup
-1. run "git submodule update --init --recursive"
-2. run "pod install"
-3. run "bash build-simulator.sh" or "bash build-device.sh"
-4. open workspace in Xcode
+1. run "pod install"
+2. run "bash build-simulator.sh" or "bash build-device.sh"
+3. open workspace in Xcode

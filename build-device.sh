@@ -4,9 +4,4 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 
-rm -rf build
-
-mkdir build/
-cd build/
-cmake -G "Xcode" -DCMAKE_TOOLCHAIN_FILE=../ios-cmake/ios.toolchain.cmake -DIOS_DEPLOYMENT_TARGET=14.0 -DPLATFORM=OS64COMBINED ../
-cd ../
+CONAN_REVISIONS_ENABLED=1 conan install . --profile ios --build missing

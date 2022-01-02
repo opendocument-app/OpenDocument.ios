@@ -70,3 +70,8 @@ fastlane/test_output
 .DS_Store
 
 fastlane/report.xml
+
+conanbuildinfo.*
+conaninfo.txt
+conan.lock
+graph_info.json
