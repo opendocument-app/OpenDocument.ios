@@ -17,15 +17,15 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        
-        StoreReviewHelper.checkAndAskForReview()
-        
+                
         allowsDocumentCreation = false
         allowsPickingMultipleItems = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        StoreReviewHelper.checkAndAskForReview()
 
         let userDefaults = UserDefaults.standard
         let wasIntroWatched = userDefaults.bool(forKey: Constants.key_was_intro_watched)
@@ -35,7 +35,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         if let pageVC = storyboard?.instantiateViewController(withIdentifier: pageViewController) as? PageViewController {
             present(pageVC, animated: true, completion: nil)
         }
-        
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {

@@ -34,6 +34,8 @@ struct StoreReviewHelper {
             return
         }
         
+        StoreReviewHelper().requestReview()
+        
         switch appOpenCount {
         case 3:
             StoreReviewHelper().requestReview()
@@ -46,9 +48,13 @@ struct StoreReviewHelper {
     }
     
     fileprivate func requestReview() {
-        if #available(iOS 10.3, *) {
-            Analytics.logEvent("rating_show", parameters: nil)
-            
+        Analytics.logEvent("rating_show", parameters: nil)
+        
+        if #available(iOS 14.0, *) {
+            if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        } else if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         } else {
             // Fallback on earlier versions
