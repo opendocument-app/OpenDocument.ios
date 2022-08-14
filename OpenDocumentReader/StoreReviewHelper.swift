@@ -33,9 +33,7 @@ struct StoreReviewHelper {
             Defaults.set(1, forKey: UserDefaultsKeys.APP_OPENED_COUNT)
             return
         }
-        
-        StoreReviewHelper().requestReview()
-        
+                
         switch appOpenCount {
         case 3:
             StoreReviewHelper().requestReview()
