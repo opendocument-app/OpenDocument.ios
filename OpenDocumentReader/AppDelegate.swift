@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Adjust
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         StoreReviewHelper.incrementAppOpenedCount()
+        
+        let adjustConfig = ADJConfig(
+            appToken: "6gm8nc5v9sw0",
+            environment: ADJEnvironmentProduction)
+
+        Adjust.appDidLaunch(adjustConfig)
         
         return true
     }

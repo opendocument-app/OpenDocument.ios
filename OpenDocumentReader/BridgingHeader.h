@@ -3,3 +3,5 @@
 //
 
 #include "CoreWrapper.h"
+
+#import <Adjust/Adjust.h>
