@@ -27,11 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         StoreReviewHelper.incrementAppOpenedCount()
         
-        let adjustConfig = ADJConfig(
-            appToken: "6gm8nc5v9sw0",
-            environment: ADJEnvironmentProduction)
+        let adjustKey = Bundle.main.object(forInfoDictionaryKey: "ADJUST_KEY") as? String;
+        if (adjustKey != nil) {
+            let adjustConfig = ADJConfig(
+                appToken: adjustKey!,
+                environment: ADJEnvironmentProduction)
 
-        Adjust.appDidLaunch(adjustConfig)
+            Adjust.appDidLaunch(adjustConfig)
+            
+            if ConfigurationManager.manager.configuration == .full {
+                Adjust.disableThirdPartySharing();
+            }
+        }
         
         return true
     }
