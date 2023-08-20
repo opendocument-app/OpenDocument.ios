@@ -9,7 +9,8 @@ import UIKit
 import WebKit
 import ScrollableSegmentedControl
 import UIKit.UIPrinter
-import Firebase
+import FirebaseAnalytics
+import FirebaseCrashlytics
 import GoogleMobileAds
 import AppTrackingTransparency
 import AdSupport

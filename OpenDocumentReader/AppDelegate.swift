@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import Adjust
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,19 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         StoreReviewHelper.incrementAppOpenedCount()
-        
-        let adjustKey = Bundle.main.object(forInfoDictionaryKey: "ADJUST_KEY") as? String;
-        if (adjustKey != nil) {
-            let adjustConfig = ADJConfig(
-                appToken: adjustKey!,
-                environment: ADJEnvironmentProduction)
-
-            Adjust.appDidLaunch(adjustConfig)
-            
-            if ConfigurationManager.manager.configuration == .full {
-                Adjust.disableThirdPartySharing();
-            }
-        }
         
         return true
     }

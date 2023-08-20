@@ -1,7 +1,4 @@
 PODS:
-  - Adjust (4.34.1):
-    - Adjust/Core (= 4.34.1)
-  - Adjust/Core (4.34.1)
   - Firebase/Analytics (10.13.0):
     - Firebase/Core
   - Firebase/Core (10.13.0):
@@ -129,7 +126,6 @@ PODS:
   - ScrollableSegmentedControl (1.5.0)
 
 DEPENDENCIES:
-  - Adjust
   - Firebase/Analytics
   - Firebase/Core
   - Firebase/Crashlytics
@@ -139,7 +135,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Adjust
     - Firebase
     - FirebaseAnalytics
     - FirebaseAppCheckInterop
@@ -163,7 +158,6 @@ SPEC REPOS:
     - ScrollableSegmentedControl
 
 SPEC CHECKSUMS:
-  Adjust: 1410b6ccbce29c91b8e88064186a7b103244fa43
   Firebase: 343d7539befb614d22b2eae24759f6307b1175e9
   FirebaseAnalytics: 9a12e090ead49f8877ed8132ae920e3cbbd2fcd0
   FirebaseAppCheckInterop: 5e12dc623d443dedffcde9c6f3ed41510125d8ef
@@ -186,6 +180,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
   ScrollableSegmentedControl: 2e64bbe8968a7fcd8aae5014434481464fcdfe60
 
-PODFILE CHECKSUM: a53aa52a4e29bcf5b37f45cd29783efd472925e1
+PODFILE CHECKSUM: 35cd182dc790891ebc7626066c33a6e947e7167e
 
 COCOAPODS: 1.12.1
