@@ -1,13 +1,6 @@
-/*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-A document that manages UTF8 text files.
-*/
-
 import UIKit
 import WebKit
-import Firebase
+import FirebaseCrashlytics
 
 protocol DocumentDelegate: class {
     func documentUpdateContent(_ doc: Document)

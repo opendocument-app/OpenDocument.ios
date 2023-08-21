@@ -6,7 +6,8 @@
  */
 
 import UIKit
-import Firebase
+import FirebaseCrashlytics
+import FirebaseAnalytics
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     

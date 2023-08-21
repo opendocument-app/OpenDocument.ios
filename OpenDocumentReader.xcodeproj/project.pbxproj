@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */; };
+		22E10F353A0C09E10812EDAC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */; };
+		523A371328CCF27400876C77 /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371228CCF27400876C77 /* AdServices.framework */; };
+		523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371428CCF28100876C77 /* StoreKit.framework */; };
+		523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371628CCF28900876C77 /* AppTrackingTransparency.framework */; };
 		52A0616C277CE114009FAB35 /* release-lite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A06168277CE114009FAB35 /* release-lite.xcconfig */; };
 		52A0616D277CE114009FAB35 /* release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A06169277CE114009FAB35 /* release.xcconfig */; };
 		52A0616E277CE114009FAB35 /* debug-lite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A0616A277CE114009FAB35 /* debug-lite.xcconfig */; };
 		52A0616F277CE114009FAB35 /* debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A0616B277CE114009FAB35 /* debug.xcconfig */; };
-		57144585DF3CE1452E955630 /* Pods_OpenDocumentReaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A521F5B4DBE255885C9D679 /* Pods_OpenDocumentReaderTests.framework */; };
+		52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */; };
+		52DE0FAF45FE38FFAE9E4910 /* Pods_OpenDocumentReaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */; };
 		AC125F162435311A008AD515 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC125F182435311A008AD515 /* Localizable.strings */; };
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
 		AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCA23B4FFA700C7BF47 /* Constants.swift */; };
@@ -50,14 +54,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3A521F5B4DBE255885C9D679 /* Pods_OpenDocumentReaderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReaderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B2DB65725CE9DAE177ABB91 /* Pods-OpenDocumentReaderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release lite.xcconfig"; sourceTree = "<group>"; };
+		523A371228CCF27400876C77 /* AdServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdServices.framework; path = System/Library/Frameworks/AdServices.framework; sourceTree = SDKROOT; };
+		523A371428CCF28100876C77 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		523A371628CCF28900876C77 /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		52A06168277CE114009FAB35 /* release-lite.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "release-lite.xcconfig"; sourceTree = "<group>"; };
 		52A06169277CE114009FAB35 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		52A0616A277CE114009FAB35 /* debug-lite.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "debug-lite.xcconfig"; sourceTree = "<group>"; };
 		52A0616B277CE114009FAB35 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
-		9486CF1B73BC18A67EE4DB5B /* Pods-OpenDocumentReader.full.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.full.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.full.xcconfig"; sourceTree = "<group>"; };
+		52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52A348B22A9262D100DACAB9 /* OpenDocumentReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenDocumentReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52A348B72A9266BB00DACAB9 /* conanbuildinfo.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = conanbuildinfo.xcconfig; sourceTree = "<group>"; };
+		559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReaderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
 		A3BBE33791EBF379139575AB /* Pods-OpenDocumentReaderTests.release lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.release lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.release lite.xcconfig"; sourceTree = "<group>"; };
 		AC125F172435311A008AD515 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -86,8 +96,8 @@
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
 		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
 		D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug lite.xcconfig"; sourceTree = "<group>"; };
+		DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		E22B252C2557F0E2001D0C52 /* OpenDocumentReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenDocumentReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
 		E22B25302557F0E2001D0C52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -102,14 +112,11 @@
 		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
 		E2C008FC220F1D570097C594 /* CoreWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreWrapper.h; sourceTree = "<group>"; };
 		E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
-		E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F7ED52220B54D600D63515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		E2F7ED5D220B54D700D63515 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2F7ED60220B54D700D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0AFB82E80A876C70BD198AC /* Pods-OpenDocumentReader.lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.lite.xcconfig"; sourceTree = "<group>"; };
 		F441BA4458128EC8A16A91C9 /* Pods-OpenDocumentReaderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57144585DF3CE1452E955630 /* Pods_OpenDocumentReaderTests.framework in Frameworks */,
+				52DE0FAF45FE38FFAE9E4910 /* Pods_OpenDocumentReaderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,9 +134,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */,
+				523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */,
+				52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */,
+				523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
-				21E6C5303C9ED8A9A9317BEC /* Pods_OpenDocumentReader.framework in Frameworks */,
+				523A371328CCF27400876C77 /* AdServices.framework in Frameworks */,
+				22E10F353A0C09E10812EDAC /* Pods_OpenDocumentReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,8 +152,6 @@
 			children = (
 				B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */,
 				97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */,
-				F0AFB82E80A876C70BD198AC /* Pods-OpenDocumentReader.lite.xcconfig */,
-				9486CF1B73BC18A67EE4DB5B /* Pods-OpenDocumentReader.full.xcconfig */,
 				C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */,
 				481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */,
 				3B2DB65725CE9DAE177ABB91 /* Pods-OpenDocumentReaderTests.debug.xcconfig */,
@@ -166,11 +175,15 @@
 		E2BB4B64220EF4F20056176B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */,
+				523A371628CCF28900876C77 /* AppTrackingTransparency.framework */,
+				523A371428CCF28100876C77 /* StoreKit.framework */,
+				523A371228CCF27400876C77 /* AdServices.framework */,
 				E2064DDF22CFA1BA006441F8 /* iAd.framework */,
 				E237952F2274844400BA7238 /* AdSupport.framework */,
 				E26C39382250DC6E009C484A /* WebKit.framework */,
-				EF00F649A86477A6C27F07C0 /* Pods_OpenDocumentReader.framework */,
-				3A521F5B4DBE255885C9D679 /* Pods_OpenDocumentReaderTests.framework */,
+				DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */,
+				559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -182,21 +195,14 @@
 				52A0616B277CE114009FAB35 /* debug.xcconfig */,
 				52A06168277CE114009FAB35 /* release-lite.xcconfig */,
 				52A06169277CE114009FAB35 /* release.xcconfig */,
+				52A348B72A9266BB00DACAB9 /* conanbuildinfo.xcconfig */,
 				E2F7ED51220B54D600D63515 /* OpenDocumentReader */,
 				E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */,
-				E2F7ED50220B54D600D63515 /* Products */,
 				E2BB4B64220EF4F20056176B /* Frameworks */,
 				E20D24999F878FB3AAE258B3 /* Pods */,
+				52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */,
+				52A348B22A9262D100DACAB9 /* OpenDocumentReaderTests.xctest */,
 			);
-			sourceTree = "<group>";
-		};
-		E2F7ED50220B54D600D63515 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */,
-				E22B252C2557F0E2001D0C52 /* OpenDocumentReaderTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		E2F7ED51220B54D600D63515 /* OpenDocumentReader */ = {
@@ -247,7 +253,7 @@
 			);
 			name = OpenDocumentReaderTests;
 			productName = OpenDocumentReaderTests;
-			productReference = E22B252C2557F0E2001D0C52 /* OpenDocumentReaderTests.xctest */;
+			productReference = 52A348B22A9262D100DACAB9 /* OpenDocumentReaderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		E2F7ED4E220B54D600D63515 /* OpenDocumentReader */ = {
@@ -267,7 +273,7 @@
 			);
 			name = OpenDocumentReader;
 			productName = "OpenDocument Reader";
-			productReference = E2F7ED4F220B54D600D63515 /* OpenDocumentReader.app */;
+			productReference = 52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -314,7 +320,7 @@
 				sl,
 			);
 			mainGroup = E2F7ED46220B54D600D63515;
-			productRefGroup = E2F7ED50220B54D600D63515 /* Products */;
+			productRefGroup = E2F7ED46220B54D600D63515;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -562,7 +568,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -584,18 +590,44 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 38;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.31;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+					"-lodr",
+					"-lpugixml",
+					"-lcryptopp",
+					"-lminiz",
+					"-luchardet",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -652,7 +684,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -674,18 +706,44 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 38;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.31;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+					"-lodr",
+					"-lpugixml",
+					"-lcryptopp",
+					"-lminiz",
+					"-luchardet",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -831,7 +889,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -890,7 +948,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -912,18 +970,44 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 38;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.31;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+					"-lodr",
+					"-lpugixml",
+					"-lcryptopp",
+					"-lminiz",
+					"-luchardet",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -943,18 +1027,44 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 38;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.31;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
+					"-arch",
+					arm64,
+					"-lodr",
+					"-lpugixml",
+					"-lcryptopp",
+					"-lminiz",
+					"-luchardet",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
