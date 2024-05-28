@@ -5,6 +5,3 @@ os=iOS
 os.version=14.0
 arch=x86_64
 build_type=Release
-
-[build_requires]
-darwin-toolchain/1.0.8@theodelrieu/testing
