@@ -45,11 +45,11 @@ jobs:
       - name: conan install
         run: >
           conan install .
-            --build=missing
-            --profile:host=ios-simulator
-            -s build_type=Release
-            -s &:build_type=RelWithDebInfo
-            -s odrcore/*:build_type=RelWithDebInfo
+          --build=missing
+          --profile:host=ios-simulator
+          -s build_type=Release
+          -s &:build_type=RelWithDebInfo
+          -s odrcore/*:build_type=RelWithDebInfo
 
       - name: run tests
         run: bundle exec fastlane tests
