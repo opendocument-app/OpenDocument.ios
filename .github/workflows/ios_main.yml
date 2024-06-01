@@ -1,5 +1,15 @@
 name: OpenDocumentReader-iOS
-on: [push]
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -7,10 +17,7 @@ jobs:
     runs-on: macos-11
     steps:
       - name: checkout
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PAT_TOMTASCHE }}
-          submodules: true
+        uses: actions/checkout@v4
 
       - name: pods
         run: pod install
@@ -25,14 +32,24 @@ jobs:
         run: python3 -m ensurepip
       - name: conan
         run: pip3 install conan
-      - name: conan repo
-        run: conan remote add odr https://odr.jfrog.io/artifactory/api/conan/odr-conan
+
+      - name: conan remote
+        run: conan remote add --index 0 odr https://artifactory.opendocument.app/artifactory/api/conan/conan
+      - name: conan login
+        run: conan remote login odr admin --password ${{ secrets.ARTIFACTORY }}
+  
+      - name: conan profile
+        run: conan profile detect
 
       - name: run tests
         run: bundle exec fastlane tests
-#      - uses: actions/upload-artifact@v2
-#        if: ${{ always() }}
-#        with:
-#          name: logs
-#          path: |
-#            /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: logs
+          path: |
+            /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
+
+      - name: upload binaries to conan repo
+        run: conan upload "*" --check --confirm --remote odr
