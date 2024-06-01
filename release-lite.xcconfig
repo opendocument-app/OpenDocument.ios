@@ -1,2 +1,2 @@
 #include "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release lite.xcconfig"
-#include "conanbuildinfo.xcconfig"
+#include "conan-build/conanbuildinfo.xcconfig"
