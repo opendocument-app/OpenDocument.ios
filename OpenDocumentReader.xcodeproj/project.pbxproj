@@ -3,18 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22E10F353A0C09E10812EDAC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */; };
 		523A371328CCF27400876C77 /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371228CCF27400876C77 /* AdServices.framework */; };
 		523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371428CCF28100876C77 /* StoreKit.framework */; };
 		523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371628CCF28900876C77 /* AppTrackingTransparency.framework */; };
-		52A0616C277CE114009FAB35 /* release-lite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A06168277CE114009FAB35 /* release-lite.xcconfig */; };
-		52A0616D277CE114009FAB35 /* release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A06169277CE114009FAB35 /* release.xcconfig */; };
-		52A0616E277CE114009FAB35 /* debug-lite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A0616A277CE114009FAB35 /* debug-lite.xcconfig */; };
-		52A0616F277CE114009FAB35 /* debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A0616B277CE114009FAB35 /* debug.xcconfig */; };
 		52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */; };
 		52DE0FAF45FE38FFAE9E4910 /* Pods_OpenDocumentReaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */; };
 		AC125F162435311A008AD515 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC125F182435311A008AD515 /* Localizable.strings */; };
@@ -24,7 +19,7 @@
 		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF1A3E22469EFB5000BA420 /* GoogleService-Info-Lite.plist */; };
-		ACF1A3E52469F8DE000BA420 /* Info-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF1A3E42469F8DE000BA420 /* Info-Lite.plist */; };
+		E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EB6C492C1A510D003EC5A0 /* Foundation.framework */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */; };
 		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
@@ -97,6 +92,10 @@
 		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
 		D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug lite.xcconfig"; sourceTree = "<group>"; };
 		DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1A78CF02C1A520100CD43E4 /* libswiftFoundation.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftFoundation.tbd; path = usr/lib/swift/libswiftFoundation.tbd; sourceTree = SDKROOT; };
+		E1A78CF52C1A53D200CD43E4 /* ExtensionFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExtensionFoundation.framework; path = System/Library/Frameworks/ExtensionFoundation.framework; sourceTree = SDKROOT; };
+		E1EB6C472C1A50CE003EC5A0 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
 		E22B25302557F0E2001D0C52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,14 +132,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */,
 				E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */,
 				523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */,
-				52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */,
 				523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
 				523A371328CCF27400876C77 /* AdServices.framework in Frameworks */,
-				22E10F353A0C09E10812EDAC /* Pods_OpenDocumentReader.framework in Frameworks */,
+				E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +174,10 @@
 		E2BB4B64220EF4F20056176B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E1A78CF52C1A53D200CD43E4 /* ExtensionFoundation.framework */,
+				E1A78CF02C1A520100CD43E4 /* libswiftFoundation.tbd */,
+				E1EB6C492C1A510D003EC5A0 /* Foundation.framework */,
+				E1EB6C472C1A50CE003EC5A0 /* CoreFoundation.framework */,
 				52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */,
 				523A371628CCF28900876C77 /* AppTrackingTransparency.framework */,
 				523A371428CCF28100876C77 /* StoreKit.framework */,
@@ -282,8 +285,9 @@
 		E2F7ED47220B54D600D63515 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1530;
 				ORGANIZATIONNAME = "Thomas Taschauer";
 				TargetAttributes = {
 					E22B252B2557F0E2001D0C52 = {
@@ -343,16 +347,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A0616C277CE114009FAB35 /* release-lite.xcconfig in Resources */,
 				AC125F162435311A008AD515 /* Localizable.strings in Resources */,
-				52A0616E277CE114009FAB35 /* debug-lite.xcconfig in Resources */,
 				ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */,
 				E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */,
-				ACF1A3E52469F8DE000BA420 /* Info-Lite.plist in Resources */,
 				E22EB71C226B66B300053B86 /* Main.storyboard in Resources */,
-				52A0616D277CE114009FAB35 /* release.xcconfig in Resources */,
 				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
-				52A0616F277CE114009FAB35 /* debug.xcconfig in Resources */,
 				E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -542,6 +541,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -553,6 +553,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -594,6 +595,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
@@ -603,8 +605,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MARKETING_VERSION = 1.31;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
@@ -664,6 +670,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -675,6 +682,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -710,6 +718,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
@@ -719,8 +728,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MARKETING_VERSION = 1.31;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
@@ -863,6 +876,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -874,6 +888,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -928,6 +943,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -939,6 +955,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -974,6 +991,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
@@ -983,8 +1001,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MARKETING_VERSION = 1.31;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
@@ -1031,6 +1053,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
@@ -1040,8 +1063,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MARKETING_VERSION = 1.31;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk",
