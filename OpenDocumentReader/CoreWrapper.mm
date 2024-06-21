@@ -11,7 +11,6 @@
 #import "CoreWrapper.h"
 
 #include <odr/document.hpp>
-#include <odr/document_cursor.hpp>
 #include <odr/document_element.hpp>
 #include <odr/file.hpp>
 #include <odr/html.hpp>
