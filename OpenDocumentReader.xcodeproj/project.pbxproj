@@ -626,7 +626,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -692,7 +691,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 52A0616A277CE114009FAB35 /* debug-lite.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
 				BUNDLE_ID_SUFFIX = .lite;
@@ -728,7 +726,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -788,7 +785,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 52A06168277CE114009FAB35 /* release-lite.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
 				BUNDLE_ID_SUFFIX = .lite;
@@ -822,7 +818,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3B2DB65725CE9DAE177ABB91 /* Pods-OpenDocumentReaderTests.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
@@ -844,7 +839,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
@@ -866,7 +860,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F441BA4458128EC8A16A91C9 /* Pods-OpenDocumentReaderTests.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
@@ -888,7 +881,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A3BBE33791EBF379139575AB /* Pods-OpenDocumentReaderTests.release lite.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
@@ -910,7 +902,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -976,7 +967,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1036,7 +1026,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 52A0616B277CE114009FAB35 /* debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
 				BUNDLE_ID_SUFFIX = "";
@@ -1072,7 +1061,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 52A06169277CE114009FAB35 /* release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
 				BUNDLE_ID_SUFFIX = "";
