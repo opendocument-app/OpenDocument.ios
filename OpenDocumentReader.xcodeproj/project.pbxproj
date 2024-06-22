@@ -19,34 +19,16 @@
 		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF1A3E22469EFB5000BA420 /* GoogleService-Info-Lite.plist */; };
-		E17AF31A2C258C4000FBED6A /* conan_config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2EE2C258C4000FBED6A /* conan_config.xcconfig */; };
-		E17AF31C2C258C4000FBED6A /* conan_cryptopp_libcryptopp_debug_arm64_iphonesimulator.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2F02C258C4000FBED6A /* conan_cryptopp_libcryptopp_debug_arm64_iphonesimulator.xcconfig */; };
-		E17AF31F2C258C4000FBED6A /* conan_cryptopp_libcryptopp.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2F32C258C4000FBED6A /* conan_cryptopp_libcryptopp.xcconfig */; };
-		E17AF3202C258C4000FBED6A /* conan_cryptopp.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2F42C258C4000FBED6A /* conan_cryptopp.xcconfig */; };
-		E17AF3222C258C4000FBED6A /* conan_miniz_miniz_debug_arm64_iphonesimulator.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2F62C258C4000FBED6A /* conan_miniz_miniz_debug_arm64_iphonesimulator.xcconfig */; };
-		E17AF3252C258C4000FBED6A /* conan_miniz_miniz.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2F92C258C4000FBED6A /* conan_miniz_miniz.xcconfig */; };
-		E17AF3262C258C4000FBED6A /* conan_miniz.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2FA2C258C4000FBED6A /* conan_miniz.xcconfig */; };
-		E17AF3282C258C4000FBED6A /* conan_odrcore_odrcore_debug_arm64_iphonesimulator.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2FC2C258C4000FBED6A /* conan_odrcore_odrcore_debug_arm64_iphonesimulator.xcconfig */; };
-		E17AF32B2C258C4000FBED6A /* conan_odrcore_odrcore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF2FF2C258C4000FBED6A /* conan_odrcore_odrcore.xcconfig */; };
-		E17AF32C2C258C4000FBED6A /* conan_odrcore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3002C258C4000FBED6A /* conan_odrcore.xcconfig */; };
-		E17AF32E2C258C4000FBED6A /* conan_pugixml_pugixml_debug_arm64_iphonesimulator.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3022C258C4000FBED6A /* conan_pugixml_pugixml_debug_arm64_iphonesimulator.xcconfig */; };
-		E17AF3312C258C4000FBED6A /* conan_pugixml_pugixml.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3052C258C4000FBED6A /* conan_pugixml_pugixml.xcconfig */; };
-		E17AF3322C258C4000FBED6A /* conan_pugixml.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3062C258C4000FBED6A /* conan_pugixml.xcconfig */; };
-		E17AF3342C258C4000FBED6A /* conan_uchardet_uchardet_debug_arm64_iphonesimulator.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3082C258C4000FBED6A /* conan_uchardet_uchardet_debug_arm64_iphonesimulator.xcconfig */; };
-		E17AF3372C258C4000FBED6A /* conan_uchardet_uchardet.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF30B2C258C4000FBED6A /* conan_uchardet_uchardet.xcconfig */; };
-		E17AF3382C258C4000FBED6A /* conan_uchardet.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF30C2C258C4000FBED6A /* conan_uchardet.xcconfig */; };
 		E17AF3392C258C4000FBED6A /* conanbuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF30D2C258C4000FBED6A /* conanbuild.sh */; };
 		E17AF33A2C258C4000FBED6A /* conanbuildenv-release-armv8.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF30E2C258C4000FBED6A /* conanbuildenv-release-armv8.sh */; };
-		E17AF33B2C258C4000FBED6A /* conandeps.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF30F2C258C4000FBED6A /* conandeps.xcconfig */; };
 		E17AF33C2C258C4000FBED6A /* conanrun.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3102C258C4000FBED6A /* conanrun.sh */; };
 		E17AF33D2C258C4000FBED6A /* conanrunenv-release-armv8.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3112C258C4000FBED6A /* conanrunenv-release-armv8.sh */; };
-		E17AF33F2C258C4000FBED6A /* conantoolchain_debug_arm64_iphonesimulator.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3132C258C4000FBED6A /* conantoolchain_debug_arm64_iphonesimulator.xcconfig */; };
-		E17AF3422C258C4000FBED6A /* conantoolchain.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3162C258C4000FBED6A /* conantoolchain.xcconfig */; };
 		E17AF3432C258C4000FBED6A /* deactivate_conanbuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3172C258C4000FBED6A /* deactivate_conanbuild.sh */; };
 		E17AF3442C258C4000FBED6A /* deactivate_conanrun.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3182C258C4000FBED6A /* deactivate_conanrun.sh */; };
 		E17AF34A2C258C4B00FBED6A /* ios in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3452C258C4B00FBED6A /* ios */; };
-		E17AF34B2C258C4B00FBED6A /* ios-simulator in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3462C258C4B00FBED6A /* ios-simulator */; };
 		E17AF34C2C258C4B00FBED6A /* conanfile.py in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3482C258C4B00FBED6A /* conanfile.py */; };
+		E18F7B502C26D25700A4A1D0 /* ios-simulator-x64 in Resources */ = {isa = PBXBuildFile; fileRef = E18F7B4E2C26D25700A4A1D0 /* ios-simulator-x64 */; };
+		E18F7B512C26D25700A4A1D0 /* ios-simulator-arm64 in Resources */ = {isa = PBXBuildFile; fileRef = E18F7B4F2C26D25700A4A1D0 /* ios-simulator-arm64 */; };
 		E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EB6C492C1A510D003EC5A0 /* Foundation.framework */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */; };
@@ -145,8 +127,9 @@
 		E17AF3172C258C4000FBED6A /* deactivate_conanbuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = deactivate_conanbuild.sh; sourceTree = "<group>"; };
 		E17AF3182C258C4000FBED6A /* deactivate_conanrun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = deactivate_conanrun.sh; sourceTree = "<group>"; };
 		E17AF3452C258C4B00FBED6A /* ios */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios; sourceTree = "<group>"; };
-		E17AF3462C258C4B00FBED6A /* ios-simulator */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ios-simulator"; sourceTree = "<group>"; };
 		E17AF3482C258C4B00FBED6A /* conanfile.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = conanfile.py; sourceTree = "<group>"; };
+		E18F7B4E2C26D25700A4A1D0 /* ios-simulator-x64 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ios-simulator-x64"; sourceTree = "<group>"; };
+		E18F7B4F2C26D25700A4A1D0 /* ios-simulator-arm64 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ios-simulator-arm64"; sourceTree = "<group>"; };
 		E1A78CF02C1A520100CD43E4 /* libswiftFoundation.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftFoundation.tbd; path = usr/lib/swift/libswiftFoundation.tbd; sourceTree = SDKROOT; };
 		E1A78CF52C1A53D200CD43E4 /* ExtensionFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExtensionFoundation.framework; path = System/Library/Frameworks/ExtensionFoundation.framework; sourceTree = SDKROOT; };
 		E1EB6C472C1A50CE003EC5A0 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -236,8 +219,9 @@
 		E17AF3472C258C4B00FBED6A /* profiles */ = {
 			isa = PBXGroup;
 			children = (
+				E18F7B4F2C26D25700A4A1D0 /* ios-simulator-arm64 */,
+				E18F7B4E2C26D25700A4A1D0 /* ios-simulator-x64 */,
 				E17AF3452C258C4B00FBED6A /* ios */,
-				E17AF3462C258C4B00FBED6A /* ios-simulator */,
 			);
 			path = profiles;
 			sourceTree = "<group>";
@@ -461,40 +445,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E17AF3372C258C4000FBED6A /* conan_uchardet_uchardet.xcconfig in Resources */,
-				E17AF3382C258C4000FBED6A /* conan_uchardet.xcconfig in Resources */,
+				E18F7B502C26D25700A4A1D0 /* ios-simulator-x64 in Resources */,
 				E17AF34C2C258C4B00FBED6A /* conanfile.py in Resources */,
 				AC125F162435311A008AD515 /* Localizable.strings in Resources */,
-				E17AF3422C258C4000FBED6A /* conantoolchain.xcconfig in Resources */,
-				E17AF31C2C258C4000FBED6A /* conan_cryptopp_libcryptopp_debug_arm64_iphonesimulator.xcconfig in Resources */,
-				E17AF31A2C258C4000FBED6A /* conan_config.xcconfig in Resources */,
-				E17AF32E2C258C4000FBED6A /* conan_pugixml_pugixml_debug_arm64_iphonesimulator.xcconfig in Resources */,
 				E17AF33A2C258C4000FBED6A /* conanbuildenv-release-armv8.sh in Resources */,
-				E17AF3342C258C4000FBED6A /* conan_uchardet_uchardet_debug_arm64_iphonesimulator.xcconfig in Resources */,
-				E17AF3322C258C4000FBED6A /* conan_pugixml.xcconfig in Resources */,
-				E17AF3222C258C4000FBED6A /* conan_miniz_miniz_debug_arm64_iphonesimulator.xcconfig in Resources */,
-				E17AF31F2C258C4000FBED6A /* conan_cryptopp_libcryptopp.xcconfig in Resources */,
-				E17AF3312C258C4000FBED6A /* conan_pugixml_pugixml.xcconfig in Resources */,
-				E17AF3282C258C4000FBED6A /* conan_odrcore_odrcore_debug_arm64_iphonesimulator.xcconfig in Resources */,
-				E17AF34B2C258C4B00FBED6A /* ios-simulator in Resources */,
 				ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */,
 				E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */,
 				E17AF3432C258C4000FBED6A /* deactivate_conanbuild.sh in Resources */,
-				E17AF3202C258C4000FBED6A /* conan_cryptopp.xcconfig in Resources */,
 				E17AF3442C258C4000FBED6A /* deactivate_conanrun.sh in Resources */,
 				E17AF3392C258C4000FBED6A /* conanbuild.sh in Resources */,
-				E17AF3262C258C4000FBED6A /* conan_miniz.xcconfig in Resources */,
 				E17AF33C2C258C4000FBED6A /* conanrun.sh in Resources */,
-				E17AF3252C258C4000FBED6A /* conan_miniz_miniz.xcconfig in Resources */,
 				E17AF33D2C258C4000FBED6A /* conanrunenv-release-armv8.sh in Resources */,
 				E22EB71C226B66B300053B86 /* Main.storyboard in Resources */,
 				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
-				E17AF33B2C258C4000FBED6A /* conandeps.xcconfig in Resources */,
+				E18F7B512C26D25700A4A1D0 /* ios-simulator-arm64 in Resources */,
 				E17AF34A2C258C4B00FBED6A /* ios in Resources */,
-				E17AF32C2C258C4000FBED6A /* conan_odrcore.xcconfig in Resources */,
-				E17AF32B2C258C4000FBED6A /* conan_odrcore_odrcore.xcconfig in Resources */,
 				E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */,
-				E17AF33F2C258C4000FBED6A /* conantoolchain_debug_arm64_iphonesimulator.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,16 +677,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug Lite";
@@ -741,7 +704,6 @@
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -750,18 +712,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug Lite";
@@ -815,15 +773,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -845,7 +800,6 @@
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -854,17 +808,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release Lite";
@@ -1012,16 +961,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1075,15 +1021,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1105,7 +1048,6 @@
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1114,18 +1056,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1146,7 +1084,6 @@
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1155,17 +1092,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
