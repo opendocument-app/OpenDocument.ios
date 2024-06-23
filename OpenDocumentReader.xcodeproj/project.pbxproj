@@ -19,16 +19,6 @@
 		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF1A3E22469EFB5000BA420 /* GoogleService-Info-Lite.plist */; };
-		E17AF3392C258C4000FBED6A /* conanbuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF30D2C258C4000FBED6A /* conanbuild.sh */; };
-		E17AF33A2C258C4000FBED6A /* conanbuildenv-release-armv8.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF30E2C258C4000FBED6A /* conanbuildenv-release-armv8.sh */; };
-		E17AF33C2C258C4000FBED6A /* conanrun.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3102C258C4000FBED6A /* conanrun.sh */; };
-		E17AF33D2C258C4000FBED6A /* conanrunenv-release-armv8.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3112C258C4000FBED6A /* conanrunenv-release-armv8.sh */; };
-		E17AF3432C258C4000FBED6A /* deactivate_conanbuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3172C258C4000FBED6A /* deactivate_conanbuild.sh */; };
-		E17AF3442C258C4000FBED6A /* deactivate_conanrun.sh in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3182C258C4000FBED6A /* deactivate_conanrun.sh */; };
-		E17AF34A2C258C4B00FBED6A /* ios in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3452C258C4B00FBED6A /* ios */; };
-		E17AF34C2C258C4B00FBED6A /* conanfile.py in Resources */ = {isa = PBXBuildFile; fileRef = E17AF3482C258C4B00FBED6A /* conanfile.py */; };
-		E18F7B502C26D25700A4A1D0 /* ios-simulator-x64 in Resources */ = {isa = PBXBuildFile; fileRef = E18F7B4E2C26D25700A4A1D0 /* ios-simulator-x64 */; };
-		E18F7B512C26D25700A4A1D0 /* ios-simulator-arm64 in Resources */ = {isa = PBXBuildFile; fileRef = E18F7B4F2C26D25700A4A1D0 /* ios-simulator-arm64 */; };
 		E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EB6C492C1A510D003EC5A0 /* Foundation.framework */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */; };
@@ -101,35 +91,6 @@
 		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
 		D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug lite.xcconfig"; sourceTree = "<group>"; };
 		DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E17AF2EE2C258C4000FBED6A /* conan_config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_config.xcconfig; sourceTree = "<group>"; };
-		E17AF2F02C258C4000FBED6A /* conan_cryptopp_libcryptopp_debug_arm64_iphonesimulator.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_cryptopp_libcryptopp_debug_arm64_iphonesimulator.xcconfig; sourceTree = "<group>"; };
-		E17AF2F32C258C4000FBED6A /* conan_cryptopp_libcryptopp.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_cryptopp_libcryptopp.xcconfig; sourceTree = "<group>"; };
-		E17AF2F42C258C4000FBED6A /* conan_cryptopp.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_cryptopp.xcconfig; sourceTree = "<group>"; };
-		E17AF2F62C258C4000FBED6A /* conan_miniz_miniz_debug_arm64_iphonesimulator.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_miniz_miniz_debug_arm64_iphonesimulator.xcconfig; sourceTree = "<group>"; };
-		E17AF2F92C258C4000FBED6A /* conan_miniz_miniz.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_miniz_miniz.xcconfig; sourceTree = "<group>"; };
-		E17AF2FA2C258C4000FBED6A /* conan_miniz.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_miniz.xcconfig; sourceTree = "<group>"; };
-		E17AF2FC2C258C4000FBED6A /* conan_odrcore_odrcore_debug_arm64_iphonesimulator.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_odrcore_odrcore_debug_arm64_iphonesimulator.xcconfig; sourceTree = "<group>"; };
-		E17AF2FF2C258C4000FBED6A /* conan_odrcore_odrcore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_odrcore_odrcore.xcconfig; sourceTree = "<group>"; };
-		E17AF3002C258C4000FBED6A /* conan_odrcore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_odrcore.xcconfig; sourceTree = "<group>"; };
-		E17AF3022C258C4000FBED6A /* conan_pugixml_pugixml_debug_arm64_iphonesimulator.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_pugixml_pugixml_debug_arm64_iphonesimulator.xcconfig; sourceTree = "<group>"; };
-		E17AF3052C258C4000FBED6A /* conan_pugixml_pugixml.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_pugixml_pugixml.xcconfig; sourceTree = "<group>"; };
-		E17AF3062C258C4000FBED6A /* conan_pugixml.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_pugixml.xcconfig; sourceTree = "<group>"; };
-		E17AF3082C258C4000FBED6A /* conan_uchardet_uchardet_debug_arm64_iphonesimulator.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_uchardet_uchardet_debug_arm64_iphonesimulator.xcconfig; sourceTree = "<group>"; };
-		E17AF30B2C258C4000FBED6A /* conan_uchardet_uchardet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_uchardet_uchardet.xcconfig; sourceTree = "<group>"; };
-		E17AF30C2C258C4000FBED6A /* conan_uchardet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conan_uchardet.xcconfig; sourceTree = "<group>"; };
-		E17AF30D2C258C4000FBED6A /* conanbuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = conanbuild.sh; sourceTree = "<group>"; };
-		E17AF30E2C258C4000FBED6A /* conanbuildenv-release-armv8.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "conanbuildenv-release-armv8.sh"; sourceTree = "<group>"; };
-		E17AF30F2C258C4000FBED6A /* conandeps.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conandeps.xcconfig; sourceTree = "<group>"; };
-		E17AF3102C258C4000FBED6A /* conanrun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = conanrun.sh; sourceTree = "<group>"; };
-		E17AF3112C258C4000FBED6A /* conanrunenv-release-armv8.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "conanrunenv-release-armv8.sh"; sourceTree = "<group>"; };
-		E17AF3132C258C4000FBED6A /* conantoolchain_debug_arm64_iphonesimulator.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conantoolchain_debug_arm64_iphonesimulator.xcconfig; sourceTree = "<group>"; };
-		E17AF3162C258C4000FBED6A /* conantoolchain.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = conantoolchain.xcconfig; sourceTree = "<group>"; };
-		E17AF3172C258C4000FBED6A /* deactivate_conanbuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = deactivate_conanbuild.sh; sourceTree = "<group>"; };
-		E17AF3182C258C4000FBED6A /* deactivate_conanrun.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = deactivate_conanrun.sh; sourceTree = "<group>"; };
-		E17AF3452C258C4B00FBED6A /* ios */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios; sourceTree = "<group>"; };
-		E17AF3482C258C4B00FBED6A /* conanfile.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = conanfile.py; sourceTree = "<group>"; };
-		E18F7B4E2C26D25700A4A1D0 /* ios-simulator-x64 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ios-simulator-x64"; sourceTree = "<group>"; };
-		E18F7B4F2C26D25700A4A1D0 /* ios-simulator-arm64 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ios-simulator-arm64"; sourceTree = "<group>"; };
 		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
@@ -181,57 +142,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E17AF3192C258C4000FBED6A /* conan-output */ = {
-			isa = PBXGroup;
-			children = (
-				E17AF2EE2C258C4000FBED6A /* conan_config.xcconfig */,
-				E17AF2F02C258C4000FBED6A /* conan_cryptopp_libcryptopp_debug_arm64_iphonesimulator.xcconfig */,
-				E17AF2F32C258C4000FBED6A /* conan_cryptopp_libcryptopp.xcconfig */,
-				E17AF2F42C258C4000FBED6A /* conan_cryptopp.xcconfig */,
-				E17AF2F62C258C4000FBED6A /* conan_miniz_miniz_debug_arm64_iphonesimulator.xcconfig */,
-				E17AF2F92C258C4000FBED6A /* conan_miniz_miniz.xcconfig */,
-				E17AF2FA2C258C4000FBED6A /* conan_miniz.xcconfig */,
-				E17AF2FC2C258C4000FBED6A /* conan_odrcore_odrcore_debug_arm64_iphonesimulator.xcconfig */,
-				E17AF2FF2C258C4000FBED6A /* conan_odrcore_odrcore.xcconfig */,
-				E17AF3002C258C4000FBED6A /* conan_odrcore.xcconfig */,
-				E17AF3022C258C4000FBED6A /* conan_pugixml_pugixml_debug_arm64_iphonesimulator.xcconfig */,
-				E17AF3052C258C4000FBED6A /* conan_pugixml_pugixml.xcconfig */,
-				E17AF3062C258C4000FBED6A /* conan_pugixml.xcconfig */,
-				E17AF3082C258C4000FBED6A /* conan_uchardet_uchardet_debug_arm64_iphonesimulator.xcconfig */,
-				E17AF30B2C258C4000FBED6A /* conan_uchardet_uchardet.xcconfig */,
-				E17AF30C2C258C4000FBED6A /* conan_uchardet.xcconfig */,
-				E17AF30D2C258C4000FBED6A /* conanbuild.sh */,
-				E17AF30E2C258C4000FBED6A /* conanbuildenv-release-armv8.sh */,
-				E17AF30F2C258C4000FBED6A /* conandeps.xcconfig */,
-				E17AF3102C258C4000FBED6A /* conanrun.sh */,
-				E17AF3112C258C4000FBED6A /* conanrunenv-release-armv8.sh */,
-				E17AF3132C258C4000FBED6A /* conantoolchain_debug_arm64_iphonesimulator.xcconfig */,
-				E17AF3162C258C4000FBED6A /* conantoolchain.xcconfig */,
-				E17AF3172C258C4000FBED6A /* deactivate_conanbuild.sh */,
-				E17AF3182C258C4000FBED6A /* deactivate_conanrun.sh */,
-			);
-			path = "conan-output";
-			sourceTree = "<group>";
-		};
-		E17AF3472C258C4B00FBED6A /* profiles */ = {
-			isa = PBXGroup;
-			children = (
-				E18F7B4F2C26D25700A4A1D0 /* ios-simulator-arm64 */,
-				E18F7B4E2C26D25700A4A1D0 /* ios-simulator-x64 */,
-				E17AF3452C258C4B00FBED6A /* ios */,
-			);
-			path = profiles;
-			sourceTree = "<group>";
-		};
-		E17AF3492C258C4B00FBED6A /* conan */ = {
-			isa = PBXGroup;
-			children = (
-				E17AF3472C258C4B00FBED6A /* profiles */,
-				E17AF3482C258C4B00FBED6A /* conanfile.py */,
-			);
-			path = conan;
-			sourceTree = "<group>";
-		};
 		E17AF34D2C258C5100FBED6A /* configs */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,8 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				E17AF34D2C258C5100FBED6A /* configs */,
-				E17AF3492C258C4B00FBED6A /* conan */,
-				E17AF3192C258C4000FBED6A /* conan-output */,
 				E2F7ED51220B54D600D63515 /* OpenDocumentReader */,
 				E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */,
 				E2BB4B64220EF4F20056176B /* Frameworks */,
@@ -439,21 +347,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E18F7B502C26D25700A4A1D0 /* ios-simulator-x64 in Resources */,
-				E17AF34C2C258C4B00FBED6A /* conanfile.py in Resources */,
 				AC125F162435311A008AD515 /* Localizable.strings in Resources */,
-				E17AF33A2C258C4000FBED6A /* conanbuildenv-release-armv8.sh in Resources */,
 				ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */,
 				E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */,
-				E17AF3432C258C4000FBED6A /* deactivate_conanbuild.sh in Resources */,
-				E17AF3442C258C4000FBED6A /* deactivate_conanrun.sh in Resources */,
-				E17AF3392C258C4000FBED6A /* conanbuild.sh in Resources */,
-				E17AF33C2C258C4000FBED6A /* conanrun.sh in Resources */,
-				E17AF33D2C258C4000FBED6A /* conanrunenv-release-armv8.sh in Resources */,
 				E22EB71C226B66B300053B86 /* Main.storyboard in Resources */,
 				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
-				E18F7B512C26D25700A4A1D0 /* ios-simulator-arm64 in Resources */,
-				E17AF34A2C258C4B00FBED6A /* ios in Resources */,
 				E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
