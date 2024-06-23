@@ -5,6 +5,7 @@ set -e
 echo "patch conan generated xcconfig files"
 
 # patch xcconfig - see https://github.com/conan-io/conan/issues/16526
-sed -i '' -E 's/\]\[arch=[a-zA-Z0-9_-]+]\]\[/][/g;t' conan-output/*.xcconfig
+sed -i '' -E 's/\]\[arch=arm64\]\[/][/g;t' conan-output/*.xcconfig
+sed -i '' -E 's/\]\[arch=x86_64\]\[/][/g;t' conan-output/*.xcconfig
 
 echo "done"
