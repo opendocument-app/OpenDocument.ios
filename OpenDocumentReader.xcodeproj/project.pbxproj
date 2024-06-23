@@ -274,10 +274,7 @@
 		E2BB4B64220EF4F20056176B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E1A78CF52C1A53D200CD43E4 /* ExtensionFoundation.framework */,
-				E1A78CF02C1A520100CD43E4 /* libswiftFoundation.tbd */,
 				E1EB6C492C1A510D003EC5A0 /* Foundation.framework */,
-				E1EB6C472C1A50CE003EC5A0 /* CoreFoundation.framework */,
 				52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */,
 				523A371628CCF28900876C77 /* AppTrackingTransparency.framework */,
 				523A371428CCF28100876C77 /* StoreKit.framework */,
@@ -701,7 +698,6 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -711,7 +707,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.31;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
@@ -795,7 +790,6 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -805,7 +799,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.31;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1036,7 +1029,6 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1046,7 +1038,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.31;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
@@ -1071,7 +1062,6 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1081,7 +1071,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.31;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
