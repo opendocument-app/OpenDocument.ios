@@ -8,9 +8,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PAT_TOMTASCHE }}
-          submodules: true
 
       - name: pods
         run: pod install
@@ -24,9 +21,12 @@ jobs:
       - name: pip
         run: python3 -m ensurepip
       - name: conan
-        run: pip3 install conan
+        run: pip3 install conan==1.64.1
       - name: conan repo
-        run: conan remote add odr https://odr.jfrog.io/artifactory/api/conan/odr-conan
+        run: |
+          conan remote clean
+          conan remote add odr https://artifactory.opendocument.app/artifactory/api/conan/conan
+          conan remote add conancenter https://center.conan.io
 
       - name: run tests
         run: bundle exec fastlane tests
