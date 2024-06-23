@@ -51,7 +51,7 @@ jobs:
           conan install conan/
           --output-folder=conan-output
           --build=missing
-          --profile:host=conan/profiles/ios-simulator-x64
+          --profile:host=conan/profiles/ios-simulator-arm64
           -s build_type=Release
           -s "&:build_type=RelWithDebInfo"
           -s "odrcore/*:build_type=RelWithDebInfo"
