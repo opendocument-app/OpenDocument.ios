@@ -4,7 +4,7 @@ include(default)
 os=iOS
 os.sdk=iphonesimulator
 os.version=14.0
-arch=armv8
+arch=x86_64
 build_type=Release
 compiler=apple-clang
 compiler.version=12.0
