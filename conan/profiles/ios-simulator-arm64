@@ -1,0 +1,8 @@
+include(default)
+
+[settings]
+os=iOS
+os.version=14.0
+os.sdk=iphonesimulator
+arch=armv8
+build_type=Release

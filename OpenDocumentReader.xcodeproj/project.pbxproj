@@ -3,18 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22E10F353A0C09E10812EDAC /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */; };
 		523A371328CCF27400876C77 /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371228CCF27400876C77 /* AdServices.framework */; };
 		523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371428CCF28100876C77 /* StoreKit.framework */; };
 		523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371628CCF28900876C77 /* AppTrackingTransparency.framework */; };
-		52A0616C277CE114009FAB35 /* release-lite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A06168277CE114009FAB35 /* release-lite.xcconfig */; };
-		52A0616D277CE114009FAB35 /* release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A06169277CE114009FAB35 /* release.xcconfig */; };
-		52A0616E277CE114009FAB35 /* debug-lite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A0616A277CE114009FAB35 /* debug-lite.xcconfig */; };
-		52A0616F277CE114009FAB35 /* debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 52A0616B277CE114009FAB35 /* debug.xcconfig */; };
 		52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */; };
 		52DE0FAF45FE38FFAE9E4910 /* Pods_OpenDocumentReaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */; };
 		AC125F162435311A008AD515 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC125F182435311A008AD515 /* Localizable.strings */; };
@@ -24,8 +19,7 @@
 		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF1A3E22469EFB5000BA420 /* GoogleService-Info-Lite.plist */; };
-		ACF1A3E52469F8DE000BA420 /* Info-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF1A3E42469F8DE000BA420 /* Info-Lite.plist */; };
-		E19A47C42C24539E004A81C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E19A47C32C24539E004A81C2 /* Foundation.framework */; };
+		E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EB6C492C1A510D003EC5A0 /* Foundation.framework */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */; };
 		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
@@ -63,11 +57,10 @@
 		52A06168277CE114009FAB35 /* release-lite.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "release-lite.xcconfig"; sourceTree = "<group>"; };
 		52A06169277CE114009FAB35 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		52A0616A277CE114009FAB35 /* debug-lite.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "debug-lite.xcconfig"; sourceTree = "<group>"; };
-		52A0616B277CE114009FAB35 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		52A0616B277CE114009FAB35 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; wrapsLines = 0; };
 		52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A348B22A9262D100DACAB9 /* OpenDocumentReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenDocumentReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		52A348B72A9266BB00DACAB9 /* conanbuildinfo.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = conanbuildinfo.xcconfig; sourceTree = "<group>"; };
 		559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReaderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
 		A3BBE33791EBF379139575AB /* Pods-OpenDocumentReaderTests.release lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.release lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.release lite.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +91,7 @@
 		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
 		D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug lite.xcconfig"; sourceTree = "<group>"; };
 		DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E19A47C32C24539E004A81C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
 		E22B25302557F0E2001D0C52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -135,21 +128,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */,
-				E19A47C42C24539E004A81C2 /* Foundation.framework in Frameworks */,
-				523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */,
 				52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */,
+				E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */,
+				523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */,
 				523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
 				523A371328CCF27400876C77 /* AdServices.framework in Frameworks */,
-				22E10F353A0C09E10812EDAC /* Pods_OpenDocumentReader.framework in Frameworks */,
+				E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E17AF34D2C258C5100FBED6A /* configs */ = {
+			isa = PBXGroup;
+			children = (
+				52A0616A277CE114009FAB35 /* debug-lite.xcconfig */,
+				52A0616B277CE114009FAB35 /* debug.xcconfig */,
+				52A06168277CE114009FAB35 /* release-lite.xcconfig */,
+				52A06169277CE114009FAB35 /* release.xcconfig */,
+			);
+			path = configs;
+			sourceTree = "<group>";
+		};
 		E20D24999F878FB3AAE258B3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,7 +181,7 @@
 		E2BB4B64220EF4F20056176B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E19A47C32C24539E004A81C2 /* Foundation.framework */,
+				E1EB6C492C1A510D003EC5A0 /* Foundation.framework */,
 				52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */,
 				523A371628CCF28900876C77 /* AppTrackingTransparency.framework */,
 				523A371428CCF28100876C77 /* StoreKit.framework */,
@@ -195,11 +198,7 @@
 		E2F7ED46220B54D600D63515 = {
 			isa = PBXGroup;
 			children = (
-				52A0616A277CE114009FAB35 /* debug-lite.xcconfig */,
-				52A0616B277CE114009FAB35 /* debug.xcconfig */,
-				52A06168277CE114009FAB35 /* release-lite.xcconfig */,
-				52A06169277CE114009FAB35 /* release.xcconfig */,
-				52A348B72A9266BB00DACAB9 /* conanbuildinfo.xcconfig */,
+				E17AF34D2C258C5100FBED6A /* configs */,
 				E2F7ED51220B54D600D63515 /* OpenDocumentReader */,
 				E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */,
 				E2BB4B64220EF4F20056176B /* Frameworks */,
@@ -286,8 +285,9 @@
 		E2F7ED47220B54D600D63515 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = "Thomas Taschauer";
 				TargetAttributes = {
 					E22B252B2557F0E2001D0C52 = {
@@ -347,16 +347,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A0616C277CE114009FAB35 /* release-lite.xcconfig in Resources */,
 				AC125F162435311A008AD515 /* Localizable.strings in Resources */,
-				52A0616E277CE114009FAB35 /* debug-lite.xcconfig in Resources */,
 				ACF1A3E32469EFB5000BA420 /* GoogleService-Info-Lite.plist in Resources */,
 				E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */,
-				ACF1A3E52469F8DE000BA420 /* Info-Lite.plist in Resources */,
 				E22EB71C226B66B300053B86 /* Main.storyboard in Resources */,
-				52A0616D277CE114009FAB35 /* release.xcconfig in Resources */,
 				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
-				52A0616F277CE114009FAB35 /* debug.xcconfig in Resources */,
 				E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,6 +541,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -557,6 +553,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -571,9 +568,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -598,7 +593,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -607,28 +602,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-					"-lodr",
-					"-lpugixml",
-					"-lcryptopp",
-					"-lminiz",
-					"-luchardet",
-				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -665,6 +640,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -676,6 +652,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -684,9 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -711,7 +686,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -720,28 +695,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-					"-lodr",
-					"-lpugixml",
-					"-lcryptopp",
-					"-lminiz",
-					"-luchardet",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -861,6 +815,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -872,6 +827,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -886,9 +842,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -926,6 +880,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -937,6 +892,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -945,9 +901,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -972,7 +926,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -981,28 +935,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-					"-lodr",
-					"-lpugixml",
-					"-lcryptopp",
-					"-lminiz",
-					"-luchardet",
-				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
@@ -1026,7 +960,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1035,28 +969,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.31;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-arch",
-					arm64,
-					"-lodr",
-					"-lpugixml",
-					"-lcryptopp",
-					"-lminiz",
-					"-luchardet",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;

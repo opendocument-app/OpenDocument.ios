@@ -10,16 +10,17 @@
 
 #import "CoreWrapper.h"
 
-#include <string>
-#include <optional>
-#include <string>
-#include <optional>
 #include <odr/document.hpp>
 #include <odr/document_element.hpp>
 #include <odr/file.hpp>
 #include <odr/html.hpp>
 #include <odr/open_document_reader.hpp>
 #include <odr/exceptions.hpp>
+
+#include <string>
+#include <optional>
+#include <string>
+#include <optional>
 
 @implementation CoreWrapper {
     std::optional<odr::Html> html;

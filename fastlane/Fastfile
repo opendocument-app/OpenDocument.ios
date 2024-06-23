@@ -18,7 +18,6 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new release build to the App Store"
   lane :deployPro do
-    sh("bash", "../build-device.sh")
     clear_derived_data
     build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Full", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store(
@@ -26,13 +25,11 @@ platform :ios do
       skip_screenshots: true,
       skip_metadata: true
     )
-    sh("bash", "../build-simulator.sh")
     clear_derived_data
   end
 
   desc "Push a new release build to the App Store"
   lane :deployLite do
-    sh("bash", "../build-device.sh")
     clear_derived_data
     build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Lite", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store(
@@ -40,12 +37,10 @@ platform :ios do
       skip_screenshots: true,
       skip_metadata: true
     )
-    sh("bash", "../build-simulator.sh")
     clear_derived_data
   end
 
   lane :tests do
-    sh("bash", "../build-simulator.sh")
     clear_derived_data
     run_tests(
       workspace: "OpenDocumentReader.xcworkspace",

@@ -71,7 +71,5 @@ fastlane/test_output
 
 fastlane/report.xml
 
-conanbuildinfo.*
-conaninfo.txt
-conan.lock
+conan-output/
 graph_info.json
