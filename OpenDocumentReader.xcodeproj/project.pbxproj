@@ -130,9 +130,6 @@
 		E17AF3482C258C4B00FBED6A /* conanfile.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = conanfile.py; sourceTree = "<group>"; };
 		E18F7B4E2C26D25700A4A1D0 /* ios-simulator-x64 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ios-simulator-x64"; sourceTree = "<group>"; };
 		E18F7B4F2C26D25700A4A1D0 /* ios-simulator-arm64 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ios-simulator-arm64"; sourceTree = "<group>"; };
-		E1A78CF02C1A520100CD43E4 /* libswiftFoundation.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftFoundation.tbd; path = usr/lib/swift/libswiftFoundation.tbd; sourceTree = SDKROOT; };
-		E1A78CF52C1A53D200CD43E4 /* ExtensionFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExtensionFoundation.framework; path = System/Library/Frameworks/ExtensionFoundation.framework; sourceTree = SDKROOT; };
-		E1EB6C472C1A50CE003EC5A0 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
@@ -698,6 +695,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -790,6 +788,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1029,6 +1028,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1062,6 +1062,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
