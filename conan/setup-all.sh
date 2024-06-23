@@ -29,3 +29,5 @@ for arch in "arm64" "x64"; do
       -o "configuration=${configuration}"
   done
 done
+
+bash conan/patch.sh
