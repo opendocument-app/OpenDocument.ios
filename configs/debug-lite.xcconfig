@@ -1,3 +1,7 @@
 #include "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"
 
+// somehow the Pods definition of this variable is harmful to the conan defintition
+// it looks like the one from Pods is not crucial so we can drop it
+LIBRARY_SEARCH_PATHS = 
+
 #include "conan-output/conan_config.xcconfig"
