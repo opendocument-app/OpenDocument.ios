@@ -55,8 +55,6 @@ jobs:
           -s build_type=Release
           -s "&:build_type=RelWithDebInfo"
           -s "odrcore/*:build_type=RelWithDebInfo"
-      - name: conan patch
-        run: bash conan/patch.sh
 
       - name: run tests
         run: bundle exec fastlane tests
