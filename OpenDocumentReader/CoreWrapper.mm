@@ -51,7 +51,7 @@
             auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
             auto outputPathCpp = std::string(outputPathC);
             
-            html = odr::OpenDocumentReader::html(inputPathCpp, passwordC, outputPathCpp, config);
+            html = odr::OpenDocumentReader::html(inputPathCpp, [passwordC]() { return passwordC; }, outputPathCpp, config);
             
             NSMutableArray *pageNames = [[NSMutableArray alloc] init];
             NSMutableArray *pagePaths = [[NSMutableArray alloc] init];
