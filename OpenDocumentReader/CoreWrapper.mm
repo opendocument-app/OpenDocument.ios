@@ -40,9 +40,8 @@
             odr::HtmlConfig config;
             config.editable = editable;
             
-            const char* passwordC = nullptr;
-            if (password != nil) {
-                passwordC = [password cStringUsingEncoding:NSUTF8StringEncoding];
+            if (password == nil) {
+                password = @"";
             }
             
             auto inputPathC = [inputPath cStringUsingEncoding:NSUTF8StringEncoding];
@@ -51,7 +50,7 @@
             auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
             auto outputPathCpp = std::string(outputPathC);
             
-            html = odr::OpenDocumentReader::html(inputPathCpp, [passwordC]() { return passwordC; }, outputPathCpp, config);
+            html = odr::OpenDocumentReader::html(inputPathCpp, [password]() { return std::string([password UTF8String]); }, outputPathCpp, config);
             
             NSMutableArray *pageNames = [[NSMutableArray alloc] init];
             NSMutableArray *pagePaths = [[NSMutableArray alloc] init];

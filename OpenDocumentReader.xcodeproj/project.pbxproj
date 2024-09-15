@@ -269,6 +269,7 @@
 				E2F7ED4D220B54D600D63515 /* Resources */,
 				F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */,
 				E2C41D0F226DEF390049EF8E /* Run Script */,
+				F8CA8E81987336E1DB902130 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -439,6 +440,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F8CA8E81987336E1DB902130 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -586,7 +604,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
@@ -598,7 +616,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.33;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
@@ -677,7 +695,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
@@ -689,7 +707,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.33;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tomtasche.reader.lite1;
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -912,7 +930,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
@@ -924,7 +942,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.33;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
@@ -947,7 +965,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
@@ -959,7 +977,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.33;
 				PRODUCT_BUNDLE_IDENTIFIER = "at.tomtasche.reader$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

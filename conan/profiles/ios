@@ -7,3 +7,5 @@ os.version=14.0
 os.sdk=iphoneos
 arch=armv8
 build_type=Release
+
+compiler.cppstd=20
