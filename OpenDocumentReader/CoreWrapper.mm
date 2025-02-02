@@ -47,6 +47,26 @@
             auto inputPathC = [inputPath cStringUsingEncoding:NSUTF8StringEncoding];
             auto inputPathCpp = std::string(inputPathC);
             
+            odr::FileType fileType;
+            try {
+                const auto types = odr::OpenDocumentReader::types(inputPathCpp);
+                if (types.empty()) {
+                    _errorCode = @(-5);
+                    return false;
+                }
+
+                fileType = types.back();
+            } catch (odr::UnsupportedFileType &e) {
+                _errorCode = @(-5);
+                return false;
+            }
+
+            const auto extensionCpp = odr::OpenDocumentReader::type_to_string(fileType);
+            if (extensionCpp == "pdf") {
+                _errorCode = @(-5);
+                return false;
+            }
+            
             auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
             auto outputPathCpp = std::string(outputPathC);
             
