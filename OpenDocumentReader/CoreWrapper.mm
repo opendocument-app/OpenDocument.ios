@@ -50,7 +50,7 @@
             std::vector<odr::FileType> fileTypes;
             try {
                 fileTypes = odr::OpenDocumentReader::types(inputPathCpp);
-                if (types.empty()) {
+                if (fileTypes.empty()) {
                     _errorCode = @(-5);
                     return false;
                 }
@@ -59,7 +59,7 @@
                 return false;
             }
 
-            if (fileTypes.find(odr::FileType::portable_document_format) != fileTypes.end()) {
+            if (std::find(fileTypes.begin(), fileTypes.end(), odr::FileType::portable_document_format) != fileTypes.end()) {
                 _errorCode = @(-5);
                 return false;
             }
