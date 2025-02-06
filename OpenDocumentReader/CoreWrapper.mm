@@ -47,6 +47,23 @@
             auto inputPathC = [inputPath cStringUsingEncoding:NSUTF8StringEncoding];
             auto inputPathCpp = std::string(inputPathC);
             
+            std::vector<odr::FileType> fileTypes;
+            try {
+                fileTypes = odr::OpenDocumentReader::types(inputPathCpp);
+                if (fileTypes.empty()) {
+                    _errorCode = @(-5);
+                    return false;
+                }
+            } catch (odr::UnsupportedFileType &e) {
+                _errorCode = @(-5);
+                return false;
+            }
+
+            if (std::find(fileTypes.begin(), fileTypes.end(), odr::FileType::portable_document_format) != fileTypes.end()) {
+                _errorCode = @(-5);
+                return false;
+            }
+            
             auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
             auto outputPathCpp = std::string(outputPathC);
             
