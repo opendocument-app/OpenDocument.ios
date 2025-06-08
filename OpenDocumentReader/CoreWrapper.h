@@ -17,7 +17,7 @@
 @property NSArray *pagePaths;
 @property NSNumber *errorCode;
 
-- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable;
+- (bool)translate:(NSString *)inputPath cache:(NSString *)cachePath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable;
 - (bool)backTranslate:(NSString *)diff into:(NSString *)outputPath;
 @end
 

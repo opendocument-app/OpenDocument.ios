@@ -67,9 +67,10 @@ class Document: UIDocument {
         result = nil
         delegate?.documentUpdateContent(self)
 
-        let tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
-        coreWrapper.translate(fileURL.path, into: tempPath.path, with: password, editable: edit)
-        
+        let cachePath = URL(fileURLWithPath: NSTemporaryDirectory())
+        let outputPath = URL(fileURLWithPath: NSTemporaryDirectory())
+        coreWrapper.translate(fileURL.path, cache: cachePath.path, into: outputPath.path, with: password, editable: edit)
+
         let errorCode = coreWrapper.errorCode != nil ? coreWrapper.errorCode.intValue : 0
         if (errorCode == -2) {
             self.delegate?.documentEncrypted(self)

@@ -28,7 +28,7 @@
     std::optional<odr::Html> html;
 }
 
-- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable {
+- (bool)translate:(NSString *)inputPath cache:(NSString *)cachePath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable {
     @synchronized(self) {
         try {
             _errorCode = 0;
@@ -67,6 +67,9 @@
             auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
             auto outputPathCpp = std::string(outputPathC);
 
+            auto cachePathC = [cachePath cStringUsingEncoding:NSUTF8StringEncoding];
+            auto cachePathCpp = std::string(cachePathC);
+
             odr::DecodedFile file = odr::open(inputPathCpp);
             if (file.password_encrypted()) {
                 try {
@@ -82,7 +85,7 @@
             }
             document = file.document_file().document();
 
-            html = odr::html::translate(*document, outputPathCpp, config).bring_offline(outputPathCpp);
+            html = odr::html::translate(*document, cachePathCpp, config).bring_offline(outputPathCpp);
 
             NSMutableArray *pageNames = [[NSMutableArray alloc] init];
             NSMutableArray *pagePaths = [[NSMutableArray alloc] init];
