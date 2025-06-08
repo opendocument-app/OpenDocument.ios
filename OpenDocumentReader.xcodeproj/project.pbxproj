@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,20 @@
 		E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5D220B54D700D63515 /* Assets.xcassets */; };
 		E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		E15897752DF6377C00319830 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		E22B25312557F0E2001D0C52 /* PBXContainerItemProxy */ = {
@@ -114,6 +128,23 @@
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F441BA4458128EC8A16A91C9 /* Pods-OpenDocumentReaderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E15897762DF637BD00319830 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				odrcore/odr_spreadsheet.css,
+				odrcore/odr_spreadsheet.js,
+				odrcore/odr.css,
+				odrcore/odr.js,
+			);
+			target = E2F7ED4E220B54D600D63515 /* OpenDocumentReader */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E15897702DF631AF00319830 /* conan-assets */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E15897762DF637BD00319830 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "conan-assets"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E22B25292557F0E2001D0C52 /* Frameworks */ = {
@@ -198,6 +229,7 @@
 		E2F7ED46220B54D600D63515 = {
 			isa = PBXGroup;
 			children = (
+				E15897702DF631AF00319830 /* conan-assets */,
 				E17AF34D2C258C5100FBED6A /* configs */,
 				E2F7ED51220B54D600D63515 /* OpenDocumentReader */,
 				E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */,
@@ -270,10 +302,15 @@
 				F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */,
 				E2C41D0F226DEF390049EF8E /* Run Script */,
 				F8CA8E81987336E1DB902130 /* [CP] Copy Pods Resources */,
+				E158977C2DF640E700319830 /* [CP] Copy Conan Resources */,
 			);
 			buildRules = (
+				E15897752DF6377C00319830 /* PBXBuildRule */,
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E15897702DF631AF00319830 /* conan-assets */,
 			);
 			name = OpenDocumentReader;
 			productName = "OpenDocument Reader";
@@ -404,6 +441,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E158977C2DF640E700319830 /* [CP] Copy Conan Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PROJECT_DIR}/conan-assets/input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Conan Resources";
+			outputFileListPaths = (
+				"${PROJECT_DIR}/conan-assets/output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/conan/copy-resources.sh\"\n";
+		};
 		E2C41D0F226DEF390049EF8E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,9 +488,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -448,9 +509,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -606,6 +671,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -697,6 +763,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -932,6 +999,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -967,6 +1035,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				DEVELOPMENT_TEAM = 5LS6X97G6J;
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;

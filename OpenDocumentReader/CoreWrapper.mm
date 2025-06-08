@@ -17,6 +17,7 @@
 #include <odr/html_service.hpp>
 #include <odr/odr.hpp>
 #include <odr/exceptions.hpp>
+#include <odr/global_params.hpp>
 
 #include <string>
 #include <optional>
@@ -35,6 +36,10 @@
             _pageNames = nil;
             _pagePaths = nil;
 
+            NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+            std::string bundlePathCpp = std::string([bundlePath UTF8String]);
+            odr::GlobalParams::set_odr_core_data_path(bundlePathCpp + "/odrcore");
+
             html.reset();
 
             odr::HtmlConfig config;
@@ -44,7 +49,7 @@
                 password = @"";
             }
 
-            auto inputPathC = [inputPath cStringUsingEncoding:NSUTF8StringEncoding];
+            auto inputPathC = [inputPath UTF8String];
             auto inputPathCpp = std::string(inputPathC);
 
             std::vector<odr::FileType> fileTypes;
@@ -64,10 +69,10 @@
                 return false;
             }
 
-            auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
+            auto outputPathC = [outputPath UTF8String];
             auto outputPathCpp = std::string(outputPathC);
 
-            auto cachePathC = [cachePath cStringUsingEncoding:NSUTF8StringEncoding];
+            auto cachePathC = [cachePath UTF8String];
             auto cachePathCpp = std::string(cachePathC);
 
             odr::DecodedFile file = odr::open(inputPathCpp);
@@ -118,9 +123,9 @@
         try {
             _errorCode = 0;
 
-            odr::html::edit(*document, [diff cStringUsingEncoding:NSUTF8StringEncoding]);
+            odr::html::edit(*document, [diff UTF8String]);
 
-            document->save([outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+            document->save([outputPath UTF8String]);
         } catch (...) {
             _errorCode = @(-3);
             return false;

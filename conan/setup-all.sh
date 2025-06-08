@@ -4,6 +4,14 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR/..
 
+# assets
+conan install conan/ \
+  --output-folder=conan-output \
+  --build=missing \
+  --profile:host=conan/profiles/ios \
+  --deployer=conan/conandeployer.py \
+  --deployer-folder=conan-assets
+
 # device
 for configuration in "Debug" "Debug Lite" "Release" "Release Lite"; do
   conan install conan/ \
