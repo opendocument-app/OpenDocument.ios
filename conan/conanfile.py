@@ -4,8 +4,13 @@ from conan.tools.apple import XcodeDeps, XcodeToolchain
 class Pkg(ConanFile):
     settings = "os", "compiler", "arch", "build_type"
     options = {"configuration": ["Debug", "Debug Lite", "Release", "Release Lite"]}
-    default_options = {"configuration": "Debug"}
-    requires = "odrcore/4.1.1"
+    default_options = {
+        "configuration": "Debug",
+        "odrcore/*:shared": False,
+        "odrcore/*:with_pdf2htmlEX": False,
+        "odrcore/*:with_wvWare": False,
+    }
+    requires = "odrcore/5.0.0-pre12"
 
     def generate(self):
         xcode = XcodeDeps(self)
