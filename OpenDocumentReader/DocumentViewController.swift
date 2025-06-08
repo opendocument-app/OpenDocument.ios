@@ -16,7 +16,7 @@ import AppTrackingTransparency
 import AdSupport
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewDelegate, UISearchBarDelegate {
+class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDelegate, UISearchBarDelegate {
     
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -44,7 +44,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var bannerView: GADBannerView!
+    @IBOutlet weak var bannerView: BannerView!
     @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
@@ -139,8 +139,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         }()
         let viewWidth = frame.size.width
         
-        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
-        bannerView.load(GADRequest())
+        bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: viewWidth)
+        bannerView.load(Request())
     }
 
     func hideBannerView() {
@@ -148,7 +148,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, GADBannerViewD
         bannerViewHeight.constant = 0.0
     }
     
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
         hideBannerView()
     }
 
