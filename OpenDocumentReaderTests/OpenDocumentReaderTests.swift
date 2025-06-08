@@ -54,13 +54,12 @@ class OpenDocumentReaderTests: XCTestCase {
 
             var cachePath = URL(fileURLWithPath: NSTemporaryDirectory())
             var outputPath = URL(fileURLWithPath: NSTemporaryDirectory())
-            outputPath.appendPathComponent("translate.html")
 
             coreWrapper.translate(saveURL?.path, cache: cachePath.path, into: outputPath.path, with: nil, editable: true)
             XCTAssertNil(coreWrapper.errorCode)
 
             var backTranslatePath = URL(fileURLWithPath: NSTemporaryDirectory())
-            backTranslatePath.appendPathComponent("backtranslate.html")
+            backTranslatePath.appendPathComponent("test-edited.odt")
 
             let diff = "{\"modifiedText\":{\"/child:3/child:0\":\"This is a simple test document to demonstrate the DocumentLoaderwwww example!\"}}"
 
