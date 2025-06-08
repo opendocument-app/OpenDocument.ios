@@ -100,6 +100,10 @@
         } catch (odr::UnknownFileType&) {
             _errorCode = @(-5);
             return false;
+        } catch (std::runtime_error &e) {
+            std::cout << e.what() << std::endl;
+            _errorCode = @(-3);
+            return false;
         } catch (...) {
             _errorCode = @(-3);
             return false;

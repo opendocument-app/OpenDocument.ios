@@ -35,9 +35,7 @@ class OpenDocumentReaderTests: XCTestCase {
             let url = URL(string: "https://api.libreoffice.org/examples/cpp/DocumentLoader/test.odt")
             
             let downloadTask = URLSession.shared.downloadTask(with: url!) {
-                urlOrNil, responseOrNil, errorOrNil in
-                
-                fileURL = urlOrNil
+                urlOrNil, responseOrNil, errorOrNil in fileURL = urlOrNil
             }
             downloadTask.resume()
         } else {
@@ -45,15 +43,15 @@ class OpenDocumentReaderTests: XCTestCase {
             fileURL = URL(fileURLWithPath: filePath!)
         }
 
-        try FileManager.default.moveItem(at: fileURL!, to: self.saveURL!)
+        try FileManager.default.copyItem(at: fileURL!, to: self.saveURL!)
     }
-    
+
     func testExample() throws {
         measure {
             let coreWrapper = CoreWrapper()
 
-            var cachePath = URL(fileURLWithPath: NSTemporaryDirectory())
-            var outputPath = URL(fileURLWithPath: NSTemporaryDirectory())
+            let cachePath = URL(fileURLWithPath: NSTemporaryDirectory())
+            let outputPath = URL(fileURLWithPath: NSTemporaryDirectory())
 
             coreWrapper.translate(saveURL?.path, cache: cachePath.path, into: outputPath.path, with: nil, editable: true)
             XCTAssertNil(coreWrapper.errorCode)
