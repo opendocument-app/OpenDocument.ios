@@ -14,8 +14,10 @@
 #include <odr/document_element.hpp>
 #include <odr/file.hpp>
 #include <odr/html.hpp>
-#include <odr/open_document_reader.hpp>
+#include <odr/html_service.hpp>
+#include <odr/odr.hpp>
 #include <odr/exceptions.hpp>
+#include <odr/global_params.hpp>
 
 #include <string>
 #include <optional>
@@ -23,33 +25,36 @@
 #include <optional>
 
 @implementation CoreWrapper {
+    std::optional<odr::Document> document;
     std::optional<odr::Html> html;
 }
 
-- (bool)translate:(NSString *)inputPath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable {
+- (bool)translate:(NSString *)inputPath cache:(NSString *)cachePath into:(NSString *)outputPath with:(NSString *)password editable:(bool)editable {
     @synchronized(self) {
         try {
             _errorCode = 0;
             _pageNames = nil;
             _pagePaths = nil;
-            
-            if (html.has_value()) {
-                html.reset();
-            }
-            
+
+            NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+            std::string bundlePathCpp = std::string([bundlePath UTF8String]);
+            odr::GlobalParams::set_odr_core_data_path(bundlePathCpp + "/odrcore");
+
+            html.reset();
+
             odr::HtmlConfig config;
             config.editable = editable;
-            
+
             if (password == nil) {
                 password = @"";
             }
-            
-            auto inputPathC = [inputPath cStringUsingEncoding:NSUTF8StringEncoding];
+
+            auto inputPathC = [inputPath UTF8String];
             auto inputPathCpp = std::string(inputPathC);
-            
+
             std::vector<odr::FileType> fileTypes;
             try {
-                fileTypes = odr::OpenDocumentReader::types(inputPathCpp);
+                fileTypes = odr::types(inputPathCpp);
                 if (fileTypes.empty()) {
                     _errorCode = @(-5);
                     return false;
@@ -63,12 +68,30 @@
                 _errorCode = @(-5);
                 return false;
             }
-            
-            auto outputPathC = [outputPath cStringUsingEncoding:NSUTF8StringEncoding];
+
+            auto outputPathC = [outputPath UTF8String];
             auto outputPathCpp = std::string(outputPathC);
-            
-            html = odr::OpenDocumentReader::html(inputPathCpp, [password]() { return std::string([password UTF8String]); }, outputPathCpp, config);
-            
+
+            auto cachePathC = [cachePath UTF8String];
+            auto cachePathCpp = std::string(cachePathC);
+
+            odr::DecodedFile file = odr::open(inputPathCpp);
+            if (file.password_encrypted()) {
+                try {
+                    file = file.decrypt(std::string([password UTF8String]));
+                } catch (odr::WrongPasswordError &) {
+                    _errorCode = @(-2);
+                    return false;
+                }
+            }
+            if (!file.is_document_file()) {
+                _errorCode = @(-5);
+                return false;
+            }
+            document = file.document_file().document();
+
+            html = odr::html::translate(*document, cachePathCpp, config).bring_offline(outputPathCpp);
+
             NSMutableArray *pageNames = [[NSMutableArray alloc] init];
             NSMutableArray *pagePaths = [[NSMutableArray alloc] init];
             for (auto &&page : html->pages()) {
@@ -76,20 +99,21 @@
                 
                 [pagePaths addObject:[NSString stringWithCString:page.path.c_str() encoding:[NSString defaultCStringEncoding]]];
             }
-            
+
             _pageNames = pageNames;
             _pagePaths = pagePaths;
         } catch (odr::UnknownFileType&) {
             _errorCode = @(-5);
             return false;
-        } catch (odr::WrongPassword&) {
-            _errorCode = @(-2);
+        } catch (std::runtime_error &e) {
+            std::cout << e.what() << std::endl;
+            _errorCode = @(-3);
             return false;
         } catch (...) {
             _errorCode = @(-3);
             return false;
         }
-        
+
         return true;
     }
 }
@@ -98,10 +122,10 @@
     @synchronized(self) {
         try {
             _errorCode = 0;
-            
-            html->edit([diff cStringUsingEncoding:NSUTF8StringEncoding]);
-            
-            html->save([outputPath cStringUsingEncoding:NSUTF8StringEncoding]);
+
+            odr::html::edit(*document, [diff UTF8String]);
+
+            document->save([outputPath UTF8String]);
         } catch (...) {
             _errorCode = @(-3);
             return false;

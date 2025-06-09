@@ -52,6 +52,8 @@ jobs:
           --output-folder=conan-output
           --build=missing
           --profile:host=conan/profiles/ios-simulator-arm64
+          --deployer=conan/conandeployer.py
+          --deployer-folder=conan-assets
           -s build_type=Release
           -s "&:build_type=RelWithDebInfo"
           -s "odrcore/*:build_type=RelWithDebInfo"
