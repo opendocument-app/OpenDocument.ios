@@ -10,7 +10,11 @@ conan install conan/ \
   --build=missing \
   --profile:host=conan/profiles/ios \
   --deployer=conan/conandeployer.py \
-  --deployer-folder=conan-assets
+  --deployer-folder=conan-assets \
+  -s build_type=Release \
+  -s "&:build_type=Release" \
+  -s "odrcore/*:build_type=RelWithDebInfo" \
+  -o "configuration=Release"
 
 # device
 for configuration in "Debug" "Debug Lite" "Release" "Release Lite"; do
