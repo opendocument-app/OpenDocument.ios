@@ -39,10 +39,10 @@ jobs:
         run: pip3 install conan
 
       - name: conan remote
-        run: conan remote add --index 0 odr https://artifactory.opendocument.app/artifactory/api/conan/conan
-      - name: conan login
-        run: conan remote login odr admin --password ${{ secrets.ARTIFACTORY }}
-
+        run: |
+          conan remote remove "*"
+          conan remote add odr https://artifactory.opendocument.app/artifactory/api/conan/conan
+          conan remote add conancenter https://center2.conan.io
       - name: conan profile
         run: conan profile detect
 
@@ -67,6 +67,3 @@ jobs:
           name: logs
           path: |
             /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
-
-      - name: upload binaries to conan repo
-        run: conan upload "*" --check --confirm --remote odr
