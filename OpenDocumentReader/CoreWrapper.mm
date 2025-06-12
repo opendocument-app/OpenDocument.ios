@@ -14,7 +14,6 @@
 #include <odr/document_element.hpp>
 #include <odr/file.hpp>
 #include <odr/html.hpp>
-#include <odr/html_service.hpp>
 #include <odr/odr.hpp>
 #include <odr/exceptions.hpp>
 #include <odr/global_params.hpp>
@@ -94,9 +93,21 @@
 
             NSMutableArray *pageNames = [[NSMutableArray alloc] init];
             NSMutableArray *pagePaths = [[NSMutableArray alloc] init];
-            for (auto &&page : html->pages()) {
+            for (const auto &page : html->pages()) {
+                std::cout << "!!!!!!!!!!! " << (int)file.document_file().document_type() << std::endl;
+                std::cout << "!!!!!!!!!!! " << (int)document->document_type() << std::endl;
+                std::cout << "!!!!!!!!!!! " << page.name << std::endl;
+
+                if (file.is_document_file() && (
+                        (((file.document_file().document_type() == odr::DocumentType::presentation) ||
+                          (file.document_file().document_type() == odr::DocumentType::drawing)) &&
+                         (page.name != "document")) ||
+                        ((file.document_file().document_type() == odr::DocumentType::spreadsheet) &&
+                         (page.name == "document")))) {
+                    continue;
+                }
+
                 [pageNames addObject:[NSString stringWithCString:page.name.c_str() encoding:[NSString defaultCStringEncoding]]];
-                
                 [pagePaths addObject:[NSString stringWithCString:page.path.c_str() encoding:[NSString defaultCStringEncoding]]];
             }
 
