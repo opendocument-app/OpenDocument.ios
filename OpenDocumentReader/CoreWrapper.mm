@@ -53,7 +53,7 @@
 
             std::vector<odr::FileType> fileTypes;
             try {
-                fileTypes = odr::types(inputPathCpp);
+                fileTypes = odr::list_file_types(inputPathCpp);
                 if (fileTypes.empty()) {
                     _errorCode = @(-5);
                     return false;
@@ -87,22 +87,18 @@
                 _errorCode = @(-5);
                 return false;
             }
-            document = file.document_file().document();
+            document = file.as_document_file().document();
 
             html = odr::html::translate(*document, cachePathCpp, config).bring_offline(outputPathCpp);
 
             NSMutableArray *pageNames = [[NSMutableArray alloc] init];
             NSMutableArray *pagePaths = [[NSMutableArray alloc] init];
             for (const auto &page : html->pages()) {
-                std::cout << "!!!!!!!!!!! " << (int)file.document_file().document_type() << std::endl;
-                std::cout << "!!!!!!!!!!! " << (int)document->document_type() << std::endl;
-                std::cout << "!!!!!!!!!!! " << page.name << std::endl;
-
                 if (file.is_document_file() && (
-                        (((file.document_file().document_type() == odr::DocumentType::presentation) ||
-                          (file.document_file().document_type() == odr::DocumentType::drawing)) &&
+                        (((file.as_document_file().document_type() == odr::DocumentType::presentation) ||
+                          (file.as_document_file().document_type() == odr::DocumentType::drawing)) &&
                          (page.name != "document")) ||
-                        ((file.document_file().document_type() == odr::DocumentType::spreadsheet) &&
+                        ((file.as_document_file().document_type() == odr::DocumentType::spreadsheet) &&
                          (page.name == "document")))) {
                     continue;
                 }
