@@ -2,10 +2,12 @@ include(default)
 
 [settings]
 os=iOS
-os.sdk=iphone
-os.version=14.0
 os.sdk=iphoneos
+os.version=14.0
 arch=armv8
-build_type=Release
 
 compiler.cppstd=20
+
+&:build_type=RelWithDebInfo
+odrcore/*:build_type=RelWithDebInfo
+build_type=Release
