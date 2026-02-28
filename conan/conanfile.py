@@ -9,8 +9,9 @@ class Pkg(ConanFile):
         "odrcore/*:shared": False,
         "odrcore/*:with_pdf2htmlEX": False,
         "odrcore/*:with_wvWare": False,
+        "odrcore/*:with_libmagic": False,
     }
-    requires = "odrcore/5.0.0"
+    requires = "odrcore/5.2.0"
 
     def generate(self):
         xcode = XcodeDeps(self)

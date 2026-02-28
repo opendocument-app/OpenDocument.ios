@@ -20,8 +20,7 @@
 
 #include <string>
 #include <optional>
-#include <string>
-#include <optional>
+#include <iostream>
 
 @implementation CoreWrapper {
     std::optional<odr::Document> document;
