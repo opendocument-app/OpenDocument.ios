@@ -12,7 +12,7 @@ class Pkg(ConanFile):
         "odrcore/*:with_libmagic": False,
         "odrcore/*:with_http_server": False,
     }
-    requires = "odrcore/5.4.1"
+    requires = "odrcore/5.5.0"
 
     def generate(self):
         xcode = XcodeDeps(self)
