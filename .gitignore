@@ -67,3 +67,4 @@ fastlane/report.xml
 conan-output/
 conan-assets/
 graph_info.json
+.venv/
