@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios deployPro
 ```
 
-Push a new release build to the App Store
+Push a new release build of the paid app to the App Store
 
 ### ios deployLite
 
@@ -29,7 +29,7 @@ Push a new release build to the App Store
 [bundle exec] fastlane ios deployLite
 ```
 
-Push a new release build to the App Store
+Push a new release build of the ad supported app to the App Store
 
 ### ios tests
 
