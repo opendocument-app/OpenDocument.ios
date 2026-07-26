@@ -36,7 +36,8 @@ final class AnalyticsManager {
             return
         }
 
-        let described = parameters
+        let described =
+            parameters
             .sorted { $0.key < $1.key }
             .map { "\($0.key)=\($0.value)" }
             .joined(separator: " ")

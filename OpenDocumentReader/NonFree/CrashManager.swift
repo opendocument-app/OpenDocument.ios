@@ -38,7 +38,8 @@ final class CrashManager {
     private func describedContext() -> String {
         guard !customValues.isEmpty else { return "" }
 
-        return customValues
+        return
+            customValues
             .sorted { $0.key < $1.key }
             .map { "\($0.key)=\($0.value)" }
             .joined(separator: " ")
