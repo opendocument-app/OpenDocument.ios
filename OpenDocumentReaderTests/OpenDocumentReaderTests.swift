@@ -137,6 +137,27 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertNil(recorder.error)
     }
 
+    /// A failing page is treated as the document failing to render, so what
+    /// counts as one of our pages has to be narrow: a link in the document that
+    /// answers 404 must not take the document down with it.
+    func testOnlyTheServersOwnURLsCountAsPages() throws {
+        let (wrapper, cache, output) = makeWrapper()
+
+        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+
+        let page = try XCTUnwrap(wrapper.pageURLs.first)
+        XCTAssertTrue(CoreWrapper.isServedURL(page))
+
+        for other in [
+            "https://opendocument.app/missing.html",
+            "http://opendocument.app/missing.html",
+            "http://127.0.0.1:8080/file/odr1/document.html",
+            "http://localhost:29665/file/odr1/document.html",
+        ] {
+            XCTAssertFalse(CoreWrapper.isServedURL(try XCTUnwrap(URL(string: other))), other)
+        }
+    }
+
     private func fetch(_ url: URL) throws -> (Data, URLResponse) {
         var result: Result<(Data, URLResponse), Error> = .failure(URLError(.timedOut))
         let done = expectation(description: "GET \(url)")

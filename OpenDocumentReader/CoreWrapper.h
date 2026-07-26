@@ -44,6 +44,10 @@ typedef NS_ERROR_ENUM(CoreWrapperErrorDomain, CoreWrapperError) {
                  into:(NSString *)outputPath
                 error:(NSError **)error;
 
+/// Whether this URL is one odrcore is serving, rather than somewhere a link in
+/// the document leads.
++ (BOOL)isServedURL:(NSURL *)url;
+
 @end
 
 NS_ASSUME_NONNULL_END

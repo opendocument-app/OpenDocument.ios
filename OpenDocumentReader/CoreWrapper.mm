@@ -87,28 +87,75 @@ static odr::HtmlViews CoreWrapperSelectViews(const odr::HtmlViews &views,
     return selected;
 }
 
-/// `listen` binds the socket on the server's own thread, so without this the
+static struct sockaddr_in CoreWrapperLoopbackAddress(std::uint32_t port) {
+    struct sockaddr_in address = {};
+    address.sin_len = sizeof(address);
+    address.sin_family = AF_INET;
+    address.sin_port = htons(static_cast<in_port_t>(port));
+    address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+
+    return address;
+}
+
+/// Whether the port is free, asked by binding it and letting go again.
+///
+/// Without this, a port some other app is already listening on would answer the
+/// readiness probe below and the app would spend the rest of its life handing
+/// the web view addresses on a server that knows nothing about our documents.
+///
+/// `SO_REUSEADDR` matches what cpp-httplib sets, so a connection of ours still
+/// in TIME_WAIT does not read as somebody else's port. `SO_REUSEPORT`, which
+/// httplib also sets, is deliberately not: it would let this bind succeed
+/// alongside a foreign listener, which is the case being ruled out.
+static BOOL CoreWrapperPortIsFree(std::uint32_t port) {
+    int handle = socket(AF_INET, SOCK_STREAM, 0);
+    if (handle < 0) {
+        return NO;
+    }
+
+    int reuse = 1;
+    setsockopt(handle, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+
+    struct sockaddr_in address = CoreWrapperLoopbackAddress(port);
+    int bound = bind(handle, reinterpret_cast<struct sockaddr *>(&address), sizeof(address));
+    close(handle);
+
+    return bound == 0;
+}
+
+static BOOL CoreWrapperPortAnswers(std::uint32_t port) {
+    int handle = socket(AF_INET, SOCK_STREAM, 0);
+    if (handle < 0) {
+        return NO;
+    }
+
+    struct sockaddr_in address = CoreWrapperLoopbackAddress(port);
+    int connected = connect(handle, reinterpret_cast<struct sockaddr *>(&address), sizeof(address));
+    close(handle);
+
+    return connected == 0;
+}
+
+static std::optional<odr::HttpServer> g_server;
+
+/// Set when `listen` comes back, which it only does when the bind failed or the
+/// server was stopped. While it is clear, the socket on the port is ours.
+static std::atomic<bool> g_serverStopped{false};
+
+/// `listen` binds the socket on the server's own thread, so without waiting the
 /// first request can lose the race and get "connection refused" instead of a
-/// document. Returns whether the port answers within `timeout`.
-static BOOL CoreWrapperWaitForPort(std::uint32_t port, NSTimeInterval timeout) {
+/// document.
+static BOOL CoreWrapperWaitForServer(std::uint32_t port, NSTimeInterval timeout) {
     NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:timeout];
 
     while (true) {
-        int handle = socket(AF_INET, SOCK_STREAM, 0);
-        if (handle < 0) {
+        if (g_serverStopped.load()) {
             return NO;
         }
-
-        struct sockaddr_in address = {};
-        address.sin_len = sizeof(address);
-        address.sin_family = AF_INET;
-        address.sin_port = htons(static_cast<in_port_t>(port));
-        address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-
-        int connected = connect(handle, reinterpret_cast<struct sockaddr *>(&address), sizeof(address));
-        close(handle);
-
-        if (connected == 0) {
+        // re-checked afterwards: a port that answers between our bind test and
+        // this point belongs to whoever won the race, and if that is not us
+        // then listen() has come back by now
+        if (CoreWrapperPortAnswers(port) && !g_serverStopped.load()) {
             return YES;
         }
         if ([deadline timeIntervalSinceNow] <= 0) {
@@ -118,8 +165,6 @@ static BOOL CoreWrapperWaitForPort(std::uint32_t port, NSTimeInterval timeout) {
         usleep(10 * 1000);
     }
 }
-
-static std::optional<odr::HttpServer> g_server;
 
 /// Brings up the one server the app has, on first use, and leaves it running
 /// for the rest of the process. Returns NO when the port could not be taken -
@@ -132,6 +177,10 @@ static BOOL CoreWrapperStartServer() {
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
+        if (!CoreWrapperPortIsFree(kCoreWrapperHttpPort)) {
+            return;
+        }
+
         NSString *cachePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"odrcore-server"];
 
         odr::HttpServer::Config config;
@@ -151,13 +200,17 @@ static BOOL CoreWrapperStartServer() {
                 g_server->listen("127.0.0.1", kCoreWrapperHttpPort);
             } catch (...) {
             }
+
+            g_serverStopped.store(true);
         }).detach();
 
-        running = CoreWrapperWaitForPort(kCoreWrapperHttpPort, 5);
+        running = CoreWrapperWaitForServer(kCoreWrapperHttpPort, 5);
     });
 
     return running;
 }
+
+static NSString *const kCoreWrapperHttpHost = @"127.0.0.1";
 
 /// Where the server serves a view: `HttpServer` routes `/file/<prefix>/<path>`
 /// to the service connected under that prefix, and the pages ask for their
@@ -166,7 +219,7 @@ static NSURL *CoreWrapperPageURL(const std::string &prefix, const std::string &p
     NSString *escapedPath = [[NSString stringWithUTF8String:path.c_str()]
         stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
 
-    NSString *url = [NSString stringWithFormat:@"http://127.0.0.1:%u/file/%s/%@",
+    NSString *url = [NSString stringWithFormat:@"http://%@:%u/file/%s/%@", kCoreWrapperHttpHost,
                                                static_cast<unsigned int>(kCoreWrapperHttpPort),
                                                prefix.c_str(), escapedPath];
 
@@ -335,6 +388,11 @@ static void CoreWrapperEnsureDataPath() {
             return NO;
         }
     }
+}
+
++ (BOOL)isServedURL:(NSURL *)url {
+    return [url.scheme isEqualToString:@"http"] && [url.host isEqualToString:kCoreWrapperHttpHost]
+        && url.port.unsignedIntValue == kCoreWrapperHttpPort;
 }
 
 - (BOOL)backTranslate:(NSString *)diff into:(NSString *)outputPath error:(NSError **)error {

@@ -81,12 +81,18 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     /// than in `translate`. Route that into the same handling, which shows the
     /// error page or the raw file, instead of letting the server's plain text
     /// "Internal Server Error" through.
+    ///
+    /// Only for the page itself: a link in the document leading somewhere that
+    /// answers 404, or a frame inside it doing so, is not this document failing
+    /// to render and must not replace it.
     func webView(
         _ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
-        guard let response = navigationResponse.response as? HTTPURLResponse,
+        guard navigationResponse.isForMainFrame,
+            let response = navigationResponse.response as? HTTPURLResponse,
             response.statusCode >= 400,
+            let url = response.url, CoreWrapper.isServedURL(url),
             let doc = document
         else {
             decisionHandler(.allow)
