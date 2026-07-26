@@ -25,3 +25,32 @@ Everything else comes from Swift Package Manager and is resolved by Xcode.
 
 `conan/setup-all.sh` has to be re-run whenever the odrcore version in
 `conan/conanfile.py` or the `conan-odr-index` submodule changes.
+
+## Releasing
+
+The `OpenDocumentReader-iOS-release` workflow uploads a build to App Store
+Connect. It is manual (`workflow_dispatch`) and never submits for review, so
+promoting a build stays a deliberate step in App Store Connect. Build numbers
+come from whatever TestFlight already has, so nothing needs to be committed to
+cut a release.
+
+It needs these repository secrets:
+
+| secret | what it is |
+| --- | --- |
+| `ASC_KEY_ID` | App Store Connect API key id |
+| `ASC_ISSUER_ID` | issuer id of that key |
+| `ASC_KEY_CONTENT` | the `.p8` private key, base64 encoded |
+| `SIGNING_CERTIFICATE_P12` | Apple Distribution certificate + key as a base64 encoded `.p12` |
+| `SIGNING_CERTIFICATE_PASSWORD` | password of that `.p12` |
+
+The certificate is imported into a temporary keychain that is discarded with the
+runner. Provisioning profiles are created on demand via
+`-allowProvisioningUpdates`.
+
+The same lanes work locally once those variables are exported:
+
+```bash
+bundle exec fastlane deployPro
+bundle exec fastlane deployLite
+```
