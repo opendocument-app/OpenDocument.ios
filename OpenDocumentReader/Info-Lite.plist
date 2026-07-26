@@ -56,6 +56,13 @@
 	<string>ca-app-pub-8161473686436957~5688952247</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<!-- odrcore serves the translated document from 127.0.0.1; this permits
+		     that loopback connection without loosening ATS for anything else -->
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Copy image from document to your Photos</string>
 	<key>NSUserTrackingUsageDescription</key>

@@ -36,6 +36,8 @@
 		E2A17B1000000000000000B0 /* test.ods in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1200000000000000B2 /* test.ods */; };
 		E2A17B1100000000000000B1 /* test.odp in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1300000000000000B3 /* test.odp */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
+		E2A17B2000000000000000C0 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2200000000000000C2 /* CoreFoundation.framework */; };
+		E2A17B2100000000000000C1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2300000000000000C3 /* CFNetwork.framework */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
 		E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
@@ -103,6 +105,8 @@
 		E2A17B1200000000000000B2 /* test.ods */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.ods; sourceTree = "<group>"; };
 		E2A17B1300000000000000B3 /* test.odp */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odp; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E2A17B2200000000000000C2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		E2A17B2300000000000000C3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
 		E2C008FC220F1D570097C594 /* CoreWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreWrapper.h; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 				523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */,
 				E23795302274844400BA7238 /* AdSupport.framework in Frameworks */,
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
+				E2A17B2000000000000000C0 /* CoreFoundation.framework in Frameworks */,
+				E2A17B2100000000000000C1 /* CFNetwork.framework in Frameworks */,
 				523A371328CCF27400876C77 /* AdServices.framework in Frameworks */,
 				E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */,
 				D2DCD7104EBCC0F1A784E116 /* GoogleMobileAds in Frameworks */,
@@ -209,6 +215,8 @@
 				E2064DDF22CFA1BA006441F8 /* iAd.framework */,
 				E237952F2274844400BA7238 /* AdSupport.framework */,
 				E26C39382250DC6E009C484A /* WebKit.framework */,
+				E2A17B2200000000000000C2 /* CoreFoundation.framework */,
+				E2A17B2300000000000000C3 /* CFNetwork.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -26,6 +26,35 @@ Everything else comes from Swift Package Manager and is resolved by Xcode.
 `conan/setup-all.sh` has to be re-run whenever the odrcore version in
 `conan/conanfile.py` or the `conan-odr-index` submodule changes.
 
+## How a document reaches the screen
+
+`CoreWrapper` hands the file to odrcore, which returns an `HtmlService`: a
+handle that knows which views the document has but has not rendered any of
+them. That service is connected to odrcore's HTTP server, bound to
+`127.0.0.1:29665`, and the web view is pointed at
+`http://127.0.0.1:29665/file/<prefix>/<page>.html`. odrcore renders a page when
+the web view asks for it, on one of the server's threads.
+
+The same thing OpenDocument.droid does, and for the same reasons: rendering
+happens off the thread that opened the document, only the pages that are looked
+at are rendered at all, and turning a page is a navigation rather than another
+translation. The `<prefix>` changes on every translation, because the web view
+caches by URL and a document re-translated after a password or an edit has to
+land on an address it has not seen.
+
+`kCoreWrapperServesOverHttp` in `CoreWrapper.mm` switches back to writing the
+pages out as files, which is also what happens automatically if the port cannot
+be bound. It is there to keep that path working while the migration finishes,
+not as a runtime option.
+
+Nothing about this needs a capability or prompts the user. A listening socket on
+loopback takes no entitlement, and the local network permission introduced in
+iOS 14 covers the local subnet and multicast, not `127.0.0.1`. The one thing it
+does need is an App Transport Security exception, since ATS blocks plain HTTP:
+`NSAllowsLocalNetworking` in both `Info.plist`s, which is the narrow one for
+local addresses and — unlike `NSAllowsArbitraryLoads` — needs no justification
+in App Store review.
+
 ## Formatting
 
 Swift sources are formatted with `swift-format` from the active Xcode

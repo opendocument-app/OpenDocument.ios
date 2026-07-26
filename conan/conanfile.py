@@ -10,7 +10,7 @@ class Pkg(ConanFile):
         "odrcore/*:with_pdf2htmlEX": False,
         "odrcore/*:with_wvWare": False,
         "odrcore/*:with_libmagic": False,
-        "odrcore/*:with_http_server": False,
+        "odrcore/*:with_http_server": True,
     }
     requires = "odrcore/5.5.0"
 

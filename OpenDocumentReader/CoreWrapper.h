@@ -27,7 +27,11 @@ typedef NS_ERROR_ENUM(CoreWrapperErrorDomain, CoreWrapperError) {
 @interface CoreWrapper : NSObject
 
 @property (nonatomic, copy, readonly) NSArray<NSString *> *pageNames;
-@property (nonatomic, copy, readonly) NSArray<NSString *> *pagePaths;
+
+/// One URL per page, in the order they should be shown. Loopback HTTP URLs
+/// served by odrcore, or `file:` URLs below the output path when the app is
+/// built to render offline - see `kCoreWrapperServesOverHttp`.
+@property (nonatomic, copy, readonly) NSArray<NSURL *> *pageURLs;
 
 - (BOOL)translate:(NSString *)inputPath
             cache:(NSString *)cachePath
@@ -39,6 +43,10 @@ typedef NS_ERROR_ENUM(CoreWrapperErrorDomain, CoreWrapperError) {
 - (BOOL)backTranslate:(NSString *)diff
                  into:(NSString *)outputPath
                 error:(NSError **)error;
+
+/// Whether this URL is one odrcore is serving, rather than somewhere a link in
+/// the document leads.
++ (BOOL)isServedURL:(NSURL *)url;
 
 @end
 

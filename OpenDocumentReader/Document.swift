@@ -13,13 +13,15 @@ protocol DocumentDelegate: AnyObject {
 enum DocumentError: Error {
     case getHtml
     case backTranslate
+    /// odrcore accepted the document but could not serve one of its pages.
+    case pageNotServed
 }
 
 class Document: UIDocument {
 
     public var result: URL?
     public var pageNames: [String]?
-    public var pagePaths: [String]?
+    public var pageURLs: [URL]?
 
     public weak var delegate: DocumentDelegate?
     public var loadProgress = Progress(totalUnitCount: 5)
@@ -28,7 +30,9 @@ class Document: UIDocument {
 
     public var page: Int = 0 {
         didSet {
-            parse()
+            // every page of the document already has an address, so turning to
+            // one is picking a URL rather than translating the file again
+            showPage()
         }
     }
     public var password: String? {
@@ -61,6 +65,7 @@ class Document: UIDocument {
         loadProgress.completedUnitCount = 2
 
         result = nil
+        pageURLs = nil
         delegate?.documentUpdateContent(self)
 
         let cachePath = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -92,15 +97,10 @@ class Document: UIDocument {
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
 
         // translate only reports success once it has at least one page
-        let pagePaths = coreWrapper.pagePaths
-        let pageNames = coreWrapper.pageNames
-        self.pagePaths = pagePaths
-        self.pageNames = pageNames
+        pageURLs = coreWrapper.pageURLs
+        pageNames = coreWrapper.pageNames
 
-        // TODO: use all pages instead of just one!
-        result = URL(fileURLWithPath: pagePaths[min(page, pagePaths.count - 1)])
-
-        delegate?.documentUpdateContent(self)
+        showPage()
 
         if !wasPageCountAnnounced {
             delegate?.documentPagesChanged(self)
@@ -109,6 +109,17 @@ class Document: UIDocument {
         }
 
         delegate?.documentLoadingCompleted(self)
+    }
+
+    /// Shows the currently selected page, clamped to what the document has:
+    /// switching to page five of a spreadsheet and then editing it into four
+    /// sheets should not walk off the end.
+    private func showPage() {
+        guard let pageURLs, !pageURLs.isEmpty else { return }
+
+        result = pageURLs[min(max(page, 0), pageURLs.count - 1)]
+
+        delegate?.documentUpdateContent(self)
     }
 
     override func handleError(_ error: Error, userInteractionPermitted: Bool) {
