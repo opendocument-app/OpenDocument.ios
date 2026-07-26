@@ -8,9 +8,21 @@ import UIKit
 /// of it: equal-width text tabs that share the available width while they fit,
 /// scroll once they do not, and underline the selected one.
 final class PageTabBar: UIControl {
-    fileprivate static let titlePadding: CGFloat = 8
-    fileprivate static let underlineHeight: CGFloat = 4
-    fileprivate static let titleTextStyle = UIFont.TextStyle.subheadline
+    static let titlePadding: CGFloat = 8
+    static let underlineHeight: CGFloat = 4
+    static let titleTextStyle = UIFont.TextStyle.subheadline
+
+    /// What the tabs took before they scaled with the text size.
+    private static let minimumHeight: CGFloat = 40
+
+    /// How tall the row has to be for the title not to be clipped at the
+    /// current text size. Works out to the familiar 40 points at the default
+    /// size and grows from there.
+    var preferredHeight: CGFloat {
+        let lineHeight = UIFont.preferredFont(forTextStyle: Self.titleTextStyle, compatibleWith: traitCollection).lineHeight
+
+        return max((lineHeight + Self.titlePadding * 2 + Self.underlineHeight).rounded(.up), Self.minimumHeight)
+    }
 
     /// The tab titles, in order. Setting this clears the selection.
     var titles: [String] = [] {
@@ -34,18 +46,11 @@ final class PageTabBar: UIControl {
 
     private var selection: Int?
     private var titleWidths: [CGFloat] = []
+    private var tabWidths: [CGFloat] = []
     private var laidOutSize: CGSize = .zero
 
     private let layout = UICollectionViewFlowLayout()
     private lazy var collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-
-    /// The width every tab gets while they all fit, or nil once the row has to
-    /// scroll and each tab is only as wide as its own title.
-    private var sharedTabWidth: CGFloat? {
-        guard !titles.isEmpty, titleWidths.reduce(0, +) <= bounds.width else { return nil }
-
-        return bounds.width / CGFloat(titles.count)
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,6 +90,7 @@ final class PageTabBar: UIControl {
         guard bounds.size != laidOutSize else { return }
 
         laidOutSize = bounds.size
+        resizeTabs()
         layout.invalidateLayout()
     }
 
@@ -101,11 +107,41 @@ final class PageTabBar: UIControl {
     }
 
     private func measureTitles() {
-        let attributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: Self.titleTextStyle)]
+        let font = UIFont.preferredFont(forTextStyle: Self.titleTextStyle, compatibleWith: traitCollection)
+        let attributes = [NSAttributedString.Key.font: font]
 
         titleWidths = titles.map {
             (($0 as NSString).size(withAttributes: attributes).width + Self.titlePadding * 2).rounded(.up)
         }
+
+        resizeTabs()
+    }
+
+    /// Every tab gets an even share of the row while that is wide enough for
+    /// the longest title. Failing that they keep their own widths, sharing out
+    /// whatever is left over — so a single long sheet name is neither truncated
+    /// nor allowed to dictate the width of the short ones. Once they no longer
+    /// fit at all, the row scrolls.
+    private func resizeTabs() {
+        guard let widestTitle = titleWidths.max() else {
+            tabWidths = []
+
+            return
+        }
+
+        let evenWidth = bounds.width / CGFloat(titleWidths.count)
+
+        if widestTitle <= evenWidth {
+            tabWidths = titleWidths.map { _ in evenWidth }
+
+            return
+        }
+
+        let slack = bounds.width - titleWidths.reduce(0, +)
+
+        tabWidths = slack > 0
+            ? titleWidths.map { $0 + slack / CGFloat(titleWidths.count) }
+            : titleWidths
     }
 
     private func select(_ index: Int?, notify: Bool) {
@@ -167,7 +203,7 @@ extension PageTabBar: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: sharedTabWidth ?? titleWidths[indexPath.item], height: collectionView.bounds.height)
+        CGSize(width: tabWidths[indexPath.item], height: collectionView.bounds.height)
     }
 }
 

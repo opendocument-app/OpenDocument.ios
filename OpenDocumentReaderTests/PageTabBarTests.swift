@@ -106,6 +106,41 @@ class PageTabBarTests: XCTestCase {
         XCTAssertLessThan(widths[0], widths[2] / 2)
         XCTAssertLessThan(widths[1], widths[2] / 2)
     }
+
+    /// An even share is only fair while it is wide enough for the longest
+    /// title. "Q4 Revenue Forecast" next to "A" and "B" fits the bar
+    /// comfortably, but an even third of it would truncate the long one for no
+    /// reason.
+    func testALongTitleKeepsItsWidthWhileTheyAllStillFit() throws {
+        tabBar.titles = ["A", "B", "Q4 Revenue Forecast"]
+
+        let widths = try tabWidths()
+        let evenShare = tabBar.bounds.width / 3
+
+        XCTAssertGreaterThan(widths[2], evenShare)
+        XCTAssertLessThan(widths[0], evenShare)
+        XCTAssertEqual(widths.reduce(0, +), tabBar.bounds.width, accuracy: 0.5, "should still fill the row")
+    }
+
+    /// A fixed 40 point row clipped the title at accessibility text sizes.
+    func testHeightLeavesRoomForTheTitle() {
+        let font = UIFont.preferredFont(forTextStyle: PageTabBar.titleTextStyle, compatibleWith: tabBar.traitCollection)
+
+        XCTAssertGreaterThanOrEqual(tabBar.preferredHeight, font.lineHeight + PageTabBar.underlineHeight)
+        XCTAssertGreaterThanOrEqual(tabBar.preferredHeight, 40, "should not shrink below what the tabs always had")
+    }
+
+    func testHeightGrowsWithAccessibilityTextSizes() throws {
+        guard #available(iOS 17.0, *) else { throw XCTSkip("traitOverrides needs iOS 17") }
+
+        let window = UIWindow(frame: tabBar.frame)
+        window.traitOverrides.preferredContentSizeCategory = .accessibilityExtraExtraExtraLarge
+
+        let huge = PageTabBar(frame: tabBar.bounds)
+        window.addSubview(huge)
+
+        XCTAssertGreaterThan(huge.preferredHeight, tabBar.preferredHeight)
+    }
 }
 
 /// The document view reaches the tab bar through the storyboard, so these cover

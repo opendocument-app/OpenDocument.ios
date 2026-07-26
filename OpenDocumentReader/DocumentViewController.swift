@@ -67,6 +67,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         pageTabBar.addTarget(self, action: #selector(pageSelected(sender:)), for: .valueChanged)
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        guard isViewLoaded,
+              traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory else {
+            return
+        }
+
+        updatePageTabBarHeight()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -476,8 +487,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         pageTabBar.selectedIndex = pageNames.isEmpty ? nil : 0
 
         // a single page needs no tab to switch to
-        let showsTabs = pageNames.count > 1
-        pageTabBar.isHidden = !showsTabs
-        pageTabBarHeight.constant = showsTabs ? 40 : 0
+        pageTabBar.isHidden = pageNames.count <= 1
+        updatePageTabBarHeight()
+    }
+
+    /// The tab bar scales with the text size, so its height is whatever it
+    /// currently needs rather than a fixed number.
+    private func updatePageTabBarHeight() {
+        pageTabBarHeight.constant = pageTabBar.isHidden ? 0 : pageTabBar.preferredHeight
     }
 }
