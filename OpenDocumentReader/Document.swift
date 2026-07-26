@@ -1,6 +1,5 @@
 import UIKit
 import WebKit
-import FirebaseCrashlytics
 
 protocol DocumentDelegate: class {
     func documentUpdateContent(_ doc: Document)
@@ -120,7 +119,7 @@ class Document: UIDocument {
     }
     
     override func handleError(_ error: Error, userInteractionPermitted: Bool) {
-        Crashlytics.crashlytics().record(error: error)
+        CrashManager.shared.log(error)
     }
     
     override func writeContents(_ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?) throws {
@@ -131,7 +130,7 @@ class Document: UIDocument {
 
             webview?.evaluateJavaScript("odr.generateDiff()", completionHandler: { (value: Any!, error: Error!) -> Void in
                 if error != nil {
-                    Crashlytics.crashlytics().record(error: error)
+                    CrashManager.shared.log(error)
                     fatalError("generateDiff failed")
 
                     return
