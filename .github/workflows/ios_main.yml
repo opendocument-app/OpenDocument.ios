@@ -39,9 +39,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: install pods
-        run: pod install
-
       # conan itself is pinned by conan-odr-index so recipes and client stay in sync
       - name: install conan
         run: pip3 install -r conan-odr-index/requirements.txt
@@ -121,9 +118,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: install pods
-        run: pod install
-
       - name: install conan
         run: pip3 install -r conan-odr-index/requirements.txt
 
@@ -160,7 +154,7 @@ jobs:
       - name: build
         run: >
           xcodebuild
-          -workspace OpenDocumentReader.xcworkspace
+          -project OpenDocumentReader.xcodeproj
           -scheme "${{ matrix.scheme }}"
           -configuration "${{ matrix.configuration }}"
           -sdk iphoneos

@@ -12,8 +12,6 @@
 		523A371328CCF27400876C77 /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371228CCF27400876C77 /* AdServices.framework */; };
 		523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371428CCF28100876C77 /* StoreKit.framework */; };
 		523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371628CCF28900876C77 /* AppTrackingTransparency.framework */; };
-		52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */; };
-		52DE0FAF45FE38FFAE9E4910 /* Pods_OpenDocumentReaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */; };
 		7C4296FE8B2389E12E7687F7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */; };
 		AC125F162435311A008AD515 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC125F182435311A008AD515 /* Localizable.strings */; };
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
@@ -22,6 +20,7 @@
 		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		BFFB694BE9E3E744FD4F92E0 /* CrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACB597DDB073F3AFC74345 /* CrashManager.swift */; };
+		D2DCD7104EBCC0F1A784E116 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = B5F033C5AA89A6E9C19EA27D /* GoogleMobileAds */; };
 		E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EB6C492C1A510D003EC5A0 /* Foundation.framework */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */; };
@@ -38,6 +37,7 @@
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
 		E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5D220B54D700D63515 /* Assets.xcassets */; };
 		E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */; };
+		FF3C583F3A1EDECDBE3F267F /* ScrollableSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59105DB5B4B43215610FF6BB /* ScrollableSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,21 +53,13 @@
 /* Begin PBXFileReference section */
 		25ACB597DDB073F3AFC74345 /* CrashManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrashManager.swift; sourceTree = "<group>"; };
 		2DF2708F60BE3388B124CABF /* AnalyticsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
-		3B2DB65725CE9DAE177ABB91 /* Pods-OpenDocumentReaderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug.xcconfig"; sourceTree = "<group>"; };
-		481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release lite.xcconfig"; sourceTree = "<group>"; };
 		523A371228CCF27400876C77 /* AdServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdServices.framework; path = System/Library/Frameworks/AdServices.framework; sourceTree = SDKROOT; };
 		523A371428CCF28100876C77 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		523A371628CCF28900876C77 /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
-		52A06168277CE114009FAB35 /* release-lite.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "release-lite.xcconfig"; sourceTree = "<group>"; };
-		52A06169277CE114009FAB35 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
-		52A0616A277CE114009FAB35 /* debug-lite.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "debug-lite.xcconfig"; sourceTree = "<group>"; };
-		52A0616B277CE114009FAB35 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; wrapsLines = 0; };
 		52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenDocumentReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A348B22A9262D100DACAB9 /* OpenDocumentReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenDocumentReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReaderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.release.xcconfig"; sourceTree = "<group>"; };
-		A3BBE33791EBF379139575AB /* Pods-OpenDocumentReaderTests.release lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.release lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.release lite.xcconfig"; sourceTree = "<group>"; };
+		59105DB5B4B43215610FF6BB /* ScrollableSegmentedControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScrollableSegmentedControl.swift; sourceTree = "<group>"; };
+		788599F8C4C35AC8A3BD6155 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		AC125F172435311A008AD515 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC125F1924353135008AD515 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC125F1A24353140008AD515 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -91,11 +83,8 @@
 		ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		ACF1A3E42469F8DE000BA420 /* Info-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Lite.plist"; sourceTree = "<group>"; };
 		B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
 		B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
-		D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug lite.xcconfig"; sourceTree = "<group>"; };
-		DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D14280D860FAA1DD046BCB5C /* conan.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = conan.xcconfig; sourceTree = "<group>"; };
 		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
@@ -116,7 +105,6 @@
 		E2F7ED5D220B54D700D63515 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2F7ED60220B54D700D63515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2F7ED62220B54D700D63515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F441BA4458128EC8A16A91C9 /* Pods-OpenDocumentReaderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +112,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52DE0FAF45FE38FFAE9E4910 /* Pods_OpenDocumentReaderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +119,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */,
 				E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */,
 				523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */,
 				523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */,
@@ -140,12 +126,23 @@
 				E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */,
 				523A371328CCF27400876C77 /* AdServices.framework in Frameworks */,
 				E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */,
+				D2DCD7104EBCC0F1A784E116 /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20BA2B927AD3F513E2BD623E /* ScrollableSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				59105DB5B4B43215610FF6BB /* ScrollableSegmentedControl.swift */,
+				788599F8C4C35AC8A3BD6155 /* LICENSE */,
+			);
+			name = ScrollableSegmentedControl;
+			path = ScrollableSegmentedControl;
+			sourceTree = "<group>";
+		};
 		3FF7388D538126B646A5ACC6 /* Privacy */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +151,15 @@
 			);
 			name = Privacy;
 			path = Privacy;
+			sourceTree = "<group>";
+		};
+		7CA823F10FA4C2CBDA62F8D8 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				20BA2B927AD3F513E2BD623E /* ScrollableSegmentedControl */,
+			);
+			name = Vendor;
+			path = Vendor;
 			sourceTree = "<group>";
 		};
 		9113B590877803CA250DDFB7 /* NonFree */ = {
@@ -187,27 +193,9 @@
 		E17AF34D2C258C5100FBED6A /* configs */ = {
 			isa = PBXGroup;
 			children = (
-				52A0616A277CE114009FAB35 /* debug-lite.xcconfig */,
-				52A0616B277CE114009FAB35 /* debug.xcconfig */,
-				52A06168277CE114009FAB35 /* release-lite.xcconfig */,
-				52A06169277CE114009FAB35 /* release.xcconfig */,
+				D14280D860FAA1DD046BCB5C /* conan.xcconfig */,
 			);
 			path = configs;
-			sourceTree = "<group>";
-		};
-		E20D24999F878FB3AAE258B3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */,
-				97704690541D85438FC2079C /* Pods-OpenDocumentReader.release.xcconfig */,
-				C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */,
-				481CC96FC0685A2908EBA9A3 /* Pods-OpenDocumentReader.release lite.xcconfig */,
-				3B2DB65725CE9DAE177ABB91 /* Pods-OpenDocumentReaderTests.debug.xcconfig */,
-				D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */,
-				F441BA4458128EC8A16A91C9 /* Pods-OpenDocumentReaderTests.release.xcconfig */,
-				A3BBE33791EBF379139575AB /* Pods-OpenDocumentReaderTests.release lite.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */ = {
@@ -224,15 +212,12 @@
 			isa = PBXGroup;
 			children = (
 				E1EB6C492C1A510D003EC5A0 /* Foundation.framework */,
-				52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */,
 				523A371628CCF28900876C77 /* AppTrackingTransparency.framework */,
 				523A371428CCF28100876C77 /* StoreKit.framework */,
 				523A371228CCF27400876C77 /* AdServices.framework */,
 				E2064DDF22CFA1BA006441F8 /* iAd.framework */,
 				E237952F2274844400BA7238 /* AdSupport.framework */,
 				E26C39382250DC6E009C484A /* WebKit.framework */,
-				DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */,
-				559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -244,7 +229,6 @@
 				E2F7ED51220B54D600D63515 /* OpenDocumentReader */,
 				E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */,
 				E2BB4B64220EF4F20056176B /* Frameworks */,
-				E20D24999F878FB3AAE258B3 /* Pods */,
 				52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */,
 				52A348B22A9262D100DACAB9 /* OpenDocumentReaderTests.xctest */,
 			);
@@ -275,6 +259,7 @@
 				AC125F182435311A008AD515 /* Localizable.strings */,
 				3FF7388D538126B646A5ACC6 /* Privacy */,
 				9113B590877803CA250DDFB7 /* NonFree */,
+				7CA823F10FA4C2CBDA62F8D8 /* Vendor */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -286,7 +271,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E22B25332557F0E2001D0C52 /* Build configuration list for PBXNativeTarget "OpenDocumentReaderTests" */;
 			buildPhases = (
-				E08B87589DB413458BAD0985 /* [CP] Check Pods Manifest.lock */,
 				E22B25282557F0E2001D0C52 /* Sources */,
 				E22B25292557F0E2001D0C52 /* Frameworks */,
 				E22B252A2557F0E2001D0C52 /* Resources */,
@@ -305,19 +289,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E2F7ED65220B54D700D63515 /* Build configuration list for PBXNativeTarget "OpenDocumentReader" */;
 			buildPhases = (
-				46370D9C7EFB4B0E291C2D0B /* [CP] Check Pods Manifest.lock */,
 				E2F7ED4B220B54D600D63515 /* Sources */,
 				E2F7ED4C220B54D600D63515 /* Frameworks */,
 				E2F7ED4D220B54D600D63515 /* Resources */,
-				F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */,
-				F8CA8E81987336E1DB902130 /* [CP] Copy Pods Resources */,
-				E158977C2DF640E700319830 /* [CP] Copy Conan Resources */,
+				E158977C2DF640E700319830 /* Copy Conan Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = OpenDocumentReader;
+			packageProductDependencies = (
+				B5F033C5AA89A6E9C19EA27D /* GoogleMobileAds */,
+			);
 			productName = "OpenDocument Reader";
 			productReference = 52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */;
 			productType = "com.apple.product-type.application";
@@ -367,6 +351,9 @@
 				sl,
 			);
 			mainGroup = E2F7ED46220B54D600D63515;
+			packageReferences = (
+				AD584FCD41577C8CDEE974AA /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = E2F7ED46220B54D600D63515;
 			projectDirPath = "";
 			projectRoot = "";
@@ -402,51 +389,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		46370D9C7EFB4B0E291C2D0B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OpenDocumentReader-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E08B87589DB413458BAD0985 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OpenDocumentReaderTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E158977C2DF640E700319830 /* [CP] Copy Conan Resources */ = {
+		E158977C2DF640E700319830 /* Copy Conan Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -456,7 +399,7 @@
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Conan Resources";
+			name = "Copy Conan Resources";
 			outputFileListPaths = (
 				"${PROJECT_DIR}/conan-assets/output-files.xcfilelist",
 			);
@@ -465,40 +408,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PROJECT_DIR}/conan/copy-resources.sh\"\n";
-		};
-		F435F37405C0FE5E8503721A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F8CA8E81987336E1DB902130 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -529,6 +438,7 @@
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,
 				32B6BA42C6D6D443ED2A9697 /* AnalyticsManager.swift in Sources */,
 				BFFB694BE9E3E744FD4F92E0 /* CrashManager.swift in Sources */,
+				FF3C583F3A1EDECDBE3F267F /* ScrollableSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +553,7 @@
 		};
 		AC8468CC244E255400E96707 /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52A0616A277CE114009FAB35 /* debug-lite.xcconfig */;
+			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
@@ -740,7 +650,7 @@
 		};
 		AC8468D0244E256900E96707 /* Release Lite */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52A06168277CE114009FAB35 /* release-lite.xcconfig */;
+			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
@@ -776,7 +686,6 @@
 		};
 		E22B25342557F0E2001D0C52 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B2DB65725CE9DAE177ABB91 /* Pods-OpenDocumentReaderTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -797,7 +706,6 @@
 		};
 		E22B25352557F0E2001D0C52 /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -818,7 +726,6 @@
 		};
 		E22B25362557F0E2001D0C52 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F441BA4458128EC8A16A91C9 /* Pods-OpenDocumentReaderTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -838,7 +745,6 @@
 		};
 		E22B25372557F0E2001D0C52 /* Release Lite */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3BBE33791EBF379139575AB /* Pods-OpenDocumentReaderTests.release lite.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -980,7 +886,7 @@
 		};
 		E2F7ED66220B54D700D63515 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52A0616B277CE114009FAB35 /* debug.xcconfig */;
+			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
@@ -1019,7 +925,7 @@
 		};
 		E2F7ED67220B54D700D63515 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52A06169277CE114009FAB35 /* release.xcconfig */;
+			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
@@ -1090,6 +996,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AD584FCD41577C8CDEE974AA /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.14.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B5F033C5AA89A6E9C19EA27D /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AD584FCD41577C8CDEE974AA /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E2F7ED47220B54D600D63515 /* Project object */;
 }

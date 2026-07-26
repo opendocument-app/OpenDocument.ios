@@ -19,7 +19,7 @@ platform :ios do
   desc "Push a new release build to the App Store"
   lane :deployPro do
     clear_derived_data
-    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Full", xcargs: "-allowProvisioningUpdates")
+    build_app(project: "OpenDocumentReader.xcodeproj", scheme: "ODR Full", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store(
       app_identifier: "at.tomtasche.reader",
       skip_screenshots: true,
@@ -31,7 +31,7 @@ platform :ios do
   desc "Push a new release build to the App Store"
   lane :deployLite do
     clear_derived_data
-    build_app(workspace: "OpenDocumentReader.xcworkspace", scheme: "ODR Lite", xcargs: "-allowProvisioningUpdates")
+    build_app(project: "OpenDocumentReader.xcodeproj", scheme: "ODR Lite", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store(
       app_identifier: "at.tomtasche.reader.lite1",
       skip_screenshots: true,
@@ -44,7 +44,7 @@ platform :ios do
     # no clear_derived_data here: CI runners start clean anyway and locally it
     # only throws away the incremental build of a C++ heavy project
     run_tests(
-      workspace: "OpenDocumentReader.xcworkspace",
+      project: "OpenDocumentReader.xcodeproj",
       scheme: "ODR Full",
       prelaunch_simulator: true,
       xcargs: "-allowProvisioningUpdates"
