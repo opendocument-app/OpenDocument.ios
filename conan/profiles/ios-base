@@ -2,7 +2,7 @@ include(default)
 
 [settings]
 os=iOS
-os.version=14.0
+os.version=15.0
 
 compiler.cppstd=20
 

@@ -1,4 +1,4 @@
-platform :ios, '14.1'
+platform :ios, '15.0'
 
 target 'OpenDocumentReader' do
   use_frameworks!

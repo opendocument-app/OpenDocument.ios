@@ -47,15 +47,8 @@ struct StoreReviewHelper {
     fileprivate func requestReview() {
         AnalyticsManager.shared.report("rating_show")
         
-        if #available(iOS 14.0, *) {
-            if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-                SKStoreReviewController.requestReview(in: scene)
-            }
-        } else if #available(iOS 10.3, *) {
-            SKStoreReviewController.requestReview()
-        } else {
-            // Fallback on earlier versions
-            // Try any other 3rd party or manual method here.
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
         }
     }
 }
