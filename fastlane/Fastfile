@@ -10,6 +10,11 @@
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
 
+require "base64"
+require "fileutils"
+require "shellwords"
+require "tmpdir"
+
 default_platform(:ios)
 
 APPS = {
@@ -42,48 +47,74 @@ platform :ios do
   # is what kept releases tied to one person's machine. Supply it through
   # ASC_KEY_ID / ASC_ISSUER_ID / ASC_KEY_CONTENT, the last being the base64 of
   # the .p8 file.
-  private_lane :api_key do
-    app_store_connect_api_key(
-      key_id: ENV.fetch("ASC_KEY_ID"),
-      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
-      key_content: ENV.fetch("ASC_KEY_CONTENT"),
-      is_key_content_base64: true,
-      in_house: false
-    )
+  #
+  # The key has to hit the disk because two unrelated consumers need it: the
+  # Connect API calls fastlane makes itself, and the xcodebuild subprocess that
+  # build_app spawns. xcodebuild knows nothing about fastlane's key -- see
+  # -authenticationKeyPath in `xcodebuild -help` -- so it gets the file.
+  private_lane :api_key_file do
+    path = File.join(Dir.mktmpdir("asc-api-key"), "AuthKey_#{ENV.fetch('ASC_KEY_ID')}.p8")
+    File.write(path, Base64.decode64(ENV.fetch("ASC_KEY_CONTENT")))
+    File.chmod(0o600, path)
+
+    path
   end
 
   private_lane :deploy do |options|
-    key = api_key
+    key_path = api_key_file
 
-    # the build number used to be bumped by hand in project.pbxproj. Derive it
-    # from what App Store Connect already has instead, so two releases cannot
-    # collide and nothing has to be committed to make a build
-    build_number = latest_testflight_build_number(
-      api_key: key,
-      app_identifier: options[:app_identifier],
-      initial_build_number: 0
-    ) + 1
+    begin
+      key = app_store_connect_api_key(
+        key_id: ENV.fetch("ASC_KEY_ID"),
+        issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+        key_filepath: key_path,
+        in_house: false
+      )
 
-    UI.message("building #{options[:scheme]} as build #{build_number}")
+      # the build number used to be bumped by hand in project.pbxproj. Derive it
+      # from what App Store Connect already has instead, so two releases cannot
+      # collide and nothing has to be committed to make a build
+      build_number = latest_testflight_build_number(
+        api_key: key,
+        app_identifier: options[:app_identifier],
+        initial_build_number: 0
+      ) + 1
 
-    build_app(
-      project: "OpenDocumentReader.xcodeproj",
-      scheme: options[:scheme],
-      api_key: key,
-      # passed on the command line rather than written into project.pbxproj, so
-      # a release never leaves the working tree dirty
-      xcargs: "-allowProvisioningUpdates CURRENT_PROJECT_VERSION=#{build_number}"
-    )
+      UI.message("building #{options[:scheme]} as build #{build_number}")
 
-    upload_to_app_store(
-      api_key: key,
-      app_identifier: options[:app_identifier],
-      skip_screenshots: true,
-      skip_metadata: true,
-      # uploading is not the same as shipping: promoting a build stays a
-      # deliberate step in App Store Connect
-      skip_submission: true,
-      precheck_include_in_app_purchases: false
-    )
+      # build_app is gym, which has no api_key option -- passing one aborts the
+      # lane before xcodebuild ever runs. Automatic signing is authenticated
+      # through xcargs instead: -allowProvisioningUpdates on its own needs an
+      # Apple account configured in Xcode, which the release runner does not
+      # have.
+      xcargs = [
+        "-allowProvisioningUpdates",
+        "-authenticationKeyPath", Shellwords.escape(key_path),
+        "-authenticationKeyID", Shellwords.escape(ENV.fetch("ASC_KEY_ID")),
+        "-authenticationKeyIssuerID", Shellwords.escape(ENV.fetch("ASC_ISSUER_ID")),
+        # passed on the command line rather than written into project.pbxproj,
+        # so a release never leaves the working tree dirty
+        "CURRENT_PROJECT_VERSION=#{build_number}",
+      ].join(" ")
+
+      build_app(
+        project: "OpenDocumentReader.xcodeproj",
+        scheme: options[:scheme],
+        xcargs: xcargs
+      )
+
+      upload_to_app_store(
+        api_key: key,
+        app_identifier: options[:app_identifier],
+        skip_screenshots: true,
+        skip_metadata: true,
+        # uploading is not the same as shipping: promoting a build stays a
+        # deliberate step in App Store Connect
+        skip_submission: true,
+        precheck_include_in_app_purchases: false
+      )
+    ensure
+      FileUtils.remove_entry(File.dirname(key_path), true)
+    end
   end
 end
