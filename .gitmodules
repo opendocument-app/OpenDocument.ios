@@ -1,0 +1,3 @@
+[submodule "conan-odr-index"]
+	path = conan-odr-index
+	url = https://github.com/opendocument-app/conan-odr-index.git

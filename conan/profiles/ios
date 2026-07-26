@@ -1,13 +1,5 @@
-include(default)
+include(ios-base)
 
 [settings]
-os=iOS
 os.sdk=iphoneos
-os.version=14.0
 arch=armv8
-
-compiler.cppstd=20
-
-&:build_type=RelWithDebInfo
-odrcore/*:build_type=RelWithDebInfo
-build_type=Release
