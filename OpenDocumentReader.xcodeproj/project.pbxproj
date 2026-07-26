@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49F8B3EC1E30DF3C043B89E9 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */; };
 		523A371328CCF27400876C77 /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371228CCF27400876C77 /* AdServices.framework */; };
 		523A371528CCF28100876C77 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371428CCF28100876C77 /* StoreKit.framework */; };
 		523A371728CCF28900876C77 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371628CCF28900876C77 /* AppTrackingTransparency.framework */; };
 		52A348B42A92635E00DACAB9 /* Pods_OpenDocumentReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A348B32A92635E00DACAB9 /* Pods_OpenDocumentReader.framework */; };
 		52DE0FAF45FE38FFAE9E4910 /* Pods_OpenDocumentReaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559CD8DFE3C657DEB311030B /* Pods_OpenDocumentReaderTests.framework */; };
+		7C4296FE8B2389E12E7687F7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */; };
 		AC125F162435311A008AD515 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC125F182435311A008AD515 /* Localizable.strings */; };
 		AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */; };
 		AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCA23B4FFA700C7BF47 /* Constants.swift */; };
@@ -87,7 +89,9 @@
 		ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		ACF1A3E22469EFB5000BA420 /* GoogleService-Info-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Lite.plist"; sourceTree = "<group>"; };
 		ACF1A3E42469F8DE000BA420 /* Info-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Lite.plist"; sourceTree = "<group>"; };
+		B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B3FCFC99F5757D71C0A3EB11 /* Pods-OpenDocumentReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug.xcconfig"; sourceTree = "<group>"; };
+		B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		C39C76F36758805489D19A8D /* Pods-OpenDocumentReader.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReader.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReader/Pods-OpenDocumentReader.debug lite.xcconfig"; sourceTree = "<group>"; };
 		D7F1C22195A1CA95F6A6DEF4 /* Pods-OpenDocumentReaderTests.debug lite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenDocumentReaderTests.debug lite.xcconfig"; path = "Pods/Target Support Files/Pods-OpenDocumentReaderTests/Pods-OpenDocumentReaderTests.debug lite.xcconfig"; sourceTree = "<group>"; };
 		DF0AB0A593247807A3F41DFA /* Pods_OpenDocumentReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenDocumentReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +146,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FF7388D538126B646A5ACC6 /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				D14366468BE2F636C9CEF33C /* Full */,
+				9DB359255AA99AA16B2336F4 /* Lite */,
+			);
+			name = Privacy;
+			path = Privacy;
+			sourceTree = "<group>";
+		};
+		9DB359255AA99AA16B2336F4 /* Lite */ = {
+			isa = PBXGroup;
+			children = (
+				B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */,
+			);
+			name = Lite;
+			path = Lite;
+			sourceTree = "<group>";
+		};
+		D14366468BE2F636C9CEF33C /* Full */ = {
+			isa = PBXGroup;
+			children = (
+				B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */,
+			);
+			name = Full;
+			path = Full;
+			sourceTree = "<group>";
+		};
 		E17AF34D2C258C5100FBED6A /* configs */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +265,7 @@
 				E2C008FC220F1D570097C594 /* CoreWrapper.h */,
 				E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */,
 				AC125F182435311A008AD515 /* Localizable.strings */,
+				3FF7388D538126B646A5ACC6 /* Privacy */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -355,6 +388,8 @@
 				E22EB71C226B66B300053B86 /* Main.storyboard in Resources */,
 				E29E4077225A4672002C06E6 /* GoogleService-Info.plist in Resources */,
 				E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */,
+				7C4296FE8B2389E12E7687F7 /* PrivacyInfo.xcprivacy in Resources */,
+				49F8B3EC1E30DF3C043B89E9 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +668,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = "OpenDocumentReader/Privacy/Full/*";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -727,6 +763,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = "OpenDocumentReader/Privacy/Full/*";
 				INFOPLIST_FILE = "OpenDocumentReader/Info-Lite.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -965,6 +1002,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = "OpenDocumentReader/Privacy/Lite/*";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -1002,6 +1040,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = "OpenDocumentReader/Privacy/Lite/*";
 				INFOPLIST_FILE = OpenDocumentReader/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "OpenDocument Reader";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
