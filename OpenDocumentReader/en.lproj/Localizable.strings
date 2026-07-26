@@ -72,3 +72,8 @@
 
 /*  */
 "error" = "Error";
+
+/* Onboarding buttons. Were hardcoded English in Constants.swift before. */
+"intro_next" = "Next";
+"intro_skip" = "Skip";
+"intro_start" = "Start";

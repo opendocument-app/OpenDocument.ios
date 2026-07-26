@@ -161,7 +161,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     func showWebsite() {
         AnalyticsManager.shared.report("menu_help")
         
-        UIApplication.shared.openURL(URL(string: "https://opendocument.app")!)
+        guard let url = URL(string: "https://opendocument.app") else { return }
+
+        UIApplication.shared.open(url)
     }
     
     func toggleFullscreen() {
@@ -234,11 +236,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     
     @IBAction func returnToDocuments(_ sender: Any) {
         guard let doc = document else {
-            fatalError("document is null")
+            closeCurrentDocument()
 
             return
         }
-        
+
         if doc.edit {
             let alert = UIAlertController(title: NSLocalizedString("alert_unsaved_changes", comment: ""), message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .destructive, handler: { (_) in
@@ -266,13 +268,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func closeCurrentDocument() {
-        guard let doc = document else {
-            fatalError("document is null")
-
-            return
-        }
-        
-        doc.close()
+        document?.close()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -313,24 +309,18 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     func discardChanges() {
         AnalyticsManager.shared.report("menu_edit_discard")
 
-        guard let doc = document else {
-            fatalError("document is null")
-
-            return
-        }
-        
-        doc.edit = true
+        document?.edit = true
     }
     
     func saveContent(completion: ((Bool) -> ())?) {
         AnalyticsManager.shared.report("menu_edit_save")
 
         guard let doc = document else {
-            fatalError("document is null")
+            completion?(false)
 
             return
         }
-        
+
         doc.save(to: doc.fileURL, for: .forOverwriting) { success in
             let message: String
             let color: UIColor
@@ -403,12 +393,15 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     func documentEncrypted(_ doc: Document) {
 //        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document because it is encrypted. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
         
-        if (viewIfLoaded?.window == nil) {
+        if viewIfLoaded?.window == nil {
             // delay because ViewController might not be visible yet
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.documentEncrypted(doc)
-            })
+            }
+
+            return
         }
+
         
         let alert = UIAlertController(title: NSLocalizedString("toast_error_password_protected", comment: ""), message: "", preferredStyle: .alert)
         alert.addTextField { (textField) in
@@ -418,15 +411,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
             self.returnToDocuments("nil" as Any)
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { [weak alert] (_) in
-            let textField = alert?.textFields![0]
-            
-            self.document?.password = textField!.text!
+            self.document?.password = alert?.textFields?.first?.text ?? ""
         }))
         
         self.present(alert, animated: true, completion: nil)
     }
     
-    func documentLoadingError(_ doc: Document, errorCode: Int) {
+    func documentLoadingError(_ doc: Document, error: Error) {
         // attention: wrong for extensions like ".pages.zip"
         let fileType = doc.fileURL.pathExtension.lowercased()
         
@@ -454,7 +445,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         AnalyticsManager.shared.report(
             "load_error",
             parameters: [
-                "code": errorCode,
+                "code": (error as NSError).code,
                 AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl,
                 AnalyticsConstants.paramContentType: fileType
             ])
@@ -462,7 +453,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     
     func documentLoadingStarted(_ doc: Document) {
         progressBar.isHidden = false
-        progressBar.observedProgress = doc.progress
+        progressBar.observedProgress = doc.loadProgress
     }
     
     func documentLoadingCompleted(_ doc: Document) {

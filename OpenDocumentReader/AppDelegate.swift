@@ -8,7 +8,7 @@
 
 import UIKit
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -50,8 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else {
-            fatalError("documentBrowserViewController is null")
-            
+            CrashManager.shared.log("root view controller is not a DocumentBrowserViewController")
+
             return false
         }
         
@@ -66,8 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 try FileManager.default.moveItem(at: inputURL, to: destinationUrl)
             } catch {
                 CrashManager.shared.log(error)
-                fatalError("copying from Inbox failed")
-                
+
                 return false
             }
         } else {

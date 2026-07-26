@@ -37,35 +37,35 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
-        print("==> Imported A Document from %@ to %@.")
-        
         presentDocument(at: destinationURL)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, failedToImportDocumentAt documentURL: URL, error: Error?) {
+        if let error {
+            CrashManager.shared.log(error)
+        }
+
+        showGenericError()
+    }
+
+    private func showGenericError() {
         let alert = UIAlertController(
             title: "",
             message: NSLocalizedString("toast_error_generic", comment: ""),
             preferredStyle: .alert)
-        
-        let action = UIAlertAction(
+
+        alert.addAction(UIAlertAction(
             title: NSLocalizedString("ok", comment: ""),
             style: .cancel,
-            handler: nil)
-        
-        alert.addAction(action)
-        
-        controller.present(alert, animated: true, completion: nil)
+            handler: nil))
+
+        present(alert, animated: true, completion: nil)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController,
                          didPickDocumentURLs documentURLs: [URL]) {
-        guard let url = documentURLs.first else {
-            fatalError("documentURL is null")
+        guard let url = documentURLs.first else { return }
 
-            return
-        }
-        
         presentDocument(at: url)
     }
     
@@ -78,8 +78,12 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             presentedViewController?.dismiss(animated: false, completion: nil)
         }
         
-        let tempController = storyBoard.instantiateViewController(withIdentifier: "TextDocumentViewController")
-        let documentViewController = tempController as! DocumentViewController
+        guard let documentViewController = storyBoard
+            .instantiateViewController(withIdentifier: "TextDocumentViewController") as? DocumentViewController else {
+            CrashManager.shared.log("TextDocumentViewController missing from Main.storyboard")
+
+            return
+        }
         documentController = documentViewController
         
         documentViewController.modalPresentationCapturesStatusBarAppearance = true
@@ -99,16 +103,18 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             AnalyticsConstants.paramItemName: shortenedDocumentUrl
         ])
         
-        doc.open { [weak self](success) in
+        doc.open { [weak self] success in
             transitionController.loadingProgress = nil
-            
+
+            guard let self else { return }
             guard success else {
-                fatalError("opening document failed")
+                CrashManager.shared.log("opening \(doc.shortenedDocumentUrl) failed")
+                self.showGenericError()
 
                 return
             }
-            
-            self?.present(documentViewController, animated: true, completion: nil)
+
+            self.present(documentViewController, animated: true, completion: nil)
         }
     }
 }

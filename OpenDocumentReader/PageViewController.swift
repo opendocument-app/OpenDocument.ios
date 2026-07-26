@@ -18,9 +18,7 @@ class PageViewController: UIPageViewController {
     var subHeadersArray = [NSLocalizedString("intro_description_open", comment: ""),
                            NSLocalizedString("intro_description_edit", comment: ""),
                            NSLocalizedString("intro_description_apps", comment: ""),]
-    var imagesArray = [Constants.onboarding_image_1,
-                       Constants.onboarding_image_2,
-                       Constants.onboarding_image_3]
+    var imagesArray = Constants.onboardingImages
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,16 +52,14 @@ class PageViewController: UIPageViewController {
 
 extension PageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as! ContentViewController).index
-        index -= 1
+        guard let index = (viewController as? ContentViewController)?.index else { return nil }
 
-        return displayViewController(at: index)
+        return displayViewController(at: index - 1)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as! ContentViewController).index
-        index += 1
+        guard let index = (viewController as? ContentViewController)?.index else { return nil }
 
-        return displayViewController(at: index)
+        return displayViewController(at: index + 1)
     }
 }
