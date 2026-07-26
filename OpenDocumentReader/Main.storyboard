@@ -65,9 +65,9 @@
                                             </barButtonItem>
                                         </items>
                                     </toolbar>
-                                    <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="ScrollableSegmentedControl" customModule="OpenDocumentReader" customModuleProvider="target">
+                                    <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="PageTabBar" customModule="OpenDocumentReader" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
-                                        <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                     </view>
                                     <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
@@ -113,10 +113,10 @@
                         <outlet property="bannerViewHeight" destination="eXE-Ks-sQc" id="yQ1-l7-wiV"/>
                         <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
+                        <outlet property="pageTabBar" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
                         <outlet property="searchBar" destination="A5V-8n-dvk" id="AIb-1s-JO6"/>
                         <outlet property="searchButton" destination="fGi-i7-iOR" id="77J-cW-TAe"/>
-                        <outlet property="segmentedControl" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
                         <outlet property="toolBar" destination="N1x-QM-Qks" id="db4-aA-GH6"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
@@ -227,6 +227,9 @@
     <resources>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
