@@ -41,12 +41,12 @@ platform :ios do
   end
 
   lane :tests do
-    clear_derived_data
+    # no clear_derived_data here: CI runners start clean anyway and locally it
+    # only throws away the incremental build of a C++ heavy project
     run_tests(
       workspace: "OpenDocumentReader.xcworkspace",
       scheme: "ODR Full",
       prelaunch_simulator: true,
-      reset_simulator: true,
       xcargs: "-allowProvisioningUpdates"
     )
   end
