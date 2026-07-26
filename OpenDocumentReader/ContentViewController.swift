@@ -33,8 +33,14 @@ class ContentViewController: UIViewController {
         }
         
         let isLastPage = index == Constants.onboardingImages.count - 1
+        // only en.lproj carries these keys so far, and a missing key resolves to
+        // the key itself rather than to the development language. The explicit
+        // value keeps the other 16 localizations on the English wording the
+        // button hardcoded before instead of showing "intro_next".
         pageButton.setTitle(
-            NSLocalizedString(isLastPage ? "intro_start" : "intro_next", comment: ""),
+            isLastPage
+                ? NSLocalizedString("intro_start", value: "Start", comment: "onboarding button on the last page")
+                : NSLocalizedString("intro_next", value: "Next", comment: "onboarding button advancing to the next page"),
             for: .normal)
         
         headerLabel.text = header
