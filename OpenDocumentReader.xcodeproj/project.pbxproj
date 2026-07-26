@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		229BA8DA70F3CA88BA547FA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4579E708F099784EF583B35 /* SceneDelegate.swift */; };
 		32B6BA42C6D6D443ED2A9697 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF2708F60BE3388B124CABF /* AnalyticsManager.swift */; };
 		49F8B3EC1E30DF3C043B89E9 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */; };
 		523A371328CCF27400876C77 /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523A371228CCF27400876C77 /* AdServices.framework */; };
@@ -84,6 +85,7 @@
 		ACF1A3E42469F8DE000BA420 /* Info-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Lite.plist"; sourceTree = "<group>"; };
 		B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C4579E708F099784EF583B35 /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D14280D860FAA1DD046BCB5C /* conan.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = conan.xcconfig; sourceTree = "<group>"; };
 		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -260,6 +262,7 @@
 				3FF7388D538126B646A5ACC6 /* Privacy */,
 				9113B590877803CA250DDFB7 /* NonFree */,
 				7CA823F10FA4C2CBDA62F8D8 /* Vendor */,
+				C4579E708F099784EF583B35 /* SceneDelegate.swift */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				32B6BA42C6D6D443ED2A9697 /* AnalyticsManager.swift in Sources */,
 				BFFB694BE9E3E744FD4F92E0 /* CrashManager.swift in Sources */,
 				FF3C583F3A1EDECDBE3F267F /* ScrollableSegmentedControl.swift in Sources */,
+				229BA8DA70F3CA88BA547FA9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
