@@ -81,7 +81,6 @@ jobs:
 
       # drop temporary download/source/build folders so only built packages get cached
       - name: clean conan cache
-        if: always()
         run: conan cache clean "*"
 
       - uses: actions/upload-artifact@v4
@@ -168,5 +167,4 @@ jobs:
           build
 
       - name: clean conan cache
-        if: always()
         run: conan cache clean "*"
