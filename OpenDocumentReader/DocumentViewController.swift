@@ -13,7 +13,9 @@ import UIKit.UIPrinter
 import WebKit
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDelegate, UISearchBarDelegate {
+class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDelegate, UISearchBarDelegate,
+    WKNavigationDelegate
+{
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     public var transitionController: UIDocumentBrowserTransitionController? {
@@ -70,6 +72,33 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         // once, not on every appearance: a second target would parse the
         // document twice for a single tap
         pageTabBar.addTarget(self, action: #selector(pageSelected(sender:)), for: .valueChanged)
+
+        webview.navigationDelegate = self
+    }
+
+    /// odrcore renders a page when this web view asks for it, so a document
+    /// that only falls over halfway through translating falls over here rather
+    /// than in `translate`. Route that into the same handling, which shows the
+    /// error page or the raw file, instead of letting the server's plain text
+    /// "Internal Server Error" through.
+    func webView(
+        _ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse,
+        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+    ) {
+        guard let response = navigationResponse.response as? HTTPURLResponse,
+            response.statusCode >= 400,
+            let doc = document
+        else {
+            decisionHandler(.allow)
+
+            return
+        }
+
+        decisionHandler(.cancel)
+
+        // the fallback loads a file or an HTML string, neither of which comes
+        // back as an HTTP response, so this cannot recurse
+        documentLoadingError(doc, error: DocumentError.pageNotServed)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -429,14 +458,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
 
     func documentUpdateContent(_ doc: Document) {
-        guard let path = document?.result else {
+        guard let url = document?.result else {
             self.webview.loadHTMLString(
                 "<html><h1>\(NSLocalizedString("loading", comment: ""))</h1></html>", baseURL: nil)
 
             return
         }
 
-        self.webview.loadFileURL(path, allowingReadAccessTo: path)
+        // odrcore serves the pages over loopback; the file variant is what the
+        // app falls back to when that server could not be brought up
+        if url.isFileURL {
+            self.webview.loadFileURL(url, allowingReadAccessTo: url)
+        } else {
+            self.webview.load(URLRequest(url: url))
+        }
     }
 
     func documentEncrypted(_ doc: Document) {

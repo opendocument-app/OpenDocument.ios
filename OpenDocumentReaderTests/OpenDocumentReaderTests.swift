@@ -6,6 +6,7 @@
 //  Copyright © 2020 Thomas Taschauer. All rights reserved.
 //
 
+import WebKit
 import XCTest
 
 @testable import OpenDocumentReader
@@ -50,11 +51,8 @@ class OpenDocumentReaderTests: XCTestCase {
 
         try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: true)
 
-        XCTAssertFalse(wrapper.pagePaths.isEmpty)
-        XCTAssertEqual(wrapper.pagePaths.count, wrapper.pageNames.count)
-        for path in wrapper.pagePaths {
-            XCTAssertTrue(FileManager.default.fileExists(atPath: path), "missing page at \(path)")
-        }
+        XCTAssertFalse(wrapper.pageURLs.isEmpty)
+        XCTAssertEqual(wrapper.pageURLs.count, wrapper.pageNames.count)
     }
 
     /// A text document has nothing but its combined view.
@@ -88,18 +86,74 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
 
-    /// Views that are not shown must not be rendered either.
-    func testDiscardedPagesAreNotWrittenOut() throws {
-        let (wrapper, cache, _) = makeWrapper()
-        let output = NSTemporaryDirectory() + "presentation-output"
-        try? FileManager.default.removeItem(atPath: output)
-        let url = try copyFixture(ofType: "odp")
+    /// Nothing is rendered up front any more, so the pages have to come back
+    /// from the loopback server odrcore is serving them on.
+    func testPagesAreServedOverLoopback() throws {
+        let (wrapper, cache, output) = makeWrapper()
+        let url = try copyFixture(ofType: "ods")
 
         try wrapper.translate(url.path, cache: cache, into: output, with: nil, editable: false)
 
-        let written = try FileManager.default.contentsOfDirectory(atPath: output)
-            .filter { $0.hasSuffix(".html") }
-        XCTAssertEqual(written, ["document.html"])
+        for pageURL in wrapper.pageURLs {
+            XCTAssertEqual(pageURL.scheme, "http")
+
+            let (data, response) = try fetch(pageURL)
+            XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200, "\(pageURL)")
+            XCTAssertTrue(
+                String(decoding: data, as: UTF8.self).contains("<html"), "\(pageURL) served no html")
+        }
+    }
+
+    /// Translating again has to produce addresses the web view has not cached
+    /// yet - the same URL would come back out of its cache with the pages the
+    /// document had before the password or the edit.
+    func testRetranslatingMovesThePagesToNewAddresses() throws {
+        let (wrapper, cache, output) = makeWrapper()
+
+        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+        let before = wrapper.pageURLs
+
+        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: true)
+
+        XCTAssertNotEqual(before, wrapper.pageURLs)
+    }
+
+    /// The web view is the actual consumer of those URLs, and the one App
+    /// Transport Security applies to. A missing `NSAllowsLocalNetworking` would
+    /// show up here and nowhere else - `URLSession` above would still be happy.
+    func testTheWebViewLoadsAServedPage() throws {
+        let (wrapper, cache, output) = makeWrapper()
+
+        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+
+        let url = try XCTUnwrap(wrapper.pageURLs.first)
+        let recorder = NavigationRecorder(finished: expectation(description: "loaded \(url)"))
+        let webview = WKWebView()
+        webview.navigationDelegate = recorder
+
+        webview.load(URLRequest(url: url))
+
+        wait(for: [recorder.finished], timeout: 30)
+        XCTAssertNil(recorder.error)
+    }
+
+    private func fetch(_ url: URL) throws -> (Data, URLResponse) {
+        var result: Result<(Data, URLResponse), Error> = .failure(URLError(.timedOut))
+        let done = expectation(description: "GET \(url)")
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data, let response {
+                result = .success((data, response))
+            } else if let error {
+                result = .failure(error)
+            }
+
+            done.fulfill()
+        }.resume()
+
+        wait(for: [done], timeout: 30)
+
+        return try result.get()
     }
 
     func testBackTranslateWritesEditedDocument() throws {
@@ -155,5 +209,38 @@ class OpenDocumentReaderTests: XCTestCase {
         measure {
             try? wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: true)
         }
+    }
+}
+
+/// Fulfills its expectation once, whichever way the navigation ends.
+private class NavigationRecorder: NSObject, WKNavigationDelegate {
+    let finished: XCTestExpectation
+    private(set) var error: Error?
+    private var isDone = false
+
+    init(finished: XCTestExpectation) {
+        self.finished = finished
+    }
+
+    private func complete(_ error: Error?) {
+        guard !isDone else { return }
+
+        isDone = true
+        self.error = error
+        finished.fulfill()
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        complete(nil)
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        complete(error)
+    }
+
+    func webView(
+        _ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error
+    ) {
+        complete(error)
     }
 }
