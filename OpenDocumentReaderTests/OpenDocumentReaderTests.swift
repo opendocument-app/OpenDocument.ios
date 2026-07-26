@@ -14,21 +14,29 @@ class OpenDocumentReaderTests: XCTestCase {
     private var saveURL: URL!
 
     override func setUpWithError() throws {
+        saveURL = try copyFixture(ofType: "odt")
+    }
+
+    /// Copies a bundled fixture next to the documents directory, because
+    /// translating writes its cache and output beside the input.
+    private func copyFixture(ofType pathExtension: String) throws -> URL {
         let documentsURL = try FileManager.default.url(
             for: .documentDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
             create: false)
 
-        saveURL = documentsURL.appendingPathComponent("test.odt")
+        let url = documentsURL.appendingPathComponent("test." + pathExtension)
 
-        if FileManager.default.fileExists(atPath: saveURL.path) {
-            try FileManager.default.removeItem(at: saveURL)
+        if FileManager.default.fileExists(atPath: url.path) {
+            try FileManager.default.removeItem(at: url)
         }
 
         let bundlePath = try XCTUnwrap(
-            Bundle(for: type(of: self)).path(forResource: "test", ofType: "odt"))
-        try FileManager.default.copyItem(at: URL(fileURLWithPath: bundlePath), to: saveURL)
+            Bundle(for: Self.self).path(forResource: "test", ofType: pathExtension))
+        try FileManager.default.copyItem(at: URL(fileURLWithPath: bundlePath), to: url)
+
+        return url
     }
 
     private func makeWrapper() -> (wrapper: CoreWrapper, cache: String, output: String) {
@@ -47,6 +55,51 @@ class OpenDocumentReaderTests: XCTestCase {
         for path in wrapper.pagePaths {
             XCTAssertTrue(FileManager.default.fileExists(atPath: path), "missing page at \(path)")
         }
+    }
+
+    /// A text document has nothing but its combined view.
+    func testTextDocumentIsASinglePage() throws {
+        let (wrapper, cache, output) = makeWrapper()
+
+        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["document"])
+    }
+
+    /// Spreadsheets are the one format that drops the combined view: a tab per
+    /// sheet is how a workbook is read.
+    func testSpreadsheetBecomesOnePagePerSheet() throws {
+        let (wrapper, cache, output) = makeWrapper()
+        let url = try copyFixture(ofType: "ods")
+
+        try wrapper.translate(url.path, cache: cache, into: output, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["Alpha", "Beta", "Gamma"])
+    }
+
+    /// The combined view of a presentation already holds every slide, so
+    /// listing the slides next to it would show each of them twice.
+    func testPresentationKeepsOnlyTheCombinedPage() throws {
+        let (wrapper, cache, output) = makeWrapper()
+        let url = try copyFixture(ofType: "odp")
+
+        try wrapper.translate(url.path, cache: cache, into: output, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["document"])
+    }
+
+    /// Views that are not shown must not be rendered either.
+    func testDiscardedPagesAreNotWrittenOut() throws {
+        let (wrapper, cache, _) = makeWrapper()
+        let output = NSTemporaryDirectory() + "presentation-output"
+        try? FileManager.default.removeItem(atPath: output)
+        let url = try copyFixture(ofType: "odp")
+
+        try wrapper.translate(url.path, cache: cache, into: output, with: nil, editable: false)
+
+        let written = try FileManager.default.contentsOfDirectory(atPath: output)
+            .filter { $0.hasSuffix(".html") }
+        XCTAssertEqual(written, ["document.html"])
     }
 
     func testBackTranslateWritesEditedDocument() throws {
