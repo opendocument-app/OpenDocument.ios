@@ -9,8 +9,6 @@ import UIKit
 import WebKit
 import ScrollableSegmentedControl
 import UIKit.UIPrinter
-import FirebaseAnalytics
-import FirebaseCrashlytics
 import GoogleMobileAds
 import AppTrackingTransparency
 import AdSupport
@@ -173,7 +171,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func showWebsite() {
-        Analytics.logEvent("menu_help", parameters: nil)
+        AnalyticsManager.shared.report("menu_help")
         
         UIApplication.shared.openURL(URL(string: "https://opendocument.app")!)
     }
@@ -187,7 +185,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         } else {
             event = "menu_fullscreen_leave"
         }
-        Analytics.logEvent(event, parameters: nil)
+        AnalyticsManager.shared.report(event)
         
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -233,7 +231,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     private func findNext(searchText: String) {
         webview?.evaluateJavaScript("odr.searchNext(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
             if error != nil {
-                Crashlytics.crashlytics().record(error: error)
+                CrashManager.shared.log(error)
             }
         })
     }
@@ -241,7 +239,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     private func findAll(searchText: String) {
         webview?.evaluateJavaScript("odr.search(\"" + searchText + "\")", completionHandler: { (value: Any!, error: Error!) -> Void in
             if error != nil {
-                Crashlytics.crashlytics().record(error: error)
+                CrashManager.shared.log(error)
             }
         })
     }
@@ -256,13 +254,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         if doc.edit {
             let alert = UIAlertController(title: NSLocalizedString("alert_unsaved_changes", comment: ""), message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .destructive, handler: { (_) in
-                Analytics.logEvent("alert_unsaved_changes_no", parameters: nil)
+                AnalyticsManager.shared.report("alert_unsaved_changes_no")
 
                 self.discardChanges()
                 self.closeCurrentDocument()
             }))
             alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default, handler: { (_) in
-                Analytics.logEvent("alert_unsaved_changes_yes", parameters: nil)
+                AnalyticsManager.shared.report("alert_unsaved_changes_yes")
 
                 self.saveContent() { (success) -> () in
                     if (success) {
@@ -273,7 +271,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
             
             self.present(alert, animated: true, completion: nil)
             
-            Analytics.logEvent("show_alert_unsaved_changes", parameters: nil)
+            AnalyticsManager.shared.report("show_alert_unsaved_changes")
         } else {
             closeCurrentDocument()
         }
@@ -325,7 +323,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func discardChanges() {
-        Analytics.logEvent("menu_edit_discard", parameters: nil)
+        AnalyticsManager.shared.report("menu_edit_discard")
 
         guard let doc = document else {
             fatalError("document is null")
@@ -337,7 +335,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func saveContent(completion: ((Bool) -> ())?) {
-        Analytics.logEvent("menu_edit_save", parameters: nil)
+        AnalyticsManager.shared.report("menu_edit_save")
 
         guard let doc = document else {
             fatalError("document is null")
@@ -384,13 +382,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func editDocument() {
-        Analytics.logEvent("menu_edit", parameters: nil)
+        AnalyticsManager.shared.report("menu_edit")
 
         document?.edit = true
     }
     
     func printDocument() {
-        Analytics.logEvent("menu_print", parameters: nil)
+        AnalyticsManager.shared.report("menu_print")
 
         let printController = UIPrintInteractionController.shared
         let printInfo : UIPrintInfo = UIPrintInfo(dictionary: nil)
@@ -455,9 +453,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
             progressBar.isHidden = true
             searchButton.isEnabled = false
             
-            Analytics.logEvent("load_success", parameters: [
-                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
-                AnalyticsParameterContentType: fileType
+            AnalyticsManager.shared.report("load_success", parameters: [
+                AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl,
+                AnalyticsConstants.paramContentType: fileType
             ])
             
             return;
@@ -465,12 +463,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         
         self.webview.loadHTMLString("<html><h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))</html>", baseURL: nil)
         
-        Analytics.logEvent(
+        AnalyticsManager.shared.report(
             "load_error",
             parameters: [
                 "code": errorCode,
-                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
-                AnalyticsParameterContentType: fileType
+                AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl,
+                AnalyticsConstants.paramContentType: fileType
             ])
     }
     
@@ -480,17 +478,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func documentLoadingCompleted(_ doc: Document) {
-        Analytics.logEvent("load_odf_success", parameters: nil)
+        AnalyticsManager.shared.report("load_odf_success")
         
         progressBar.isHidden = true
         
         let fileType = doc.fileURL.pathExtension.lowercased()
         
-        Analytics.logEvent(
+        AnalyticsManager.shared.report(
             "load_success",
             parameters: [
-                AnalyticsParameterItemName: doc.shortenedDocumentUrl,
-                AnalyticsParameterContentType: fileType
+                AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl,
+                AnalyticsConstants.paramContentType: fileType
             ])
     }
     

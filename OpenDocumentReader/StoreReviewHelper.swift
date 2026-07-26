@@ -7,7 +7,6 @@
 //
 import Foundation
 import StoreKit
-import FirebaseAnalytics
 
 // taken from: https://medium.com/@abhimuralidharan/asking-customers-for-ratings-and-reviews-from-inside-the-app-in-ios-d85f256dd4ef
 struct StoreReviewHelper {
@@ -46,7 +45,7 @@ struct StoreReviewHelper {
     }
     
     fileprivate func requestReview() {
-        Analytics.logEvent("rating_show", parameters: nil)
+        AnalyticsManager.shared.report("rating_show")
         
         if #available(iOS 14.0, *) {
             if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
