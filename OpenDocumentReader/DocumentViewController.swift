@@ -88,15 +88,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
             bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
             bannerView.rootViewController = self
             
-            if #available(iOS 14, *) {
-                ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-                    DispatchQueue.main.async {
-                        self.loadBannerAd()
-                    }
-                })
-            } else {
-                loadBannerAd()
-            }
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { _ in
+                DispatchQueue.main.async {
+                    self.loadBannerAd()
+                }
+            })
         } else {
             hideBannerView()
         }
@@ -128,14 +124,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func loadBannerAd() {
-        let frame = { () -> CGRect in
-            if #available(iOS 11.0, *) {
-                return view.frame.inset(by: view.safeAreaInsets)
-            } else {
-                return view.frame
-            }
-        }()
-        let viewWidth = frame.size.width
+        let viewWidth = view.frame.inset(by: view.safeAreaInsets).size.width
         
         bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: viewWidth)
         bannerView.load(Request())
