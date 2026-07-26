@@ -1,0 +1,97 @@
+name: build_test
+
+on:
+  workflow_dispatch:
+  # branch pushes are covered by the pull_request trigger, so only main is built
+  # directly - otherwise every push to a branch with an open PR builds twice
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - 'fastlane/metadata/**'
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - 'fastlane/metadata/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # the runner image only ships the iOS platform bundle for its default Xcode;
+  # older ones fail in ibtool with "iOS 26.0 Platform Not Installed"
+  xcode_version: "26.5"
+
+jobs:
+  test:
+    runs-on: macos-26
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - uses: ./.github/actions/setup-odrcore
+        with:
+          xcode-version: ${{ env.xcode_version }}
+          profile: ios-simulator-arm64
+          configuration: Debug
+          cache-flavor: simulator
+
+      - name: run tests
+        run: bundle exec fastlane tests
+
+      # drop temporary download/source/build folders so only built packages get cached
+      - name: clean conan cache
+        run: conan cache clean "*"
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: logs
+          path: |
+            /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
+
+  # the test job only ever builds the simulator slice of one configuration, so
+  # release-only and device-only breakage used to surface at deploy time
+  build:
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { scheme: "ODR Full", configuration: "Release" }
+          - { scheme: "ODR Lite", configuration: "Release Lite" }
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-odrcore
+        with:
+          xcode-version: ${{ env.xcode_version }}
+          profile: ios
+          configuration: ${{ matrix.configuration }}
+          cache-flavor: device
+
+      # signing needs secrets this workflow does not have, so this only proves
+      # that the device slice compiles and links
+      - name: build
+        run: >
+          xcodebuild
+          -project OpenDocumentReader.xcodeproj
+          -scheme "${{ matrix.scheme }}"
+          -configuration "${{ matrix.configuration }}"
+          -sdk iphoneos
+          -destination 'generic/platform=iOS'
+          CODE_SIGNING_ALLOWED=NO
+          build
+
+      - name: clean conan cache
+        run: conan cache clean "*"

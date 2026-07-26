@@ -1,0 +1,39 @@
+name: format
+
+# swift-format comes with the Xcode toolchain, so this needs neither conan nor
+# ruby and reports style breakage in a minute instead of after a full build.
+# Unlike build_test this has no paths-ignore: every file the formatter touches
+# gets checked.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # the runner image only ships the iOS platform bundle for its default Xcode;
+  # older ones fail in ibtool with "iOS 26.0 Platform Not Installed"
+  xcode_version: "26.5"
+
+jobs:
+  swift-format:
+    runs-on: macos-26
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.xcode_version }}
+
+      - name: check formatting
+        run: scripts/format.sh --check
