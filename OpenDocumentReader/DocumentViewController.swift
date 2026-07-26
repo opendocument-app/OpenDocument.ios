@@ -35,9 +35,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var segmentedControl: ScrollableSegmentedControl!
-    private var initialSelect = false
-    
+    @IBOutlet weak var pageTabBar: PageTabBar!
+
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -48,6 +47,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     
     private var searchBarHeightWhenShown: NSLayoutConstraint?
     private var searchBarHeightWhenHidden: NSLayoutConstraint?
+    private lazy var pageTabBarHeight = pageTabBar.heightAnchor.constraint(equalToConstant: 0)
 
     private var isFullscreen = false
     
@@ -59,6 +59,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // once, not on every appearance: a second target would parse the
+        // document twice for a single tap
+        pageTabBar.addTarget(self, action: #selector(pageSelected(sender:)), for: .valueChanged)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -72,13 +80,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         hideSearchBar()
         
         barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
-        
-        segmentedControl.segmentStyle = .textOnly
-        segmentedControl.underlineSelected = true
-        segmentedControl.fixedSegmentWidth = true
-        segmentedControl.addTarget(self, action: #selector(DocumentViewController.segmentSelected(sender:)), for: .valueChanged)
-        
-        initialSelect = false
         
         document?.webview = self.webview
         
@@ -100,7 +101,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     func setVCconstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         bannerView.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        pageTabBar.translatesAutoresizingMaskIntoConstraints = false
         webview.translatesAutoresizingMaskIntoConstraints = false
         
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -112,11 +113,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         bannerView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         bannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        segmentedControl.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
-        segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        webview.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
+        pageTabBar.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
+        pageTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        pageTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        pageTabBarHeight.isActive = true
+
+        webview.topAnchor.constraint(equalTo: pageTabBar.bottomAnchor).isActive = true
         webview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         webview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -148,14 +150,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         closeCurrentDocument()
     }
     
-    @objc func segmentSelected(sender:ScrollableSegmentedControl) {
-        if (initialSelect) {
-            initialSelect = false
-            
-            return
-        }
-        
-        document?.page = sender.selectedSegmentIndex
+    @objc func pageSelected(sender: PageTabBar) {
+        guard let index = sender.selectedIndex else { return }
+
+        document?.page = index
     }
     
     func showWebsite() {
@@ -472,25 +470,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
     
     func documentPagesChanged(_ doc: Document) {
-        let pageNames = doc.pageNames
-        
-        var i = 0
-        for pageName in pageNames! {
-            segmentedControl.insertSegment(withTitle: pageName, at: i)
-            
-            i += 1
-        }
-                
-        if i <= 1 {
-            segmentedControl.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            segmentedControl.isHidden = true
-        } else {
-            segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            segmentedControl.isHidden = false
-        }
-        
-        initialSelect = true
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.layoutSubviews()
+        let pageNames = doc.pageNames ?? []
+
+        pageTabBar.titles = pageNames
+        pageTabBar.selectedIndex = pageNames.isEmpty ? nil : 0
+
+        // a single page needs no tab to switch to
+        let showsTabs = pageNames.count > 1
+        pageTabBar.isHidden = !showsTabs
+        pageTabBarHeight.constant = showsTabs ? 40 : 0
     }
 }
