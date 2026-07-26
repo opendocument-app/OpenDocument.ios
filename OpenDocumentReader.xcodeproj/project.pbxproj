@@ -33,6 +33,8 @@
 		E22EB71C226B66B300053B86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E22EB71B226B66B300053B86 /* Main.storyboard */; };
 		E23795302274844400BA7238 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E237952F2274844400BA7238 /* AdSupport.framework */; };
 		E24110312586349500800247 /* test.odt in Resources */ = {isa = PBXBuildFile; fileRef = E24110232586349500800247 /* test.odt */; };
+		E2A17B1000000000000000B0 /* test.ods in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1200000000000000B2 /* test.ods */; };
+		E2A17B1100000000000000B1 /* test.odp in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1300000000000000B3 /* test.odp */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
 		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
 		E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */; };
@@ -98,6 +100,8 @@
 		E22EB71B226B66B300053B86 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E237952F2274844400BA7238 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E24110232586349500800247 /* test.odt */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odt; sourceTree = "<group>"; };
+		E2A17B1200000000000000B2 /* test.ods */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.ods; sourceTree = "<group>"; };
+		E2A17B1300000000000000B3 /* test.odp */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odp; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				E24110232586349500800247 /* test.odt */,
+				E2A17B1200000000000000B2 /* test.ods */,
+				E2A17B1300000000000000B3 /* test.odp */,
 				E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */,
 				E2A17B0300000000000000A3 /* PageTabBarTests.swift */,
 				E22B25302557F0E2001D0C52 /* Info.plist */,
@@ -356,6 +362,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E24110312586349500800247 /* test.odt in Resources */,
+				E2A17B1000000000000000B0 /* test.ods in Resources */,
+				E2A17B1100000000000000B1 /* test.odp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

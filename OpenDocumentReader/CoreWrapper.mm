@@ -30,6 +30,41 @@ static NSError *CoreWrapperMakeError(CoreWrapperError code, NSString *descriptio
                            userInfo:@{NSLocalizedDescriptionKey: description}];
 }
 
+/// The view odrcore names "document" holds the whole file in one page: every
+/// slide of a presentation, every page of a PDF, the entire text document.
+static bool CoreWrapperIsCombinedView(const odr::HtmlView &view) {
+    return view.name() == "document";
+}
+
+/// Picks the views to show as pages, the same way OpenDocument.droid does.
+///
+/// Spreadsheets get one tab per sheet, because scrolling through every sheet of
+/// a workbook in one page is not how anyone reads a spreadsheet. Everything else
+/// gets the combined view and nothing else - a presentation would otherwise show
+/// its slides twice, once inside the combined view and once per slide view, and
+/// a PDF would list one tab per page next to the tab that already has them all.
+///
+/// Services without a combined view - plain text and images among them - keep
+/// whatever views they do offer.
+static odr::HtmlViews CoreWrapperSelectViews(const odr::HtmlViews &views,
+                                             odr::DocumentType documentType) {
+    bool isSpreadsheet = documentType == odr::DocumentType::spreadsheet;
+    bool hasCombinedView = std::any_of(views.begin(), views.end(), CoreWrapperIsCombinedView);
+
+    odr::HtmlViews selected;
+    for (const odr::HtmlView &view : views) {
+        bool isCombinedView = CoreWrapperIsCombinedView(view);
+        bool skip = isSpreadsheet ? isCombinedView : (hasCombinedView && !isCombinedView);
+        if (skip) {
+            continue;
+        }
+
+        selected.push_back(view);
+    }
+
+    return selected;
+}
+
 /// odrcore's data files ship inside the app bundle. The path never changes at
 /// runtime, so it is set once instead of on every translate call.
 static void CoreWrapperEnsureDataPath() {
@@ -119,25 +154,27 @@ static void CoreWrapperEnsureDataPath() {
             odr::DocumentType documentType = documentFile.document_type();
             _document = documentFile.document();
 
-            _html = odr::html::translate(*_document, cachePathCpp, config).bring_offline(outputPathCpp);
+            odr::HtmlService service = odr::html::translate(*_document, cachePathCpp, config);
 
-            NSMutableArray<NSString *> *pageNames = [[NSMutableArray alloc] init];
-            NSMutableArray<NSString *> *pagePaths = [[NSMutableArray alloc] init];
-            for (const auto &page : _html->pages()) {
-                if ([self shouldSkipPageNamed:page.name ofDocumentType:documentType]) {
-                    continue;
-                }
-
-                [pageNames addObject:[NSString stringWithUTF8String:page.name.c_str()]];
-                [pagePaths addObject:[NSString stringWithUTF8String:page.path.c_str()]];
-            }
-
-            if (pagePaths.count == 0) {
+            // the views are picked before they are rendered: bringing all of them
+            // offline first would write out every slide of a presentation only to
+            // throw the files away again
+            odr::HtmlViews views = CoreWrapperSelectViews(service.list_views(), documentType);
+            if (views.empty()) {
                 if (error) {
                     *error = CoreWrapperMakeError(CoreWrapperErrorUnknown,
                                                   @"odrcore produced no displayable page");
                 }
                 return NO;
+            }
+
+            _html = service.bring_offline(outputPathCpp, views);
+
+            NSMutableArray<NSString *> *pageNames = [[NSMutableArray alloc] init];
+            NSMutableArray<NSString *> *pagePaths = [[NSMutableArray alloc] init];
+            for (const auto &page : _html->pages()) {
+                [pageNames addObject:[NSString stringWithUTF8String:page.name.c_str()]];
+                [pagePaths addObject:[NSString stringWithUTF8String:page.path.c_str()]];
             }
 
             _pageNames = pageNames;
@@ -163,21 +200,6 @@ static void CoreWrapperEnsureDataPath() {
             return NO;
         }
     }
-}
-
-/// Presentations and drawings expose their slides as pages and a combined
-/// "document" page we do not want; spreadsheets are the other way round.
-- (BOOL)shouldSkipPageNamed:(const std::string &)name ofDocumentType:(odr::DocumentType)documentType {
-    bool isCombinedPage = name == "document";
-
-    if (documentType == odr::DocumentType::presentation ||
-        documentType == odr::DocumentType::drawing) {
-        return isCombinedPage ? NO : YES;
-    }
-    if (documentType == odr::DocumentType::spreadsheet) {
-        return isCombinedPage ? YES : NO;
-    }
-    return NO;
 }
 
 - (BOOL)backTranslate:(NSString *)diff into:(NSString *)outputPath error:(NSError **)error {
