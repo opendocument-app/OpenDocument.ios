@@ -12,7 +12,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  xcode_version: "26.0.1"
+  # the runner image only ships the iOS platform bundle for its default Xcode;
+  # older ones fail in ibtool with "iOS 26.0 Platform Not Installed"
+  xcode_version: "26.5"
 
 jobs:
   test:
