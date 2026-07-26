@@ -11,9 +11,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+env:
+  # the runner image only ships the iOS platform bundle for its default Xcode;
+  # older ones fail in ibtool with "iOS 26.0 Platform Not Installed"
+  xcode_version: "26.5"
+
 jobs:
   test:
-    runs-on: macos-14
+    runs-on: macos-26
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -28,16 +33,14 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: "16.2"
+          xcode-version: ${{ env.xcode_version }}
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
       - name: install pods
         run: pod install
-
-      # https://stackoverflow.com/a/57758679/198996
-      - name: install bundler
-        run: gem install bundler
-      - name: install fastlane
-        run: bundle install
 
       # conan itself is pinned by conan-odr-index so recipes and client stay in sync
       - name: install conan
@@ -45,6 +48,20 @@ jobs:
 
       - name: conan profile
         run: conan profile detect
+
+      - name: conan cache key
+        id: conan-cache-key
+        run: echo "key=conan2-${{ runner.os }}-xcode${{ env.xcode_version }}-simulator-index$(git rev-parse HEAD:conan-odr-index)-${{ hashFiles('conan/conanfile.py', 'conan/profiles/*') }}" >> "$GITHUB_OUTPUT"
+
+      # restore before exporting the recipes: the export must run on top of the
+      # restored cache so current recipes win over stale ones from the archive
+      - name: conan cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.conan2/p
+          key: ${{ steps.conan-cache-key.outputs.key }}
+          restore-keys: |
+            conan2-${{ runner.os }}-xcode${{ env.xcode_version }}-simulator-
 
       # recipes are exported from the submodule into the local cache, which is
       # why no private remote has to be configured
@@ -64,9 +81,92 @@ jobs:
       - name: run tests
         run: bundle exec fastlane tests
 
+      # drop temporary download/source/build folders so only built packages get cached
+      - name: clean conan cache
+        run: conan cache clean "*"
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: logs
           path: |
             /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
+
+  # the test job only ever builds the simulator slice of one configuration, so
+  # release-only and device-only breakage used to surface at deploy time
+  build:
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { scheme: "ODR Full", configuration: "Release" }
+          - { scheme: "ODR Lite", configuration: "Release Lite" }
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: checkout conan-odr-index
+        run: git submodule update --init --depth 1 conan-odr-index
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.xcode_version }}
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: install pods
+        run: pod install
+
+      - name: install conan
+        run: pip3 install -r conan-odr-index/requirements.txt
+
+      - name: conan profile
+        run: conan profile detect
+
+      - name: conan cache key
+        id: conan-cache-key
+        run: echo "key=conan2-${{ runner.os }}-xcode${{ env.xcode_version }}-device-index$(git rev-parse HEAD:conan-odr-index)-${{ hashFiles('conan/conanfile.py', 'conan/profiles/*') }}" >> "$GITHUB_OUTPUT"
+
+      - name: conan cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.conan2/p
+          key: ${{ steps.conan-cache-key.outputs.key }}
+          restore-keys: |
+            conan2-${{ runner.os }}-xcode${{ env.xcode_version }}-device-
+
+      - name: export conan-odr-index
+        run: python3 conan-odr-index/scripts/conan_export_all_packages.py
+
+      - name: conan install
+        run: >
+          conan install conan/
+          --output-folder=conan-output
+          --build=missing
+          --profile:host=conan/profiles/ios
+          --deployer=conan/conandeployer.py
+          --deployer-folder=conan-assets
+          -o "configuration=${{ matrix.configuration }}"
+
+      # signing needs secrets this workflow does not have, so this only proves
+      # that the device slice compiles and links
+      - name: build
+        run: >
+          xcodebuild
+          -workspace OpenDocumentReader.xcworkspace
+          -scheme "${{ matrix.scheme }}"
+          -configuration "${{ matrix.configuration }}"
+          -sdk iphoneos
+          -destination 'generic/platform=iOS'
+          CODE_SIGNING_ALLOWED=NO
+          build
+
+      - name: clean conan cache
+        run: conan cache clean "*"
