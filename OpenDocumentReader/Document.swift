@@ -1,10 +1,10 @@
 import UIKit
 import WebKit
 
-protocol DocumentDelegate: class {
+protocol DocumentDelegate: AnyObject {
     func documentUpdateContent(_ doc: Document)
     func documentEncrypted(_ doc: Document)
-    func documentLoadingError(_ doc: Document, errorCode: Int)
+    func documentLoadingError(_ doc: Document, error: Error)
     func documentLoadingStarted(_ doc: Document)
     func documentLoadingCompleted(_ doc: Document)
     func documentPagesChanged(_ doc: Document)
@@ -15,19 +15,17 @@ enum DocumentError: Error {
     case backTranslate
 }
 
-
 class Document: UIDocument {
-    
+
     public var result: URL?
     public var pageNames: [String]?
     public var pagePaths: [String]?
 
     public weak var delegate: DocumentDelegate?
     public var loadProgress = Progress(totalUnitCount: 5)
-    
-    private var saveGroup = DispatchGroup()
+
     private var coreWrapper = CoreWrapper()
-    
+
     public var page: Int = 0 {
         didSet {
             parse()
@@ -43,127 +41,146 @@ class Document: UIDocument {
             parse()
         }
     }
-    
+
     public var webview: WKWebView?
-    
+
     public var isOdf = false
     private var wasPageCountAnnounced = false
-    
+
     override init(fileURL url: URL) {
         super.init(fileURL: url)
     }
-    
+
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
         parse()
     }
-    
+
     func parse() {
         delegate?.documentLoadingStarted(self)
-        
+
         loadProgress.completedUnitCount = 2
-        loadProgress.resume()
-        
+
         result = nil
         delegate?.documentUpdateContent(self)
 
         let cachePath = URL(fileURLWithPath: NSTemporaryDirectory())
         let outputPath = URL(fileURLWithPath: NSTemporaryDirectory())
-        coreWrapper.translate(fileURL.path, cache: cachePath.path, into: outputPath.path, with: password, editable: edit)
 
-        let errorCode = coreWrapper.errorCode != nil ? coreWrapper.errorCode.intValue : 0
-        if (errorCode == -2) {
-            self.delegate?.documentEncrypted(self)
-            
+        do {
+            try coreWrapper.translate(
+                fileURL.path,
+                cache: cachePath.path,
+                into: outputPath.path,
+                with: password,
+                editable: edit
+            )
+        } catch let error as NSError
+            where error.domain == CoreWrapperErrorDomain
+                && error.code == CoreWrapperError.wrongPassword.rawValue {
+            delegate?.documentEncrypted(self)
+
+            return
+        } catch {
+            delegate?.documentLoadingError(self, error: error)
+
             return
         }
-        
-        if (errorCode < 0) {
-            delegate?.documentLoadingError(self, errorCode: errorCode)
-            
-            return
-        }
-        
+
         isOdf = true
-        
+
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
-        
-        var pageNames = [String]()
-        for object in coreWrapper.pageNames {
-            if let pageName = object as? String {
-                pageNames.append(pageName)
-            }
-        }
-        
-        var pagePaths = [String]()
-        for object in coreWrapper.pagePaths {
-            if let pagePath = object as? String {
-                pagePaths.append(pagePath)
-            }
-        }
-        
+
+        // translate only reports success once it has at least one page
+        let pagePaths = coreWrapper.pagePaths
+        let pageNames = coreWrapper.pageNames
         self.pagePaths = pagePaths
         self.pageNames = pageNames
-        
+
         // TODO: use all pages instead of just one!
-        result = URL(fileURLWithPath: pagePaths[page])
-        
+        result = URL(fileURLWithPath: pagePaths[min(page, pagePaths.count - 1)])
+
         delegate?.documentUpdateContent(self)
-        
-        if (!wasPageCountAnnounced) {
+
+        if !wasPageCountAnnounced {
             delegate?.documentPagesChanged(self)
-            
+
             wasPageCountAnnounced = true
         }
-        
+
         delegate?.documentLoadingCompleted(self)
     }
-    
+
     override func handleError(_ error: Error, userInteractionPermitted: Bool) {
         CrashManager.shared.log(error)
     }
-    
+
     override func writeContents(_ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?) throws {
-        var diff = ""
+        let diff = try generateDiff()
 
-        DispatchQueue.main.sync {
-            self.saveGroup.enter()
+        // CoreWrapper is guarded by @synchronized, but the document handle it
+        // holds is only valid together with the web view that produced the diff,
+        // so the call stays on the main thread
+        try onMainThread {
+            try coreWrapper.backTranslate(diff, into: url.path)
+        }
+    }
 
-            webview?.evaluateJavaScript("odr.generateDiff()", completionHandler: { (value: Any!, error: Error!) -> Void in
-                if error != nil {
+    /// UIDocument calls writeContents off the main thread, but hopping to main
+    /// unconditionally would deadlock if that ever changes.
+    private func onMainThread<T>(_ work: () throws -> T) rethrows -> T {
+        if Thread.isMainThread {
+            return try work()
+        }
+
+        return try DispatchQueue.main.sync(execute: work)
+    }
+
+    /// Asks the web view for the edits the user made. Runs on the main thread
+    /// and blocks the calling save thread until the JavaScript call comes back.
+    private func generateDiff() throws -> String {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: Result<String, Error> = .failure(DocumentError.getHtml)
+
+        DispatchQueue.main.async {
+            guard let webview = self.webview else {
+                result = .failure(DocumentError.getHtml)
+                semaphore.signal()
+
+                return
+            }
+
+            webview.evaluateJavaScript("odr.generateDiff()") { value, error in
+                // signalled on every path, including the ones that used to leave
+                // the dispatch group unbalanced and fall into the 30s timeout
+                defer { semaphore.signal() }
+
+                if let error {
                     CrashManager.shared.log(error)
-                    fatalError("generateDiff failed")
+                    result = .failure(error)
 
                     return
                 }
-                
-                diff = (value as? String)!
 
-                self.saveGroup.leave()
-            })
+                guard let diff = value as? String else {
+                    result = .failure(DocumentError.getHtml)
+
+                    return
+                }
+
+                result = .success(diff)
+            }
         }
-        
-        let waitResult = saveGroup.wait(timeout: .now() + 30)
-        if (waitResult != DispatchTimeoutResult.success) {
+
+        guard semaphore.wait(timeout: .now() + 30) == .success else {
             throw DocumentError.getHtml
         }
-        
-        // running on main-thread to make sure CoreWrapper is always called from the same thread
-        // TODO: run on background thread instead?
-        DispatchQueue.main.sync {
-            coreWrapper.backTranslate(diff, into: url.path)
-        }
-        
-        let errorCode = coreWrapper.errorCode != nil ? coreWrapper.errorCode.intValue : 0
-        if (errorCode < 0) {
-            print(errorCode)
-            
-            throw DocumentError.backTranslate
-        }
+
+        return try result.get()
     }
 }
 
 extension Document {
-    
+
     var shortenedDocumentUrl: String {
         return fileURL.absoluteString.prefix(49) + ".." + fileURL.absoluteString.suffix(49)
     }

@@ -32,30 +32,23 @@ class ContentViewController: UIViewController {
             pageControl.pageIndicatorTintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         }
         
-        switch index {
-        case 0:
-            pageButton.setTitle(Constants.next, for: .normal)
-        case 1:
-            pageButton.setTitle(Constants.next, for: .normal)
-        case 2:
-            pageButton.setTitle(Constants.start, for: .normal)
-        default:
-            break
-        }
+        let isLastPage = index == Constants.onboardingImages.count - 1
+        pageButton.setTitle(
+            NSLocalizedString(isLastPage ? "intro_start" : "intro_next", comment: ""),
+            for: .normal)
         
         headerLabel.text = header
         subHeaderLabel.text = subHeader
         imageView.image = UIImage(named: imageFile)
         pageControl.currentPage = index
-        pageControl.numberOfPages = 3
+        pageControl.numberOfPages = Constants.onboardingImages.count
     }
     
 
     @IBAction func pageButtonPressed(_ sender: Any) {
         switch index {
-        case 0,1:
-            let pageVC = parent as! PageViewController
-            pageVC.nextVC(atIndex: index)
+        case 0, 1:
+            (parent as? PageViewController)?.nextVC(atIndex: index)
         case 2:
             dismissViewController()
         default:
@@ -68,10 +61,8 @@ class ContentViewController: UIViewController {
     }
     
     func dismissViewController() {
-        let userDefaults = UserDefaults.standard
-        userDefaults.setValue(true, forKey: Constants.key_was_intro_watched)
-        userDefaults.synchronize()
-        
+        UserDefaults.standard.set(true, forKey: Constants.key_was_intro_watched)
+
         dismiss(animated: true, completion: nil)
     }
     
