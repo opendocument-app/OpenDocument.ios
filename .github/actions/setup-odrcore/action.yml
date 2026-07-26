@@ -1,0 +1,100 @@
+name: setup odrcore
+description: >
+  Installs the toolchain and resolves odrcore and its dependencies with conan,
+  leaving the generated xcconfigs in conan-output and the runtime assets in
+  conan-assets. Every job that compiles the app needs the exact same ten steps,
+  so they live here instead of being copied into each workflow.
+
+inputs:
+  xcode-version:
+    description: Xcode version to select on the runner
+    required: true
+  profile:
+    description: conan host profile under conan/profiles
+    required: true
+  configuration:
+    description: Xcode configuration to resolve the dependencies for
+    required: true
+  cache-flavor:
+    description: >
+      Cache namespace. The simulator and the device slice resolve a different
+      dependency set, so they must not overwrite each other's cache entry.
+    required: true
+  save-cache:
+    description: >
+      Whether this job may write the conan cache back. Jobs that only consume
+      what another job built restore without saving.
+    required: false
+    default: "true"
+
+outputs:
+  conan-cache-key:
+    description: Cache key of the conan package cache, to restore it elsewhere
+    value: ${{ steps.conan-cache-key.outputs.key }}
+
+runs:
+  using: composite
+  steps:
+    - name: checkout conan-odr-index
+      shell: bash
+      run: git submodule update --init --depth 1 conan-odr-index
+
+    # 3.12+ is required by the conan-odr-index helper scripts
+    - uses: actions/setup-python@v7
+      with:
+        python-version: "3.12"
+
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ inputs.xcode-version }}
+
+    # conan itself is pinned by conan-odr-index so recipes and client stay in sync
+    - name: install conan
+      shell: bash
+      run: pip3 install -r conan-odr-index/requirements.txt
+
+    - name: conan profile
+      shell: bash
+      run: conan profile detect
+
+    - name: conan cache key
+      id: conan-cache-key
+      shell: bash
+      run: echo "key=conan2-${{ runner.os }}-xcode${{ inputs.xcode-version }}-${{ inputs.cache-flavor }}-index$(git rev-parse HEAD:conan-odr-index)-${{ hashFiles('conan/conanfile.py', 'conan/profiles/*') }}" >> "$GITHUB_OUTPUT"
+
+    # restore before exporting the recipes: the export must run on top of the
+    # restored cache so current recipes win over stale ones from the archive
+    - name: conan cache
+      if: inputs.save-cache == 'true'
+      uses: actions/cache@v6
+      with:
+        path: ~/.conan2/p
+        key: ${{ steps.conan-cache-key.outputs.key }}
+        restore-keys: |
+          conan2-${{ runner.os }}-xcode${{ inputs.xcode-version }}-${{ inputs.cache-flavor }}-
+
+    - name: restore conan cache
+      if: inputs.save-cache != 'true'
+      uses: actions/cache/restore@v6
+      with:
+        path: ~/.conan2/p
+        key: ${{ steps.conan-cache-key.outputs.key }}
+        restore-keys: |
+          conan2-${{ runner.os }}-xcode${{ inputs.xcode-version }}-${{ inputs.cache-flavor }}-
+
+    # recipes are exported from the submodule into the local cache, which is
+    # why no private remote has to be configured
+    - name: export conan-odr-index
+      shell: bash
+      run: python3 conan-odr-index/scripts/conan_export_all_packages.py
+
+    - name: conan install
+      shell: bash
+      run: >
+        conan install conan/
+        --output-folder=conan-output
+        --build=missing
+        --profile:host=conan/profiles/${{ inputs.profile }}
+        --deployer=conan/conandeployer.py
+        --deployer-folder=conan-assets
+        -o "configuration=${{ inputs.configuration }}"

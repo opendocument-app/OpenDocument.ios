@@ -1,4 +1,4 @@
-# OpenDocument.ios ![](https://github.com/opendocument-app/OpenDocument.ios/actions/workflows/ios_main.yml/badge.svg)
+# OpenDocument.ios ![](https://github.com/opendocument-app/OpenDocument.ios/actions/workflows/build_test.yml/badge.svg) ![](https://github.com/opendocument-app/OpenDocument.ios/actions/workflows/format.yml/badge.svg)
 It's Android's first OpenOffice Document Reader... for iOS!
 
 This is an iOS frontend for our C++ [OpenDocument.core](https://github.com/opendocument-app/OpenDocument.core) library.
@@ -32,10 +32,23 @@ Swift sources are formatted with `swift-format` from the active Xcode
 toolchain, configured in `.swift-format`. Run `scripts/format.sh` before
 committing; CI runs `scripts/format.sh --check` and fails on any difference.
 
+## Continuous integration
+
+| workflow | what it does |
+| --- | --- |
+| `format` | `scripts/format.sh --check`, on every push and pull request |
+| `build_test` | unit tests on the simulator plus a device build of both flavors |
+| `release` | manual upload to App Store Connect, see below |
+
+`format` needs nothing but the Xcode toolchain and reports style breakage in a
+minute, so it is kept apart from the native build. Everything that does need
+odrcore shares `.github/actions/setup-odrcore`, which resolves the C++
+dependencies with conan and caches them per Xcode version and profile.
+
 ## Releasing
 
-The `OpenDocumentReader-iOS-release` workflow uploads a build to App Store
-Connect. It is manual (`workflow_dispatch`) and never submits for review, so
+The `release` workflow uploads a build to App Store Connect. It is manual
+(`workflow_dispatch`) and never submits for review, so
 promoting a build stays a deliberate step in App Store Connect. Build numbers
 come from whatever TestFlight already has, so nothing needs to be committed to
 cut a release.
