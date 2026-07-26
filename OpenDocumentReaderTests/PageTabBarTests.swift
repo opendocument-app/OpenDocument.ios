@@ -155,7 +155,8 @@ class DocumentViewControllerPageTabsTests: XCTestCase {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: DocumentViewController.self))
 
         viewController = try XCTUnwrap(
-            storyboard.instantiateViewController(withIdentifier: "TextDocumentViewController") as? DocumentViewController)
+            storyboard.instantiateViewController(withIdentifier: "TextDocumentViewController")
+                as? DocumentViewController)
         viewController.loadViewIfNeeded()
 
         // selecting a tab parses the document, so it has to be a real one
@@ -212,4 +213,3 @@ class DocumentViewControllerPageTabsTests: XCTestCase {
         XCTAssertEqual(document.page, 2)
     }
 }
-

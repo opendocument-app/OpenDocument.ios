@@ -19,7 +19,8 @@ final class PageTabBar: UIControl {
     /// current text size. Works out to the familiar 40 points at the default
     /// size and grows from there.
     var preferredHeight: CGFloat {
-        let lineHeight = UIFont.preferredFont(forTextStyle: Self.titleTextStyle, compatibleWith: traitCollection).lineHeight
+        let lineHeight = UIFont.preferredFont(forTextStyle: Self.titleTextStyle, compatibleWith: traitCollection)
+            .lineHeight
 
         return max((lineHeight + Self.titlePadding * 2 + Self.underlineHeight).rounded(.up), Self.minimumHeight)
     }
@@ -97,7 +98,8 @@ final class PageTabBar: UIControl {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        guard traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory else {
+        guard traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory
+        else {
             return
         }
 
@@ -139,7 +141,8 @@ final class PageTabBar: UIControl {
 
         let slack = bounds.width - titleWidths.reduce(0, +)
 
-        tabWidths = slack > 0
+        tabWidths =
+            slack > 0
             ? titleWidths.map { $0 + slack / CGFloat(titleWidths.count) }
             : titleWidths
     }
@@ -184,7 +187,8 @@ extension PageTabBar: UICollectionViewDataSource {
         titles.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabCell.reuseIdentifier, for: indexPath)
 
         (cell as? TabCell)?.title = titles[indexPath.item]
@@ -256,7 +260,8 @@ private final class TabCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PageTabBar.titlePadding),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -PageTabBar.titlePadding),
+            titleLabel.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor, constant: -PageTabBar.titlePadding),
 
             underline.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             underline.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

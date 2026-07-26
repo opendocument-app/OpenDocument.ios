@@ -6,7 +6,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions
+    ) {
         guard let url = connectionOptions.urlContexts.first?.url else { return }
 
         // the storyboard's root view controller is not wired up yet at this point
@@ -53,7 +55,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             destinationUrl = inputURL
         }
 
-        documentBrowserViewController.revealDocument(at: destinationUrl, importIfNeeded: true) { revealedDocumentURL, _ in
+        documentBrowserViewController.revealDocument(at: destinationUrl, importIfNeeded: true) {
+            revealedDocumentURL, _ in
             guard let documentUrl = revealedDocumentURL else {
                 // ignoring errors because they should pop up in failedToImportDocumentAt too
 

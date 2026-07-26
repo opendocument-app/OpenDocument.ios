@@ -76,7 +76,8 @@ class Document: UIDocument {
             )
         } catch let error as NSError
             where error.domain == CoreWrapperErrorDomain
-                && error.code == CoreWrapperError.wrongPassword.rawValue {
+            && error.code == CoreWrapperError.wrongPassword.rawValue
+        {
             delegate?.documentEncrypted(self)
 
             return
@@ -114,7 +115,9 @@ class Document: UIDocument {
         CrashManager.shared.log(error)
     }
 
-    override func writeContents(_ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?) throws {
+    override func writeContents(
+        _ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?
+    ) throws {
         let diff = try generateDiff()
 
         // CoreWrapper is guarded by @synchronized, but the document handle it

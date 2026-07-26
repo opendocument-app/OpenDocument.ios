@@ -26,6 +26,12 @@ Everything else comes from Swift Package Manager and is resolved by Xcode.
 `conan/setup-all.sh` has to be re-run whenever the odrcore version in
 `conan/conanfile.py` or the `conan-odr-index` submodule changes.
 
+## Formatting
+
+Swift sources are formatted with `swift-format` from the active Xcode
+toolchain, configured in `.swift-format`. Run `scripts/format.sh` before
+committing; CI runs `scripts/format.sh --check` and fails on any difference.
+
 ## Releasing
 
 The `OpenDocumentReader-iOS-release` workflow uploads a build to App Store
