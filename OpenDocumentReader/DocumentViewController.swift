@@ -7,7 +7,6 @@ A view controller for displaying and editing documents.
 
 import UIKit
 import WebKit
-import ScrollableSegmentedControl
 import UIKit.UIPrinter
 import GoogleMobileAds
 import AppTrackingTransparency
