@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  xcode_version: "26.0.1"
+  xcode_version: "26.5"
 
 jobs:
   upload:
