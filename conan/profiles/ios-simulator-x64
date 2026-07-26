@@ -1,13 +1,5 @@
-include(default)
+include(ios-base)
 
 [settings]
-os=iOS
 os.sdk=iphonesimulator
-os.version=14.0
 arch=x86_64
-
-compiler.cppstd=20
-
-&:build_type=RelWithDebInfo
-odrcore/*:build_type=RelWithDebInfo
-build_type=Release
