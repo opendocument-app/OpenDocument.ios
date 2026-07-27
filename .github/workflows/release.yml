@@ -41,7 +41,12 @@ on:
       - 'v[0-9]*'
 
 concurrency:
-  group: release-${{ github.ref }}
+  # every release run, not merely the ones on the same ref. The build number is a
+  # live query of what TestFlight already has, so two overlapping runs would read
+  # the same number and hand the second upload a version/build pair App Store
+  # Connect has already taken. The android side can key this by ref because its
+  # version code is derived from the tag, with nothing to race against
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 permissions:
