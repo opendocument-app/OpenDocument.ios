@@ -64,18 +64,38 @@ committing; CI runs `scripts/format.sh --check` and fails on any difference.
 | --- | --- |
 | `format` | `scripts/format.sh --check`, on every push and pull request |
 | `build_test` | unit tests on the simulator plus a device build of both flavors |
-| `release` | manual upload to App Store Connect, see below |
+| `release` | upload to App Store Connect on a version tag, see below |
 
 `format` needs nothing but the Xcode toolchain and reports style breakage in a
 minute, so it is kept apart from the build.
 
 ## Releasing
 
-The `release` workflow uploads a build to App Store Connect. It is manual
-(`workflow_dispatch`) and never submits for review, so
-promoting a build stays a deliberate step in App Store Connect. Build numbers
-come from whatever TestFlight already has, so nothing needs to be committed to
-cut a release.
+The `release` workflow uploads a build to App Store Connect. It runs on a
+version tag or by hand (`workflow_dispatch`), and never submits for review, so
+promoting a build stays a deliberate step in App Store Connect.
+
+Nothing has to be committed to cut a release, and a release leaves no commit
+behind either. Both halves of the version come from outside the tree:
+
+| | where it comes from | what is checked in |
+| --- | --- | --- |
+| `MARKETING_VERSION` (`CFBundleShortVersionString`) | the git tag | `0.0.0` |
+| `CURRENT_PROJECT_VERSION` (`CFBundleVersion`) | latest TestFlight build + 1 | `1` |
+
+So a release is `git tag 1.36 && git push --tags`, and the version in
+`project.pbxproj` is a placeholder that only local and CI builds ever see. The
+tag has to be above what is live in the store - App Store Connect is the only
+thing that knows what that is, and it rejects the upload otherwise.
+
+`.github/scripts/resolve-version.py` decides which version a run builds and
+refuses runs that cannot name one; run it by hand to see what a dispatch would
+do. A dispatched run takes a `version` input instead of a tag, which is how a
+release whose upload failed gets finished off the branch it was cut from.
+
+The `dry_run` input builds, signs and archives the `.ipa` without uploading it -
+the only way to exercise the signing path without putting a build on TestFlight.
+It is also the only kind of run allowed to go without a version.
 
 It needs these repository secrets:
 
@@ -91,9 +111,11 @@ The certificate is imported into a temporary keychain that is discarded with the
 runner. Provisioning profiles are created on demand via
 `-allowProvisioningUpdates`.
 
-The same lanes work locally once those variables are exported:
+The same lanes work locally once those variables are exported, and take the
+version and the dry run the same way the workflow hands them over:
 
 ```bash
-bundle exec fastlane deployPro
-bundle exec fastlane deployLite
+ODR_VERSION=1.36 bundle exec fastlane deployPro
+ODR_VERSION=1.36 bundle exec fastlane deployLite
+ODR_DRY_RUN=true bundle exec fastlane deployPro   # build and sign only
 ```
