@@ -7,13 +7,11 @@ class Pkg(ConanFile):
     default_options = {
         "configuration": "Debug",
         "odrcore/*:shared": False,
-        "odrcore/*:with_pdf2htmlEX": False,
-        "odrcore/*:with_wvWare": False,
         "odrcore/*:with_libmagic": False,
         "odrcore/*:with_http_server": True,
         "odrcore/*:with_cli": False,
     }
-    requires = "odrcore/5.7.0"
+    requires = "odrcore/6.0.0"
 
     def generate(self):
         xcode = XcodeDeps(self)

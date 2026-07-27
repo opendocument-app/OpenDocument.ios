@@ -30,9 +30,9 @@ Everything else comes from Swift Package Manager and is resolved by Xcode.
 
 `CoreWrapper` hands the file to odrcore, which returns an `HtmlService`: a
 handle that knows which views the document has but has not rendered any of
-them. That service is connected to odrcore's HTTP server, bound to
-`127.0.0.1:29665`, and the web view is pointed at
-`http://127.0.0.1:29665/file/<prefix>/<page>.html`. odrcore renders a page when
+them. That service is connected to odrcore's HTTP server, bound to `127.0.0.1`
+on whichever port was free, and the web view is pointed at
+`http://127.0.0.1:<port>/file/<prefix>/<page>.html`. odrcore renders a page when
 the web view asks for it, on one of the server's threads.
 
 The same thing OpenDocument.droid does, and for the same reasons: rendering
@@ -43,9 +43,9 @@ caches by URL and a document re-translated after a password or an edit has to
 land on an address it has not seen.
 
 `kCoreWrapperServesOverHttp` in `CoreWrapper.mm` switches back to writing the
-pages out as files, which is also what happens automatically if the port cannot
-be bound. It is there to keep that path working while the migration finishes,
-not as a runtime option.
+pages out as files, which is also what happens automatically if the socket
+cannot be opened at all. It is there to keep that path working while the
+migration finishes, not as a runtime option.
 
 Nothing about this needs a capability or prompts the user. A listening socket on
 loopback takes no entitlement, and the local network permission introduced in

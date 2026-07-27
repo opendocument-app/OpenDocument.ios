@@ -34,32 +34,9 @@ def deploy(graph, output_folder: str, **kwargs):
             **copytree_kwargs,
         )
 
-    if "pdf2htmlex" in deps:
-        dep = deps["pdf2htmlex"]
-        conanfile.output.info(f"Deploying pdf2htmlex to {conan_files}")
-        shutil.copytree(
-            f"{dep.package_folder}/share/pdf2htmlEX",
-            f"{conan_files}/pdf2htmlex",
-            **copytree_kwargs,
-        )
-
-    if "poppler-data" in deps:
-        dep = deps["poppler-data"]
-        conanfile.output.info(f"Deploying poppler-data to {conan_files}")
-        shutil.copytree(
-            f"{dep.package_folder}/share/poppler",
-            f"{conan_files}/poppler",
-            **copytree_kwargs,
-        )
-
-    if "fontconfig" in deps:
-        dep = deps["fontconfig"]
-        conanfile.output.info(f"Deploying fontconfig to {conan_files}")
-        shutil.copytree(
-            f"{dep.package_folder}/res/share",
-            f"{conan_files}/fontconfig",
-            **copytree_kwargs,
-        )
+    # odrcore 6 dropped the pdf2htmlEX and wvWare backends, so pdf2htmlex,
+    # poppler-data and fontconfig are no longer in the graph and nothing but
+    # odrcore's own data is left to deploy
 
     with (
         open(f"{output_folder}/input-files.xcfilelist", "w") as f_in,
