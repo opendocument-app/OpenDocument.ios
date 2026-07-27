@@ -148,11 +148,16 @@ class OpenDocumentReaderTests: XCTestCase {
         let page = try XCTUnwrap(wrapper.pageURLs.first)
         XCTAssertTrue(CoreWrapper.isServedURL(page))
 
+        // the port is whichever one was free, so the near misses are spelled
+        // relative to the one we actually got rather than a hardcoded number
+        let port = try XCTUnwrap(page.port)
+
         for other in [
             "https://opendocument.app/missing.html",
             "http://opendocument.app/missing.html",
-            "http://127.0.0.1:8080/file/odr1/document.html",
-            "http://localhost:29665/file/odr1/document.html",
+            "http://127.0.0.1:\(port + 1)/file/odr1/document.html",
+            "http://127.0.0.1/file/odr1/document.html",
+            "http://localhost:\(port)/file/odr1/document.html",
         ] {
             XCTAssertFalse(CoreWrapper.isServedURL(try XCTUnwrap(URL(string: other))), other)
         }
