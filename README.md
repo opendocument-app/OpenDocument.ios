@@ -20,7 +20,9 @@ apple/build_xcframework.py slice && apple/build_xcframework.py assemble
 ```
 
 and every `xcodebuild` invocation needs `ODR_XCFRAMEWORK=OdrCoreObjC.xcframework`
-in its environment. That goes away once the reference becomes
+in its environment. CI does not do this and the build jobs stay red until then —
+compiling odrcore on every pull request to bridge a gap that closes with the
+next release is not worth it. Both end when the reference becomes
 `.package(url:from:)`.
 
 ## How a document reaches the screen
