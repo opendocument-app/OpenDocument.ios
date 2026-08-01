@@ -21,29 +21,30 @@
 		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
 		BFFB694BE9E3E744FD4F92E0 /* CrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACB597DDB073F3AFC74345 /* CrashManager.swift */; };
+		C43B65A97E4029F7790DA729 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C00CD0A89EF1F64FF879A1 /* CoreWrapper.swift */; };
 		D2DCD7104EBCC0F1A784E116 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = B5F033C5AA89A6E9C19EA27D /* GoogleMobileAds */; };
 		E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EB6C492C1A510D003EC5A0 /* Foundation.framework */; };
 		E2064DFE22CFA1BA006441F8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2064DDF22CFA1BA006441F8 /* iAd.framework */; };
 		E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */; };
-		E2A17B0400000000000000A4 /* PageTabBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0300000000000000A3 /* PageTabBarTests.swift */; };
 		E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */; };
 		E22EB718226B633500053B86 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB717226B633500053B86 /* Document.swift */; };
 		E22EB71A226B65E300053B86 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22EB719226B65E300053B86 /* DocumentViewController.swift */; };
-		E2A17B0200000000000000A2 /* PageTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0100000000000000A1 /* PageTabBar.swift */; };
 		E22EB71C226B66B300053B86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E22EB71B226B66B300053B86 /* Main.storyboard */; };
 		E23795302274844400BA7238 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E237952F2274844400BA7238 /* AdSupport.framework */; };
 		E24110312586349500800247 /* test.odt in Resources */ = {isa = PBXBuildFile; fileRef = E24110232586349500800247 /* test.odt */; };
+		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
+		E2A17B0200000000000000A2 /* PageTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0100000000000000A1 /* PageTabBar.swift */; };
+		E2A17B0400000000000000A4 /* PageTabBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0300000000000000A3 /* PageTabBarTests.swift */; };
 		E2A17B1000000000000000B0 /* test.ods in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1200000000000000B2 /* test.ods */; };
 		E2A17B1100000000000000B1 /* test.odp in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1300000000000000B3 /* test.odp */; };
-		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
 		E2A17B2000000000000000C0 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2200000000000000C2 /* CoreFoundation.framework */; };
 		E2A17B2100000000000000C1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2300000000000000C3 /* CFNetwork.framework */; };
-		E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2C008F9220F1CF80097C594 /* CoreWrapper.mm */; };
 		E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */; };
 		E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED52220B54D600D63515 /* AppDelegate.swift */; };
 		E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */; };
 		E2F7ED5E220B54D700D63515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5D220B54D700D63515 /* Assets.xcassets */; };
 		E2F7ED61220B54D700D63515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */; };
+		FB494C85E264BD924C1EA54E /* OdrCore in Frameworks */ = {isa = PBXBuildFile; productRef = E381918B979121CD165C966A /* OdrCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02C00CD0A89EF1F64FF879A1 /* CoreWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreWrapper.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
 		25ACB597DDB073F3AFC74345 /* CrashManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrashManager.swift; sourceTree = "<group>"; };
 		2DF2708F60BE3388B124CABF /* AnalyticsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		523A371228CCF27400876C77 /* AdServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdServices.framework; path = System/Library/Frameworks/AdServices.framework; sourceTree = SDKROOT; };
@@ -89,27 +91,23 @@
 		B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		C4579E708F099784EF583B35 /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D14280D860FAA1DD046BCB5C /* conan.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = conan.xcconfig; sourceTree = "<group>"; };
 		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2064DDF22CFA1BA006441F8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
-		E2A17B0300000000000000A3 /* PageTabBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabBarTests.swift; sourceTree = "<group>"; };
 		E22B25302557F0E2001D0C52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E22EB6F7226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
 		E22EB717226B633500053B86 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		E22EB719226B65E300053B86 /* DocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
-		E2A17B0100000000000000A1 /* PageTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabBar.swift; sourceTree = "<group>"; };
 		E22EB71B226B66B300053B86 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E237952F2274844400BA7238 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E24110232586349500800247 /* test.odt */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odt; sourceTree = "<group>"; };
+		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E2A17B0100000000000000A1 /* PageTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabBar.swift; sourceTree = "<group>"; };
+		E2A17B0300000000000000A3 /* PageTabBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabBarTests.swift; sourceTree = "<group>"; };
 		E2A17B1200000000000000B2 /* test.ods */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.ods; sourceTree = "<group>"; };
 		E2A17B1300000000000000B3 /* test.odp */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odp; sourceTree = "<group>"; };
-		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E2A17B2200000000000000C2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E2A17B2300000000000000C3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		E2BB4B60220EF3A10056176B /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
-		E2C008F9220F1CF80097C594 /* CoreWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreWrapper.mm; sourceTree = "<group>"; };
-		E2C008FC220F1D570097C594 /* CoreWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreWrapper.h; sourceTree = "<group>"; };
 		E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewHelper.swift; sourceTree = "<group>"; };
 		E2F7ED52220B54D600D63515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F7ED54220B54D600D63515 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +138,7 @@
 				523A371328CCF27400876C77 /* AdServices.framework in Frameworks */,
 				E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */,
 				D2DCD7104EBCC0F1A784E116 /* GoogleMobileAds in Frameworks */,
+				FB494C85E264BD924C1EA54E /* OdrCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +186,6 @@
 		E17AF34D2C258C5100FBED6A /* configs */ = {
 			isa = PBXGroup;
 			children = (
-				D14280D860FAA1DD046BCB5C /* conan.xcconfig */,
 			);
 			path = configs;
 			sourceTree = "<group>";
@@ -252,14 +250,12 @@
 				E2F7ED5F220B54D700D63515 /* LaunchScreen.storyboard */,
 				E2F7ED62220B54D700D63515 /* Info.plist */,
 				ACF1A3E42469F8DE000BA420 /* Info-Lite.plist */,
-				E2BB4B60220EF3A10056176B /* BridgingHeader.h */,
-				E2C008F9220F1CF80097C594 /* CoreWrapper.mm */,
-				E2C008FC220F1D570097C594 /* CoreWrapper.h */,
 				E2D0B3D8226D945400534FCC /* StoreReviewHelper.swift */,
 				AC125F182435311A008AD515 /* Localizable.strings */,
 				3FF7388D538126B646A5ACC6 /* Privacy */,
 				9113B590877803CA250DDFB7 /* NonFree */,
 				C4579E708F099784EF583B35 /* SceneDelegate.swift */,
+				02C00CD0A89EF1F64FF879A1 /* CoreWrapper.swift */,
 			);
 			path = OpenDocumentReader;
 			sourceTree = "<group>";
@@ -292,7 +288,6 @@
 				E2F7ED4B220B54D600D63515 /* Sources */,
 				E2F7ED4C220B54D600D63515 /* Frameworks */,
 				E2F7ED4D220B54D600D63515 /* Resources */,
-				E158977C2DF640E700319830 /* Copy Conan Resources */,
 			);
 			buildRules = (
 			);
@@ -301,6 +296,7 @@
 			name = OpenDocumentReader;
 			packageProductDependencies = (
 				B5F033C5AA89A6E9C19EA27D /* GoogleMobileAds */,
+				E381918B979121CD165C966A /* OdrCore */,
 			);
 			productName = "OpenDocument Reader";
 			productReference = 52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */;
@@ -353,6 +349,7 @@
 			mainGroup = E2F7ED46220B54D600D63515;
 			packageReferences = (
 				AD584FCD41577C8CDEE974AA /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				78200B97C10509E2539B4FE5 /* XCLocalSwiftPackageReference "OpenDocument.core" */,
 			);
 			productRefGroup = E2F7ED46220B54D600D63515;
 			projectDirPath = "";
@@ -390,29 +387,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		E158977C2DF640E700319830 /* Copy Conan Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PROJECT_DIR}/conan-assets/input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "Copy Conan Resources";
-			outputFileListPaths = (
-				"${PROJECT_DIR}/conan-assets/output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/conan/copy-resources.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		E22B25282557F0E2001D0C52 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -432,7 +406,6 @@
 				AC384BCD23B4FFA700C7BF47 /* ContentViewController.swift in Sources */,
 				E22EB718226B633500053B86 /* Document.swift in Sources */,
 				AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */,
-				E2C008FA220F1CF80097C594 /* CoreWrapper.mm in Sources */,
 				E2D0B3D9226D945400534FCC /* StoreReviewHelper.swift in Sources */,
 				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
 				ACA46529244E403900A5DA7A /* AppType.swift in Sources */,
@@ -443,6 +416,7 @@
 				32B6BA42C6D6D443ED2A9697 /* AnalyticsManager.swift in Sources */,
 				BFFB694BE9E3E744FD4F92E0 /* CrashManager.swift in Sources */,
 				229BA8DA70F3CA88BA547FA9 /* SceneDelegate.swift in Sources */,
+				C43B65A97E4029F7790DA729 /* CoreWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,7 +531,6 @@
 		};
 		AC8468CC244E255400E96707 /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
@@ -568,7 +541,6 @@
 				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -587,7 +559,6 @@
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -654,7 +625,6 @@
 		};
 		AC8468D0244E256900E96707 /* Release Lite */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = "OpenDocumentReader Lite";
@@ -664,7 +634,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -682,7 +651,6 @@
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -890,7 +858,6 @@
 		};
 		E2F7ED66220B54D700D63515 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
@@ -901,7 +868,6 @@
 				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -920,7 +886,6 @@
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -929,7 +894,6 @@
 		};
 		E2F7ED67220B54D700D63515 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D14280D860FAA1DD046BCB5C /* conan.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME = OpenDocumentReader;
@@ -939,7 +903,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_ASSET_PATHS = "conan-assets";
 				ENABLE_BITCODE = NO;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -957,7 +920,6 @@
 				PRODUCT_NAME = "$(BUNDLE_DISPLAY_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = OpenDocumentReader/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1001,6 +963,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		78200B97C10509E2539B4FE5 /* XCLocalSwiftPackageReference "OpenDocument.core" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../OpenDocument.core;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		AD584FCD41577C8CDEE974AA /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1017,6 +986,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AD584FCD41577C8CDEE974AA /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
+		};
+		E381918B979121CD165C966A /* OdrCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OdrCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
