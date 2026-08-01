@@ -1,5 +1,0 @@
-include(ios-base)
-
-[settings]
-os.sdk=iphonesimulator
-arch=armv8

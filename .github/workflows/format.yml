@@ -1,7 +1,7 @@
 name: format
 
-# swift-format comes with the Xcode toolchain, so this needs neither conan nor
-# ruby and reports style breakage in a minute instead of after a full build.
+# swift-format comes with the Xcode toolchain, so this needs no ruby and reports
+# style breakage in a minute instead of after a full build.
 # Unlike build_test this has no paths-ignore: every file the formatter touches
 # gets checked.
 

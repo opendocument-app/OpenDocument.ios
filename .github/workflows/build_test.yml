@@ -38,19 +38,12 @@ jobs:
         with:
           bundler-cache: true
 
-      - uses: ./.github/actions/setup-odrcore
+      - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ env.xcode_version }}
-          profile: ios-simulator-arm64
-          configuration: Debug
-          cache-flavor: simulator
 
       - name: run tests
         run: bundle exec fastlane tests
-
-      # drop temporary download/source/build folders so only built packages get cached
-      - name: clean conan cache
-        run: conan cache clean "*"
 
       - uses: actions/upload-artifact@v7
         if: always()
@@ -73,12 +66,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v7
 
-      - uses: ./.github/actions/setup-odrcore
+      - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ env.xcode_version }}
-          profile: ios
-          configuration: ${{ matrix.configuration }}
-          cache-flavor: device
 
       # signing needs secrets this workflow does not have, so this only proves
       # that the device slice compiles and links
@@ -92,6 +82,3 @@ jobs:
           -destination 'generic/platform=iOS'
           CODE_SIGNING_ALLOWED=NO
           build
-
-      - name: clean conan cache
-        run: conan cache clean "*"

@@ -57,15 +57,9 @@ jobs:
         with:
           bundler-cache: true
 
-      # a release consumes what build_test already built and never writes the
-      # cache back, so an untested release cannot poison it
-      - uses: ./.github/actions/setup-odrcore
+      - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ env.xcode_version }}
-          profile: ios
-          configuration: ${{ matrix.flavor == 'pro' && 'Release' || 'Release Lite' }}
-          cache-flavor: device
-          save-cache: "false"
 
       # a throwaway keychain so the distribution certificate never outlives the job
       - name: import signing certificate
