@@ -101,15 +101,19 @@ It needs these repository secrets:
 
 | secret | what it is |
 | --- | --- |
-| `ASC_KEY_ID` | App Store Connect API key id |
+| `ASC_KEY_ID` | App Store Connect API key id, with App Manager access |
 | `ASC_ISSUER_ID` | issuer id of that key |
 | `ASC_KEY_CONTENT` | the `.p8` private key, base64 encoded |
 | `SIGNING_CERTIFICATE_P12` | Apple Distribution certificate + key as a base64 encoded `.p12` |
 | `SIGNING_CERTIFICATE_PASSWORD` | password of that `.p12` |
 
 The certificate is imported into a temporary keychain that is discarded with the
-runner. Provisioning profiles are created on demand via
-`-allowProvisioningUpdates`.
+runner, and signing is manual: fastlane downloads the App Store provisioning
+profile for the bundle id, creating it once if the account has none, and both
+the archive and the export use that certificate and profile. Automatic signing
+would instead have Xcode mint distribution assets of its own, which only an
+Admin key may do - anything less fails the export with "Cloud signing permission
+error".
 
 The same lanes work locally once those variables are exported, and take the
 version and the dry run the same way the workflow hands them over:
