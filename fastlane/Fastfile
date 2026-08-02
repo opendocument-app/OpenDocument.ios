@@ -60,26 +60,20 @@ platform :ios do
     path
   end
 
-  # Both come from the environment rather than lane options: fastlane passes lane
-  # options through as strings, so `dry_run:false` would arrive as the string
-  # "false" and read as true. They work the same way by hand as in CI:
+  # ODR_VERSION is the marketing version - the git tag in CI, since the
+  # repository has no real one. Unset it builds the 0.0.0 in project.pbxproj,
+  # which is only ever wanted for a dry run.
   #
-  #   ODR_VERSION=1.36 bundle exec fastlane deployPro
-  #   ODR_DRY_RUN=true bundle exec fastlane deployPro
-  #
-  # ODR_VERSION is the marketing version, and there is no real one in the
-  # repository - project.pbxproj holds 0.0.0, and the release workflow passes the
-  # git tag. An unset one therefore builds 0.0.0, which is only ever wanted for a
-  # dry run.
+  # Both come from the environment rather than lane options, which fastlane
+  # passes through as strings: `dry_run:false` would arrive as "false" and read
+  # as true.
   private_lane :deploy do |options|
     version = ENV["ODR_VERSION"].to_s.strip
     dry_run = ENV["ODR_DRY_RUN"].to_s.strip == "true"
 
-    # the workflow refuses this too, in resolve-version.py, before any of the
-    # setup. Checked again here because these lanes are meant to be runnable by
-    # hand, and nothing else would then stop an unversioned build from reaching
-    # the upload - where App Store Connect rejects 0.0.0 for being below what is
-    # live, twenty minutes in
+    # resolve-version.py refuses this in CI, but these lanes are meant to be
+    # runnable by hand, where nothing else stops an unversioned build before the
+    # upload rejects 0.0.0 twenty minutes in
     if version.empty? && !dry_run
       UI.user_error!(
         "no version to build: set ODR_VERSION (e.g. ODR_VERSION=1.36), " \
@@ -122,9 +116,8 @@ platform :ios do
         # so a release never leaves the working tree dirty
         "CURRENT_PROJECT_VERSION=#{build_number}",
       ]
-      # left out entirely when there is none, rather than passed as 0.0.0: that
-      # is what project.pbxproj already says, and overriding a setting with the
-      # value it already has only hides where it came from
+      # left out when there is none rather than passed as 0.0.0, which is what
+      # project.pbxproj already says
       xcargs << "MARKETING_VERSION=#{version}" unless version.empty?
 
       build_app(

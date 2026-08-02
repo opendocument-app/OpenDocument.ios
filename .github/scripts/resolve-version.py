@@ -1,36 +1,17 @@
 #!/usr/bin/env python3
 #
-# Works out which version a release run is building, and refuses the runs that
-# cannot sensibly build one.
+# Works out which version a release run builds, and refuses the runs that cannot
+# name one:
 #
-# There is no real version number in the repository: project.pbxproj holds
-# 0.0.0, and the version that ships is the git tag, handed to fastlane as
-# ODR_VERSION and from there to xcodebuild as MARKETING_VERSION. A number
-# committed on main describes either a release that already went out or a guess
-# at the next one, so it is wrong almost all of the time.
+#   tag push                 the tag; a version input has to agree or stay empty
+#   dispatched off a branch  the version input, which is how a release whose
+#                            upload failed gets finished off its branch
+#   neither                  only a dry run, on the 0.0.0 in project.pbxproj
 #
-# What is left to decide is which string fastlane is handed, and that is only
-# interesting when the run has no tag to read:
-#
-#   tag push                   the tag, and the version input has to agree with
-#                              it or stay empty - building anything else would
-#                              put a version on the store that no tag names
-#   dispatched off a branch    the version input, which is how a release whose
-#                              upload half failed gets finished off the branch
-#                              it was cut from
-#   neither                    only a dry run, on the 0.0.0 in project.pbxproj.
-#                              uploading that would mean uploading a version
-#                              App Store Connect refuses, twenty minutes into
-#                              the run
-#
-# The shape is checked here rather than left to xcodebuild, which never checks
-# it at all: MARKETING_VERSION is a free-form string to the build, and a typo
-# only surfaces when App Store Connect rejects the upload at the very end.
-#
-# Unlike the android side there is no version code to derive - CFBundleVersion
-# is the build number, which fastlane takes from what TestFlight already has.
-# The store does insist the version climbs, so the tag has to be above whatever
-# is live; that is left to App Store Connect, which is the only thing that knows.
+# The shape is checked here because xcodebuild never checks it: MARKETING_VERSION
+# is a free-form string to the build, so a typo would only surface when App Store
+# Connect rejects the upload at the very end. Whether the version is above what
+# is live is left to the store, which is the only thing that knows.
 #
 # Prints the resolved version and writes it to GITHUB_OUTPUT as `version`, empty
 # when there is none. Run it by hand to see what a dispatch would build.
@@ -41,15 +22,13 @@ import re
 import sys
 
 # what CFBundleShortVersionString accepts: one to three numeric parts. A leading
-# v is allowed here because tags are often written that way, and stripped below -
-# "v1.36" as a marketing version would be rejected by the store
+# v is allowed because tags are often written that way, and stripped below
 VERSION = re.compile(r"^v?[0-9]{1,3}(\.[0-9]{1,3}){0,2}$")
 
 
 def fail(message):
     if os.environ.get("GITHUB_ACTIONS"):
-        # shown in the log the same way, and additionally as an annotation on the
-        # run itself rather than only somewhere in the middle of a step
+        # also surfaces as an annotation on the run, not only inside the step log
         print(f"::error::{message}")
     else:
         print(message, file=sys.stderr)

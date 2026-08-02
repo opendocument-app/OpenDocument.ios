@@ -1,14 +1,8 @@
 name: release
 
-# Releasing stays a deliberate act - this just moves it off whoever's laptop
-# happened to have the Apple ID signed in. It runs on a version tag, or by hand.
-#
-# The version is the tag and nothing else. project.pbxproj holds 0.0.0, and the
-# tag reaches xcodebuild as MARKETING_VERSION by way of fastlane's ODR_VERSION,
-# so cutting a release needs no commit and leaves no working tree dirty. A
-# dispatched run has no tag to read, so it fills in the version input instead.
-# The build number is not in the repository either: fastlane derives it from
-# what TestFlight already has.
+# Uploads to App Store Connect on a version tag, or by hand. The version is the
+# tag: project.pbxproj holds 0.0.0 and the tag reaches xcodebuild as
+# MARKETING_VERSION through fastlane's ODR_VERSION, so a release needs no commit.
 on:
   workflow_dispatch:
     inputs:
@@ -20,32 +14,25 @@ on:
           - pro
           - lite
           - both
-      # a tag push needs nothing here: the tag is the version. this is for
-      # dispatched runs, which have no tag to read - finishing a release whose
-      # upload failed off the branch it was cut from, or putting a real version
-      # on a dry run
+      # only for dispatched runs, which have no tag to read
       version:
         description: version to build, e.g. 1.36 - defaults to the tag
         type: string
-      # the dry run: build, sign and archive the ipa, upload nothing. the only
-      # way to exercise the signing path without putting a build on TestFlight
+      # exercises the signing path without putting a build on TestFlight
       dry_run:
         description: build and archive only, do not upload
         type: boolean
         default: false
   push:
-    # the tags this repo has always used are bare numbers; a v prefix is
-    # accepted too and stripped by the version script
+    # bare numbers, as this repo has always used; a v prefix is stripped
     tags:
       - '[0-9]*'
       - 'v[0-9]*'
 
 concurrency:
-  # every release run, not merely the ones on the same ref. The build number is a
-  # live query of what TestFlight already has, so two overlapping runs would read
-  # the same number and hand the second upload a version/build pair App Store
-  # Connect has already taken. The android side can key this by ref because its
-  # version code is derived from the tag, with nothing to race against
+  # every release run, not just the ones on the same ref: the build number is a
+  # live query of what TestFlight has, so two overlapping runs would read the
+  # same one and hand the second upload a pair the store has already taken
   group: ${{ github.workflow }}
   cancel-in-progress: false
 
@@ -54,7 +41,7 @@ permissions:
 
 env:
   xcode_version: "26.5"
-  # a tag push builds both flavors and uploads them, the way a release always has
+  # false on a tag push, which always uploads
   dry_run: ${{ inputs.dry_run || false }}
 
 jobs:
@@ -64,12 +51,10 @@ jobs:
       fail-fast: true
       max-parallel: 1
       matrix:
-        # the env context is not available here, so the tag push fallback is
-        # spelled out rather than read from env.flavor
+        # the env context is unavailable here, so the tag push fallback is inline
         flavor: ${{ (!inputs.flavor || inputs.flavor == 'both') && fromJSON('["pro","lite"]') || fromJSON(format('["{0}"]', inputs.flavor)) }}
     steps:
-      # signing is needed for a dry run too - it builds and signs everything a
-      # real release does, it just keeps the result
+      # a dry run signs too, so it needs the same secrets
       - name: check secrets
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
@@ -90,16 +75,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v7
 
-      # the version is not in the checkout - it is the tag. The script says which
-      # runs can build which version, and why; it is here, right behind the
-      # checkout it needs, because a run that cannot name a version should end
-      # before the twenty minutes of setup and building, not after
+      # up front, so a run that cannot name a version ends before the twenty
+      # minutes of setup and building rather than after
       - name: resolve version
         id: version
-        # through the environment rather than interpolated into the command: a
-        # tag name and a dispatch input are both strings from outside the
-        # workflow, and a run: line is the one place where that would be a shell
-        # injection
+        # through the environment rather than interpolated into the run: line,
+        # where a tag name or an input would be a shell injection
         env:
           tag: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
           given: ${{ inputs.version }}
@@ -137,17 +118,15 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -k "$password" "$keychain" > /dev/null
           security list-keychain -d user -s "$keychain" login.keychain-db
 
-      # one step for both, because a dry run has to build exactly what a release
-      # builds to be worth anything - the lane only stops short of the upload
+      # one step for both: a dry run builds the same thing and only stops short
+      # of the upload
       - name: build and upload to App Store Connect
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
-          # empty on a dry run with no version, which leaves the 0.0.0 that is
-          # checked in. passed as an environment variable rather than a lane
-          # option: fastlane hands lane options through as strings, so a false
-          # would arrive as the string "false" and read as true
+          # environment rather than lane options, which fastlane passes through
+          # as strings - a false would arrive as "false" and read as true
           ODR_VERSION: ${{ steps.version.outputs.version }}
           ODR_DRY_RUN: ${{ env.dry_run }}
         run: bundle exec fastlane ${{ matrix.flavor == 'pro' && 'deployPro' || 'deployLite' }}
