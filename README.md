@@ -108,8 +108,17 @@ It needs these repository secrets:
 | `SIGNING_CERTIFICATE_PASSWORD` | password of that `.p12` |
 
 The certificate is imported into a temporary keychain that is discarded with the
-runner. Provisioning profiles are created on demand via
-`-allowProvisioningUpdates`.
+runner, and signing is manual: fastlane downloads the App Store provisioning
+profile for the bundle id, and both the archive and the export use that
+certificate and profile. Automatic signing would instead have Xcode mint
+distribution assets of its own, which only an Admin key may do - anything less
+fails the export with "Cloud signing permission error".
+
+Downloading a profile is something any key may do; creating one wants an Admin
+key. So a lesser key works as long as both apps have an App Store profile
+already - the run says so in its first seconds otherwise, and either an Admin key
+or a profile made by hand in the developer portal gets past it. Profiles expire
+after a year, which is the other moment this matters.
 
 The same lanes work locally once those variables are exported, and take the
 version and the dry run the same way the workflow hands them over:

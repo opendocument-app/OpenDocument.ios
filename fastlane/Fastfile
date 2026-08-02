@@ -48,10 +48,9 @@ platform :ios do
   # ASC_KEY_ID / ASC_ISSUER_ID / ASC_KEY_CONTENT, the last being the base64 of
   # the .p8 file.
   #
-  # The key has to hit the disk because two unrelated consumers need it: the
-  # Connect API calls fastlane makes itself, and the xcodebuild subprocess that
-  # build_app spawns. xcodebuild knows nothing about fastlane's key -- see
-  # -authenticationKeyPath in `xcodebuild -help` -- so it gets the file.
+  # It is written to a private temporary file because that is the shape
+  # app_store_connect_api_key takes it in; the lane removes it again when it is
+  # done.
   private_lane :api_key_file do
     path = File.join(Dir.mktmpdir("asc-api-key"), "AuthKey_#{ENV.fetch('ASC_KEY_ID')}.p8")
     File.write(path, Base64.decode64(ENV.fetch("ASC_KEY_CONTENT")))
@@ -82,6 +81,7 @@ platform :ios do
     end
 
     key_path = api_key_file
+    profile_dir = nil
 
     begin
       key = app_store_connect_api_key(
@@ -102,16 +102,29 @@ platform :ios do
 
       UI.message("building #{options[:scheme]} #{version.empty? ? '(unversioned)' : version} as build #{build_number}")
 
-      # build_app is gym, which has no api_key option -- passing one aborts the
-      # lane before xcodebuild ever runs. Automatic signing is authenticated
-      # through xcargs instead: -allowProvisioningUpdates on its own needs an
-      # Apple account configured in Xcode, which the release runner does not
-      # have.
+      # Signing is manual from here on. Automatic signing has xcodebuild mint
+      # distribution assets of its own -- cloud signing, which only an Admin key
+      # may do, so the export failed with "Cloud signing permission error" while
+      # the imported certificate went unused. sigh downloads the App Store
+      # profile matching that certificate instead, and both xcodebuild passes
+      # are handed it. Downloading one is something any key may do; creating the
+      # profile, which this also does when the account has none, wants an Admin
+      # key - and fails here, before the build, rather than after it.
+      profile_dir = Dir.mktmpdir("provisioning-profile")
+      get_provisioning_profile(
+        api_key: key,
+        app_identifier: options[:app_identifier],
+        # out of the working tree; sigh installs a copy where xcodebuild looks
+        output_path: profile_dir
+      )
+      profile_name = lane_context[SharedValues::SIGH_NAME]
+      UI.user_error!("sigh returned no profile name") if profile_name.to_s.empty?
+
       xcargs = [
-        "-allowProvisioningUpdates",
-        "-authenticationKeyPath", Shellwords.escape(key_path),
-        "-authenticationKeyID", Shellwords.escape(ENV.fetch("ASC_KEY_ID")),
-        "-authenticationKeyIssuerID", Shellwords.escape(ENV.fetch("ASC_ISSUER_ID")),
+        # the archive is signed the same way the export re-signs it
+        "CODE_SIGN_STYLE=Manual",
+        "CODE_SIGN_IDENTITY=#{Shellwords.escape('Apple Distribution')}",
+        "PROVISIONING_PROFILE_SPECIFIER=#{Shellwords.escape(profile_name)}",
         # passed on the command line rather than written into project.pbxproj,
         # so a release never leaves the working tree dirty
         "CURRENT_PROJECT_VERSION=#{build_number}",
@@ -123,6 +136,11 @@ platform :ios do
       build_app(
         project: "OpenDocumentReader.xcodeproj",
         scheme: options[:scheme],
+        export_method: "app-store",
+        export_options: {
+          signingStyle: "manual",
+          provisioningProfiles: { options[:app_identifier] => profile_name },
+        },
         xcargs: xcargs.join(" ")
       )
 
@@ -142,6 +160,7 @@ platform :ios do
       end
     ensure
       FileUtils.remove_entry(File.dirname(key_path), true)
+      FileUtils.remove_entry(profile_dir, true) if profile_dir
     end
   end
 end

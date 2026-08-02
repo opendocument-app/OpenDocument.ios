@@ -118,6 +118,14 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -k "$password" "$keychain" > /dev/null
           security list-keychain -d user -s "$keychain" login.keychain-db
 
+          # this is the only certificate the build has - a development one here
+          # would archive fine and fail the export twenty minutes in
+          security find-identity -v -p codesigning "$keychain"
+          if ! security find-identity -v -p codesigning "$keychain" | grep -q "Apple Distribution\|iPhone Distribution"; then
+            echo "::error::SIGNING_CERTIFICATE_P12 holds no Apple Distribution certificate (see README)"
+            exit 1
+          fi
+
       # one step for both: a dry run builds the same thing and only stops short
       # of the upload
       - name: build and upload to App Store Connect
@@ -131,12 +139,22 @@ jobs:
           ODR_DRY_RUN: ${{ env.dry_run }}
         run: bundle exec fastlane ${{ matrix.flavor == 'pro' && 'deployPro' || 'deployLite' }}
 
+      # gym's log only says the export failed; the reason is in an
+      # .xcdistributionlogs bundle under $TMPDIR, which dies with the runner
+      - name: collect distribution logs
+        if: failure()
+        run: |
+          mkdir -p distribution-logs
+          find "${TMPDIR:-/tmp}" -maxdepth 1 -name '*.xcdistributionlogs' \
+            -exec cp -R {} distribution-logs/ \;
+
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: build-log-${{ matrix.flavor }}
           path: |
             ~/Library/Logs/gym
+            distribution-logs
             *.ipa
             *.app.dSYM.zip
           if-no-files-found: warn
