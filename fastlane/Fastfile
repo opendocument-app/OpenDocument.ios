@@ -107,7 +107,9 @@ platform :ios do
       # may do, so the export failed with "Cloud signing permission error" while
       # the imported certificate went unused. sigh downloads the App Store
       # profile matching that certificate instead, and both xcodebuild passes
-      # are handed it.
+      # are handed it. Downloading one is something any key may do; creating the
+      # profile, which this also does when the account has none, wants an Admin
+      # key - and fails here, before the build, rather than after it.
       profile_dir = Dir.mktmpdir("provisioning-profile")
       get_provisioning_profile(
         api_key: key,

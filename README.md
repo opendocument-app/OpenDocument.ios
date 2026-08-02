@@ -101,7 +101,7 @@ It needs these repository secrets:
 
 | secret | what it is |
 | --- | --- |
-| `ASC_KEY_ID` | App Store Connect API key id, with App Manager access |
+| `ASC_KEY_ID` | App Store Connect API key id |
 | `ASC_ISSUER_ID` | issuer id of that key |
 | `ASC_KEY_CONTENT` | the `.p8` private key, base64 encoded |
 | `SIGNING_CERTIFICATE_P12` | Apple Distribution certificate + key as a base64 encoded `.p12` |
@@ -109,11 +109,16 @@ It needs these repository secrets:
 
 The certificate is imported into a temporary keychain that is discarded with the
 runner, and signing is manual: fastlane downloads the App Store provisioning
-profile for the bundle id, creating it once if the account has none, and both
-the archive and the export use that certificate and profile. Automatic signing
-would instead have Xcode mint distribution assets of its own, which only an
-Admin key may do - anything less fails the export with "Cloud signing permission
-error".
+profile for the bundle id, and both the archive and the export use that
+certificate and profile. Automatic signing would instead have Xcode mint
+distribution assets of its own, which only an Admin key may do - anything less
+fails the export with "Cloud signing permission error".
+
+Downloading a profile is something any key may do; creating one wants an Admin
+key. So a lesser key works as long as both apps have an App Store profile
+already - the run says so in its first seconds otherwise, and either an Admin key
+or a profile made by hand in the developer portal gets past it. Profiles expire
+after a year, which is the other moment this matters.
 
 The same lanes work locally once those variables are exported, and take the
 version and the dry run the same way the workflow hands them over:
