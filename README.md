@@ -7,23 +7,21 @@ This is an iOS frontend for our C++ [OpenDocument.core](https://github.com/opend
 
 Open `OpenDocumentReader.xcodeproj` in Xcode. Everything comes from Swift
 Package Manager and is resolved by Xcode — odrcore included, as the prebuilt
-`OdrCoreObjC.xcframework` of the
-[OdrCore](https://github.com/opendocument-app/OpenDocument.core) package. There
-is no conan step and no C++ toolchain to set up.
+`OdrCoreObjC.xcframework` the
+[OdrCore](https://github.com/opendocument-app/OpenDocument.core) package
+downloads from its release. There is no conan step and no C++ toolchain to set
+up.
 
-While odrcore has no release carrying the xcframework, the package is
-referenced by path and needs one built next to this checkout:
+To try an unreleased odrcore, point the package reference at a local checkout
+and build the xcframework there:
 
 ```sh
 cd ../OpenDocument.core
 apple/build_xcframework.py slice && apple/build_xcframework.py assemble
 ```
 
-and every `xcodebuild` invocation needs `ODR_XCFRAMEWORK=OdrCoreObjC.xcframework`
-in its environment. CI does not do this and the build jobs stay red until then —
-compiling odrcore on every pull request to bridge a gap that closes with the
-next release is not worth it. Both end when the reference becomes
-`.package(url:from:)`.
+Its `Package.swift` then takes `ODR_XCFRAMEWORK=OdrCoreObjC.xcframework` from the
+environment of every `xcodebuild` invocation instead of the release artifact.
 
 ## How a document reaches the screen
 
