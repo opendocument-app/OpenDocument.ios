@@ -153,8 +153,9 @@ platform :ios do
           skip_screenshots: true,
           skip_metadata: true,
           # uploading is not the same as shipping: promoting a build stays a
-          # deliberate step in App Store Connect
-          skip_submission: true,
+          # deliberate step in App Store Connect. deliver's option is
+          # submit_for_review; skip_submission is pilot's and is rejected here.
+          submit_for_review: false,
           precheck_include_in_app_purchases: false
         )
       end
