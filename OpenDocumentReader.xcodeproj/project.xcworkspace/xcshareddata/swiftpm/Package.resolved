@@ -1,6 +1,15 @@
 {
-  "originHash" : "3b9752ff554d5fdc91a7c01c2322a5d851b0979c36f02eb55188d9ab9e3d7e77",
+  "originHash" : "fb74b10a80d07407e1cef4ff366c543de15a310f0a4ae23e7fdda72de7a12f43",
   "pins" : [
+    {
+      "identity" : "opendocument.core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/opendocument-app/OpenDocument.core.git",
+      "state" : {
+        "revision" : "72661abacff00bbcafbc142a3655f1bd075e95df",
+        "version" : "6.2.0"
+      }
+    },
     {
       "identity" : "swift-package-manager-google-mobile-ads",
       "kind" : "remoteSourceControl",
