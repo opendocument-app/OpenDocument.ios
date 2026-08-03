@@ -100,6 +100,13 @@ platform :ios do
         initial_build_number: 0
       ) + 1
 
+      # the workflow tags the commit with this once the upload goes through, and
+      # a number only App Store Connect knows is the one thing it cannot work
+      # out for itself
+      if (github_output = ENV["GITHUB_OUTPUT"])
+        File.open(github_output, "a") { |out| out.write("build_number=#{build_number}\n") }
+      end
+
       UI.message("building #{options[:scheme]} #{version.empty? ? '(unversioned)' : version} as build #{build_number}")
 
       # Signing is manual from here on. Automatic signing has xcodebuild mint

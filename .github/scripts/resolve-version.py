@@ -3,10 +3,13 @@
 # Works out which version a release run builds, and refuses the runs that cannot
 # name one:
 #
-#   tag push                 the tag; a version input has to agree or stay empty
-#   dispatched off a branch  the version input, which is how a release whose
-#                            upload failed gets finished off its branch
-#   neither                  only a dry run, on the 0.0.0 in project.pbxproj
+#   a version input   that version
+#   no input          only a dry run, on the 0.0.0 in project.pbxproj
+#
+# The version arrives as a dispatch input rather than a tag the run was pushed
+# on. A tag is a promise made before the upload, and one version often takes
+# more than one build to get through review; the tags this repository carries
+# are written afterwards by the release workflow, naming what was really built.
 #
 # The shape is checked here because xcodebuild never checks it: MARKETING_VERSION
 # is a free-form string to the build, so a typo would only surface when App Store
@@ -22,7 +25,8 @@ import re
 import sys
 
 # what CFBundleShortVersionString accepts: one to three numeric parts. A leading
-# v is allowed because tags are often written that way, and stripped below
+# v is tolerated and stripped below: the input is typed by hand, and the tags
+# this repository has always used are bare numbers
 VERSION = re.compile(r"^v?[0-9]{1,3}(\.[0-9]{1,3}){0,2}$")
 
 
@@ -44,22 +48,15 @@ def boolean(value):
     raise ValueError(f"'{value}' is not true or false")
 
 
-def resolve(tag, given, dry_run, log=print):
+def resolve(given, dry_run, log=print):
     """The version to build, or "" for none. Raises ValueError with the reason."""
-    tag, given = tag.strip(), given.strip()
+    version = given.strip()
 
-    if tag and given and given.removeprefix("v") != tag.removeprefix("v"):
-        raise ValueError(
-            f"the version input ({given}) is not the tag this ran on ({tag}). "
-            "leave it blank to build the tag."
-        )
-
-    version = tag or given
     if not version:
         if not dry_run:
             raise ValueError(
-                "nothing to take a version from. push this as a tag, dispatch it "
-                "on one, or fill in the version input."
+                "nothing to take a version from: fill in the version input, or "
+                "tick dry_run to build without uploading."
             )
         log("no version given - building the 0.0.0 in project.pbxproj")
         return ""
@@ -77,8 +74,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Resolve the version a release run builds."
     )
-    parser.add_argument("--tag", default="", help="tag the run was triggered by, if any")
-    parser.add_argument("--input", default="", help="version input of a dispatched run")
+    parser.add_argument("--input", default="", help="version input of the run")
     parser.add_argument(
         "--dry-run",
         default="false",
@@ -87,7 +83,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     try:
-        version = resolve(args.tag, args.input, boolean(args.dry_run))
+        version = resolve(args.input, boolean(args.dry_run))
     except ValueError as reason:
         return fail(str(reason))
 

@@ -64,38 +64,42 @@ committing; CI runs `scripts/format.sh --check` and fails on any difference.
 | --- | --- |
 | `format` | `scripts/format.sh --check`, on every push and pull request |
 | `build_test` | unit tests on the simulator plus a device build of both flavors |
-| `release` | upload to App Store Connect on a version tag, see below |
+| `release` | upload to App Store Connect, by hand, see below |
 
 `format` needs nothing but the Xcode toolchain and reports style breakage in a
 minute, so it is kept apart from the build.
 
 ## Releasing
 
-The `release` workflow uploads a build to App Store Connect. It runs on a
-version tag or by hand (`workflow_dispatch`), and never submits for review, so
-promoting a build stays a deliberate step in App Store Connect.
+The `release` workflow uploads a build to App Store Connect. It is dispatched by
+hand, and never submits for review, so promoting a build stays a deliberate step
+in App Store Connect:
+
+```sh
+gh workflow run release.yml -f version=1.38 -f flavor=both
+```
 
 Nothing has to be committed to cut a release, and a release leaves no commit
 behind either. Both halves of the version come from outside the tree:
 
 | | where it comes from | what is checked in |
 | --- | --- | --- |
-| `MARKETING_VERSION` (`CFBundleShortVersionString`) | the git tag | `0.0.0` |
+| `MARKETING_VERSION` (`CFBundleShortVersionString`) | the `version` input | `0.0.0` |
 | `CURRENT_PROJECT_VERSION` (`CFBundleVersion`) | latest TestFlight build + 1 | `1` |
 
-So a release is `git tag 1.36 && git push --tags`, and the version in
-`project.pbxproj` is a placeholder that only local and CI builds ever see. The
-tag has to be above what is live in the store - App Store Connect is the only
-thing that knows what that is, and it rejects the upload otherwise.
+The version in `project.pbxproj` is a placeholder that only local and CI builds
+ever see. Nobody bumps it: a commit on `main` is not a release, and `0.0.0` says
+so. The version has to be above what is live in the store - App Store Connect is
+the only thing that knows what that is, and it rejects the upload otherwise.
 
 `.github/scripts/resolve-version.py` decides which version a run builds and
 refuses runs that cannot name one; run it by hand to see what a dispatch would
-do. A dispatched run takes a `version` input instead of a tag, which is how a
-release whose upload failed gets finished off the branch it was cut from.
+do.
 
 The `dry_run` input builds, signs and archives the `.ipa` without uploading it -
 the only way to exercise the signing path without putting a build on TestFlight.
-It is also the only kind of run allowed to go without a version.
+It is also the only kind of run allowed to go without a version, and the only
+one that leaves no tag.
 
 It needs these repository secrets:
 
@@ -128,3 +132,33 @@ ODR_VERSION=1.36 bundle exec fastlane deployPro
 ODR_VERSION=1.36 bundle exec fastlane deployLite
 ODR_DRY_RUN=true bundle exec fastlane deployPro   # build and sign only
 ```
+
+### Tags
+
+Nothing is triggered by a tag, and no tag is pushed before a build. A version
+often takes more than one build to get through review, so a tag pushed up front
+names a commit that may never ship - which is what happened to `1.37`, whose tag
+points at a commit that was superseded before submission.
+
+Tags are written afterwards instead, in two kinds:
+
+| tag | who writes it | what it means |
+| --- | --- | --- |
+| `build/<flavor>/<version>/<build>` | the workflow, after each upload | this commit was uploaded as that build |
+| `<version>` | you, once the release is live | this is what shipped |
+
+The build tag is per flavor because Pro and Lite count their builds separately:
+one commit uploaded to both apps is two builds with two different numbers. It is
+never moved, and a rebuild simply gets the next number. A lane run locally
+leaves no tag, so an upload made by hand off a laptop is not recorded.
+
+Once a release is live, tag the build that made it rather than whatever is at
+the tip of `main`, so the two cannot drift:
+
+```sh
+git tag 1.38 build/pro/1.38/4^{} && git push origin 1.38
+```
+
+If Pro clears review and Lite does not, wait - the build tags already record
+what went out, so nothing is lost by leaving the version tag until both are
+through.

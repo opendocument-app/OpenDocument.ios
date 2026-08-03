@@ -1,8 +1,13 @@
 name: release
 
-# Uploads to App Store Connect on a version tag, or by hand. The version is the
-# tag: project.pbxproj holds 0.0.0 and the tag reaches xcodebuild as
+# Uploads to App Store Connect by hand. The version is the dispatch input:
+# project.pbxproj holds 0.0.0 and the input reaches xcodebuild as
 # MARKETING_VERSION through fastlane's ODR_VERSION, so a release needs no commit.
+#
+# Nothing here is triggered by a tag. A version can take several builds to get
+# through review, so a tag pushed beforehand names a commit that may never ship;
+# this workflow writes the tags instead, after each upload lands, naming the
+# commit and build number that really went out. See the README.
 on:
   workflow_dispatch:
     inputs:
@@ -14,20 +19,14 @@ on:
           - pro
           - lite
           - both
-      # only for dispatched runs, which have no tag to read
       version:
-        description: version to build, e.g. 1.36 - defaults to the tag
+        description: version to build, e.g. 1.36 - required unless this is a dry run
         type: string
       # exercises the signing path without putting a build on TestFlight
       dry_run:
         description: build and archive only, do not upload
         type: boolean
         default: false
-  push:
-    # bare numbers, as this repo has always used; a v prefix is stripped
-    tags:
-      - '[0-9]*'
-      - 'v[0-9]*'
 
 concurrency:
   # every release run, not just the ones on the same ref: the build number is a
@@ -37,12 +36,12 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  # to tag the commit an upload was built from
+  contents: write
 
 env:
   xcode_version: "26.5"
-  # false on a tag push, which always uploads
-  dry_run: ${{ inputs.dry_run || false }}
+  dry_run: ${{ inputs.dry_run }}
 
 jobs:
   upload:
@@ -51,8 +50,7 @@ jobs:
       fail-fast: true
       max-parallel: 1
       matrix:
-        # the env context is unavailable here, so the tag push fallback is inline
-        flavor: ${{ (!inputs.flavor || inputs.flavor == 'both') && fromJSON('["pro","lite"]') || fromJSON(format('["{0}"]', inputs.flavor)) }}
+        flavor: ${{ inputs.flavor == 'both' && fromJSON('["pro","lite"]') || fromJSON(format('["{0}"]', inputs.flavor)) }}
     steps:
       # a dry run signs too, so it needs the same secrets
       - name: check secrets
@@ -80,11 +78,10 @@ jobs:
       - name: resolve version
         id: version
         # through the environment rather than interpolated into the run: line,
-        # where a tag name or an input would be a shell injection
+        # where the input would be a shell injection
         env:
-          tag: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
           given: ${{ inputs.version }}
-        run: .github/scripts/resolve-version.py --tag "$tag" --input "$given" --dry-run "$dry_run"
+        run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -129,6 +126,7 @@ jobs:
       # one step for both: a dry run builds the same thing and only stops short
       # of the upload
       - name: build and upload to App Store Connect
+        id: build
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
@@ -138,6 +136,43 @@ jobs:
           ODR_VERSION: ${{ steps.version.outputs.version }}
           ODR_DRY_RUN: ${{ env.dry_run }}
         run: bundle exec fastlane ${{ matrix.flavor == 'pro' && 'deployPro' || 'deployLite' }}
+
+      # The record of what went out. Neither half of the version is in the tree
+      # - the input names one, App Store Connect names the other - so without
+      # this nothing connects a build on TestFlight to the commit it came from.
+      #
+      # Per flavor, because Pro and Lite count their builds separately: one
+      # commit uploaded to both apps is two builds with two different numbers.
+      # The plain version tag is not written here; that one means "this is
+      # live", which is known days later. The README has the command.
+      #
+      # success() is spelled out because naming an `if` drops the implicit one,
+      # and a tag claiming an upload that failed is worse than no tag at all.
+      - name: tag the uploaded build
+        if: ${{ success() && env.dry_run != 'true' }}
+        env:
+          version: ${{ steps.version.outputs.version }}
+          build_number: ${{ steps.build.outputs.build_number }}
+          flavor: ${{ matrix.flavor }}
+        run: |
+          if [ -z "$build_number" ]; then
+            echo "::error::the build recorded no number, so the upload cannot be tagged (it did go through)"
+            exit 1
+          fi
+
+          tag="build/$flavor/$version/$build_number"
+          if git ls-remote --exit-code --tags origin "$tag" > /dev/null 2>&1; then
+            echo "::error::$tag is taken, so something has already been uploaded under it (this upload did go through)"
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$tag" -m "$flavor $version, build $build_number
+          uploaded to App Store Connect by $GITHUB_WORKFLOW run $GITHUB_RUN_ID"
+          git push origin "$tag"
+
+          echo "tagged $GITHUB_SHA as $tag" >> "$GITHUB_STEP_SUMMARY"
 
       # gym's log only says the export failed; the reason is in an
       # .xcdistributionlogs bundle under $TMPDIR, which dies with the runner
