@@ -1,0 +1,9 @@
+- Legacy Word, Excel and PowerPoint files (.doc, .xls, .ppt) are read by our own implementation, with character formatting, cell fonts and fills, pictures, slide sizes and slide names
+- Better support for Word tables and line breaks, Excel merged cells and value types, and PowerPoint slide sizes and tables
+- ODF documents: subscript and superscript, percentage line height, first-line indent
+- Pages are rendered when you open them, so documents with many pages, slides or sheets open faster
+- Rewritten page tabs: readable in dark mode, no longer pushed off screen by a long sheet name, and usable with VoiceOver
+- More reliable file type detection
+- The app no longer collects analytics and no longer reports crashes
+- Several crashes fixed, and failures are now reported instead of ending the app
+- Requires iOS 15 or later
