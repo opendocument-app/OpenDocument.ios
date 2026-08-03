@@ -1,0 +1,5 @@
+- Support for the newer ODF encryption scheme
+- Documents follow the system light and dark appearance
+- More accurate colors in Word, Excel and PowerPoint documents
+- An incorrect password is now reported as such
+- Fixes for page handling and decryption of protected documents
