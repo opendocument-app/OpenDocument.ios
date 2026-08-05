@@ -18,6 +18,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 {
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
+    private var hasGatheredConsent = false
     public var transitionController: UIDocumentBrowserTransitionController? {
         didSet {
             if let controller = transitionController {
@@ -139,14 +140,37 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
             bannerView.delegate = self
             bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
             bannerView.rootViewController = self
+        } else {
+            hideBannerView()
+        }
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // the consent form is presented modally, so it has to wait until this controller
+        // is actually in the window hierarchy - viewWillAppear is too early. Both this and
+        // viewWillAppear run again on every reappearance; the ask itself is once per
+        // controller, and UMP only presents a form when it still needs an answer.
+        guard ConfigurationManager.manager.configuration == .lite, !hasGatheredConsent else {
+            return
+        }
+        hasGatheredConsent = true
+
+        ConsentManager.manager.gatherConsent(from: self) { canRequestAds in
+            guard canRequestAds else {
+                self.hideBannerView()
+                return
+            }
+
+            // ATT is Apple's separate question about the IDFA and does not stand in for
+            // consent under the EU rules. It is only worth putting in front of someone who
+            // is going to be shown an ad at all, so it follows the consent form.
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { _ in
                 DispatchQueue.main.async {
                     self.loadBannerAd()
                 }
             })
-        } else {
-            hideBannerView()
         }
     }
 
@@ -190,10 +214,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
     func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
         hideBannerView()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
