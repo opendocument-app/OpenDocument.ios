@@ -8,7 +8,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 Entries go under `Unreleased` as the change lands, in the same pull request.
 This file lives on `main` and only on `main`, so its history stays complete and
-linear; nothing in the build reads it, so `project.pbxproj` keeps its `0.0.0`
+linear; the build reads nothing from it, so `project.pbxproj` keeps its `0.0.0`
 and the version still comes from the dispatch input.
 
 The heading is cut when the release is **submitted**, not when it is live and
@@ -16,6 +16,11 @@ not when anything is tagged, in one pull request on `main` that also writes
 `fastlane/metadata/en-US/changelogs/<version>.txt`. Both pieces of release copy
 land together, and the commit that gets built is then the one whose changelog
 names the version.
+
+The release run reads that section: it refuses a version without one, and makes
+it the body of the GitHub release it drafts. So a version submitted before its
+heading is cut fails in the run's first seconds rather than after both apps are
+uploaded.
 
 If a rebuild is needed after that - review comes back, something is wrong, a
 second build goes up under the same version - **the fix goes under the already
