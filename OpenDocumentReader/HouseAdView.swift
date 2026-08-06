@@ -21,20 +21,32 @@ final class HouseAdView: UIView {
 
     private static let creatives = [
         Creative(
-            shortHeadline: NSLocalizedString("house_ad_support_short", comment: ""),
-            headline: NSLocalizedString("house_ad_support_headline", comment: ""),
-            subline: NSLocalizedString("house_ad_support_subline", comment: ""),
-            callToAction: NSLocalizedString("house_ad_cta_go_pro", comment: "")),
+            shortHeadline: NSLocalizedString(
+                "house_ad_support_short", value: "Support us", comment: ""),
+            headline: NSLocalizedString(
+                "house_ad_support_headline", value: "Support OpenDocument Reader", comment: ""),
+            subline: NSLocalizedString(
+                "house_ad_support_subline", value: "Get Pro — no ads, ever", comment: ""),
+            callToAction: NSLocalizedString(
+                "house_ad_cta_go_pro", value: "Go Pro", comment: "")),
         Creative(
-            shortHeadline: NSLocalizedString("house_ad_adfree_short", comment: ""),
-            headline: NSLocalizedString("house_ad_adfree_headline", comment: ""),
-            subline: NSLocalizedString("house_ad_adfree_subline", comment: ""),
-            callToAction: NSLocalizedString("house_ad_cta_get_pro", comment: "")),
+            shortHeadline: NSLocalizedString(
+                "house_ad_adfree_short", value: "Read without ads", comment: ""),
+            headline: NSLocalizedString(
+                "house_ad_adfree_headline", value: "Read without ads", comment: ""),
+            subline: NSLocalizedString(
+                "house_ad_adfree_subline", value: "ODR Pro — a one-time purchase", comment: ""),
+            callToAction: NSLocalizedString(
+                "house_ad_cta_get_pro", value: "Get Pro", comment: "")),
         Creative(
-            shortHeadline: NSLocalizedString("house_ad_source_short", comment: ""),
-            headline: NSLocalizedString("house_ad_source_headline", comment: ""),
-            subline: NSLocalizedString("house_ad_source_subline", comment: ""),
-            callToAction: NSLocalizedString("house_ad_cta_go_pro", comment: "")),
+            shortHeadline: NSLocalizedString(
+                "house_ad_source_short", value: "Open source", comment: ""),
+            headline: NSLocalizedString(
+                "house_ad_source_headline", value: "Open source, kept free", comment: ""),
+            subline: NSLocalizedString(
+                "house_ad_source_subline", value: "Pro pays for it — and drops the ads", comment: ""),
+            callToAction: NSLocalizedString(
+                "house_ad_cta_go_pro", value: "Go Pro", comment: "")),
     ]
 
     /// Round-robin rather than random, so the three are seen evenly and a session does not repeat
