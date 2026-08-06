@@ -22,8 +22,14 @@ APPS = {
   lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1" },
 }.freeze
 
-# gitignored, and where the release workflow archives the .ipa from
-IPA_DIR = "build".freeze
+# gitignored, and where the release workflow archives the .ipa from.
+#
+# Absolute, because the two halves of a Fastfile disagree about the working
+# directory: fastlane parses this file and runs every lane body in fastlane/,
+# and only chdirs up to the project root around an action. A bare "build" is
+# therefore build/ to gym and fastlane/build/ to a plain File.exist? one line
+# above it. Resolved here, while that directory is still known.
+IPA_DIR = File.expand_path("../build").freeze
 
 def dry_run?
   ENV["ODR_DRY_RUN"].to_s.strip == "true"
