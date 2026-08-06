@@ -33,6 +33,10 @@ final class ConsentManager {
     /// decision to fail in the first place. Treating those errors as a refusal would hide the
     /// banner from users who had already said yes.
     ///
+    /// It is not a report of what the user chose, either: the property says only that an answer
+    /// has been gathered, and "do not consent" is an answer. What that answer allows is
+    /// `adsMayUseAdvertisingIdentifier` below.
+    ///
     /// The completion runs on the main queue.
     func gatherConsent(from viewController: UIViewController, completion: @escaping (Bool) -> Void) {
         requestUpdate { updated in
@@ -64,6 +68,26 @@ final class ConsentManager {
                 completion()
             }
         }
+    }
+
+    /// Whether an ad shown to this user may carry an advertising identifier, and so whether ATT
+    /// has anything to govern.
+    ///
+    /// The CMP writes the TCF signals into `UserDefaults`, as the framework requires. The first
+    /// flag of `IABTCF_PurposeConsents` is purpose 1, storing and reading information on the
+    /// device; without it Google can serve neither personalised nor non-personalised ads and falls
+    /// back to limited ads, which carry no identifier at all. A user who allowed purpose 1 and
+    /// refused the personalisation purposes is still shown ads keyed to the identifier for
+    /// frequency capping and cross-app reporting, which is what ATT actually gates.
+    ///
+    /// True where the keys are absent: outside the TCF regions the identifier is used as it
+    /// always was.
+    var adsMayUseAdvertisingIdentifier: Bool {
+        guard let purposeConsents = UserDefaults.standard.string(forKey: "IABTCF_PurposeConsents") else {
+            return true
+        }
+
+        return purposeConsents.first == "1"
     }
 
     /// Whether this user has a consent choice worth reopening.
@@ -115,7 +139,7 @@ final class ConsentManager {
         let canRequestAds = ConsentInformation.shared.canRequestAds
 
         if !canRequestAds {
-            CrashManager.shared.log("consent does not allow personalised or non-personalised ads; limited ads only")
+            CrashManager.shared.log("no consent gathered; not requesting an ad")
         }
 
         DispatchQueue.main.async {

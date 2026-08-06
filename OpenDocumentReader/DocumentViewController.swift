@@ -159,12 +159,21 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
         ConsentManager.manager.gatherConsent(from: self) { canRequestAds in
             guard canRequestAds else {
-                // Refused, but still worth asking for: the "do not consent" answer emits a TC
-                // string carrying the special purposes, from which Google selects limited ads
-                // server-side - no cookies, no identifiers, no local storage. Showing nothing
-                // here would be stricter than the rules require and costs the fill outright.
+                // No answer on file at all - the form could not be presented, or a first launch
+                // in a region that requires one came up offline. This is not the refusal path:
+                // "do not consent" is still an answer, and leaves this true. With no consent
+                // signal to send, no ad may be requested; a later launch will gather one.
+                self.hideBannerView()
+                return
+            }
+
+            guard ConsentManager.manager.adsMayUseAdvertisingIdentifier else {
+                // Refused, but still worth serving: the answer emits a TC string carrying the
+                // special purposes, from which Google selects limited ads server-side - no
+                // identifiers, no personalisation. Showing nothing here would be stricter than
+                // the rules require and costs the fill outright.
                 //
-                // No ATT on this path. Limited ads use no advertising identifier, so there is
+                // No ATT on this path. A limited ad uses no advertising identifier, so there is
                 // nothing for Apple's question to govern and asking it would contradict the
                 // answer the user just gave.
                 self.loadBannerAd()
