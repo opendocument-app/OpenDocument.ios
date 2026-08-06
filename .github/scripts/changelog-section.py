@@ -2,25 +2,21 @@
 #
 # Prints the CHANGELOG.md section for one version, and fails when there is none.
 #
-# The release run reads it twice: once before building, so a version dispatched
-# without release copy fails in seconds rather than once both apps are on App Store
-# Connect, and once in the record job, which makes that section the body of the
-# drafted github release. Being read by the release it describes is what stops it
-# rotting.
-#
-# OpenDocument.droid has the same script against plain `## 4.13.0` headings.
+# The release run reads it before building, so a version without release copy fails
+# in seconds rather than once both apps are uploaded, and again in the record job,
+# where the section becomes the body of the drafted github release.
 
 import argparse
 import os
 import re
 import sys
 
-# Keep a Changelog: `## [1.37] - 2026-08-02`, and `## [1.38]` while the date is
-# still unknown. Not `###`, which belongs to whichever section it sits in
+# `## [1.37] - 2026-08-02`, and `## [1.38]` while the date is still unknown. Not
+# `###`, which belongs to whichever section it sits in
 HEADING = re.compile(r"^## +\[?([^\]\s]+)\]?(?: *- *.+)?\s*$")
 
-# `[1.37]: https://github.com/...compare/1.36...1.37` - markdown plumbing at the
-# foot of the file, which falls inside the last section but is not release copy
+# `[1.37]: https://github.com/...compare/1.36...1.37` at the foot of the file:
+# inside the last section, but not release copy
 LINK = re.compile(r"^\[[^\]]+\]: +\S+\s*$")
 
 

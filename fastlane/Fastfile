@@ -67,7 +67,7 @@ platform :ios do
     upload_ipa(APPS[:lite]) unless dry_run?
   end
 
-  desc "The build number both apps get, for the workflow to hand to both builds"
+  desc "Print the build number both apps would get"
   lane :resolveBuildNumber do
     key_path = api_key_file
     begin
@@ -90,11 +90,12 @@ platform :ios do
     )
   end
 
-  # An App Store Connect API key replaces the interactive Apple ID login, which is
-  # what kept releases tied to one person's machine. Supply it through ASC_KEY_ID /
-  # ASC_ISSUER_ID / ASC_KEY_CONTENT, the last being the base64 of the .p8.
+  # An App Store Connect API key replaces the interactive Apple ID login, which
+  # is what kept releases tied to one person's machine. Supply it through
+  # ASC_KEY_ID / ASC_ISSUER_ID / ASC_KEY_CONTENT, the last being the base64 of
+  # the .p8 file.
   #
-  # Written to a private temporary file because that is the shape
+  # It is written to a private temporary file because that is the shape
   # app_store_connect_api_key takes it in; every caller removes it again.
   private_lane :api_key_file do
     path = File.join(Dir.mktmpdir("asc-api-key"), "AuthKey_#{ENV.fetch('ASC_KEY_ID')}.p8")
@@ -113,9 +114,9 @@ platform :ios do
     )
   end
 
-  # One above the highest either app has. They share a number on purpose, so that
-  # one (version, build) pair names one commit in both listings - App Store Connect
-  # only requires the number to increase, not to be contiguous.
+  # One above the highest either app has: they share a number, so one
+  # (version, build) pair names one commit in both listings. App Store Connect only
+  # requires the number to increase, not to be contiguous.
   private_lane :next_build_number do |options|
     APPS.values.map { |app|
       latest_testflight_build_number(
@@ -127,9 +128,8 @@ platform :ios do
   end
 
   # ODR_VERSION is the marketing version - the dispatch input in CI, since the
-  # repository has no real one. ODR_BUILD_NUMBER is the number resolved once for
-  # the whole release; unset, this asks App Store Connect itself, which is what a
-  # hand run off a laptop does.
+  # repository has no real one. ODR_BUILD_NUMBER is the number resolved once for the
+  # whole release; unset, this asks App Store Connect itself, as a hand run does.
   #
   # Both come from the environment rather than lane options, which fastlane passes
   # through as strings: `dry_run:false` would arrive as "false" and read as true.
@@ -160,11 +160,11 @@ platform :ios do
       # Signing is manual from here on. Automatic signing has xcodebuild mint
       # distribution assets of its own -- cloud signing, which only an Admin key
       # may do, so the export failed with "Cloud signing permission error" while
-      # the imported certificate went unused. sigh downloads the App Store profile
-      # matching that certificate instead, and both xcodebuild passes are handed
-      # it. Downloading one is something any key may do; creating the profile,
-      # which this also does when the account has none, wants an Admin key - and
-      # fails here, before the build, rather than after it.
+      # the imported certificate went unused. sigh downloads the App Store
+      # profile matching that certificate instead, and both xcodebuild passes
+      # are handed it. Downloading one is something any key may do; creating the
+      # profile, which this also does when the account has none, wants an Admin
+      # key - and fails here, before the build, rather than after it.
       profile_dir = Dir.mktmpdir("provisioning-profile")
       get_provisioning_profile(
         api_key: key,
@@ -197,8 +197,8 @@ platform :ios do
           provisioningProfiles: { options[:app_identifier] => profile_name },
         },
         xcargs: xcargs.join(" "),
-        # a name per flavor: one job builds both, and gym would otherwise write
-        # one over the other
+        # a name per app: one job builds both, and gym would otherwise write one
+        # over the other
         output_directory: IPA_DIR,
         output_name: "#{options[:name]}.ipa"
       )
@@ -208,9 +208,9 @@ platform :ios do
     end
   end
 
-  # Takes the .ipa built earlier rather than building one, so a failed upload can
-  # be retried against the very bytes its other half went up with. Needs no
-  # keychain and no profile: the archive is already signed.
+  # Takes the .ipa built earlier rather than building one, so a failed upload can be
+  # retried against the same bytes. Needs no keychain and no profile: the archive is
+  # already signed.
   private_lane :upload_ipa do |options|
     ipa = File.join(IPA_DIR, "#{options[:name]}.ipa")
     UI.user_error!("no #{ipa} to upload - run the matching build lane first") unless File.exist?(ipa)

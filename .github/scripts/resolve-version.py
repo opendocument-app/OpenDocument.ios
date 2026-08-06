@@ -6,10 +6,9 @@
 #   a version input   that version
 #   no input          only a dry run, on the 0.0.0 in project.pbxproj
 #
-# The version arrives as a dispatch input rather than a tag the run was pushed
-# on. A tag is a promise made before the upload, and one version often takes
-# more than one build to get through review; the tags this repository carries
-# are written afterwards by the release workflow, naming what was really built.
+# It comes from a dispatch input rather than a tag the run was pushed on: a tag
+# would be a promise made before the upload, and a version often takes more than
+# one build to clear review. The workflow writes the tags afterwards instead.
 #
 # The shape is checked here because xcodebuild never checks it: MARKETING_VERSION
 # is a free-form string to the build, so a typo would only surface when App Store
@@ -25,8 +24,7 @@ import re
 import sys
 
 # what CFBundleShortVersionString accepts: one to three numeric parts. A leading
-# v is tolerated and stripped below: the input is typed by hand, and the tags
-# this repository has always used are bare numbers
+# v is tolerated and stripped below, since the input is typed by hand
 VERSION = re.compile(r"^v?[0-9]{1,3}(\.[0-9]{1,3}){0,2}$")
 
 

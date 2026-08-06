@@ -87,9 +87,8 @@ It runs as three jobs:
 | `upload` | one job per app, uploading its `.ipa` |
 | `record` | once both landed: tag the build, draft the GitHub release |
 
-Both apps always go out together, and nothing chooses one. Pro and Lite are the
-same app - the target switches ads and tracking off, nothing else - so anything
-worth rebuilding one for is worth rebuilding the other for.
+Both apps always go out together, and nothing chooses one: Pro and Lite are the
+same app with ads and tracking switched off.
 
 **If one app's upload fails, press "Re-run failed jobs".** Only that upload runs
 again, against the `.ipa` already built and signed - build number included, since
@@ -104,20 +103,18 @@ behind either. Both halves of the version come from outside the tree:
 | `CURRENT_PROJECT_VERSION` (`CFBundleVersion`) | one above the highest build either app has | `1` |
 
 The version in `project.pbxproj` is a placeholder that only local and CI builds
-ever see. Nobody bumps it: a commit on `main` is not a release, and `0.0.0` says
-so. The version has to be above what is live in the store - App Store Connect is
-the only thing that knows what that is, and it rejects the upload otherwise.
+ever see; nobody bumps it, because a commit on `main` is not a release. The
+version has to be above what is live in the store - App Store Connect is the only
+thing that knows what that is, and it rejects the upload otherwise.
 
 The build number is resolved once and given to both apps, so one `(version, build)`
-pair names one commit in both listings. App Store Connect only requires the number
-to increase, not to be contiguous, so whichever app was behind simply skips ahead.
+pair names one commit in both listings. App Store Connect only requires it to
+increase, not to be contiguous, so whichever app was behind skips ahead.
 
 `.github/scripts/resolve-version.py` decides which version a run builds and
-refuses runs that cannot name one. Before building, the run also refuses a version
-with no `CHANGELOG.md` section - that section becomes the release body, and finding
-it missing afterwards leaves nothing to fix but the version number;
-`changelog-section.py` is what reads it. Run either by hand to see what a dispatch
-would do.
+refuses runs that cannot name one; `changelog-section.py` refuses a version with
+no `CHANGELOG.md` section, before anything is built, since that section becomes
+the release body. Run either by hand to see what a dispatch would do.
 
 The `dry_run` input builds, signs and archives both `.ipa`s without uploading
 either - the only way to exercise the signing path without putting a build on
@@ -162,40 +159,31 @@ one, and `resolveBuildNumber` prints the number both apps would get.
 
 ### Tags
 
-Nothing is triggered by a tag, and no tag is pushed before a build. A version
+Nothing is triggered by a tag, and no tag is pushed before a build: a version
 often takes more than one build to get through review, so a tag pushed up front
-names a commit that may never ship - which is what happened to `1.37`, whose tag
-points at a commit that was superseded before submission.
-
-Tags are written afterwards instead, in two kinds:
+names a commit that may never ship. That is what happened to `1.37`. Tags are
+written afterwards instead, in two kinds:
 
 | tag | who writes it | what it means |
 | --- | --- | --- |
 | `build/<version>/<build>` | the workflow, once both apps are up | this commit was uploaded as that build |
 | `<version>` | publishing the drafted release | this is what shipped |
 
-One build tag, not one per app: both share a build number, so there is one
-`(version, build)` pair and one commit to name. It is never moved, and a rebuild
-simply gets the next number - a version that takes three builds to clear review
-leaves three build tags, which is the point of having the number in there. A half
-uploaded release gets no tag at all, and a lane run locally leaves none either, so
-an upload made by hand off a laptop is not recorded.
+One build tag, not one per app, since both share a build number. It is never
+moved: a rebuild gets the next number, so a version that takes three builds to
+clear review leaves three build tags. A half uploaded release gets none, and
+neither does a lane run locally.
 
 **The version tag is written neither by hand nor by the workflow.** `record` drafts
-a GitHub release named `<version>` pointing at the built commit. A draft creates no
-tag; publishing it does, at exactly that commit:
+a GitHub release named `<version>` - the changelog section with the generated list
+of pull requests below it - pointing at the built commit. A draft creates no tag;
+publishing it does, at exactly that commit:
 
 ```sh
 gh release edit 1.38 --draft=false
 ```
 
-That is the whole manual step, and it stays human because App Store Connect is the
-only thing that knows a build passed review and went live. A rebuild re-points the
-same draft rather than making a second one.
-
-The release body is the version's `CHANGELOG.md` section with the generated list of
-pull requests below it.
-
-If Pro clears review and Lite does not, wait - the build tags already record
-what went out, so nothing is lost by leaving the version tag until both are
-through.
+That step stays human because App Store Connect is the only thing that knows a
+build went live. A rebuild re-points the same draft rather than making a second
+one, and if Pro clears review while Lite does not, wait: the build tags already
+record what went out.

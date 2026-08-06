@@ -7,27 +7,18 @@ shipped them.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 Entries go under `Unreleased` as the change lands, in the same pull request.
-This file lives on `main` and only on `main`, so its history stays complete and
-linear; the build reads nothing from it, so `project.pbxproj` keeps its `0.0.0`
-and the version still comes from the dispatch input.
+This file lives on `main` and only on `main`. Nothing in the build reads it, so
+`project.pbxproj` keeps its `0.0.0` and the version comes from the dispatch
+input.
 
-The heading is cut when the release is **submitted**, not when it is live and
-not when anything is tagged, in one pull request on `main` that also writes
-`fastlane/metadata/en-US/changelogs/<version>.txt`. Both pieces of release copy
-land together, and the commit that gets built is then the one whose changelog
-names the version.
+The heading is cut when the release is **submitted**, in one pull request that
+also writes `fastlane/metadata/en-US/changelogs/<version>.txt`. The release run
+refuses a version with no section here, and makes that section the body of the
+GitHub release it drafts.
 
-The release run reads that section: it refuses a version without one, and makes
-it the body of the GitHub release it drafts. So a version submitted before its
-heading is cut fails in the run's first seconds rather than after both apps are
-uploaded.
-
-If a rebuild is needed after that - review comes back, something is wrong, a
-second build goes up under the same version - **the fix goes under the already
-cut heading, not back under `Unreleased`.** The version has not been released
-yet, so the section is still open, and the fix really did ship in it. Date the
-heading when the release goes live, and point its compare link at the version
-tag, which the README explains is written once the release is actually out.
+Until the release is out the section stays open: **a second build under the same
+version goes under the already cut heading, not back under `Unreleased`.** Date
+the heading and point its compare link at the version tag once it is live.
 
 The copy that App Store Connect shows under "What's New" is a different, shorter
 register. It is pasted into App Store Connect at submission time; see the README

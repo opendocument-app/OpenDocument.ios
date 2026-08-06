@@ -1,22 +1,9 @@
 name: release
 
 # Builds both apps once, uploads each to App Store Connect, then records what went
-# out. Three jobs, because that is what makes a half uploaded release repairable:
-# if Lite's upload fails alone, "Re-run failed jobs" retries just that job against
-# the .ipa already built and signed - build number included, since it is baked in
-# at archive time.
-#
-# Both apps always go out together and nothing chooses one. They are the same app
-# with ads and tracking switched off, and they share a build number so that one
-# (version, build) pair names one commit in both listings.
-#
-# Nothing is triggered by a tag. A version can take several builds to get through
-# review, so a tag pushed beforehand names a commit that may never ship;
-# build/<version>/<build> is written after each upload, and the plain <version> tag
-# appears only when the drafted release is published, once it is really live.
-#
-# project.pbxproj holds 0.0.0 and 1: the version comes from the dispatch input and
-# the build number from App Store Connect, so a release needs no commit.
+# out. Split in three so that "Re-run failed jobs" can repair one failed upload
+# against the .ipa already built and signed. Both apps go out together and share a
+# build number; tags are written afterwards, never before. See the README.
 
 on:
   workflow_dispatch:
@@ -31,8 +18,8 @@ on:
 
 concurrency:
   # every release run, not just the ones on the same ref: the build number is a
-  # live query of what TestFlight has, so two overlapping runs would read the same
-  # one and hand the second upload a pair the store has already taken
+  # live query of what TestFlight has, so two overlapping runs would read the
+  # same one and hand the second upload a pair the store has already taken
   group: ${{ github.workflow }}
   cancel-in-progress: false
 
@@ -78,9 +65,7 @@ jobs:
           given: ${{ inputs.version }}
         run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
 
-      # whenever there is a version, dry run or not: the record job publishes this
-      # section as the release body, and a dry run is the rehearsal for that. no
-      # build tag is checked - unlike Android, a second build of one version is normal
+      # this section becomes the release body, so a dry run checks it too
       - name: check the changelog names this version
         if: ${{ steps.version.outputs.version != '' }}
         env:
@@ -128,7 +113,7 @@ jobs:
           fi
 
       # once, for both: querying again after Pro's upload would hand Lite a higher
-      # number and lose the very thing sharing one is for
+      # number
       - name: resolve build number
         id: build_number
         env:
@@ -142,8 +127,8 @@ jobs:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
-          # environment rather than lane options, which fastlane passes through as
-          # strings - a false would arrive as "false" and read as true
+          # environment rather than lane options, which fastlane passes through
+          # as strings - a false would arrive as "false" and read as true
           ODR_VERSION: ${{ steps.version.outputs.version }}
           ODR_DRY_RUN: ${{ env.dry_run }}
           ODR_BUILD_NUMBER: ${{ steps.build_number.outputs.build_number }}
@@ -151,9 +136,8 @@ jobs:
         run: |
           bundle exec fastlane ios buildPro
           bundle exec fastlane ios buildLite
-          # travels with the archives: the record job cannot re-derive this the way
-          # it re-derives the version, and a job output of a job that a re-run did
-          # not repeat is not something to depend on
+          # travels with the archives: a re-run may not repeat this job, so record
+          # cannot depend on its outputs
           echo "$number" > build-number.txt
 
       # archived on a dry run too - that is how the signing path gets exercised
@@ -186,8 +170,7 @@ jobs:
             build/*.app.dSYM.zip
           if-no-files-found: warn
 
-  # a job per app rather than two calls in one, so "Re-run failed jobs" can retry
-  # one half. fail-fast off for the same reason
+  # a job per app, fail-fast off, so "Re-run failed jobs" can retry one half
   upload:
     needs: build
     if: ${{ !inputs.dry_run }}
@@ -222,7 +205,7 @@ jobs:
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
         run: bundle exec fastlane ios ${{ matrix.lane }}
 
-  # only once both apps are up, so a half uploaded release is not recorded at all
+  # only once both apps are up: a half uploaded release is not recorded
   record:
     needs: upload
     if: ${{ !inputs.dry_run }}
@@ -233,8 +216,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v7
 
-      # re-resolved rather than carried as a job output: a re-run may not repeat
-      # the job that produced it, while the dispatch input is the same every time
+      # re-resolved rather than carried over: the input is the same every time
       - name: resolve version
         id: version
         env:
@@ -255,8 +237,8 @@ jobs:
 
           tag="build/$version/$build_number"
 
-          # this job re-running behind a repaired upload is expected, so an
-          # existing tag is only wrong when it names a different commit
+          # a re-run behind a repaired upload is expected, so an existing tag is
+          # only wrong when it names a different commit
           if git ls-remote --exit-code --tags origin "$tag" > /dev/null 2>&1; then
             git fetch --no-tags origin "refs/tags/$tag:refs/tags/$tag"
             already=$(git rev-list -n1 "$tag")
@@ -275,10 +257,8 @@ jobs:
           fi
           echo "\`$GITHUB_SHA\` is \`$tag\`" >> "$GITHUB_STEP_SUMMARY"
 
-      # a draft creates no tag; publishing it does. --target takes the sha rather
-      # than a branch, which would resolve to whatever main had become by then.
-      # updated rather than created twice when a version needs another build to
-      # clear review
+      # a draft creates no tag; publishing it does. --target takes the sha, not a
+      # branch, which would resolve to whatever main had become by then
       - name: draft the github release
         env:
           GH_TOKEN: ${{ github.token }}
