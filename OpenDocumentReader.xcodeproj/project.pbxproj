@@ -20,6 +20,7 @@
 		AC384BCF23B4FFA700C7BF47 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */; };
 		ACA46529244E403900A5DA7A /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA46528244E403900A5DA7A /* AppType.swift */; };
 		ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */; };
+		C0A5E1200000000000000001 /* HouseAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5E1200000000000000002 /* HouseAdView.swift */; };
 		BFFB694BE9E3E744FD4F92E0 /* CrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACB597DDB073F3AFC74345 /* CrashManager.swift */; };
 		C43B65A97E4029F7790DA729 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C00CD0A89EF1F64FF879A1 /* CoreWrapper.swift */; };
 		D2DCD7104EBCC0F1A784E116 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = B5F033C5AA89A6E9C19EA27D /* GoogleMobileAds */; };
@@ -87,6 +88,7 @@
 		AC73790F2438E52B00F9F3B5 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ACA46528244E403900A5DA7A /* AppType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppType.swift; sourceTree = "<group>"; };
 		ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		C0A5E1200000000000000002 /* HouseAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseAdView.swift; sourceTree = "<group>"; };
 		ACF1A3E42469F8DE000BA420 /* Info-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Lite.plist"; sourceTree = "<group>"; };
 		B01C1B2BA00A7917FF7D7726 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B94897965C815527C6C06996 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				AC384BC923B4FFA700C7BF47 /* ContentViewController.swift */,
 				AC384BCB23B4FFA700C7BF47 /* PageViewController.swift */,
 				ACD9BE2D2444A371009014E6 /* ConfigurationManager.swift */,
+				C0A5E1200000000000000002 /* HouseAdView.swift */,
 				E22EB717226B633500053B86 /* Document.swift */,
 				E22EB71B226B66B300053B86 /* Main.storyboard */,
 				E2F7ED5D220B54D700D63515 /* Assets.xcassets */,
@@ -410,6 +413,7 @@
 				E22EB716226B621200053B86 /* DocumentBrowserTransitioningDelegate.swift in Sources */,
 				ACA46529244E403900A5DA7A /* AppType.swift in Sources */,
 				ACD9BE3C2444A371009014E6 /* ConfigurationManager.swift in Sources */,
+				C0A5E1200000000000000001 /* HouseAdView.swift in Sources */,
 				AC384BCE23B4FFA700C7BF47 /* Constants.swift in Sources */,
 				E2F7ED55220B54D600D63515 /* DocumentBrowserViewController.swift in Sources */,
 				E2F7ED53220B54D600D63515 /* AppDelegate.swift in Sources */,
