@@ -53,7 +53,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         ConsentManager.manager.refresh {
             let item = UIBarButtonItem(
-                title: NSLocalizedString("privacy", comment: ""),
+                title: NSLocalizedString("privacy", value: "Privacy", comment: ""),
                 style: .plain,
                 target: self,
                 action: #selector(self.showPrivacyOptions(_:))
@@ -65,19 +65,25 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     @objc private func showPrivacyOptions(_ sender: UIBarButtonItem) {
         let sheet = UIAlertController(
-            title: NSLocalizedString("privacy", comment: ""), message: nil, preferredStyle: .actionSheet)
+            title: NSLocalizedString("privacy", value: "Privacy", comment: ""), message: nil,
+            preferredStyle: .actionSheet)
 
         // absent outside the regions UMP has a message configured for, where there is no
         // decision on file and nothing for the form to show
         if ConsentManager.manager.privacyOptionsRequired {
             sheet.addAction(
-                UIAlertAction(title: NSLocalizedString("privacy_ad_choices", comment: ""), style: .default) { _ in
+                UIAlertAction(
+                    title: NSLocalizedString("privacy_ad_choices", value: "Ad privacy choices", comment: ""),
+                    style: .default
+                ) { _ in
                     ConsentManager.manager.presentPrivacyOptions(from: self) {}
                 })
         }
 
         sheet.addAction(
-            UIAlertAction(title: NSLocalizedString("privacy_tracking", comment: ""), style: .default) { _ in
+            UIAlertAction(
+                title: NSLocalizedString("privacy_tracking", value: "Tracking permission", comment: ""), style: .default
+            ) { _ in
                 self.showTrackingPermissionHint()
             })
 
@@ -92,13 +98,19 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     /// ATT cannot be asked twice, so the only way back is the Settings app.
     private func showTrackingPermissionHint() {
         let alert = UIAlertController(
-            title: NSLocalizedString("privacy_tracking", comment: ""),
-            message: NSLocalizedString("privacy_tracking_message", comment: ""),
+            title: NSLocalizedString("privacy_tracking", value: "Tracking permission", comment: ""),
+            message: NSLocalizedString(
+                "privacy_tracking_message",
+                value:
+                    "iOS asks for tracking permission once. You can change it any time in Settings, under Privacy & Security → Tracking. Changing it there closes the app.",
+                comment: ""),
             preferredStyle: .alert
         )
 
         alert.addAction(
-            UIAlertAction(title: NSLocalizedString("privacy_open_settings", comment: ""), style: .default) { _ in
+            UIAlertAction(
+                title: NSLocalizedString("privacy_open_settings", value: "Open Settings", comment: ""), style: .default
+            ) { _ in
                 guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
 
                 UIApplication.shared.open(url)
