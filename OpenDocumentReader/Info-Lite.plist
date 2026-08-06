@@ -65,8 +65,10 @@
 	</dict>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Copy image from document to your Photos</string>
+	<!-- Not Google's sample string: it shipped in 1.37 build 44 and App Review
+	     rejected it under 5.1.1 as placeholder. Name the use, give an example. -->
 	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you.</string>
+	<string>Uses your device's advertising identifier to personalize the ad banner above your document — for example, office and productivity apps rather than unrelated ones. Decline and untailored ads are shown instead.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
