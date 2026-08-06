@@ -26,8 +26,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         StoreReviewHelper.checkAndAskForReview()
 
-        // ahead of the intro guard below: this has to run on every launch, and most launches
-        // return there
+        // ahead of the intro guard below, which most launches return at
         refreshPrivacyButton()
 
         let userDefaults = UserDefaults.standard
@@ -43,11 +42,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     // MARK: - Privacy
 
-    /// Brings consent up to date and then shows or hides the entry point that reopens it.
+    /// Brings consent up to date and then offers the way back to it.
     ///
-    /// The app has no settings screen, so the browser's own chrome carries this. It is the only
-    /// route back to either choice: the consent form is shown once, and ATT is one-shot per
-    /// install.
+    /// The app has no settings screen, so the browser's chrome carries this - the only route back
+    /// to either choice, both of which are asked once.
     private func refreshPrivacyButton() {
         guard ConfigurationManager.manager.configuration == .lite else { return }
 
@@ -68,8 +66,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             title: NSLocalizedString("privacy", value: "Privacy", comment: ""), message: nil,
             preferredStyle: .actionSheet)
 
-        // absent outside the regions UMP has a message configured for, where there is no
-        // decision on file and nothing for the form to show
+        // absent where UMP has no message configured, and so nothing to show
         if ConsentManager.manager.privacyOptionsRequired {
             sheet.addAction(
                 UIAlertAction(

@@ -148,10 +148,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // the consent form is presented modally, so it has to wait until this controller
-        // is actually in the window hierarchy - viewWillAppear is too early. Both this and
-        // viewWillAppear run again on every reappearance; the ask itself is once per
-        // controller, and UMP only presents a form when it still needs an answer.
+        // the form is modal, so it has to wait for the window hierarchy - viewWillAppear is
+        // too early. This runs again on every reappearance, hence the flag.
         guard ConfigurationManager.manager.configuration == .lite, !hasGatheredConsent else {
             return
         }
@@ -159,34 +157,22 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
         ConsentManager.manager.gatherConsent(from: self) { canRequestAds in
             guard canRequestAds else {
-                // No answer on file at all - the form could not be presented, or a first launch
-                // in a region that requires one came up offline. This is not the refusal path:
-                // "do not consent" is still an answer, and leaves this true. With no consent
-                // signal to send, no ad may be requested; a later launch will gather one.
+                // nothing on file - the form failed, or a first launch offline where one is
+                // required. Not refusal: "do not consent" is an answer and leaves this true.
                 self.hideBannerView()
                 return
             }
 
             guard ConsentManager.manager.adsMayUseAdvertisingIdentifier else {
-                // Refused, but still worth serving: the answer emits a TC string carrying the
-                // special purposes, from which Google selects limited ads server-side - no
-                // identifiers, no personalisation. Showing nothing here would be stricter than
-                // the rules require and costs the fill outright.
-                //
-                // No ATT on this path. A limited ad uses no advertising identifier, so there is
-                // nothing for Apple's question to govern and asking it would contradict the
-                // answer the user just gave.
+                // refused, and still worth serving: Google selects limited ads server-side from
+                // the TC string's special purposes, and showing nothing would be stricter than
+                // the rules require. No ATT - a limited ad carries no identifier to govern.
                 self.loadBannerAd()
                 return
             }
 
-            // ATT is Apple's separate question about the IDFA and does not stand in for
-            // consent under the EU rules. It is only worth putting in front of someone who
-            // is going to be shown an ad at all, so it follows the consent form.
-            //
-            // Asked even when the user allowed storage but refused personalisation: a
-            // non-personalised ad still uses the identifier for frequency capping and
-            // aggregated reporting across apps, which is what ATT actually gates.
+            // ATT asks about the IDFA and is no substitute for consent under the EU rules, so
+            // it follows the form, and only for users who get an ad.
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { _ in
                 DispatchQueue.main.async {
                     self.loadBannerAd()
