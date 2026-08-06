@@ -66,3 +66,4 @@ fastlane/report.xml
 
 graph_info.json
 .venv/
+__pycache__/

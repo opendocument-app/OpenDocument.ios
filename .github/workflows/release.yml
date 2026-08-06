@@ -1,33 +1,20 @@
 name: release
 
-# Uploads to App Store Connect on a version tag, or by hand. The version is the
-# tag: project.pbxproj holds 0.0.0 and the tag reaches xcodebuild as
-# MARKETING_VERSION through fastlane's ODR_VERSION, so a release needs no commit.
+# Builds both apps once, uploads each to App Store Connect, then records what went
+# out. Split in three so that "Re-run failed jobs" can repair one failed upload
+# against the .ipa already built and signed. Both apps go out together and share a
+# build number; tags are written afterwards, never before. See the README.
+
 on:
   workflow_dispatch:
     inputs:
-      flavor:
-        description: which app to build
-        type: choice
-        default: both
-        options:
-          - pro
-          - lite
-          - both
-      # only for dispatched runs, which have no tag to read
       version:
-        description: version to build, e.g. 1.36 - defaults to the tag
+        description: version to build, e.g. 1.36 - required unless this is a dry run
         type: string
-      # exercises the signing path without putting a build on TestFlight
       dry_run:
         description: build and archive only, do not upload
         type: boolean
         default: false
-  push:
-    # bare numbers, as this repo has always used; a v prefix is stripped
-    tags:
-      - '[0-9]*'
-      - 'v[0-9]*'
 
 concurrency:
   # every release run, not just the ones on the same ref: the build number is a
@@ -41,18 +28,11 @@ permissions:
 
 env:
   xcode_version: "26.5"
-  # false on a tag push, which always uploads
-  dry_run: ${{ inputs.dry_run || false }}
+  dry_run: ${{ inputs.dry_run }}
 
 jobs:
-  upload:
+  build:
     runs-on: macos-26
-    strategy:
-      fail-fast: true
-      max-parallel: 1
-      matrix:
-        # the env context is unavailable here, so the tag push fallback is inline
-        flavor: ${{ (!inputs.flavor || inputs.flavor == 'both') && fromJSON('["pro","lite"]') || fromJSON(format('["{0}"]', inputs.flavor)) }}
     steps:
       # a dry run signs too, so it needs the same secrets
       - name: check secrets
@@ -79,12 +59,18 @@ jobs:
       # minutes of setup and building rather than after
       - name: resolve version
         id: version
-        # through the environment rather than interpolated into the run: line,
-        # where a tag name or an input would be a shell injection
+        # through the environment rather than the run: line, where the input would
+        # be a shell injection
         env:
-          tag: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
           given: ${{ inputs.version }}
-        run: .github/scripts/resolve-version.py --tag "$tag" --input "$given" --dry-run "$dry_run"
+        run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
+
+      # this section becomes the release body, so a dry run checks it too
+      - name: check the changelog names this version
+        if: ${{ steps.version.outputs.version != '' }}
+        env:
+          version: ${{ steps.version.outputs.version }}
+        run: .github/scripts/changelog-section.py --version "$version" > /dev/null
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -126,9 +112,17 @@ jobs:
             exit 1
           fi
 
-      # one step for both: a dry run builds the same thing and only stops short
-      # of the upload
-      - name: build and upload to App Store Connect
+      # once, for both: querying again after Pro's upload would hand Lite a higher
+      # number
+      - name: resolve build number
+        id: build_number
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+        run: bundle exec fastlane ios resolveBuildNumber
+
+      - name: build both apps
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
@@ -137,7 +131,25 @@ jobs:
           # as strings - a false would arrive as "false" and read as true
           ODR_VERSION: ${{ steps.version.outputs.version }}
           ODR_DRY_RUN: ${{ env.dry_run }}
-        run: bundle exec fastlane ${{ matrix.flavor == 'pro' && 'deployPro' || 'deployLite' }}
+          ODR_BUILD_NUMBER: ${{ steps.build_number.outputs.build_number }}
+          number: ${{ steps.build_number.outputs.build_number }}
+        run: |
+          bundle exec fastlane ios buildPro
+          bundle exec fastlane ios buildLite
+          # travels with the archives: a re-run may not repeat this job, so record
+          # cannot depend on its outputs
+          echo "$number" > build-number.txt
+
+      # archived on a dry run too - that is how the signing path gets exercised
+      - name: Artifact ipas
+        uses: actions/upload-artifact@v7
+        with:
+          name: ipas
+          path: |
+            build/*.ipa
+            build-number.txt
+          if-no-files-found: error
+          compression-level: 0
 
       # gym's log only says the export failed; the reason is in an
       # .xcdistributionlogs bundle under $TMPDIR, which dies with the runner
@@ -151,10 +163,119 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: build-log-${{ matrix.flavor }}
+          name: build-log
           path: |
             ~/Library/Logs/gym
             distribution-logs
-            *.ipa
-            *.app.dSYM.zip
+            build/*.app.dSYM.zip
           if-no-files-found: warn
+
+  # a job per app, fail-fast off, so "Re-run failed jobs" can retry one half
+  upload:
+    needs: build
+    if: ${{ !inputs.dry_run }}
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: pro
+            lane: uploadPro
+          - app: lite
+            lane: uploadLite
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      # back to build/, where upload_ipa looks for it
+      - name: fetch the ipas
+        uses: actions/download-artifact@v8
+        with:
+          name: ipas
+
+      # no keychain and no profile: the archive is signed already
+      - name: upload ${{ matrix.app }} to App Store Connect
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+        run: bundle exec fastlane ios ${{ matrix.lane }}
+
+  # only once both apps are up: a half uploaded release is not recorded
+  record:
+    needs: upload
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      # re-resolved rather than carried over: the input is the same every time
+      - name: resolve version
+        id: version
+        env:
+          given: ${{ inputs.version }}
+        run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
+
+      - name: fetch the ipas
+        uses: actions/download-artifact@v8
+        with:
+          name: ipas
+
+      - name: tag the build that went out
+        env:
+          version: ${{ steps.version.outputs.version }}
+        run: |
+          build_number=$(cat build-number.txt)
+          [ -n "$build_number" ] || { echo "::error::build-number.txt is empty"; exit 1; }
+
+          tag="build/$version/$build_number"
+
+          # a re-run behind a repaired upload is expected, so an existing tag is
+          # only wrong when it names a different commit
+          if git ls-remote --exit-code --tags origin "$tag" > /dev/null 2>&1; then
+            git fetch --no-tags origin "refs/tags/$tag:refs/tags/$tag"
+            already=$(git rev-list -n1 "$tag")
+            if [ "$already" != "$GITHUB_SHA" ]; then
+              echo "::error::$tag already names $already, not $GITHUB_SHA (this upload did go through)"
+              exit 1
+            fi
+            echo "$tag was already written by an earlier attempt"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$tag" \
+              -m "$version, build $build_number, uploaded to App Store Connect" \
+              -m "run: $GITHUB_RUN_ID"
+            git push origin "$tag"
+          fi
+          echo "\`$GITHUB_SHA\` is \`$tag\`" >> "$GITHUB_STEP_SUMMARY"
+
+      # a draft creates no tag; publishing it does. --target takes the sha, not a
+      # branch, which would resolve to whatever main had become by then
+      - name: draft the github release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          version: ${{ steps.version.outputs.version }}
+        run: |
+          .github/scripts/changelog-section.py --version "$version" > "${RUNNER_TEMP}/notes.md"
+
+          if gh release view "$version" > /dev/null 2>&1; then
+            gh release edit "$version" --target "$GITHUB_SHA" --notes-file "${RUNNER_TEMP}/notes.md"
+          else
+            # --generate-notes appends the pull requests below the changelog section
+            gh release create "$version" \
+              --draft \
+              --target "$GITHUB_SHA" \
+              --title "$version" \
+              --notes-file "${RUNNER_TEMP}/notes.md" \
+              --generate-notes
+          fi
+
+          echo "drafted \`$version\`. publishing it writes the tag - do that once it is live." >> "$GITHUB_STEP_SUMMARY"

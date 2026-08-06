@@ -7,13 +7,22 @@ shipped them.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 Entries go under `Unreleased` as the change lands, in the same pull request.
-Cutting a release renames that heading to the version and adds its compare
-link; nothing in the build reads this file, so `project.pbxproj` keeps its
-`0.0.0` and the version still comes from the tag.
+This file lives on `main` and only on `main`. Nothing in the build reads it, so
+`project.pbxproj` keeps its `0.0.0` and the version comes from the dispatch
+input.
+
+The heading is cut when the release is **submitted**, in one pull request that
+also writes `fastlane/metadata/en-US/changelogs/<version>.txt`. The release run
+refuses a version with no section here, and makes that section the body of the
+GitHub release it drafts.
+
+Until the release is out the section stays open: **a second build under the same
+version goes under the already cut heading, not back under `Unreleased`.** Date
+the heading and point its compare link at the version tag once it is live.
 
 The copy that App Store Connect shows under "What's New" is a different, shorter
-register, and lives in `fastlane/metadata/en-US/changelogs/<version>.txt`. It is
-pasted into App Store Connect at submission time; see the README there.
+register. It is pasted into App Store Connect at submission time; see the README
+there.
 
 ## [Unreleased]
 
