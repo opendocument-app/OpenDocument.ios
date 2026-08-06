@@ -159,13 +159,25 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
         ConsentManager.manager.gatherConsent(from: self) { canRequestAds in
             guard canRequestAds else {
-                self.hideBannerView()
+                // Refused, but still worth asking for: the "do not consent" answer emits a TC
+                // string carrying the special purposes, from which Google selects limited ads
+                // server-side - no cookies, no identifiers, no local storage. Showing nothing
+                // here would be stricter than the rules require and costs the fill outright.
+                //
+                // No ATT on this path. Limited ads use no advertising identifier, so there is
+                // nothing for Apple's question to govern and asking it would contradict the
+                // answer the user just gave.
+                self.loadBannerAd()
                 return
             }
 
             // ATT is Apple's separate question about the IDFA and does not stand in for
             // consent under the EU rules. It is only worth putting in front of someone who
             // is going to be shown an ad at all, so it follows the consent form.
+            //
+            // Asked even when the user allowed storage but refused personalisation: a
+            // non-personalised ad still uses the identifier for frequency capping and
+            // aggregated reporting across apps, which is what ATT actually gates.
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { _ in
                 DispatchQueue.main.async {
                     self.loadBannerAd()

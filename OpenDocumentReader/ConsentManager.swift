@@ -35,22 +35,15 @@ final class ConsentManager {
     ///
     /// The completion runs on the main queue.
     func gatherConsent(from viewController: UIViewController, completion: @escaping (Bool) -> Void) {
-        let parameters = RequestParameters()
-        parameters.isTaggedForUnderAgeOfConsent = false
-
-        ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { requestError in
-            if let requestError = requestError {
-                // fires for the mundane offline case too - a device that was asleep
-                // times out against fundingchoicesmessages.google.com
-                print("consent info update failed: \(requestError.localizedDescription)")
-
+        requestUpdate { updated in
+            guard updated else {
                 self.finish(completion)
                 return
             }
 
             ConsentForm.loadAndPresentIfRequired(from: viewController) { formError in
                 if let formError = formError {
-                    print("consent form failed: \(formError.localizedDescription)")
+                    CrashManager.shared.log("consent form failed: \(formError.localizedDescription)")
                 }
 
                 self.finish(completion)
@@ -58,11 +51,71 @@ final class ConsentManager {
         }
     }
 
+    /// Brings consent up to date without ever presenting a form.
+    ///
+    /// Runs on every launch from the document browser, because `privacyOptionsRequirementStatus`
+    /// and `canRequestAds` answer from a cache that is only filled by an update completing in the
+    /// *current* session. Skip it and the privacy entry point disappears on the second launch.
+    ///
+    /// The completion runs on the main queue.
+    func refresh(completion: @escaping () -> Void) {
+        requestUpdate { _ in
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
+
+    /// Whether this user has a consent choice worth reopening.
+    ///
+    /// False outside the regions where a form is configured at all - there is nothing to show, so
+    /// the entry point offering it should not be there either.
+    var privacyOptionsRequired: Bool {
+        ConsentInformation.shared.privacyOptionsRequirementStatus == .required
+    }
+
+    /// Reopens the consent form so a decision can be changed or withdrawn.
+    ///
+    /// GDPR Art. 7(3) wants withdrawing consent to be as easy as giving it, and TCF requires the
+    /// CMP to be reachable again. Only call this in response to the user asking for it.
+    ///
+    /// The completion runs on the main queue.
+    func presentPrivacyOptions(from viewController: UIViewController, completion: @escaping () -> Void) {
+        ConsentForm.presentPrivacyOptionsForm(from: viewController) { formError in
+            if let formError = formError {
+                CrashManager.shared.log("privacy options form failed: \(formError.localizedDescription)")
+            }
+
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
+
+    /// Reports whether the update succeeded; a failure is logged, never treated as a refusal.
+    private func requestUpdate(_ completion: @escaping (Bool) -> Void) {
+        let parameters = RequestParameters()
+        parameters.isTaggedForUnderAgeOfConsent = false
+
+        ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { requestError in
+            if let requestError = requestError {
+                // fires for the mundane offline case too - a device that was asleep
+                // times out against fundingchoicesmessages.google.com
+                CrashManager.shared.log("consent info update failed: \(requestError.localizedDescription)")
+
+                completion(false)
+                return
+            }
+
+            completion(true)
+        }
+    }
+
     private func finish(_ completion: @escaping (Bool) -> Void) {
         let canRequestAds = ConsentInformation.shared.canRequestAds
 
         if !canRequestAds {
-            print("consent does not allow requesting ads")
+            CrashManager.shared.log("consent does not allow personalised or non-personalised ads; limited ads only")
         }
 
         DispatchQueue.main.async {
