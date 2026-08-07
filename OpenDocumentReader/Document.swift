@@ -12,7 +12,6 @@ protocol DocumentDelegate: AnyObject {
 
 enum DocumentError: Error {
     case getHtml
-    case backTranslate
     /// odrcore accepted the document but could not serve one of its pages.
     case pageNotServed
 }
@@ -30,8 +29,8 @@ class Document: UIDocument {
 
     public var page: Int = 0 {
         didSet {
-            // every page of the document already has an address, so turning to
-            // one is picking a URL rather than translating the file again
+            // every page already has an address, so turning to one picks a URL
+            // rather than translating the file again
             showPage()
         }
     }
@@ -51,31 +50,27 @@ class Document: UIDocument {
     public var isOdf = false
     private var wasPageCountAnnounced = false
 
-    override init(fileURL url: URL) {
-        super.init(fileURL: url)
-    }
-
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
         parse()
     }
 
     func parse() {
-        delegate?.documentLoadingStarted(self)
+        notify { $0.documentLoadingStarted(self) }
 
         loadProgress.completedUnitCount = 2
 
+        isOdf = false
         result = nil
         pageURLs = nil
-        delegate?.documentUpdateContent(self)
+        notify { $0.documentUpdateContent(self) }
 
-        let cachePath = URL(fileURLWithPath: NSTemporaryDirectory())
-        let outputPath = URL(fileURLWithPath: NSTemporaryDirectory())
+        let temporaryDirectory = NSTemporaryDirectory()
 
         do {
             try coreWrapper.translate(
                 fileURL.path,
-                cache: cachePath.path,
-                into: outputPath.path,
+                cache: temporaryDirectory,
+                into: temporaryDirectory,
                 with: password,
                 editable: edit
             )
@@ -83,11 +78,11 @@ class Document: UIDocument {
             where error.domain == CoreWrapperErrorDomain
             && error.code == CoreWrapperError.wrongPassword.rawValue
         {
-            delegate?.documentEncrypted(self)
+            notify { $0.documentEncrypted(self) }
 
             return
         } catch {
-            delegate?.documentLoadingError(self, error: error)
+            notify { $0.documentLoadingError(self, error: error) }
 
             return
         }
@@ -103,23 +98,43 @@ class Document: UIDocument {
         showPage()
 
         if !wasPageCountAnnounced {
-            delegate?.documentPagesChanged(self)
+            notify { $0.documentPagesChanged(self) }
 
             wasPageCountAnnounced = true
         }
 
-        delegate?.documentLoadingCompleted(self)
+        notify { $0.documentLoadingCompleted(self) }
     }
 
-    /// Shows the currently selected page, clamped to what the document has:
-    /// switching to page five of a spreadsheet and then editing it into four
-    /// sheets should not walk off the end.
+    /// Clamped to what the document has: switching to page five of a
+    /// spreadsheet and then editing it into four sheets should not walk off the
+    /// end.
     private func showPage() {
         guard let pageURLs, !pageURLs.isEmpty else { return }
 
         result = pageURLs[min(max(page, 0), pageURLs.count - 1)]
 
-        delegate?.documentUpdateContent(self)
+        notify { $0.documentUpdateContent(self) }
+    }
+
+    /// UIDocument reads on a background queue, so `load(fromContents:)` — and
+    /// with it everything `parse` reports — arrives off the main thread. Runs
+    /// inline when already there, so setting `page` or `edit` still updates the
+    /// view before returning.
+    private func notify(_ body: @escaping (DocumentDelegate) -> Void) {
+        guard !Thread.isMainThread else {
+            if let delegate {
+                body(delegate)
+            }
+
+            return
+        }
+
+        DispatchQueue.main.async {
+            if let delegate = self.delegate {
+                body(delegate)
+            }
+        }
     }
 
     override func handleError(_ error: Error, userInteractionPermitted: Bool) {
@@ -131,9 +146,8 @@ class Document: UIDocument {
     ) throws {
         let diff = try generateDiff()
 
-        // CoreWrapper is guarded by @synchronized, but the document handle it
-        // holds is only valid together with the web view that produced the diff,
-        // so the call stays on the main thread
+        // the document handle CoreWrapper holds is only valid together with the
+        // web view that produced the diff, so the edit stays on the main thread
         try onMainThread {
             try coreWrapper.backTranslate(diff, into: url.path)
         }
@@ -149,8 +163,8 @@ class Document: UIDocument {
         return try DispatchQueue.main.sync(execute: work)
     }
 
-    /// Asks the web view for the edits the user made. Runs on the main thread
-    /// and blocks the calling save thread until the JavaScript call comes back.
+    /// Blocks the calling save thread until the web view has handed back the
+    /// edits the user made.
     private func generateDiff() throws -> String {
         let semaphore = DispatchSemaphore(value: 0)
         var result: Result<String, Error> = .failure(DocumentError.getHtml)
@@ -164,8 +178,6 @@ class Document: UIDocument {
             }
 
             webview.evaluateJavaScript("odr.generateDiff()") { value, error in
-                // signalled on every path, including the ones that used to leave
-                // the dispatch group unbalanced and fall into the 30s timeout
                 defer { semaphore.signal() }
 
                 if let error {
@@ -195,7 +207,13 @@ class Document: UIDocument {
 
 extension Document {
 
+    /// Elided in the middle, because the interesting part of a container path is
+    /// at both ends and analytics only takes so much.
     var shortenedDocumentUrl: String {
-        return fileURL.absoluteString.prefix(49) + ".." + fileURL.absoluteString.suffix(49)
+        let url = fileURL.absoluteString
+
+        guard url.count > 100 else { return url }
+
+        return url.prefix(49) + ".." + url.suffix(49)
     }
 }

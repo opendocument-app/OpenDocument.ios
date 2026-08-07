@@ -21,6 +21,8 @@ class ContentViewController: UIViewController {
     var imageFile = ""
     var index = 0
 
+    private var isLastPage: Bool { index == Constants.onboardingImages.count - 1 }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,11 +38,9 @@ class ContentViewController: UIViewController {
                 red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         }
 
-        let isLastPage = index == Constants.onboardingImages.count - 1
         // only en.lproj carries these keys so far, and a missing key resolves to
-        // the key itself rather than to the development language. The explicit
-        // value keeps the other 16 localizations on the English wording the
-        // button hardcoded before instead of showing "intro_next".
+        // the key itself, so the other 16 localizations need the explicit value
+        // to keep showing the English wording instead of "intro_next"
         pageButton.setTitle(
             isLastPage
                 ? NSLocalizedString("intro_start", value: "Start", comment: "onboarding button on the last page")
@@ -56,14 +56,13 @@ class ContentViewController: UIViewController {
     }
 
     @IBAction func pageButtonPressed(_ sender: Any) {
-        switch index {
-        case 0, 1:
-            (parent as? PageViewController)?.nextVC(atIndex: index)
-        case 2:
+        guard !isLastPage else {
             dismissViewController()
-        default:
-            break
+
+            return
         }
+
+        (parent as? PageViewController)?.nextVC(atIndex: index)
     }
 
     @IBAction func skipButtonPressed(_ sender: UIButton) {

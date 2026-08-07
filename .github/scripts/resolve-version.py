@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 #
-# Works out which version a release run builds, and refuses the runs that cannot
-# name one:
+# Resolves the version a release run builds: the dispatch input, or nothing at
+# all on a dry run, which builds the 0.0.0 in project.pbxproj.
 #
-#   a version input   that version
-#   no input          only a dry run, on the 0.0.0 in project.pbxproj
-#
-# It comes from a dispatch input rather than a tag the run was pushed on: a tag
-# would be a promise made before the upload, and a version often takes more than
-# one build to clear review. The workflow writes the tags afterwards instead.
+# The version comes from that input rather than a tag the run was pushed on: a
+# tag would be a promise made before the upload, and a version often takes more
+# than one build to clear review. The workflow writes the tags afterwards.
 #
 # The shape is checked here because xcodebuild never checks it: MARKETING_VERSION
 # is a free-form string to the build, so a typo would only surface when App Store
 # Connect rejects the upload at the very end. Whether the version is above what
 # is live is left to the store, which is the only thing that knows.
 #
-# Prints the resolved version and writes it to GITHUB_OUTPUT as `version`, empty
-# when there is none. Run it by hand to see what a dispatch would build.
+# Writes the resolved version to GITHUB_OUTPUT as `version`, empty when there is
+# none. Run it by hand to see what a dispatch would build.
 
 import argparse
 import os
@@ -39,14 +36,15 @@ def fail(message):
 
 def boolean(value):
     """A workflow input as it reaches a shell: the string "true" or "false"."""
-    if value.strip().lower() in ("true", "1"):
+    normalised = value.strip().lower()
+    if normalised in ("true", "1"):
         return True
-    if value.strip().lower() in ("false", "0", ""):
+    if normalised in ("false", "0", ""):
         return False
     raise ValueError(f"'{value}' is not true or false")
 
 
-def resolve(given, dry_run, log=print):
+def resolve(given, dry_run):
     """The version to build, or "" for none. Raises ValueError with the reason."""
     version = given.strip()
 
@@ -56,15 +54,16 @@ def resolve(given, dry_run, log=print):
                 "nothing to take a version from: fill in the version input, or "
                 "tick dry_run to build without uploading."
             )
-        log("no version given - building the 0.0.0 in project.pbxproj")
+        print("no version given - building the 0.0.0 in project.pbxproj")
         return ""
 
     if not VERSION.match(version):
         raise ValueError(
             f"'{version}' is not a version: expected up to three numbers, like 1.36 or 1.36.1"
         )
+
     version = version.removeprefix("v")
-    log(f"building {version}")
+    print(f"building {version}")
     return version
 
 

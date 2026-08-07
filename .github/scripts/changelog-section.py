@@ -2,18 +2,18 @@
 #
 # Prints the CHANGELOG.md section for one version, and fails when there is none.
 #
-# The release run reads it before building, so a version without release copy fails
-# in seconds rather than once both apps are uploaded, and again in the record job,
-# where the section becomes the body of the drafted github release.
+# The release run reads it before building, so a version without release copy
+# fails in seconds rather than once both apps are uploaded, and again when it
+# drafts the github release, whose body the section becomes.
 
 import argparse
-import os
 import re
 import sys
 
-# `## [1.37] - 2026-08-02`, and `## [1.38]` while the date is still unknown. Not
-# `###`, which belongs to whichever section it sits in
-HEADING = re.compile(r"^## +\[?([^\]\s]+)\]?(?: *- *.+)?\s*$")
+# `## [1.37] - 2026-08-02`, `## [1.38]`, `## Unreleased`. Whatever follows the
+# version is not looked at, so an unusual date separator still closes the
+# section above it. Not `###`, which belongs to whichever section it sits in
+HEADING = re.compile(r"^## +\[?([^\]\s]+)")
 
 # `[1.37]: https://github.com/...compare/1.36...1.37` at the foot of the file:
 # inside the last section, but not release copy
@@ -22,21 +22,17 @@ LINK = re.compile(r"^\[[^\]]+\]: +\S+\s*$")
 
 def section(text, version):
     """The body under `## [<version>]`. Raises ValueError if missing or empty."""
-    # an optional v, so the workflow can hand its input straight over
     wanted = version.strip().removeprefix("v")
 
     found = False
-    collecting = False
     body = []
     for line in text.splitlines():
         heading = HEADING.match(line)
         if heading:
-            if collecting:
+            if found:
                 break
-            if heading.group(1).removeprefix("v") == wanted:
-                found = collecting = True
-            continue
-        if collecting and not LINK.match(line):
+            found = heading.group(1).removeprefix("v") == wanted
+        elif found and not LINK.match(line):
             body.append(line)
 
     if not found:
@@ -45,8 +41,8 @@ def section(text, version):
             f"to '## [{wanted}]' before releasing it - that copy is the release body."
         )
 
-    body = "\n".join(body).strip("\n")
-    if not body.strip():
+    body = "\n".join(body).strip()
+    if not body:
         raise ValueError(
             f"the '## [{wanted}]' section of CHANGELOG.md is empty. A release with "
             "nothing user facing in it should say so rather than say nothing."
@@ -63,15 +59,16 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     try:
-        with open(args.file) as changelog:
-            print(section(changelog.read(), args.version))
+        with open(args.file, encoding="utf-8") as changelog:
+            body = section(changelog.read(), args.version)
     except (OSError, ValueError) as reason:
-        # as in resolve-version.py: the annotation form only counts on stdout
-        if os.environ.get("GITHUB_ACTIONS"):
-            print(f"::error::{reason}")
-        else:
-            print(reason, file=sys.stderr)
+        # stderr rather than a ::error:: annotation, which the runner only reads
+        # off stdout - and both callers redirect stdout
+        print(reason, file=sys.stderr)
         return 1
+
+    sys.stdout.reconfigure(encoding="utf-8")
+    print(body)
     return 0
 
 

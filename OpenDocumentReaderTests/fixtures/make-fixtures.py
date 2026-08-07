@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Builds the minimal ODF packages the page selection tests translate.
 
-The sample documents we have lying around are megabytes of third party
-material; these are a few hundred bytes each and exist only so a test can ask
-"how many pages does a two sheet spreadsheet turn into". Run this from the
-repository root when a fixture needs another sheet or slide:
+A few hundred bytes each, rather than the megabytes of third party material our
+sample documents are, because all a test asks of them is how many pages a two
+sheet spreadsheet turns into. Rerun when a fixture needs another sheet or slide:
 
     python3 OpenDocumentReaderTests/fixtures/make-fixtures.py
 """
@@ -84,8 +83,7 @@ def presentation(slides: list[str]) -> str:
 
 def write(path: Path, mimetype: str, content_xml: str) -> None:
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as package:
-        # the mimetype entry has to come first and stay uncompressed for the
-        # package to be recognised without sniffing the contents
+        # first and uncompressed, or the package is only recognised by sniffing
         package.writestr(
             zipfile.ZipInfo("mimetype"), mimetype, compress_type=zipfile.ZIP_STORED
         )
@@ -96,7 +94,7 @@ def write(path: Path, mimetype: str, content_xml: str) -> None:
 
 
 def main() -> None:
-    here = Path(__file__).parent
+    here = Path(__file__).resolve().parent
 
     write(
         here.parent / "test.ods",

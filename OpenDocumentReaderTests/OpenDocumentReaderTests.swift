@@ -12,14 +12,15 @@ import XCTest
 @testable import OpenDocumentReader
 
 class OpenDocumentReaderTests: XCTestCase {
-    private var saveURL: URL!
+    private let temporaryDirectory = NSTemporaryDirectory()
+    private var documentURL: URL!
 
     override func setUpWithError() throws {
-        saveURL = try copyFixture(ofType: "odt")
+        documentURL = try copyFixture(ofType: "odt")
     }
 
-    /// Copies a bundled fixture next to the documents directory, because
-    /// translating writes its cache and output beside the input.
+    /// Out of the read-only test bundle, and away from the temporary directory
+    /// translating uses for its cache and output.
     private func copyFixture(ofType pathExtension: String) throws -> URL {
         let documentsURL = try FileManager.default.url(
             for: .documentDirectory,
@@ -28,10 +29,7 @@ class OpenDocumentReaderTests: XCTestCase {
             create: false)
 
         let url = documentsURL.appendingPathComponent("test." + pathExtension)
-
-        if FileManager.default.fileExists(atPath: url.path) {
-            try FileManager.default.removeItem(at: url)
-        }
+        try? FileManager.default.removeItem(at: url)
 
         let bundlePath = try XCTUnwrap(
             Bundle(for: Self.self).path(forResource: "test", ofType: pathExtension))
@@ -40,16 +38,11 @@ class OpenDocumentReaderTests: XCTestCase {
         return url
     }
 
-    private func makeWrapper() -> (wrapper: CoreWrapper, cache: String, output: String) {
-        let temporaryDirectory = NSTemporaryDirectory()
-
-        return (CoreWrapper(), temporaryDirectory, temporaryDirectory)
-    }
-
     func testTranslatesDocumentIntoPages() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: true)
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
 
         XCTAssertFalse(wrapper.pageURLs.isEmpty)
         XCTAssertEqual(wrapper.pageURLs.count, wrapper.pageNames.count)
@@ -57,42 +50,48 @@ class OpenDocumentReaderTests: XCTestCase {
 
     /// A text document has nothing but its combined view.
     func testTextDocumentIsASinglePage() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
 
-    /// Spreadsheets are the one format that drops the combined view: a tab per
-    /// sheet is how a workbook is read.
+    /// The one format that drops the combined view: a workbook is read a sheet
+    /// at a time.
     func testSpreadsheetBecomesOnePagePerSheet() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
         let url = try copyFixture(ofType: "ods")
 
-        try wrapper.translate(url.path, cache: cache, into: output, with: nil, editable: false)
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
 
         XCTAssertEqual(wrapper.pageNames, ["Alpha", "Beta", "Gamma"])
     }
 
-    /// The combined view of a presentation already holds every slide, so
-    /// listing the slides next to it would show each of them twice.
+    /// The combined view already holds every slide, so listing the slides next
+    /// to it would show each of them twice.
     func testPresentationKeepsOnlyTheCombinedPage() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
         let url = try copyFixture(ofType: "odp")
 
-        try wrapper.translate(url.path, cache: cache, into: output, with: nil, editable: false)
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
 
-    /// Nothing is rendered up front any more, so the pages have to come back
-    /// from the loopback server odrcore is serving them on.
+    /// Nothing is rendered to disk up front any more, so the pages have to come
+    /// back off the loopback server odrcore is serving them on.
     func testPagesAreServedOverLoopback() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
         let url = try copyFixture(ofType: "ods")
 
-        try wrapper.translate(url.path, cache: cache, into: output, with: nil, editable: false)
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        XCTAssertFalse(wrapper.pageURLs.isEmpty)
 
         for pageURL in wrapper.pageURLs {
             XCTAssertEqual(pageURL.scheme, "http")
@@ -104,27 +103,29 @@ class OpenDocumentReaderTests: XCTestCase {
         }
     }
 
-    /// Translating again has to produce addresses the web view has not cached
-    /// yet - the same URL would come back out of its cache with the pages the
-    /// document had before the password or the edit.
+    /// The same URL would come back out of the web view's cache holding the
+    /// pages the document had before the password or the edit.
     func testRetranslatingMovesThePagesToNewAddresses() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
         let before = wrapper.pageURLs
 
-        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: true)
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
 
         XCTAssertNotEqual(before, wrapper.pageURLs)
     }
 
-    /// The web view is the actual consumer of those URLs, and the one App
-    /// Transport Security applies to. A missing `NSAllowsLocalNetworking` would
-    /// show up here and nowhere else - `URLSession` above would still be happy.
+    /// A missing `NSAllowsLocalNetworking` shows up here and nowhere else: App
+    /// Transport Security applies to the web view, not to the `URLSession`
+    /// above.
     func testTheWebViewLoadsAServedPage() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
 
         let url = try XCTUnwrap(wrapper.pageURLs.first)
         let recorder = NavigationRecorder(finished: expectation(description: "loaded \(url)"))
@@ -137,19 +138,17 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertNil(recorder.error)
     }
 
-    /// A failing page is treated as the document failing to render, so what
-    /// counts as one of our pages has to be narrow: a link in the document that
-    /// answers 404 must not take the document down with it.
+    /// A failing page is treated as the document failing to render, so a link
+    /// in the document that answers 404 must not take the document down too.
     func testOnlyTheServersOwnURLsCountAsPages() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: false)
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
 
         let page = try XCTUnwrap(wrapper.pageURLs.first)
         XCTAssertTrue(CoreWrapper.isServedURL(page))
 
-        // the port is whichever one was free, so the near misses are spelled
-        // relative to the one we actually got rather than a hardcoded number
         let port = try XCTUnwrap(page.port)
 
         for other in [
@@ -183,11 +182,12 @@ class OpenDocumentReaderTests: XCTestCase {
     }
 
     func testBackTranslateWritesEditedDocument() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        try wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: true)
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
 
-        let editedURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let editedURL = URL(fileURLWithPath: temporaryDirectory)
             .appendingPathComponent("test-edited.odt")
         try? FileManager.default.removeItem(at: editedURL)
 
@@ -203,9 +203,9 @@ class OpenDocumentReaderTests: XCTestCase {
     /// backTranslate used to dereference an empty std::optional when nothing had
     /// been translated yet.
     func testBackTranslateWithoutTranslateFails() {
-        let (wrapper, _, _) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        let editedURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let editedURL = URL(fileURLWithPath: temporaryDirectory)
             .appendingPathComponent("never-translated.odt")
 
         XCTAssertThrowsError(try wrapper.backTranslate("{}", into: editedURL.path)) { error in
@@ -214,14 +214,15 @@ class OpenDocumentReaderTests: XCTestCase {
     }
 
     func testUnsupportedFileTypeReportsTypedError() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
 
-        let notADocument = URL(fileURLWithPath: NSTemporaryDirectory())
+        let notADocument = URL(fileURLWithPath: temporaryDirectory)
             .appendingPathComponent("not-a-document.odt")
         try "definitely not an office document".write(to: notADocument, atomically: true, encoding: .utf8)
 
         XCTAssertThrowsError(
-            try wrapper.translate(notADocument.path, cache: cache, into: output, with: nil, editable: false)
+            try wrapper.translate(
+                notADocument.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
         ) { error in
             let error = error as NSError
             XCTAssertEqual(error.domain, CoreWrapperErrorDomain)
@@ -230,10 +231,16 @@ class OpenDocumentReaderTests: XCTestCase {
     }
 
     func testTranslatePerformance() throws {
-        let (wrapper, cache, output) = makeWrapper()
+        let wrapper = CoreWrapper()
+        let path = documentURL.path
+        let directory = temporaryDirectory
 
         measure {
-            try? wrapper.translate(saveURL.path, cache: cache, into: output, with: nil, editable: true)
+            do {
+                try wrapper.translate(path, cache: directory, into: directory, with: nil, editable: true)
+            } catch {
+                XCTFail("translate threw \(error)")
+            }
         }
     }
 }
