@@ -18,6 +18,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 {
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
+    private var hasGatheredConsent = false
     public var transitionController: UIDocumentBrowserTransitionController? {
         didSet {
             if let controller = transitionController {
@@ -135,10 +136,40 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         bannerView.delegate = self
         bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
         bannerView.rootViewController = self
+    }
 
-        ATTrackingManager.requestTrackingAuthorization { [weak self] _ in
-            DispatchQueue.main.async {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // the form is modal, so it has to wait for the window hierarchy - viewWillAppear is
+        // too early. This runs again on every reappearance, hence the flag.
+        guard ConfigurationManager.manager.configuration == .lite, !hasGatheredConsent else {
+            return
+        }
+        hasGatheredConsent = true
+
+        ConsentManager.manager.gatherConsent(from: self) { [weak self] canRequestAds in
+            guard canRequestAds else {
+                // nothing on file - the form failed, or a first launch offline where one is
+                // required. Not refusal: "do not consent" is an answer and leaves this true.
+                self?.hideBannerView()
+                return
+            }
+
+            guard ConsentManager.manager.adsMayUseAdvertisingIdentifier else {
+                // refused, and still worth serving: Google selects limited ads server-side from
+                // the TC string's special purposes, and showing nothing would be stricter than
+                // the rules require. No ATT - a limited ad carries no identifier to govern.
                 self?.loadBannerAd()
+                return
+            }
+
+            // ATT asks about the IDFA and is no substitute for consent under the EU rules, so
+            // it follows the form, and only for users who get an ad.
+            ATTrackingManager.requestTrackingAuthorization { [weak self] _ in
+                DispatchQueue.main.async {
+                    self?.loadBannerAd()
+                }
             }
         }
     }
