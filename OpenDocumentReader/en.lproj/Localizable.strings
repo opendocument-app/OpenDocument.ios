@@ -92,3 +92,20 @@
 
 /* Opens this app's page in the Settings app */
 "privacy_open_settings" = "Open Settings";
+
+/* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
+"house_ad_support_short" = "Support us";
+"house_ad_support_headline" = "Support OpenDocument Reader";
+"house_ad_support_subline" = "Get Pro — no ads, ever";
+
+"house_ad_adfree_short" = "Read without ads";
+"house_ad_adfree_headline" = "Read without ads";
+"house_ad_adfree_subline" = "ODR Pro — a one-time purchase";
+
+"house_ad_source_short" = "Open source";
+"house_ad_source_headline" = "Open source, kept free";
+"house_ad_source_subline" = "Pro pays for it — and drops the ads";
+
+/* Buttons on the house ad */
+"house_ad_cta_go_pro" = "Go Pro";
+"house_ad_cta_get_pro" = "Get Pro";

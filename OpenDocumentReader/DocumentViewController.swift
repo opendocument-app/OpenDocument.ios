@@ -8,13 +8,14 @@ A view controller for displaying and editing documents.
 import AdSupport
 import AppTrackingTransparency
 import GoogleMobileAds
+import StoreKit
 import UIKit
 import UIKit.UIPrinter
 import WebKit
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDelegate, UISearchBarDelegate,
-    WKNavigationDelegate
+    SKStoreProductViewControllerDelegate, WKNavigationDelegate
 {
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
@@ -53,6 +54,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
 
+    /// Fills the banner slot when no ad does. Sits on top of `bannerView` rather than in the
+    /// layout chain, so the slot keeps its height and nothing below it moves.
+    private let houseAdView = HouseAdView()
+
     private var searchBarHeightWhenShown: NSLayoutConstraint?
     private var searchBarHeightWhenHidden: NSLayoutConstraint?
     private lazy var pageTabBarHeight = pageTabBar.heightAnchor.constraint(equalToConstant: 0)
@@ -83,6 +88,25 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         hideSearchBar()
 
         barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
+
+        setUpHouseAd()
+    }
+
+    private func setUpHouseAd() {
+        houseAdView.isHidden = true
+        houseAdView.translatesAutoresizingMaskIntoConstraints = false
+        houseAdView.onTap = { [weak self] in
+            self?.openProOnAppStore()
+        }
+
+        view.addSubview(houseAdView)
+
+        NSLayoutConstraint.activate([
+            houseAdView.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor),
+            houseAdView.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor),
+            houseAdView.topAnchor.constraint(equalTo: bannerView.topAnchor),
+            houseAdView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor),
+        ])
     }
 
     /// odrcore renders a page only once this web view asks for it, so a document
@@ -152,7 +176,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
             guard canRequestAds else {
                 // nothing on file - the form failed, or a first launch offline where one is
                 // required. Not refusal: "do not consent" is an answer and leaves this true.
-                self?.hideBannerView()
+                // No ad may be requested, which is the house ad's case exactly.
+                self?.showHouseAd()
                 return
             }
 
@@ -210,11 +235,57 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
     func hideBannerView() {
         bannerView.isHidden = true
+        houseAdView.isHidden = true
         bannerViewHeight.constant = 0.0
     }
 
+    /// No ad to show, so the slot promotes the paid app instead of collapsing.
+    ///
+    /// This is our own view - nothing is fetched and no identifier is read - so it is as valid on
+    /// the path where the user refused consent as on the one where an ad request merely came back
+    /// empty.
+    private func showHouseAd() {
+        houseAdView.rotate()
+
+        bannerView.isHidden = true
+        houseAdView.isHidden = false
+
+        AnalyticsManager.shared.report("house_ad_shown")
+    }
+
     func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
-        hideBannerView()
+        showHouseAd()
+    }
+
+    /// An ad did arrive after all - on a later document, or once the network came back.
+    func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+        houseAdView.isHidden = true
+        bannerView.isHidden = false
+    }
+
+    private func openProOnAppStore() {
+        AnalyticsManager.shared.report("house_ad_tapped")
+
+        let store = SKStoreProductViewController()
+        store.delegate = self
+
+        // presented over the document rather than sending the user out to the App Store app
+        store.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: Constants.proAppStoreId]) {
+            loaded, error in
+            if let error {
+                CrashManager.shared.log(error)
+            }
+
+            guard loaded else { return }
+
+            DispatchQueue.main.async {
+                self.present(store, animated: true)
+            }
+        }
+    }
+
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismiss(animated: true)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
