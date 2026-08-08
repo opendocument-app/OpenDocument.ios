@@ -2,11 +2,10 @@ import UIKit
 
 /// A horizontally scrollable row of text tabs, one per document page.
 ///
-/// This is what the document view uses to switch between the pages or sheets of
-/// a document. It replaces the vendored ScrollableSegmentedControl, whose
-/// upstream was archived in 2022, and covers only what the document view asked
-/// of it: equal-width text tabs that share the available width while they fit,
-/// scroll once they do not, and underline the selected one.
+/// Replaces the vendored ScrollableSegmentedControl, whose upstream was archived
+/// in 2022, and covers only what the document view asked of it: text tabs that
+/// share the available width while they fit, scroll once they do not, and
+/// underline the selected one.
 final class PageTabBar: UIControl {
     static let titlePadding: CGFloat = 8
     static let underlineHeight: CGFloat = 4
@@ -15,9 +14,8 @@ final class PageTabBar: UIControl {
     /// What the tabs took before they scaled with the text size.
     private static let minimumHeight: CGFloat = 40
 
-    /// How tall the row has to be for the title not to be clipped at the
-    /// current text size. Works out to the familiar 40 points at the default
-    /// size and grows from there.
+    /// Tall enough not to clip the title at the current text size — the familiar
+    /// 40 points by default, growing from there.
     var preferredHeight: CGFloat {
         let lineHeight = UIFont.preferredFont(forTextStyle: Self.titleTextStyle, compatibleWith: traitCollection)
             .lineHeight
@@ -36,8 +34,6 @@ final class PageTabBar: UIControl {
         }
     }
 
-    /// The selected tab, or nil when nothing is selected.
-    ///
     /// Following `UISegmentedControl`, setting this does not send
     /// `.valueChanged` — only a tap does.
     var selectedIndex: Int? {
@@ -85,9 +81,8 @@ final class PageTabBar: UIControl {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        // Tab widths depend on how much room there is, so a resize has to go
-        // through the flow layout again. Only on an actual change, or the
-        // invalidation would bounce back here forever.
+        // tab widths depend on how much room there is. only on an actual change,
+        // or the invalidation would bounce back here forever
         guard bounds.size != laidOutSize else { return }
 
         laidOutSize = bounds.size
@@ -119,11 +114,10 @@ final class PageTabBar: UIControl {
         resizeTabs()
     }
 
-    /// Every tab gets an even share of the row while that is wide enough for
-    /// the longest title. Failing that they keep their own widths, sharing out
-    /// whatever is left over — so a single long sheet name is neither truncated
-    /// nor allowed to dictate the width of the short ones. Once they no longer
-    /// fit at all, the row scrolls.
+    /// Every tab gets an even share of the row while that is wide enough for the
+    /// longest title. Failing that they keep their own widths and share out
+    /// whatever is left over, so a single long sheet name is neither truncated
+    /// nor allowed to dictate the width of the short ones.
     private func resizeTabs() {
         guard let widestTitle = titleWidths.max() else {
             tabWidths = []

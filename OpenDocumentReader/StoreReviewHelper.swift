@@ -17,34 +17,22 @@ struct StoreReviewHelper {
 
     static let Defaults = UserDefaults.standard
 
-    static func incrementAppOpenedCount() {  // called from appdelegate didfinishLaunchingWithOptions:
-        guard var appOpenCount = Defaults.value(forKey: UserDefaultsKeys.APP_OPENED_COUNT) as? Int else {
-            Defaults.set(1, forKey: UserDefaultsKeys.APP_OPENED_COUNT)
-            return
-        }
-        appOpenCount += 1
-        Defaults.set(appOpenCount, forKey: UserDefaultsKeys.APP_OPENED_COUNT)
+    static func incrementAppOpenedCount() {
+        let key = UserDefaultsKeys.APP_OPENED_COUNT
+
+        Defaults.set(Defaults.integer(forKey: key) + 1, forKey: key)
     }
 
-    static func checkAndAskForReview() {  // call this whenever appropriate
-        // this will not be shown everytime. Apple has some internal logic on how to show this.
-        guard let appOpenCount = Defaults.value(forKey: UserDefaultsKeys.APP_OPENED_COUNT) as? Int else {
-            Defaults.set(1, forKey: UserDefaultsKeys.APP_OPENED_COUNT)
-            return
-        }
+    static func checkAndAskForReview() {
+        let appOpenCount = Defaults.integer(forKey: UserDefaultsKeys.APP_OPENED_COUNT)
 
-        switch appOpenCount {
-        case 3:
-            StoreReviewHelper().requestReview()
-        case _ where appOpenCount % 10 == 0:
-            StoreReviewHelper().requestReview()
-        default:
-            print("App run count is : \(appOpenCount)")
-            break
-        }
+        // asking is not the same as showing: StoreKit rate-limits the prompt
+        guard appOpenCount == 3 || (appOpenCount > 0 && appOpenCount % 10 == 0) else { return }
+
+        requestReview()
     }
 
-    fileprivate func requestReview() {
+    private static func requestReview() {
         AnalyticsManager.shared.report("rating_show")
 
         if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive })

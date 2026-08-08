@@ -34,7 +34,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         }
     }
 
-    private var EXTENSION_WHITELIST = [
+    private let EXTENSION_WHITELIST = [
         "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png",
         "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv",
         "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba",
@@ -61,9 +61,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
     public var document: Document? {
         didSet {
-            if let doc = document {
-                doc.delegate = self
-            }
+            document?.delegate = self
         }
     }
 
@@ -71,21 +69,26 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         super.viewDidLoad()
 
         // once, not on every appearance: a second target would parse the
-        // document twice for a single tap
+        // document twice for a single tap, and a second set of constraints
+        // would fight the first
         pageTabBar.addTarget(self, action: #selector(pageSelected(sender:)), for: .valueChanged)
-
         webview.navigationDelegate = self
+
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+        searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
+        searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
+
+        setVCconstraints()
+        hideSearchBar()
+
+        barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
     }
 
-    /// odrcore renders a page when this web view asks for it, so a document
-    /// that only falls over halfway through translating falls over here rather
-    /// than in `translate`. Route that into the same handling, which shows the
-    /// error page or the raw file, instead of letting the server's plain text
-    /// "Internal Server Error" through.
-    ///
-    /// Only for the page itself: a link in the document leading somewhere that
-    /// answers 404, or a frame inside it doing so, is not this document failing
-    /// to render and must not replace it.
+    /// odrcore renders a page only once this web view asks for it, so a document
+    /// that falls over halfway through translating falls over here rather than
+    /// in `translate`. Only the main frame counts: a link in the document
+    /// answering 404 is not this document failing to render.
     func webView(
         _ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
@@ -103,8 +106,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
         decisionHandler(.cancel)
 
-        // the fallback loads a file or an HTML string, neither of which comes
-        // back as an HTTP response, so this cannot recurse
+        // the fallback loads a file or an HTML string, so this cannot recurse
         documentLoadingError(doc, error: DocumentError.pageNotServed)
     }
 
@@ -123,26 +125,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        searchBar.delegate = self
-        searchBar.showsCancelButton = true
+        document?.webview = webview
 
-        searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
-        searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
-
-        setVCconstraints()
-        hideSearchBar()
-
-        barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
-
-        document?.webview = self.webview
-
-        if ConfigurationManager.manager.configuration == .lite {
-            bannerView.delegate = self
-            bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
-            bannerView.rootViewController = self
-        } else {
+        guard ConfigurationManager.manager.configuration == .lite else {
             hideBannerView()
+
+            return
         }
+
+        bannerView.delegate = self
+        bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
+        bannerView.rootViewController = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -155,11 +148,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         }
         hasGatheredConsent = true
 
-        ConsentManager.manager.gatherConsent(from: self) { canRequestAds in
+        ConsentManager.manager.gatherConsent(from: self) { [weak self] canRequestAds in
             guard canRequestAds else {
                 // nothing on file - the form failed, or a first launch offline where one is
                 // required. Not refusal: "do not consent" is an answer and leaves this true.
-                self.hideBannerView()
+                self?.hideBannerView()
                 return
             }
 
@@ -167,17 +160,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
                 // refused, and still worth serving: Google selects limited ads server-side from
                 // the TC string's special purposes, and showing nothing would be stricter than
                 // the rules require. No ATT - a limited ad carries no identifier to govern.
-                self.loadBannerAd()
+                self?.loadBannerAd()
                 return
             }
 
             // ATT asks about the IDFA and is no substitute for consent under the EU rules, so
             // it follows the form, and only for users who get an ad.
-            ATTrackingManager.requestTrackingAuthorization(completionHandler: { _ in
+            ATTrackingManager.requestTrackingAuthorization { [weak self] _ in
                 DispatchQueue.main.async {
-                    self.loadBannerAd()
+                    self?.loadBannerAd()
                 }
-            })
+            }
         }
     }
 
@@ -194,7 +187,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bannerView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-        bannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        // no height here: that is bannerViewHeight from the storyboard, which
+        // hideBannerView zeroes, and a second one would fight it
 
         pageTabBar.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
         pageTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -244,15 +238,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
 
     func toggleFullscreen() {
-        isFullscreen = !isFullscreen
+        isFullscreen.toggle()
 
-        let event: String
-        if isFullscreen {
-            event = "menu_fullscreen_enter"
-        } else {
-            event = "menu_fullscreen_leave"
-        }
-        AnalyticsManager.shared.report(event)
+        AnalyticsManager.shared.report(isFullscreen ? "menu_fullscreen_enter" : "menu_fullscreen_leave")
 
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -296,23 +284,26 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
 
     private func findNext(searchText: String) {
-        webview?.evaluateJavaScript(
-            "odr.searchNext(\"" + searchText + "\")",
-            completionHandler: { (value: Any!, error: Error!) -> Void in
-                if error != nil {
-                    CrashManager.shared.log(error)
-                }
-            })
+        callSearch("odr.searchNext", with: searchText)
     }
 
     private func findAll(searchText: String) {
-        webview?.evaluateJavaScript(
-            "odr.search(\"" + searchText + "\")",
-            completionHandler: { (value: Any!, error: Error!) -> Void in
-                if error != nil {
-                    CrashManager.shared.log(error)
-                }
-            })
+        callSearch("odr.search", with: searchText)
+    }
+
+    private func callSearch(_ function: String, with searchText: String) {
+        // an unescaped quote or backslash in the query would break the call
+        // apart rather than search for itself
+        let escaped =
+            searchText
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+
+        webview?.evaluateJavaScript("\(function)(\"\(escaped)\")") { _, error in
+            if let error {
+                CrashManager.shared.log(error)
+            }
+        }
     }
 
     @IBAction func returnToDocuments(_ sender: Any) {
@@ -332,7 +323,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
                     handler: { (_) in
                         AnalyticsManager.shared.report("alert_unsaved_changes_no")
 
-                        self.discardChanges()
+                        // nothing was written, so closing is the discard
                         self.closeCurrentDocument()
                     }))
             alert.addAction(
@@ -356,15 +347,19 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         }
     }
 
+    /// Also reached through viewDidDisappear, so the document is dropped rather
+    /// than closed a second time on the way out.
     func closeCurrentDocument() {
         document?.close()
+        document = nil
+
         self.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func showMenu(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        if document?.isOdf ?? false && !(document?.edit ?? false) {
+        if (document?.isOdf ?? false) && !(document?.edit ?? false) {
             alert.addAction(
                 UIAlertAction(
                     title: NSLocalizedString("menu_edit", comment: ""), style: .default,
@@ -449,13 +444,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         controller: UIViewController, message: String, seconds: Double, color: UIColor? = .gray,
         completion: (() -> Void)? = nil
     ) {
-        let alert: UIAlertController!
-
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        } else {
-            alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
-        }
+        let alert = UIAlertController(
+            title: nil, message: message,
+            preferredStyle: UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet)
 
         alert.view.backgroundColor = color
         alert.view.layer.cornerRadius = 15
@@ -491,15 +482,15 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
 
     func documentUpdateContent(_ doc: Document) {
-        guard let url = document?.result else {
+        guard let url = doc.result else {
             self.webview.loadHTMLString(
                 "<html><h1>\(NSLocalizedString("loading", comment: ""))</h1></html>", baseURL: nil)
 
             return
         }
 
-        // odrcore serves the pages over loopback; the file variant is what the
-        // app falls back to when that server could not be brought up
+        // pages come off the loopback server; a file URL needs read access
+        // granted along with it
         if url.isFileURL {
             self.webview.loadFileURL(url, allowingReadAccessTo: url)
         } else {
@@ -508,12 +499,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
 
     func documentEncrypted(_ doc: Document) {
-        //        self.webview.loadHTMLString("<html><h1>Error</h1>Failed to load given document because it is encrypted. Feel free to contact us via tomtasche@gmail.com for further questions.</html>", baseURL: nil)
-
+        // the document is opened before this controller is presented, so the
+        // first attempt has nothing to present the prompt on
         if viewIfLoaded?.window == nil {
-            // delay because ViewController might not be visible yet
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.documentEncrypted(doc)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.documentEncrypted(doc)
             }
 
             return
@@ -522,38 +512,36 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         let alert = UIAlertController(
             title: NSLocalizedString("toast_error_password_protected", comment: ""), message: "", preferredStyle: .alert
         )
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.text = ""
         }
         alert.addAction(
             UIAlertAction(
                 title: NSLocalizedString("cancel", comment: ""), style: .cancel,
-                handler: { [] (_) in
-                    self.returnToDocuments("nil" as Any)
+                handler: { [weak self] action in
+                    self?.returnToDocuments(action)
                 }))
         alert.addAction(
             UIAlertAction(
                 title: NSLocalizedString("ok", comment: ""), style: .default,
-                handler: { [weak alert] (_) in
-                    self.document?.password = alert?.textFields?.first?.text ?? ""
+                handler: { [weak self, weak alert] _ in
+                    self?.document?.password = alert?.textFields?.first?.text ?? ""
                 }))
 
         self.present(alert, animated: true, completion: nil)
     }
 
     func documentLoadingError(_ doc: Document, error: Error) {
+        progressBar.isHidden = true
+
         // attention: wrong for extensions like ".pages.zip"
         let fileType = doc.fileURL.pathExtension.lowercased()
 
         let fileName = doc.fileURL.absoluteString.lowercased()
-        for type in EXTENSION_WHITELIST {
-            if !fileName.hasSuffix(type) {
-                continue
-            }
-
+        if EXTENSION_WHITELIST.contains(where: fileName.hasSuffix) {
+            // not odrcore's to render, but the web view knows the format
             self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
 
-            progressBar.isHidden = true
             searchButton.isEnabled = false
 
             AnalyticsManager.shared.report(
@@ -582,6 +570,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     func documentLoadingStarted(_ doc: Document) {
         progressBar.isHidden = false
         progressBar.observedProgress = doc.loadProgress
+
+        // only what odrcore translated is searchable, and a later parse — after
+        // a password, say — may well get there
+        searchButton.isEnabled = true
     }
 
     func documentLoadingCompleted(_ doc: Document) {
@@ -611,7 +603,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     }
 
     /// The tab bar scales with the text size, so its height is whatever it
-    /// currently needs rather than a fixed number.
+    /// currently needs.
     private func updatePageTabBarHeight() {
         pageTabBarHeight.constant = pageTabBar.isHidden ? 0 : pageTabBar.preferredHeight
     }
