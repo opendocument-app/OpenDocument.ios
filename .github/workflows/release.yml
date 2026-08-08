@@ -1,9 +1,7 @@
 name: release
 
-# Builds both apps once, uploads each to App Store Connect, then records what went
-# out. Split in three so that "Re-run failed jobs" can repair one failed upload
-# against the .ipa already built and signed. Both apps go out together and share a
-# build number; tags are written afterwards, never before. See the README.
+# Three jobs rather than one so that "Re-run failed jobs" repairs a failed upload
+# against the .ipa already built and signed. See the README.
 
 on:
   workflow_dispatch:
@@ -17,9 +15,8 @@ on:
         default: false
 
 concurrency:
-  # every release run, not just the ones on the same ref: the build number is a
-  # live query of what TestFlight has, so two overlapping runs would read the
-  # same one and hand the second upload a pair the store has already taken
+  # workflow wide, not per ref: the build number is a live query of what
+  # TestFlight has, so two overlapping runs would read the same one
   group: ${{ github.workflow }}
   cancel-in-progress: false
 
@@ -43,9 +40,10 @@ jobs:
           SIGNING_CERTIFICATE_P12: ${{ secrets.SIGNING_CERTIFICATE_P12 }}
           SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
         run: |
+          set -euo pipefail
           missing=""
           for name in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_CONTENT SIGNING_CERTIFICATE_P12 SIGNING_CERTIFICATE_PASSWORD; do
-            [ -z "${!name}" ] && missing="$missing $name"
+            [ -n "${!name:-}" ] || missing="$missing $name"
           done
           if [ -n "$missing" ]; then
             echo "::error::missing repository secrets:$missing (see README)"
@@ -55,12 +53,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v7
 
-      # up front, so a run that cannot name a version ends before the twenty
-      # minutes of setup and building rather than after
+      # before the build, so a run that cannot name a version fails in seconds
       - name: resolve version
         id: version
-        # through the environment rather than the run: line, where the input would
-        # be a shell injection
+        # through the environment rather than the run: line, where the input
+        # would be a shell injection
         env:
           given: ${{ inputs.version }}
         run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
@@ -70,7 +67,7 @@ jobs:
         if: ${{ steps.version.outputs.version != '' }}
         env:
           version: ${{ steps.version.outputs.version }}
-        run: .github/scripts/changelog-section.py --version "$version" > /dev/null
+        run: .github/scripts/changelog-section.py --version "$version"
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -86,11 +83,14 @@ jobs:
           SIGNING_CERTIFICATE_P12: ${{ secrets.SIGNING_CERTIFICATE_P12 }}
           SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
         run: |
+          set -euo pipefail
           keychain="$RUNNER_TEMP/signing.keychain-db"
           password="$(uuidgen)"
 
           security create-keychain -p "$password" "$keychain"
-          security set-keychain-settings -lut 900 "$keychain"
+          # long enough to outlast both archives: a keychain that relocks mid run
+          # fails codesign with "User interaction is not allowed"
+          security set-keychain-settings -lut 21600 "$keychain"
           security unlock-keychain -p "$password" "$keychain"
 
           echo "$SIGNING_CERTIFICATE_P12" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
@@ -104,10 +104,11 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -k "$password" "$keychain" > /dev/null
           security list-keychain -d user -s "$keychain" login.keychain-db
 
-          # this is the only certificate the build has - a development one here
-          # would archive fine and fail the export twenty minutes in
-          security find-identity -v -p codesigning "$keychain"
-          if ! security find-identity -v -p codesigning "$keychain" | grep -q "Apple Distribution\|iPhone Distribution"; then
+          # a development certificate here would archive fine and fail the export
+          # twenty minutes in
+          identities="$(security find-identity -v -p codesigning "$keychain")"
+          echo "$identities"
+          if ! grep -q "Apple Distribution\|iPhone Distribution" <<< "$identities"; then
             echo "::error::SIGNING_CERTIFICATE_P12 holds no Apple Distribution certificate (see README)"
             exit 1
           fi
@@ -127,21 +128,22 @@ jobs:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
-          # environment rather than lane options, which fastlane passes through
-          # as strings - a false would arrive as "false" and read as true
           ODR_VERSION: ${{ steps.version.outputs.version }}
-          ODR_DRY_RUN: ${{ env.dry_run }}
+          ODR_DRY_RUN: ${{ inputs.dry_run }}
           ODR_BUILD_NUMBER: ${{ steps.build_number.outputs.build_number }}
-          number: ${{ steps.build_number.outputs.build_number }}
         run: |
+          set -euo pipefail
+          # empty here means each build would ask the store for its own number
+          [ -n "$ODR_BUILD_NUMBER" ] || { echo "::error::resolveBuildNumber produced no build number"; exit 1; }
+
           bundle exec fastlane ios buildPro
           bundle exec fastlane ios buildLite
-          # travels with the archives: a re-run may not repeat this job, so record
-          # cannot depend on its outputs
-          echo "$number" > build-number.txt
+          # travels with the archives: a re-run may skip this job, so record
+          # cannot read its outputs
+          echo "$ODR_BUILD_NUMBER" > build-number.txt
 
-      # archived on a dry run too - that is how the signing path gets exercised
-      - name: Artifact ipas
+      # on a dry run too: archiving the signed .ipa is the point of one
+      - name: archive the ipas
         uses: actions/upload-artifact@v7
         with:
           name: ipas
@@ -156,6 +158,7 @@ jobs:
       - name: collect distribution logs
         if: failure()
         run: |
+          set -euo pipefail
           mkdir -p distribution-logs
           find "${TMPDIR:-/tmp}" -maxdepth 1 -name '*.xcdistributionlogs' \
             -exec cp -R {} distribution-logs/ \;
@@ -191,7 +194,6 @@ jobs:
         with:
           bundler-cache: true
 
-      # back to build/, where upload_ipa looks for it
       - name: fetch the ipas
         uses: actions/download-artifact@v8
         with:
@@ -205,7 +207,6 @@ jobs:
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
         run: bundle exec fastlane ios ${{ matrix.lane }}
 
-  # only once both apps are up: a half uploaded release is not recorded
   record:
     needs: upload
     if: ${{ !inputs.dry_run }}
@@ -232,6 +233,7 @@ jobs:
         env:
           version: ${{ steps.version.outputs.version }}
         run: |
+          set -euo pipefail
           build_number=$(cat build-number.txt)
           [ -n "$build_number" ] || { echo "::error::build-number.txt is empty"; exit 1; }
 
@@ -264,6 +266,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           version: ${{ steps.version.outputs.version }}
         run: |
+          set -euo pipefail
           .github/scripts/changelog-section.py --version "$version" > "${RUNNER_TEMP}/notes.md"
 
           if gh release view "$version" > /dev/null 2>&1; then

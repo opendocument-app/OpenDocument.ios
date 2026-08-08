@@ -1,12 +1,3 @@
-//
-//  CoreWrapper.swift
-//  OpenDocument Reader
-//
-//  Replaces the ObjC++ CoreWrapper that talked to odrcore's C++ API directly.
-//  odrcore now arrives as the `OdrCore` Swift package, so the app links a
-//  prebuilt xcframework instead of building the library through conan.
-//
-
 import Foundation
 import OdrCore
 import OdrCoreObjC
@@ -14,9 +5,7 @@ import OdrCoreObjC
 let CoreWrapperErrorDomain = "app.opendocument.CoreWrapperErrorDomain"
 
 @objc enum CoreWrapperError: Int {
-    /// odrcore threw something we have no specific handling for.
     case unknown = 1
-    /// The document is encrypted and the supplied password did not open it.
     case wrongPassword = 2
     /// Not a document odrcore can translate. PDFs land here on purpose.
     case unsupportedFileType = 3
@@ -37,16 +26,15 @@ private final class PageServer {
     private var handle: HttpServer.ServerHandle?
     private var translation: UInt64 = 0
 
-    /// Bound port, or 0 when there is no server.
     var port: UInt32 { lock.withLock { handle?.port ?? 0 } }
 
-    /// Connects `service` under a prefix nothing has been served under before,
-    /// and returns the base URL for it. Nil if the socket could not be opened.
+    /// Connects `service` and returns the base URL its views are served under.
+    /// Nil if the socket could not be opened.
     ///
-    /// A fresh prefix every time because the web view caches by URL:
-    /// re-translating after a password or an edit has to end up at an address
-    /// it has not seen.
-    func connect(_ service: HtmlService) -> (prefix: String, base: URL)? {
+    /// A fresh prefix every time, because the web view caches by URL:
+    /// re-translating after a password or an edit has to end up at an address it
+    /// has not seen.
+    func connect(_ service: HtmlService) -> URL? {
         lock.lock()
         defer { lock.unlock() }
 
@@ -66,7 +54,7 @@ private final class PageServer {
         try? server.clear()
         guard (try? server.connect(service, prefix: prefix)) != nil else { return nil }
 
-        return (prefix, handle.url(prefix: prefix))
+        return handle.url(prefix: prefix)
     }
 }
 
@@ -74,13 +62,9 @@ private final class PageServer {
 /// slide of a presentation, every page of a PDF, the entire text document.
 private func isCombinedView(_ view: HtmlView) -> Bool { view.name == "document" }
 
-/// Picks the views to show as pages, the same way OpenDocument.droid does.
-///
-/// Spreadsheets get one tab per sheet, because scrolling through every sheet of
-/// a workbook in one page is not how anyone reads a spreadsheet. Everything else
-/// gets the combined view and nothing else — a presentation would otherwise show
-/// its slides twice, and a PDF would list one tab per page next to the tab that
-/// already has them all.
+/// The views to show as pages, the same way OpenDocument.droid picks them: a tab
+/// per sheet for spreadsheets, and for everything else the combined view alone,
+/// which already holds every slide or page.
 private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [HtmlView] {
     let isSpreadsheet = documentType == .spreadsheet
     let hasCombinedView = views.contains(where: isCombinedView)
@@ -109,6 +93,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
         pageNames = []
         pageURLs = []
+        document = nil
 
         let fileTypes = (try? DecodedFile.listFileTypes(path: inputPath)) ?? []
         guard !fileTypes.isEmpty else {
@@ -138,7 +123,6 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         let documentFile = try file.asDocumentFile()
         let documentType = documentFile.documentType
         let document = try documentFile.document()
-        self.document = document
 
         let config = HtmlConfig()
         config.editable = editable
@@ -149,20 +133,21 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         let service = try HtmlTranslator.translate(
             document: document, cachePath: cachePath, config: config)
 
-        // the views are picked before they are rendered: bringing all of them
-        // offline first would write out every slide of a presentation only to
-        // throw the files away again
         let views = selectViews(service.views, documentType)
         guard !views.isEmpty else {
             throw coreWrapperError(.unknown, "odrcore produced no displayable page")
         }
 
-        guard let connected = PageServer.shared.connect(service) else {
+        guard let base = PageServer.shared.connect(service) else {
             throw coreWrapperError(.unknown, "could not serve the translated document")
         }
 
+        // only once nothing can throw any more: backTranslate must not be handed
+        // a document whose pages were never served
+        self.document = document
+
         pageNames = views.map(\.name)
-        pageURLs = views.map { connected.base.appendingPathComponent($0.path) }
+        pageURLs = views.map { base.appendingPathComponent($0.path) }
     }
 
     @objc func backTranslate(_ diff: String, into outputPath: String) throws {
@@ -177,8 +162,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         try document.save(to: outputPath)
     }
 
-    /// Whether this URL is one odrcore is serving, rather than somewhere a link
-    /// in the document leads.
+    /// Whether odrcore is serving this URL, rather than it being somewhere a
+    /// link in the document leads.
     @objc static func isServedURL(_ url: URL) -> Bool {
         let port = PageServer.shared.port
 

@@ -11,8 +11,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     let pageViewController = "pageViewController"
 
-    var documentController: DocumentViewController? = nil
-
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -83,9 +81,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
 
-        if presentedViewController != nil {
-            presentedViewController?.dismiss(animated: false, completion: nil)
-        }
+        presentedViewController?.dismiss(animated: false, completion: nil)
 
         guard
             let documentViewController =
@@ -96,7 +92,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
             return
         }
-        documentController = documentViewController
 
         documentViewController.modalPresentationCapturesStatusBarAppearance = true
         documentViewController.loadViewIfNeeded()
@@ -110,11 +105,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         documentViewController.document = doc
 
-        let shortenedDocumentUrl = documentURL.absoluteString.prefix(49) + ".." + documentURL.absoluteString.suffix(49)
         AnalyticsManager.shared.report(
             AnalyticsConstants.eventViewItem,
             parameters: [
-                AnalyticsConstants.paramItemName: shortenedDocumentUrl
+                AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl
             ])
 
         doc.open { [weak self] success in

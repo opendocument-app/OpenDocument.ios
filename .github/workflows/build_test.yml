@@ -8,11 +8,11 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**/*.md'
+      - '**.md'
       - 'fastlane/metadata/**'
   pull_request:
     paths-ignore:
-      - '**/*.md'
+      - '**.md'
       - 'fastlane/metadata/**'
 
 concurrency:
@@ -52,7 +52,7 @@ jobs:
           path: |
             /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
 
-  # the test job only ever builds the simulator slice of one configuration, so
+  # the test job only builds the simulator slice of one configuration, so
   # release-only and device-only breakage used to surface at deploy time
   build:
     runs-on: macos-26
@@ -71,7 +71,7 @@ jobs:
           xcode-version: ${{ env.xcode_version }}
 
       # signing needs secrets this workflow does not have, so this only proves
-      # that the device slice compiles and links
+      # the device slice compiles and links
       - name: build
         run: >
           xcodebuild

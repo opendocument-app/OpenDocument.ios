@@ -62,8 +62,6 @@ fastlane/test_output
 
 .DS_Store
 
-fastlane/report.xml
-
 graph_info.json
 .venv/
 __pycache__/

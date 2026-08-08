@@ -39,15 +39,15 @@ translation. The `<prefix>` changes on every translation, because the web view
 caches by URL and a document re-translated after a password or an edit has to
 land on an address it has not seen.
 
-`kCoreWrapperServesOverHttp` in `CoreWrapper.mm` switches back to writing the
-pages out as files, which is also what happens automatically if the socket
-cannot be opened at all. It is there to keep that path working while the
-migration finishes, not as a runtime option.
+There is no file-writing fallback: a socket that cannot be opened fails the
+translate, and the document is reported as failed. The web view still loads
+`file:` URLs, but only for the formats odrcore does not handle at all, which
+`DocumentViewController` hands it directly.
 
-Nothing about this needs a capability or prompts the user. A listening socket on
+None of this needs a capability or prompts the user. A listening socket on
 loopback takes no entitlement, and the local network permission introduced in
-iOS 14 covers the local subnet and multicast, not `127.0.0.1`. The one thing it
-does need is an App Transport Security exception, since ATS blocks plain HTTP:
+iOS 14 covers the local subnet and multicast, not `127.0.0.1`. It does need an
+App Transport Security exception, since ATS blocks plain HTTP:
 `NSAllowsLocalNetworking` in both `Info.plist`s, which is the narrow one for
 local addresses and — unlike `NSAllowsArbitraryLoads` — needs no justification
 in App Store review.
