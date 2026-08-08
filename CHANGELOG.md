@@ -18,6 +18,20 @@ once the version tag exists.
 
 ## [Unreleased]
 
+### Added
+
+- The Lite app asks for advertising consent before it shows its first ad, in
+  the regions where Google's EU user consent policy requires a consent form.
+  The form is Google's own (UMP), the same one the Android app uses.
+- A "Privacy" entry in the document browser reopens that choice, and leads to
+  the system tracking permission.
+
+### Changed
+
+- The tracking permission is asked after the consent form, and only where the
+  answer allows an ad to carry an advertising identifier. Refusing consent
+  leaves limited ads, which carry none, rather than no ads at all.
+
 ## [1.37]
 
 No user-facing changes. This release only changes how the app is built and
