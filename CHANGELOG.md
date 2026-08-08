@@ -1,32 +1,38 @@
 # Changelog
 
-User-facing changes to OpenDocument Reader for iOS. Changes to the shared
-OpenDocument core that the app picked up are listed under the release that
-shipped them.
+Developer-facing changes to OpenDocument Reader for iOS, in [Keep a
+Changelog](https://keepachangelog.com/en/1.1.0/) format. Changes to the shared
+OpenDocument core are listed under the release that shipped them. The shorter
+"What's New" copy the store shows lives in
+`fastlane/metadata/en-US/changelogs/`.
 
-The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+Entries go under `Unreleased` in the pull request that makes the change. The
+heading is cut when the release is **submitted**, in one pull request that also
+writes the store copy for that version.
 
-Entries go under `Unreleased` as the change lands, in the same pull request.
-This file lives on `main` and only on `main`. Nothing in the build reads it, so
-`project.pbxproj` keeps its `0.0.0` and the version comes from the dispatch
-input.
-
-The heading is cut when the release is **submitted**, in one pull request that
-also writes `fastlane/metadata/en-US/changelogs/<version>.txt`. The release run
-refuses a version with no section here, and makes that section the body of the
-GitHub release it drafts.
-
-Until the release is out the section stays open: **a second build under the same
-version goes under the already cut heading, not back under `Unreleased`.** Date
-the heading and point its compare link at the version tag once it is live.
-
-The copy that App Store Connect shows under "What's New" is a different, shorter
-register. It is pasted into App Store Connect at submission time; see the README
-there.
+A release run refuses a version with no section here, and makes that section the
+body of the GitHub release it drafts. Until the release is out the section stays
+open: **a second build under the same version goes under the already cut
+heading, not back under `Unreleased`.** Date the heading and add its compare link
+once the version tag exists.
 
 ## [Unreleased]
 
-## [1.37] - 2026-08-02
+### Added
+
+- The Lite app asks for advertising consent before it shows its first ad, in
+  the regions where Google's EU user consent policy requires a consent form.
+  The form is Google's own (UMP), the same one the Android app uses.
+- A "Privacy" entry in the document browser reopens that choice, and leads to
+  the system tracking permission.
+
+### Changed
+
+- The tracking permission is asked after the consent form, and only where the
+  answer allows an ad to carry an advertising identifier. Refusing consent
+  leaves limited ads, which carry none, rather than no ads at all.
+
+## [1.37]
 
 No user-facing changes. This release only changes how the app is built and
 submitted.
@@ -86,7 +92,6 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.37...HEAD
-[1.37]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.36...1.37
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.36...HEAD
 [1.36]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.35...1.36
 [1.35]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.34...1.35

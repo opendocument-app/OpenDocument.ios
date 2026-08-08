@@ -1,9 +1,7 @@
 name: format
 
-# swift-format comes with the Xcode toolchain, so this needs no ruby and reports
-# style breakage in a minute instead of after a full build.
-# Unlike build_test this has no paths-ignore: every file the formatter touches
-# gets checked.
+# Kept apart from build_test: swift-format comes with the Xcode toolchain, so
+# this reports style breakage in a minute instead of after a full build.
 
 on:
   workflow_dispatch:
@@ -20,8 +18,7 @@ permissions:
   contents: read
 
 env:
-  # the runner image only ships the iOS platform bundle for its default Xcode;
-  # older ones fail in ibtool with "iOS 26.0 Platform Not Installed"
+  # pins swift-format, which is whatever the selected toolchain ships
   xcode_version: "26.5"
 
 jobs:

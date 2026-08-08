@@ -11,8 +11,6 @@ class PageTabBarTests: XCTestCase {
 
         tabBar = PageTabBar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
         tabBar.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
-
-        valueChangedCount = 0
     }
 
     @objc private func valueChanged() {
@@ -59,8 +57,8 @@ class PageTabBarTests: XCTestCase {
         XCTAssertNil(tabBar.selectedIndex)
     }
 
-    /// The document view selects the first page itself once a document is
-    /// loaded, and must not have that echoed back as a page change.
+    /// The document view selects the first page itself once a document loads,
+    /// and must not have that echoed back as a page change.
     func testProgrammaticSelectionDoesNotNotify() {
         tabBar.titles = ["Alpha", "Beta"]
 
@@ -108,9 +106,8 @@ class PageTabBarTests: XCTestCase {
     }
 
     /// An even share is only fair while it is wide enough for the longest
-    /// title. "Q4 Revenue Forecast" next to "A" and "B" fits the bar
-    /// comfortably, but an even third of it would truncate the long one for no
-    /// reason.
+    /// title: all three of these fit the bar, but an even third would truncate
+    /// the long one for no reason.
     func testALongTitleKeepsItsWidthWhileTheyAllStillFit() throws {
         tabBar.titles = ["A", "B", "Q4 Revenue Forecast"]
 
@@ -159,12 +156,8 @@ class DocumentViewControllerPageTabsTests: XCTestCase {
                 as? DocumentViewController)
         viewController.loadViewIfNeeded()
 
-        // selecting a tab parses the document, so it has to be a real one
-        documentURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("page-tabs.odt")
-        try? FileManager.default.removeItem(at: documentURL)
-
-        let bundlePath = try XCTUnwrap(Bundle(for: type(of: self)).path(forResource: "test", ofType: "odt"))
-        try FileManager.default.copyItem(at: URL(fileURLWithPath: bundlePath), to: documentURL)
+        documentURL = URL(
+            fileURLWithPath: try XCTUnwrap(Bundle(for: Self.self).path(forResource: "test", ofType: "odt")))
     }
 
     private func makeDocument(pageNames: [String]) -> Document {

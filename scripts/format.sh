@@ -5,9 +5,8 @@
 #   scripts/format.sh           rewrites the sources in place
 #   scripts/format.sh --check   only reports what would change (used by CI)
 #
-# swift-format is taken from the active Xcode toolchain, so the formatter
-# version follows the Xcode version CI pins instead of being installed
-# separately.
+# swift-format comes from the active Xcode toolchain, so the formatter version
+# follows the Xcode version CI pins.
 
 set -euo pipefail
 

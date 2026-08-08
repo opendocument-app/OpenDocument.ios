@@ -1,15 +1,3 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
 require "base64"
 require "fileutils"
 require "shellwords"
@@ -22,8 +10,10 @@ APPS = {
   lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1" },
 }.freeze
 
-# gitignored, and where the release workflow archives the .ipa from
-IPA_DIR = "build".freeze
+# Absolute, because lane bodies run in fastlane/ while actions run one directory
+# up: a bare "build" would be fastlane/build/ to File.exist? and build/ to gym.
+# Resolved at parse time, which fastlane also does from fastlane/.
+IPA_DIR = File.expand_path("../build").freeze
 
 def dry_run?
   ENV["ODR_DRY_RUN"].to_s.strip == "true"
@@ -81,8 +71,6 @@ platform :ios do
   end
 
   lane :tests do
-    # no clear_derived_data here: CI runners start clean anyway and locally it
-    # only throws away the incremental build of a C++ heavy project
     run_tests(
       project: "OpenDocumentReader.xcodeproj",
       scheme: "ODR Full",
@@ -90,13 +78,9 @@ platform :ios do
     )
   end
 
-  # An App Store Connect API key replaces the interactive Apple ID login, which
-  # is what kept releases tied to one person's machine. Supply it through
-  # ASC_KEY_ID / ASC_ISSUER_ID / ASC_KEY_CONTENT, the last being the base64 of
-  # the .p8 file.
-  #
-  # It is written to a private temporary file because that is the shape
-  # app_store_connect_api_key takes it in; every caller removes it again.
+  # ASC_KEY_CONTENT is the base64 of the .p8. It is written to a private
+  # temporary file because that is the shape app_store_connect_api_key takes it
+  # in; every caller removes it again.
   private_lane :api_key_file do
     path = File.join(Dir.mktmpdir("asc-api-key"), "AuthKey_#{ENV.fetch('ASC_KEY_ID')}.p8")
     File.write(path, Base64.decode64(ENV.fetch("ASC_KEY_CONTENT")))
@@ -114,9 +98,8 @@ platform :ios do
     )
   end
 
-  # One above the highest either app has: they share a number, so one
-  # (version, build) pair names one commit in both listings. App Store Connect only
-  # requires the number to increase, not to be contiguous.
+  # One above the highest either app has, so one (version, build) pair names one
+  # commit in both listings. The store only requires the number to increase.
   private_lane :next_build_number do |options|
     APPS.values.map { |app|
       latest_testflight_build_number(
@@ -127,12 +110,10 @@ platform :ios do
     }.max + 1
   end
 
-  # ODR_VERSION is the marketing version - the dispatch input in CI, since the
-  # repository has no real one. ODR_BUILD_NUMBER is the number resolved once for the
-  # whole release; unset, this asks App Store Connect itself, as a hand run does.
-  #
-  # Both come from the environment rather than lane options, which fastlane passes
-  # through as strings: `dry_run:false` would arrive as "false" and read as true.
+  # ODR_VERSION and ODR_BUILD_NUMBER come from the environment rather than lane
+  # options, which fastlane passes through as strings: `dry_run:false` would
+  # arrive as "false" and read as true. An unset ODR_BUILD_NUMBER asks App Store
+  # Connect itself, as a hand run does.
   private_lane :build_ipa do |options|
     version = ENV["ODR_VERSION"].to_s.strip
 
@@ -157,14 +138,11 @@ platform :ios do
 
       UI.message("building #{options[:scheme]} #{version.empty? ? '(unversioned)' : version} as build #{build_number}")
 
-      # Signing is manual from here on. Automatic signing has xcodebuild mint
-      # distribution assets of its own -- cloud signing, which only an Admin key
-      # may do, so the export failed with "Cloud signing permission error" while
-      # the imported certificate went unused. sigh downloads the App Store
-      # profile matching that certificate instead, and both xcodebuild passes
-      # are handed it. Downloading one is something any key may do; creating the
-      # profile, which this also does when the account has none, wants an Admin
-      # key - and fails here, before the build, rather than after it.
+      # Manual, because automatic signing has xcodebuild mint distribution assets
+      # of its own - cloud signing, which only an Admin key may do, and which
+      # left the imported certificate unused. sigh wants an Admin key only when
+      # the account has no profile yet and it has to create one; that fails here,
+      # before the build, rather than after it.
       profile_dir = Dir.mktmpdir("provisioning-profile")
       get_provisioning_profile(
         api_key: key,
@@ -176,17 +154,14 @@ platform :ios do
       UI.user_error!("sigh returned no profile name") if profile_name.to_s.empty?
 
       xcargs = [
-        # the archive is signed the same way the export re-signs it
         "CODE_SIGN_STYLE=Manual",
         "CODE_SIGN_IDENTITY=#{Shellwords.escape('Apple Distribution')}",
         "PROVISIONING_PROFILE_SPECIFIER=#{Shellwords.escape(profile_name)}",
-        # passed on the command line rather than written into project.pbxproj,
-        # so a release never leaves the working tree dirty
+        # on the command line, so a release never leaves the working tree dirty
         "CURRENT_PROJECT_VERSION=#{build_number}",
       ]
-      # left out when there is none rather than passed as 0.0.0, which is what
-      # project.pbxproj already says
-      xcargs << "MARKETING_VERSION=#{version}" unless version.empty?
+      # left out rather than passed as the 0.0.0 project.pbxproj already says
+      xcargs << "MARKETING_VERSION=#{Shellwords.escape(version)}" unless version.empty?
 
       build_app(
         project: "OpenDocumentReader.xcodeproj",
@@ -208,9 +183,8 @@ platform :ios do
     end
   end
 
-  # Takes the .ipa built earlier rather than building one, so a failed upload can be
-  # retried against the same bytes. Needs no keychain and no profile: the archive is
-  # already signed.
+  # Takes the .ipa built earlier rather than building one, so a failed upload can
+  # be retried against the same bytes.
   private_lane :upload_ipa do |options|
     ipa = File.join(IPA_DIR, "#{options[:name]}.ipa")
     UI.user_error!("no #{ipa} to upload - run the matching build lane first") unless File.exist?(ipa)
@@ -227,7 +201,9 @@ platform :ios do
         # deliberate step in App Store Connect. deliver's option is
         # submit_for_review; skip_submission is pilot's and is rejected here.
         submit_for_review: false,
-        precheck_include_in_app_purchases: false
+        # deliver runs precheck even when it is not submitting, and precheck
+        # refuses to run at all against in-app purchases with an API key
+        run_precheck_before_submit: false
       )
     ensure
       FileUtils.remove_entry(File.dirname(key_path), true)

@@ -17,8 +17,7 @@ final class CrashManager {
         self.enabled = enabled
     }
 
-    /// Context attached to everything reported afterwards, the way custom keys
-    /// used to be attached to a Crashlytics report.
+    /// Context attached to everything reported afterwards.
     func setCustomValue(_ value: String, forKey key: String) {
         customValues[key] = value
     }
@@ -30,8 +29,8 @@ final class CrashManager {
     }
 
     func log(_ error: Error) {
-        // unconditionally, so a debug session shows the failure even with
-        // reporting turned off
+        // unconditional, unlike log(String): a failure is worth seeing in a
+        // debug session with reporting turned off
         logger.error("\(String(describing: error), privacy: .public) \(self.describedContext(), privacy: .private)")
     }
 

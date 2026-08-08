@@ -78,6 +78,21 @@
 "intro_skip" = "Skip";
 "intro_start" = "Start";
 
+/* Entry point in the document browser that reopens the advertising consent choices */
+"privacy" = "Privacy";
+
+/* Reopens the Google UMP consent form */
+"privacy_ad_choices" = "Ad privacy choices";
+
+/* Leads to the iOS tracking permission for this app */
+"privacy_tracking" = "Tracking permission";
+
+/* Explains that ATT is asked once per install and lives in iOS Settings afterwards */
+"privacy_tracking_message" = "iOS asks for tracking permission once. You can change it any time in Settings, under Privacy & Security → Tracking. Changing it there closes the app.";
+
+/* Opens this app's page in the Settings app */
+"privacy_open_settings" = "Open Settings";
+
 /* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
 "house_ad_support_short" = "Support us";
 "house_ad_support_headline" = "Support OpenDocument Reader";

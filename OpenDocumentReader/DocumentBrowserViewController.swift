@@ -11,8 +11,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     let pageViewController = "pageViewController"
 
-    var documentController: DocumentViewController? = nil
-
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -26,6 +24,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         StoreReviewHelper.checkAndAskForReview()
 
+        // ahead of the intro guard below, which most launches return at
+        refreshPrivacyButton()
+
         let userDefaults = UserDefaults.standard
         let wasIntroWatched = userDefaults.bool(forKey: Constants.key_was_intro_watched)
 
@@ -35,6 +36,84 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         {
             present(pageVC, animated: true, completion: nil)
         }
+    }
+
+    // MARK: - Privacy
+
+    /// Brings consent up to date and then offers the way back to it.
+    ///
+    /// The app has no settings screen, so the browser's chrome carries this - the only route back
+    /// to either choice, both of which are asked once.
+    private func refreshPrivacyButton() {
+        guard ConfigurationManager.manager.configuration == .lite else { return }
+
+        ConsentManager.manager.refresh {
+            let item = UIBarButtonItem(
+                title: NSLocalizedString("privacy", value: "Privacy", comment: ""),
+                style: .plain,
+                target: self,
+                action: #selector(self.showPrivacyOptions(_:))
+            )
+
+            self.additionalTrailingNavigationBarButtonItems = [item]
+        }
+    }
+
+    @objc private func showPrivacyOptions(_ sender: UIBarButtonItem) {
+        let sheet = UIAlertController(
+            title: NSLocalizedString("privacy", value: "Privacy", comment: ""), message: nil,
+            preferredStyle: .actionSheet)
+
+        // absent where UMP has no message configured, and so nothing to show
+        if ConsentManager.manager.privacyOptionsRequired {
+            sheet.addAction(
+                UIAlertAction(
+                    title: NSLocalizedString("privacy_ad_choices", value: "Ad privacy choices", comment: ""),
+                    style: .default
+                ) { _ in
+                    ConsentManager.manager.presentPrivacyOptions(from: self) {}
+                })
+        }
+
+        sheet.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("privacy_tracking", value: "Tracking permission", comment: ""), style: .default
+            ) { _ in
+                self.showTrackingPermissionHint()
+            })
+
+        sheet.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel))
+
+        // an action sheet without this crashes on iPad, where it is a popover
+        sheet.popoverPresentationController?.barButtonItem = sender
+
+        present(sheet, animated: true)
+    }
+
+    /// ATT cannot be asked twice, so the only way back is the Settings app.
+    private func showTrackingPermissionHint() {
+        let alert = UIAlertController(
+            title: NSLocalizedString("privacy_tracking", value: "Tracking permission", comment: ""),
+            message: NSLocalizedString(
+                "privacy_tracking_message",
+                value:
+                    "iOS asks for tracking permission once. You can change it any time in Settings, under Privacy & Security → Tracking. Changing it there closes the app.",
+                comment: ""),
+            preferredStyle: .alert
+        )
+
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("privacy_open_settings", value: "Open Settings", comment: ""), style: .default
+            ) { _ in
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+
+                UIApplication.shared.open(url)
+            })
+
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel))
+
+        present(alert, animated: true)
     }
 
     func documentBrowser(
@@ -83,9 +162,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
 
-        if presentedViewController != nil {
-            presentedViewController?.dismiss(animated: false, completion: nil)
-        }
+        presentedViewController?.dismiss(animated: false, completion: nil)
 
         guard
             let documentViewController =
@@ -96,7 +173,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
             return
         }
-        documentController = documentViewController
 
         documentViewController.modalPresentationCapturesStatusBarAppearance = true
         documentViewController.loadViewIfNeeded()
@@ -110,11 +186,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         documentViewController.document = doc
 
-        let shortenedDocumentUrl = documentURL.absoluteString.prefix(49) + ".." + documentURL.absoluteString.suffix(49)
         AnalyticsManager.shared.report(
             AnalyticsConstants.eventViewItem,
             parameters: [
-                AnalyticsConstants.paramItemName: shortenedDocumentUrl
+                AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl
             ])
 
         doc.open { [weak self] success in
