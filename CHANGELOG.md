@@ -25,12 +25,25 @@ once the version tag exists.
   The form is Google's own (UMP), the same one the Android app uses.
 - A "Privacy" entry in the document browser reopens that choice, and leads to
   the system tracking permission.
+- CSV files open as spreadsheets. The separator is worked out from the file,
+  quoted fields stay whole, and a value that only looks like a number is left as
+  text. They used to be handed to the web view as plain text.
 
 ### Changed
 
 - The tracking permission is asked after the consent form, and only where the
   answer allows an ad to carry an advertising identifier. Refusing consent
   leaves limited ads, which carry none, rather than no ads at all.
+- Documents keep the side margins of a printed page, which is what they were
+  written to look like.
+- The engine is odrcore 6.4.0, up from 6.2.0. Spreadsheets are drawn in a
+  quieter grid under a ruler that stays put while scrolling; a .docx breaks onto
+  the pages it was written for and its numbered lists carry their markers into a
+  copy; a document that is not UTF-8 comes out as text rather than mojibake; an
+  archive lists its entries as files; embedded PDF fonts no longer render as
+  tofu; and svg, ico, jxl, jp2, psd, wmf and emf are shown as images.
+- Edit is offered only for a document the engine holds open for editing, rather
+  than for anything it managed to render.
 
 ## [1.37]
 

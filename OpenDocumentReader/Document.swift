@@ -48,6 +48,9 @@ class Document: UIDocument {
     public var webview: WKWebView?
 
     public var isOdf = false
+    /// Whether the menu should offer to edit this one - odrcore holds it open as
+    /// a document, which is what a save applies the edits to.
+    public var isEditable = false
     private var wasPageCountAnnounced = false
 
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
@@ -60,6 +63,7 @@ class Document: UIDocument {
         loadProgress.completedUnitCount = 2
 
         isOdf = false
+        isEditable = false
         result = nil
         pageURLs = nil
         notify { $0.documentUpdateContent(self) }
@@ -88,6 +92,7 @@ class Document: UIDocument {
         }
 
         isOdf = true
+        isEditable = coreWrapper.isEditable
 
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
 

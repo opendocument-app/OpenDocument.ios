@@ -82,6 +82,40 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
 
+    /// A csv reaches odrcore at all only through the decoded file — it is a text
+    /// file that also loads as a spreadsheet, so `isDocumentFile` says no and the
+    /// guard used to reject it outright.
+    func testCsvIsTranslated() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "csv")
+
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["document"])
+    }
+
+    /// And it has no document behind it, so the menu must not offer to edit one.
+    func testCsvIsNotEditable() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "csv")
+
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+
+        XCTAssertFalse(wrapper.isEditable)
+    }
+
+    /// The odt does, which is what keeps the check above from passing vacuously.
+    func testATextDocumentIsEditable() throws {
+        let wrapper = CoreWrapper()
+
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+
+        XCTAssertTrue(wrapper.isEditable)
+    }
+
     /// Nothing is rendered to disk up front any more, so the pages have to come
     /// back off the loopback server odrcore is serving them on.
     func testPagesAreServedOverLoopback() throws {
