@@ -74,9 +74,17 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     }
 }
 
+/// A csv is a *text* file to odrcore that also loads as a spreadsheet, so it
+/// answers `isDocumentFile` with false and `asDocumentFile()` fails on it.
+private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparatedValues }
+
 @objc final class CoreWrapper: NSObject {
     @objc private(set) var pageNames: [String] = []
     @objc private(set) var pageURLs: [URL] = []
+
+    /// Whether `backTranslate` has a document to apply an edit to. Only a
+    /// document that said it takes one is kept, so having it *is* the answer.
+    @objc var isEditable: Bool { lock.withLock { document != nil } }
 
     private var document: OdrCoreObjC.Document?
     private let lock = NSRecursiveLock()
@@ -116,22 +124,40 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             }
         }
 
-        guard file.isDocumentFile else {
+        guard file.isDocumentFile || isCsv(file) else {
             throw coreWrapperError(.unsupportedFileType, "not a document file")
         }
-
-        let documentFile = try file.asDocumentFile()
-        let documentType = documentFile.documentType
-        let document = try documentFile.document()
 
         let config = HtmlConfig()
         config.editable = editable
         // resource paths are resolved relative to an output directory, and in
         // server mode there is none — odrcore rejects the combination
         config.relativeResourcePaths = false
+        // the side margins of a printed page, which is what it was written to look like
+        config.textDocumentMargin = true
 
-        let service = try HtmlTranslator.translate(
-            document: document, cachePath: cachePath, config: config)
+        let documentType: DocumentType
+        let openedDocument: OdrCoreObjC.Document?
+        let service: HtmlService
+
+        if file.isDocumentFile {
+            let documentFile = try file.asDocumentFile()
+            let document = try documentFile.document()
+
+            documentType = documentFile.documentType
+            // the document's own answer: a format odrcore renders but cannot write
+            // back would otherwise offer Edit and fail at the save
+            openedDocument = document.isEditable && document.isSavable ? document : nil
+            service = try HtmlTranslator.translate(
+                document: document, cachePath: cachePath, config: config)
+        } else {
+            // not `.spreadsheet`, though a csv is one: that asks for a tab per
+            // sheet, and a csv's single sheet is called "csv"
+            documentType = .unknown
+            openedDocument = nil
+            service = try HtmlTranslator.translate(
+                file: file, cachePath: cachePath, config: config)
+        }
 
         let views = selectViews(service.views, documentType)
         guard !views.isEmpty else {
@@ -144,7 +170,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
         // only once nothing can throw any more: backTranslate must not be handed
         // a document whose pages were never served
-        self.document = document
+        self.document = openedDocument
 
         pageNames = views.map(\.name)
         pageURLs = views.map { base.appendingPathComponent($0.path) }

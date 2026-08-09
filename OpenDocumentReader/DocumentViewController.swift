@@ -430,7 +430,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     @IBAction func showMenu(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        if (document?.isOdf ?? false) && !(document?.edit ?? false) {
+        if (document?.isEditable ?? false) && !(document?.edit ?? false) {
             alert.addAction(
                 UIAlertAction(
                     title: NSLocalizedString("menu_edit", comment: ""), style: .default,
