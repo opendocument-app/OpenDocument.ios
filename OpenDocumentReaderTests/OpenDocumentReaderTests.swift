@@ -82,9 +82,7 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
 
-    /// A csv reaches odrcore at all only through the decoded file — it is a text
-    /// file that also loads as a spreadsheet, so `isDocumentFile` says no and the
-    /// guard used to reject it outright.
+    /// A csv reaches odrcore only through the decoded file — see `isCsv`.
     func testCsvIsTranslated() throws {
         let wrapper = CoreWrapper()
         let url = try copyFixture(ofType: "csv")

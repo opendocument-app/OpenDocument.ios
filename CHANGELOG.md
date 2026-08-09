@@ -37,11 +37,9 @@ once the version tag exists.
 - Documents keep the side margins of a printed page, which is what they were
   written to look like.
 - The engine is odrcore 6.4.0, up from 6.2.0. Spreadsheets are drawn in a
-  quieter grid under a ruler that stays put while scrolling; a .docx breaks onto
-  the pages it was written for and its numbered lists carry their markers into a
-  copy; a document that is not UTF-8 comes out as text rather than mojibake; an
-  archive lists its entries as files; embedded PDF fonts no longer render as
-  tofu; and svg, ico, jxl, jp2, psd, wmf and emf are shown as images.
+  quieter grid, under a row and column ruler that stays put while scrolling, and
+  a .docx breaks onto the pages it was written for, its numbered lists carrying
+  their markers into a copy.
 - Edit is offered only for a document the engine holds open for editing, rather
   than for anything it managed to render.
 

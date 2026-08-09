@@ -76,18 +76,14 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
 /// A csv is a *text* file to odrcore that also loads as a spreadsheet, so it
 /// answers `isDocumentFile` with false and `asDocumentFile()` fails on it.
-/// Translating the decoded file rather than a document is what reaches its
-/// table; the cost is that `backTranslate` has no document to edit, which a csv
-/// has nothing to offer anyway.
 private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparatedValues }
 
 @objc final class CoreWrapper: NSObject {
     @objc private(set) var pageNames: [String] = []
     @objc private(set) var pageURLs: [URL] = []
 
-    /// Whether `backTranslate` has a document to apply an edit to — only a
-    /// document that said it can take one is kept, so having it *is* the answer.
-    /// False for a csv, which is rendered from the file itself — see `isCsv`.
+    /// Whether `backTranslate` has a document to apply an edit to. Only a
+    /// document that said it takes one is kept, so having it *is* the answer.
     @objc var isEditable: Bool { lock.withLock { document != nil } }
 
     private var document: OdrCoreObjC.Document?
@@ -137,8 +133,7 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         // resource paths are resolved relative to an output directory, and in
         // server mode there is none — odrcore rejects the combination
         config.relativeResourcePaths = false
-        // the side margins of a printed page, which is what the document was
-        // written to look like
+        // the side margins of a printed page, which is what it was written to look like
         config.textDocumentMargin = true
 
         let documentType: DocumentType
@@ -150,16 +145,14 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             let document = try documentFile.document()
 
             documentType = documentFile.documentType
-            // the document's own answer, not "we managed to open one": a format
-            // odrcore renders but cannot write back — a .doc, say — would
-            // otherwise offer Edit and fail at the save
+            // the document's own answer: a format odrcore renders but cannot write
+            // back would otherwise offer Edit and fail at the save
             openedDocument = document.isEditable && document.isSavable ? document : nil
             service = try HtmlTranslator.translate(
                 document: document, cachePath: cachePath, config: config)
         } else {
-            // not `.spreadsheet`, though a csv is one: that would ask for a tab
-            // per sheet, and a csv's single sheet is called "csv". The combined
-            // view holds the same table without a tab bar naming it.
+            // not `.spreadsheet`, though a csv is one: that asks for a tab per
+            // sheet, and a csv's single sheet is called "csv"
             documentType = .unknown
             openedDocument = nil
             service = try HtmlTranslator.translate(

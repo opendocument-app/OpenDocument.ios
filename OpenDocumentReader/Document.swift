@@ -48,8 +48,7 @@ class Document: UIDocument {
     public var webview: WKWebView?
 
     public var isOdf = false
-    /// Whether the menu should offer to edit this one - the document odrcore
-    /// holds open says it can take an edit and be written back out.
+    /// Whether the menu should offer to edit this one - see `CoreWrapper.isEditable`.
     public var isEditable = false
     private var wasPageCountAnnounced = false
 
