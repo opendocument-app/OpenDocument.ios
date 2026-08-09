@@ -88,7 +88,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yut-lR-gq5" customClass="GADBannerView">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yut-lR-gq5">
                                 <rect key="frame" x="0.0" y="140" width="414" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBrownColor"/>
                                 <constraints>
@@ -109,7 +109,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bannerView" destination="yut-lR-gq5" id="28Z-1b-NAN"/>
+                        <outlet property="bannerSlot" destination="yut-lR-gq5" id="28Z-1b-NAN"/>
                         <outlet property="bannerViewHeight" destination="eXE-Ks-sQc" id="yQ1-l7-wiV"/>
                         <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>

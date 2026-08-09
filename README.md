@@ -23,6 +23,43 @@ apple/build_xcframework.py slice && apple/build_xcframework.py assemble
 Its `Package.swift` then takes `ODR_XCFRAMEWORK=OdrCoreObjC.xcframework` from the
 environment of every `xcodebuild` invocation instead of the release artifact.
 
+## The two apps
+
+Two targets, and what separates them is what they *link*:
+
+| target | scheme | bundle id | ad + consent sdks |
+| --- | --- | --- | --- |
+| `OpenDocumentReader` | `ODR Full` | `at.tomtasche.reader` | no |
+| `OpenDocumentReader Lite` | `ODR Lite` | `at.tomtasche.reader.lite1` | yes |
+
+Two targets rather than two configurations of one, because a Swift package
+product is linked by a target and no build setting takes it back out. Pro's
+release executable is 0.5 MB against Lite's 4.4 MB.
+
+Three folders, each a synchronized group, so adding a file is all it takes to
+add it to the build:
+
+| folder | in |
+| --- | --- |
+| `OpenDocumentReader/` | both |
+| `Ads/` | Lite |
+| `NoAds/` | Full |
+
+`Ads/` is the only place that names a type from an ad sdk. `AdSlot` (the banner
+and the consent form) and `AdPrivacy` (the way back to that choice) have a no-op
+twin of the same shape in `NoAds/`; a method added to one copy has to be added to
+the other, which building both schemes catches.
+
+Code that has to *ask* reads `Features.withAds`, never the bundle id. `LINKS_ADS`
+behind it sits in `Ads/` and `NoAds/` next to the classes it stands for, so the
+flag cannot end up in a build whose code says otherwise. `AnalyticsManager` and
+`CrashManager` take no switch at all - both write to `os.Logger` and nowhere
+else, so there is nothing to withhold.
+
+`configs/full` and `configs/lite` hold each bundle's `Info.plist` and privacy
+manifest, out of the synchronized folder, since anything left in there would be
+copied into both apps.
+
 ## How a document reaches the screen
 
 `CoreWrapper` hands the file to odrcore, which returns an `HtmlService`: a
@@ -88,7 +125,7 @@ It runs as three jobs:
 | `record` | once both landed: tag the build, draft the GitHub release |
 
 Both apps always go out together, and nothing chooses one: Pro and Lite are the
-same app with ads and tracking switched off.
+same sources built as two targets, one of which links no ad sdk.
 
 **If one app's upload fails, press "Re-run failed jobs".** Only that upload runs
 again, against the `.ipa` already built and signed - build number included, since
