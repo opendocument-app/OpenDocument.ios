@@ -48,8 +48,8 @@ class Document: UIDocument {
     public var webview: WKWebView?
 
     public var isOdf = false
-    /// Whether the menu should offer to edit this one - odrcore holds it open as
-    /// a document, which is what a save applies the edits to.
+    /// Whether the menu should offer to edit this one - the document odrcore
+    /// holds open says it can take an edit and be written back out.
     public var isEditable = false
     private var wasPageCountAnnounced = false
 

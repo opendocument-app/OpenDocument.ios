@@ -85,8 +85,9 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
     @objc private(set) var pageNames: [String] = []
     @objc private(set) var pageURLs: [URL] = []
 
-    /// Whether `backTranslate` has a document to apply an edit to. False for a
-    /// csv, which is rendered from the file itself — see `isCsv`.
+    /// Whether `backTranslate` has a document to apply an edit to — only a
+    /// document that said it can take one is kept, so having it *is* the answer.
+    /// False for a csv, which is rendered from the file itself — see `isCsv`.
     @objc var isEditable: Bool { lock.withLock { document != nil } }
 
     private var document: OdrCoreObjC.Document?
@@ -149,7 +150,10 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             let document = try documentFile.document()
 
             documentType = documentFile.documentType
-            openedDocument = document
+            // the document's own answer, not "we managed to open one": a format
+            // odrcore renders but cannot write back — a .doc, say — would
+            // otherwise offer Edit and fail at the save
+            openedDocument = document.isEditable && document.isSavable ? document : nil
             service = try HtmlTranslator.translate(
                 document: document, cachePath: cachePath, config: config)
         } else {
