@@ -125,6 +125,7 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.36...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.37...HEAD
+[1.37]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.36...1.37
 [1.36]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.35...1.36
 [1.35]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.34...1.35
