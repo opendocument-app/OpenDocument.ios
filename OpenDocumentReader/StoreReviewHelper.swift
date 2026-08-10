@@ -29,11 +29,15 @@ struct StoreReviewHelper {
         // asking is not the same as showing: StoreKit rate-limits the prompt
         guard appOpenCount == 3 || (appOpenCount > 0 && appOpenCount % 10 == 0) else { return }
 
+        // the names OpenDocument.droid uses for the same two moments, so the funnel reads
+        // the same on both platforms
+        AnalyticsManager.shared.report("in_app_review_eligible")
+
         requestReview()
     }
 
     private static func requestReview() {
-        AnalyticsManager.shared.report("rating_show")
+        AnalyticsManager.shared.report("in_app_review_start")
 
         if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive })
             as? UIWindowScene

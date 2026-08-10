@@ -223,6 +223,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     private func openProOnAppStore() {
         AnalyticsManager.shared.report("house_ad_tapped")
+        // the intent itself, under the name OpenDocument.droid reports when its own
+        // promotion opens the paid listing
+        AnalyticsManager.shared.report(AnalyticsConstants.eventAddToCart)
 
         let store = SKStoreProductViewController()
         store.delegate = self
@@ -293,6 +296,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     @IBAction func searchButton(_ sender: UIBarButtonItem) {
+        AnalyticsManager.shared.report("menu_search")
+        AnalyticsManager.shared.report(AnalyticsConstants.eventSearch)
+
         showSearchBar()
     }
 
