@@ -175,6 +175,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         adSlot.start(in: bannerSlot, from: self)
     }
 
+    /// The banner's size follows the orientation; the consent behind it does not.
+    override func viewWillTransition(
+        to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator
+    ) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        guard Features.withAds else { return }
+
+        // afterwards, not alongside: the slot only has its new width once the rotation settled
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.adSlot.resize()
+        }
+    }
+
     func setVCconstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         bannerSlot.translatesAutoresizingMaskIntoConstraints = false

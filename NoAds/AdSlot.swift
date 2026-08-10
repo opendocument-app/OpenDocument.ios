@@ -8,4 +8,6 @@ final class AdSlot {
     var onAd: (() -> Void)?
 
     func start(in slot: UIView, from viewController: UIViewController) {}
+
+    func resize() {}
 }

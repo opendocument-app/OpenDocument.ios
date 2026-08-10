@@ -15,6 +15,10 @@ final class AdSlot: NSObject, BannerViewDelegate {
     private let bannerView = BannerView()
     private weak var host: UIViewController?
 
+    /// The width the banner was last asked for at. Nil until consent settles and ``load()``
+    /// makes the first request.
+    private var requestedWidth: CGFloat?
+
     /// Puts the banner in `slot` and gathers consent. Once per controller: the form is modal, so a
     /// second call on reappearance would bring it back.
     func start(in slot: UIView, from viewController: UIViewController) {
@@ -62,12 +66,24 @@ final class AdSlot: NSObject, BannerViewDelegate {
         ])
     }
 
+    /// Asks for a banner sized to the slot as it is now: an anchored adaptive banner keeps the
+    /// shape it was requested at. Never the first request - that one waits for consent.
+    func resize() {
+        guard requestedWidth != nil else { return }
+
+        load()
+    }
+
     private func load() {
         guard let view = host?.view else { return }
 
-        let viewWidth = view.frame.inset(by: view.safeAreaInsets).size.width
+        let width = view.frame.inset(by: view.safeAreaInsets).size.width
 
-        bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: viewWidth)
+        // a transition that left the width alone needs no new ad
+        guard width > 0, width != requestedWidth else { return }
+        requestedWidth = width
+
+        bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: width)
         bannerView.load(Request())
     }
 
