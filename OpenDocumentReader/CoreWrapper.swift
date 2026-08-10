@@ -135,6 +135,11 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         config.relativeResourcePaths = false
         // the side margins of a printed page, which is what it was written to look like
         config.textDocumentMargin = true
+        // served off the same loopback server as the pages rather than inlined, the
+        // way OpenDocument.droid has always had it: embedding turns every picture in
+        // a document into base64 in the markup, so one full of photographs arrives as
+        // a single page the web view has to hold whole
+        config.embedImages = false
 
         let documentType: DocumentType
         let openedDocument: OdrCoreObjC.Document?
