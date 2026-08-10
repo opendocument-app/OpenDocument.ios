@@ -191,51 +191,58 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         // the mimetype entry - out of the file it opened, and it truncates the destination
         // before that read happens. Writing in place therefore reads back what it has just
         // emptied and leaves an archive of blank parts where the document was.
-        let temporaryPath = temporaryNeighbour(of: outputPath)
-
-        do {
-            try document.save(to: temporaryPath)
-        } catch {
-            try? FileManager.default.removeItem(atPath: temporaryPath)
-
-            throw error
-        }
-
-        try moveIntoPlace(from: temporaryPath, to: outputPath)
-    }
-
-    /// A path to write to before taking `outputPath`'s place, keeping its extension so
-    /// odrcore's own file type detection reads it the same way.
-    private func temporaryNeighbour(of outputPath: String) -> String {
         let output = URL(fileURLWithPath: outputPath)
-        let name = "odr-save-\(UUID().uuidString)"
 
-        var temporary = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(name)
-        if !output.pathExtension.isEmpty {
-            temporary.appendPathExtension(output.pathExtension)
-        }
+        let staging = try stagingDirectory(for: output)
+        defer { try? FileManager.default.removeItem(at: staging) }
 
-        return temporary.path
+        let temporary = stagedFile(in: staging, for: output)
+
+        try document.save(to: temporary.path)
+
+        try moveIntoPlace(from: temporary, to: output)
     }
 
-    /// Replaces `outputPath` with the file at `temporaryPath`.
+    /// A directory to save into before taking `output`'s place, on `output`'s own volume.
+    ///
+    /// Not `NSTemporaryDirectory()`: that lives in the app container, and ``moveIntoPlace``
+    /// swaps with `replaceItemAt`, which cannot reach across volumes - a document opened out
+    /// of iCloud Drive or another Files provider is rarely on the same one.
+    ///
+    /// The caller owns what this returns and has to delete it.
+    private func stagingDirectory(for output: URL) throws -> URL {
+        // an existing file is what names the volume; a save target the user has only just
+        // named does not exist yet, so its directory answers for it
+        let reference =
+            FileManager.default.fileExists(atPath: output.path)
+            ? output : output.deletingLastPathComponent()
+
+        return try FileManager.default.url(
+            for: .itemReplacementDirectory,
+            in: .userDomainMask,
+            appropriateFor: reference,
+            create: true)
+    }
+
+    /// Keeps `output`'s extension, so odrcore's own file type detection reads the staged copy
+    /// the same way it reads the document.
+    private func stagedFile(in directory: URL, for output: URL) -> URL {
+        let staged = directory.appendingPathComponent("odr-save-\(UUID().uuidString)")
+
+        guard !output.pathExtension.isEmpty else { return staged }
+
+        return staged.appendingPathExtension(output.pathExtension)
+    }
+
+    /// Replaces `output` with the file at `temporary`.
     ///
     /// `replaceItemAt` only where there is something to replace - it needs an existing item,
     /// and a save target the user has just named may not exist yet.
-    private func moveIntoPlace(from temporaryPath: String, to outputPath: String) throws {
-        let temporary = URL(fileURLWithPath: temporaryPath)
-        let output = URL(fileURLWithPath: outputPath)
-
-        do {
-            if FileManager.default.fileExists(atPath: outputPath) {
-                _ = try FileManager.default.replaceItemAt(output, withItemAt: temporary)
-            } else {
-                try FileManager.default.moveItem(at: temporary, to: output)
-            }
-        } catch {
-            try? FileManager.default.removeItem(at: temporary)
-
-            throw error
+    private func moveIntoPlace(from temporary: URL, to output: URL) throws {
+        if FileManager.default.fileExists(atPath: output.path) {
+            _ = try FileManager.default.replaceItemAt(output, withItemAt: temporary)
+        } else {
+            try FileManager.default.moveItem(at: temporary, to: output)
         }
     }
 
