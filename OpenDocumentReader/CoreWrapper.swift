@@ -185,7 +185,53 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         }
 
         try HtmlTranslator.edit(document: document, diff: diff)
-        try document.save(to: outputPath)
+
+        // odrcore streams the parts the edit did not touch out of the file it opened, and
+        // truncates the destination first - so saving onto the open document empties it
+        let output = URL(fileURLWithPath: outputPath)
+
+        let staging = try stagingDirectory(for: output)
+        defer { try? FileManager.default.removeItem(at: staging) }
+
+        let temporary = stagedFile(in: staging, for: output)
+
+        try document.save(to: temporary.path)
+
+        try moveIntoPlace(from: temporary, to: output)
+    }
+
+    /// A directory on `output`'s own volume, because `replaceItemAt` cannot swap across one.
+    /// The caller has to delete it.
+    private func stagingDirectory(for output: URL) throws -> URL {
+        // a target the user has only just named does not exist yet, so its directory
+        // names the volume instead
+        let reference =
+            FileManager.default.fileExists(atPath: output.path)
+            ? output : output.deletingLastPathComponent()
+
+        return try FileManager.default.url(
+            for: .itemReplacementDirectory,
+            in: .userDomainMask,
+            appropriateFor: reference,
+            create: true)
+    }
+
+    /// Keeps `output`'s extension, which is what odrcore detects the file type from.
+    private func stagedFile(in directory: URL, for output: URL) -> URL {
+        let staged = directory.appendingPathComponent("odr-save-\(UUID().uuidString)")
+
+        guard !output.pathExtension.isEmpty else { return staged }
+
+        return staged.appendingPathExtension(output.pathExtension)
+    }
+
+    private func moveIntoPlace(from temporary: URL, to output: URL) throws {
+        // replaceItemAt needs something to replace, and a newly named target has nothing
+        if FileManager.default.fileExists(atPath: output.path) {
+            _ = try FileManager.default.replaceItemAt(output, withItemAt: temporary)
+        } else {
+            try FileManager.default.moveItem(at: temporary, to: output)
+        }
     }
 
     /// Whether odrcore is serving this URL, rather than it being somewhere a

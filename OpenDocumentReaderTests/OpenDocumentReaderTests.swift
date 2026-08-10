@@ -232,6 +232,28 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertTrue(FileManager.default.fileExists(atPath: editedURL.path))
     }
 
+    /// Where every real save lands: on the document odrcore still has open.
+    func testBackTranslateOverTheOpenDocumentLeavesItReadable() throws {
+        let wrapper = CoreWrapper()
+
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+
+        let diff = """
+            {"modifiedText":{"/child:3/child:0":"Saved over itself."}}
+            """
+
+        try wrapper.backTranslate(diff, into: documentURL.path)
+
+        // the whole document has to survive, not only the part the edit rewrote
+        let reopened = CoreWrapper()
+        try reopened.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+
+        XCTAssertFalse(reopened.pageURLs.isEmpty)
+        XCTAssertTrue(reopened.isEditable)
+    }
+
     /// backTranslate used to dereference an empty std::optional when nothing had
     /// been translated yet.
     func testBackTranslateWithoutTranslateFails() {
