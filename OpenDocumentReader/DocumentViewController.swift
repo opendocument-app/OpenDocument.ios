@@ -5,21 +5,18 @@ Abstract:
 A view controller for displaying and editing documents.
 */
 
-import AdSupport
-import AppTrackingTransparency
-import GoogleMobileAds
 import StoreKit
 import UIKit
 import UIKit.UIPrinter
 import WebKit
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
-class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDelegate, UISearchBarDelegate,
+class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDelegate,
     SKStoreProductViewControllerDelegate, WKNavigationDelegate
 {
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
-    private var hasGatheredConsent = false
+    private var hasStartedAds = false
     public var transitionController: UIDocumentBrowserTransitionController? {
         didSet {
             if let controller = transitionController {
@@ -49,14 +46,23 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     @IBOutlet weak var webview: WKWebView!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var bannerView: BannerView!
-    @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
+    /// Where the ad goes. ``AdSlot`` adds the banner as a subview; empty in the paid app.
+    @IBOutlet weak var bannerSlot: UIView!
+    @IBOutlet weak var bannerSlotHeight: NSLayoutConstraint!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
 
-    /// Fills the banner slot when no ad does. Sits on top of `bannerView` rather than in the
+    /// Fills the banner slot when no ad does. Sits on top of `bannerSlot` rather than in the
     /// layout chain, so the slot keeps its height and nothing below it moves.
     private let houseAdView = HouseAdView()
+
+    private lazy var adSlot: AdSlot = {
+        let slot = AdSlot()
+        slot.onNoAd = { [weak self] in self?.showHouseAd() }
+        slot.onAd = { [weak self] in self?.houseAdView.isHidden = true }
+
+        return slot
+    }()
 
     private var searchBarHeightWhenShown: NSLayoutConstraint?
     private var searchBarHeightWhenHidden: NSLayoutConstraint?
@@ -102,10 +108,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         view.addSubview(houseAdView)
 
         NSLayoutConstraint.activate([
-            houseAdView.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor),
-            houseAdView.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor),
-            houseAdView.topAnchor.constraint(equalTo: bannerView.topAnchor),
-            houseAdView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor),
+            houseAdView.leadingAnchor.constraint(equalTo: bannerSlot.leadingAnchor),
+            houseAdView.trailingAnchor.constraint(equalTo: bannerSlot.trailingAnchor),
+            houseAdView.topAnchor.constraint(equalTo: bannerSlot.topAnchor),
+            houseAdView.bottomAnchor.constraint(equalTo: bannerSlot.bottomAnchor),
         ])
     }
 
@@ -151,57 +157,27 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
 
         document?.webview = webview
 
-        guard ConfigurationManager.manager.configuration == .lite else {
-            hideBannerView()
-
-            return
+        if !Features.withAds {
+            hideBannerSlot()
         }
-
-        bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-8161473686436957/8123543897"
-        bannerView.rootViewController = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // the form is modal, so it has to wait for the window hierarchy - viewWillAppear is
-        // too early. This runs again on every reappearance, hence the flag.
-        guard ConfigurationManager.manager.configuration == .lite, !hasGatheredConsent else {
+        // the consent form is modal, so it has to wait for the window hierarchy - viewWillAppear
+        // is too early. This runs again on every reappearance, hence the flag.
+        guard Features.withAds, !hasStartedAds else {
             return
         }
-        hasGatheredConsent = true
+        hasStartedAds = true
 
-        ConsentManager.manager.gatherConsent(from: self) { [weak self] canRequestAds in
-            guard canRequestAds else {
-                // nothing on file - the form failed, or a first launch offline where one is
-                // required. Not refusal: "do not consent" is an answer and leaves this true.
-                // No ad may be requested, which is the house ad's case exactly.
-                self?.showHouseAd()
-                return
-            }
-
-            guard ConsentManager.manager.adsMayUseAdvertisingIdentifier else {
-                // refused, and still worth serving: Google selects limited ads server-side from
-                // the TC string's special purposes, and showing nothing would be stricter than
-                // the rules require. No ATT - a limited ad carries no identifier to govern.
-                self?.loadBannerAd()
-                return
-            }
-
-            // ATT asks about the IDFA and is no substitute for consent under the EU rules, so
-            // it follows the form, and only for users who get an ad.
-            ATTrackingManager.requestTrackingAuthorization { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.loadBannerAd()
-                }
-            }
-        }
+        adSlot.start(in: bannerSlot, from: self)
     }
 
     func setVCconstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        bannerSlot.translatesAutoresizingMaskIntoConstraints = false
         pageTabBar.translatesAutoresizingMaskIntoConstraints = false
         webview.translatesAutoresizingMaskIntoConstraints = false
 
@@ -209,13 +185,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor).isActive = true
 
-        bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bannerView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-        // no height here: that is bannerViewHeight from the storyboard, which
-        // hideBannerView zeroes, and a second one would fight it
+        bannerSlot.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bannerSlot.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bannerSlot.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+        // no height here: that is bannerSlotHeight from the storyboard, which
+        // hideBannerSlot zeroes, and a second one would fight it
 
-        pageTabBar.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
+        pageTabBar.topAnchor.constraint(equalTo: bannerSlot.bottomAnchor).isActive = true
         pageTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         pageTabBarHeight.isActive = true
@@ -226,17 +202,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
         webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    func loadBannerAd() {
-        let viewWidth = view.frame.inset(by: view.safeAreaInsets).size.width
-
-        bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: viewWidth)
-        bannerView.load(Request())
-    }
-
-    func hideBannerView() {
-        bannerView.isHidden = true
+    /// The paid app has no ad and no house ad either, so the slot collapses.
+    private func hideBannerSlot() {
         houseAdView.isHidden = true
-        bannerViewHeight.constant = 0.0
+        bannerSlotHeight.constant = 0.0
     }
 
     /// No ad to show, so the slot promotes the paid app instead of collapsing.
@@ -247,20 +216,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, BannerViewDele
     private func showHouseAd() {
         houseAdView.rotate()
 
-        bannerView.isHidden = true
         houseAdView.isHidden = false
 
         AnalyticsManager.shared.report("house_ad_shown")
-    }
-
-    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
-        showHouseAd()
-    }
-
-    /// An ad did arrive after all - on a later document, or once the network came back.
-    func bannerViewDidReceiveAd(_ bannerView: BannerView) {
-        houseAdView.isHidden = true
-        bannerView.isHidden = false
     }
 
     private func openProOnAppStore() {

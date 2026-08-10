@@ -3,19 +3,15 @@ import os
 
 /// Crash reporting used to go to Crashlytics. OpenDocument.droid dropped its
 /// Firebase dependency, so this mirrors the shell its `nonfree` package keeps:
-/// errors are logged locally instead of being uploaded.
+/// errors are logged locally instead of being uploaded, so nothing switches it
+/// off.
 final class CrashManager {
     static let shared = CrashManager()
 
     private let logger = Logger(subsystem: "app.opendocument.reader", category: "crash")
-    private var enabled = false
     private var customValues: [String: String] = [:]
 
     private init() {}
-
-    func setEnabled(_ enabled: Bool) {
-        self.enabled = enabled
-    }
 
     /// Context attached to everything reported afterwards.
     func setCustomValue(_ value: String, forKey key: String) {
@@ -23,14 +19,10 @@ final class CrashManager {
     }
 
     func log(_ message: String) {
-        guard enabled else { return }
-
         logger.debug("\(message, privacy: .private)")
     }
 
     func log(_ error: Error) {
-        // unconditional, unlike log(String): a failure is worth seeing in a
-        // debug session with reporting turned off
         logger.error("\(String(describing: error), privacy: .public) \(self.describedContext(), privacy: .private)")
     }
 

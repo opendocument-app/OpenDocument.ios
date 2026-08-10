@@ -14,34 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E2F7ED4E220B54D600D63515"
-               BuildableName = "OpenDocumentReader.app"
-               BlueprintName = "OpenDocumentReader"
+               BlueprintIdentifier = "A11E00000000000000000001"
+               BuildableName = "OpenDocumentReader Lite.app"
+               BlueprintName = "OpenDocumentReader Lite"
                ReferencedContainer = "container:OpenDocumentReader.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug Lite"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E22B252B2557F0E2001D0C52"
-               BuildableName = "OpenDocumentReaderTests.xctest"
-               BlueprintName = "OpenDocumentReaderTests"
-               ReferencedContainer = "container:OpenDocumentReader.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug Lite"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -54,15 +44,15 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E2F7ED4E220B54D600D63515"
-            BuildableName = "OpenDocumentReader.app"
-            BlueprintName = "OpenDocumentReader"
+            BlueprintIdentifier = "A11E00000000000000000001"
+            BuildableName = "OpenDocumentReader Lite.app"
+            BlueprintName = "OpenDocumentReader Lite"
             ReferencedContainer = "container:OpenDocumentReader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release Lite"
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -71,18 +61,18 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E2F7ED4E220B54D600D63515"
-            BuildableName = "OpenDocumentReader.app"
-            BlueprintName = "OpenDocumentReader"
+            BlueprintIdentifier = "A11E00000000000000000001"
+            BuildableName = "OpenDocumentReader Lite.app"
+            BlueprintName = "OpenDocumentReader Lite"
             ReferencedContainer = "container:OpenDocumentReader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug Lite">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release Lite"
+      buildConfiguration = "Release"
       customArchiveName = "OpenDocumentReader Lite"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>

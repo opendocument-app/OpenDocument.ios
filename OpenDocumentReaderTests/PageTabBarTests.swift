@@ -171,6 +171,15 @@ class DocumentViewControllerPageTabsTests: XCTestCase {
         XCTAssertNotNil(viewController.pageTabBar)
     }
 
+    /// These run against the paid app, which links no ad sdk.
+    func testAdSlotCollapsesWithoutAds() {
+        XCTAssertFalse(Features.withAds)
+
+        viewController.beginAppearanceTransition(true, animated: false)
+
+        XCTAssertEqual(viewController.bannerSlotHeight.constant, 0)
+    }
+
     func testPagesFillTheTabBar() {
         viewController.documentPagesChanged(makeDocument(pageNames: ["Alpha", "Beta", "Gamma"]))
 

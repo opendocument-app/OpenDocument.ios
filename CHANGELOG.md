@@ -42,6 +42,14 @@ once the version tag exists.
   their markers into a copy.
 - Edit is offered only for a document the engine holds open for editing, rather
   than for anything it managed to render.
+- Pro no longer contains the Google ad and consent SDKs. It is built as its own
+  target now and links neither, taking its executable from 4.4 MB to 0.5 MB.
+
+### Fixed
+
+- The ad slot in the Lite app no longer shows a brown bar. It was a placeholder
+  colour left on the view, showing until an ad loaded and around any banner
+  narrower than the screen.
 
 ## [1.37]
 

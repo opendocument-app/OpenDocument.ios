@@ -45,9 +45,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     /// The app has no settings screen, so the browser's chrome carries this - the only route back
     /// to either choice, both of which are asked once.
     private func refreshPrivacyButton() {
-        guard ConfigurationManager.manager.configuration == .lite else { return }
+        guard Features.withAds else { return }
 
-        ConsentManager.manager.refresh {
+        AdPrivacy.refresh {
             let item = UIBarButtonItem(
                 title: NSLocalizedString("privacy", value: "Privacy", comment: ""),
                 style: .plain,
@@ -65,13 +65,13 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             preferredStyle: .actionSheet)
 
         // absent where UMP has no message configured, and so nothing to show
-        if ConsentManager.manager.privacyOptionsRequired {
+        if AdPrivacy.optionsAvailable {
             sheet.addAction(
                 UIAlertAction(
                     title: NSLocalizedString("privacy_ad_choices", value: "Ad privacy choices", comment: ""),
                     style: .default
                 ) { _ in
-                    ConsentManager.manager.presentPrivacyOptions(from: self) {}
+                    AdPrivacy.presentOptions(from: self) {}
                 })
         }
 

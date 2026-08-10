@@ -15,22 +15,15 @@ enum AnalyticsConstants {
 
 /// Analytics used to go to Firebase. OpenDocument.droid dropped its Firebase
 /// dependency, so this mirrors the shell its `nonfree` package keeps: the call
-/// sites stay, but nothing leaves the device.
+/// sites stay, but nothing leaves the device, so nothing switches it off.
 final class AnalyticsManager {
     static let shared = AnalyticsManager()
 
     private let logger = Logger(subsystem: "app.opendocument.reader", category: "analytics")
-    private var enabled = false
 
     private init() {}
 
-    func setEnabled(_ enabled: Bool) {
-        self.enabled = enabled
-    }
-
     func report(_ event: String, parameters: [String: Any]? = nil) {
-        guard enabled else { return }
-
         guard let parameters, !parameters.isEmpty else {
             logger.info("\(event, privacy: .public)")
             return
@@ -45,8 +38,6 @@ final class AnalyticsManager {
     }
 
     func setCurrentScreen(_ name: String, className: String) {
-        guard enabled else { return }
-
         logger.info("screen \(name, privacy: .public) (\(className, privacy: .public))")
     }
 }

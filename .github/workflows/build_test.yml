@@ -52,16 +52,15 @@ jobs:
           path: |
             /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
 
-  # the test job only builds the simulator slice of one configuration, so
-  # release-only and device-only breakage used to surface at deploy time
+  # the test job only builds the simulator slice of one target, so release-only
+  # and device-only breakage used to surface at deploy time. Both schemes, since
+  # the flavors link different sources and different sdks
   build:
     runs-on: macos-26
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { scheme: "ODR Full", configuration: "Release" }
-          - { scheme: "ODR Lite", configuration: "Release Lite" }
+        scheme: ["ODR Full", "ODR Lite"]
     steps:
       - name: checkout
         uses: actions/checkout@v7
@@ -77,7 +76,7 @@ jobs:
           xcodebuild
           -project OpenDocumentReader.xcodeproj
           -scheme "${{ matrix.scheme }}"
-          -configuration "${{ matrix.configuration }}"
+          -configuration Release
           -sdk iphoneos
           -destination 'generic/platform=iOS'
           CODE_SIGNING_ALLOWED=NO
