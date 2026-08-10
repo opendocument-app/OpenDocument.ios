@@ -71,7 +71,9 @@ final class HouseAdView: UIView {
     private let textStack = UIStackView()
     private let stack = UIStackView()
 
-    private var creative = HouseAdView.nextCreative()
+    /// Placeholder until ``rotate()`` picks the one shown - taking a rotation here would spend
+    /// one per view built, including in the paid app.
+    private var creative = HouseAdView.creatives[0]
 
     /// Called when the promotion is tapped, so the controller can present the store.
     var onTap: (() -> Void)?
