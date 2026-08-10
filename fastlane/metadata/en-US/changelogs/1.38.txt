@@ -1,0 +1,9 @@
+- Editing and saving a document no longer damages it
+- CSV files open as spreadsheets, with the separator worked out from the file
+- Word documents break onto the pages they were written for, and numbered lists keep their markers when you copy text out of one
+- Spreadsheets are drawn in a quieter grid, under a row and column ruler that stays put while scrolling
+- Documents keep the side margins of a printed page
+- Documents with pictures open faster and use less memory
+- XML files open properly laid out instead of as one long line
+- The free app asks for advertising consent where that is required, and a new Privacy entry reopens the choice at any time
+- The paid app no longer contains Google's advertising code

@@ -1,5 +1,1 @@
-Editing and saving a document no longer damages it.
-
-CSV files open as spreadsheets, a .docx breaks onto the pages it was written for, and documents with pictures open faster.
-
-The free app asks for advertising consent where that is required, and a new Privacy entry reopens the choice at any time.
+Add search functionality for ODF documents

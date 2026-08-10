@@ -4,7 +4,7 @@ Developer-facing changes to OpenDocument Reader for iOS, in [Keep a
 Changelog](https://keepachangelog.com/en/1.1.0/) format. Changes to the shared
 OpenDocument core are listed under the release that shipped them. The shorter
 "What's New" copy the store shows lives in
-`fastlane/metadata/<locale>/release_notes.txt`.
+`fastlane/metadata/en-US/changelogs/`.
 
 Entries go under `Unreleased` in the pull request that makes the change. The
 heading is cut when the release is **submitted**, in one pull request that also
