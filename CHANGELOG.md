@@ -36,10 +36,12 @@ once the version tag exists.
   leaves limited ads, which carry none, rather than no ads at all.
 - Documents keep the side margins of a printed page, which is what they were
   written to look like.
-- The engine is odrcore 6.4.0, up from 6.2.0. Spreadsheets are drawn in a
+- The engine is odrcore 6.5.0, up from 6.2.0. Spreadsheets are drawn in a
   quieter grid, under a row and column ruler that stays put while scrolling, and
   a .docx breaks onto the pages it was written for, its numbered lists carrying
   their markers into a copy.
+- An .xml file opens properly laid out instead of as one long line.
+- Smaller fixes to plain text and to the margin documents open with.
 - Edit is offered only for a document the engine holds open for editing, rather
   than for anything it managed to render.
 - Pro no longer contains the Google ad and consent SDKs. It is built as its own
