@@ -4,7 +4,7 @@ Developer-facing changes to OpenDocument Reader for iOS, in [Keep a
 Changelog](https://keepachangelog.com/en/1.1.0/) format. Changes to the shared
 OpenDocument core are listed under the release that shipped them. The shorter
 "What's New" copy the store shows lives in
-`fastlane/metadata/en-US/changelogs/`.
+`fastlane/metadata/<locale>/release_notes.txt`.
 
 Entries go under `Unreleased` in the pull request that makes the change. The
 heading is cut when the release is **submitted**, in one pull request that also
@@ -16,10 +16,12 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.38]
 
 ### Added
 
+- The Lite app offers the ad-free version in the banner slot when no ad fills
+  it, rotating through three wordings, instead of leaving a gap.
 - The Lite app asks for advertising consent before it shows its first ad, in
   the regions where Google's EU user consent policy requires a consent form.
   The form is Google's own (UMP), the same one the Android app uses.
@@ -41,6 +43,8 @@ once the version tag exists.
   a .docx breaks onto the pages it was written for, its numbered lists carrying
   their markers into a copy.
 - An .xml file opens properly laid out instead of as one long line.
+- Documents with pictures open faster and hold less memory: the images are
+  fetched as the page needs them instead of being built into it.
 - Smaller fixes to plain text and to the margin documents open with.
 - Edit is offered only for a document the engine holds open for editing, rather
   than for anything it managed to render.
@@ -49,9 +53,17 @@ once the version tag exists.
 
 ### Fixed
 
+- **Editing a document no longer destroys it.** The save is written to a file
+  beside the original and moved into place once it is whole; it used to be
+  written over the document it was still reading from, which left an unopenable
+  file behind.
+- The ad in the Lite app is resized when the device is rotated, instead of
+  keeping the shape it was requested at.
 - The ad slot in the Lite app no longer shows a brown bar. It was a placeholder
   colour left on the view, showing until an ad loaded and around any banner
   narrower than the screen.
+- The promotion in the Lite app advances one wording per showing rather than
+  two, so all three are seen.
 
 ## [1.37]
 
