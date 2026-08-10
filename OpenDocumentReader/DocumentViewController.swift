@@ -183,8 +183,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         guard Features.withAds else { return }
 
-        // afterwards, not alongside: the slot's own width is what the new banner is sized
-        // against, and it only has it once the rotation has settled
+        // afterwards, not alongside: the slot only has its new width once the rotation settled
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.adSlot.resize()
         }
