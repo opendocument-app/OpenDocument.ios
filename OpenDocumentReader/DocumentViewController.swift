@@ -48,7 +48,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     @IBOutlet weak var menuButton: UIBarButtonItem!
     /// Where the ad goes. ``AdSlot`` adds the banner as a subview; empty in the paid app.
     @IBOutlet weak var bannerSlot: UIView!
-    @IBOutlet weak var bannerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bannerSlotHeight: NSLayoutConstraint!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
 
@@ -188,7 +188,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         bannerSlot.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bannerSlot.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bannerSlot.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-        // no height here: that is bannerViewHeight from the storyboard, which
+        // no height here: that is bannerSlotHeight from the storyboard, which
         // hideBannerSlot zeroes, and a second one would fight it
 
         pageTabBar.topAnchor.constraint(equalTo: bannerSlot.bottomAnchor).isActive = true
@@ -205,7 +205,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// The paid app has no ad and no house ad either, so the slot collapses.
     private func hideBannerSlot() {
         houseAdView.isHidden = true
-        bannerViewHeight.constant = 0.0
+        bannerSlotHeight.constant = 0.0
     }
 
     /// No ad to show, so the slot promotes the paid app instead of collapsing.

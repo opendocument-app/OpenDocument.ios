@@ -177,7 +177,7 @@ class DocumentViewControllerPageTabsTests: XCTestCase {
 
         viewController.beginAppearanceTransition(true, animated: false)
 
-        XCTAssertEqual(viewController.bannerViewHeight.constant, 0)
+        XCTAssertEqual(viewController.bannerSlotHeight.constant, 0)
     }
 
     func testPagesFillTheTabBar() {
