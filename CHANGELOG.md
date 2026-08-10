@@ -36,10 +36,19 @@ once the version tag exists.
   leaves limited ads, which carry none, rather than no ads at all.
 - Documents keep the side margins of a printed page, which is what they were
   written to look like.
-- The engine is odrcore 6.4.0, up from 6.2.0. Spreadsheets are drawn in a
+- The engine is odrcore 6.5.0, up from 6.2.0. Spreadsheets are drawn in a
   quieter grid, under a row and column ruler that stays put while scrolling, and
   a .docx breaks onto the pages it was written for, its numbered lists carrying
   their markers into a copy.
+- An .xml file opens as a foldable, highlighted source view, in the encoding its
+  declaration names, instead of as one very long line.
+- An .svg is recognised by what is in it rather than by what it is called, so a
+  file that is not one no longer opens as an image that cannot be shown.
+- Plain text reads in a quieter gutter: the line numbers line up with their
+  lines, stay out of a copy of the page, and the line under the pointer is
+  marked.
+- No document opens inset by a thin border any more. Every page now states the
+  margin and background it wants instead of inheriting the web view's.
 - Edit is offered only for a document the engine holds open for editing, rather
   than for anything it managed to render.
 - Pro no longer contains the Google ad and consent SDKs. It is built as its own
