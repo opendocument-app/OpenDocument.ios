@@ -223,8 +223,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     private func openProOnAppStore() {
         AnalyticsManager.shared.report("house_ad_tapped")
-        // the intent itself, under the name OpenDocument.droid reports when its own
-        // promotion opens the paid listing
+        // OpenDocument.droid's name for the same intent
         AnalyticsManager.shared.report(AnalyticsConstants.eventAddToCart)
 
         let store = SKStoreProductViewController()

@@ -31,16 +31,13 @@ struct StoreReviewHelper {
         // asking is not the same as showing: StoreKit rate-limits the prompt
         guard appOpenCount == 3 || (appOpenCount > 0 && appOpenCount % 10 == 0) else { return }
 
-        // the count only moves on launch, but the browser asks from viewDidAppear - so
-        // coming back from every document reopened the same eligible launch, asking again
-        // and reporting again
+        // the count only moves on launch, but the browser asks from viewDidAppear
         guard Defaults.integer(forKey: UserDefaultsKeys.LAST_REVIEW_ASKED_AT) != appOpenCount else {
             return
         }
         Defaults.set(appOpenCount, forKey: UserDefaultsKeys.LAST_REVIEW_ASKED_AT)
 
-        // the names OpenDocument.droid uses for the same two moments, so the funnel reads
-        // the same on both platforms
+        // the names OpenDocument.droid uses for the same two moments
         AnalyticsManager.shared.report("in_app_review_eligible")
 
         requestReview()
