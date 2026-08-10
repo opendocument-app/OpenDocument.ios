@@ -11,6 +11,7 @@ enum AnalyticsConstants {
     static let eventSelectContent = "select_content"
     static let eventViewItem = "view_item"
     static let eventSearch = "search"
+    static let eventAddToCart = "add_to_cart"
 }
 
 /// Analytics used to go to Firebase. OpenDocument.droid dropped its Firebase

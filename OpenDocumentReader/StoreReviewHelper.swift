@@ -13,6 +13,8 @@ struct StoreReviewHelper {
 
     struct UserDefaultsKeys {
         static let APP_OPENED_COUNT = "APP_OPENED_COUNT"
+        /// The open count the prompt was last raised at, so one launch only asks once.
+        static let LAST_REVIEW_ASKED_AT = "LAST_REVIEW_ASKED_AT"
     }
 
     static let Defaults = UserDefaults.standard
@@ -29,11 +31,20 @@ struct StoreReviewHelper {
         // asking is not the same as showing: StoreKit rate-limits the prompt
         guard appOpenCount == 3 || (appOpenCount > 0 && appOpenCount % 10 == 0) else { return }
 
+        // the count only moves on launch, but the browser asks from viewDidAppear
+        guard Defaults.integer(forKey: UserDefaultsKeys.LAST_REVIEW_ASKED_AT) != appOpenCount else {
+            return
+        }
+        Defaults.set(appOpenCount, forKey: UserDefaultsKeys.LAST_REVIEW_ASKED_AT)
+
+        // the names OpenDocument.droid uses for the same two moments
+        AnalyticsManager.shared.report("in_app_review_eligible")
+
         requestReview()
     }
 
     private static func requestReview() {
-        AnalyticsManager.shared.report("rating_show")
+        AnalyticsManager.shared.report("in_app_review_start")
 
         if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive })
             as? UIWindowScene
