@@ -15,6 +15,10 @@ final class AdSlot: NSObject, BannerViewDelegate {
     private let bannerView = BannerView()
     private weak var host: UIViewController?
 
+    /// Whether an ad has been asked for, which is what ``resize()`` needs to know: consent
+    /// settling is the only thing that starts one.
+    private var hasRequestedAd = false
+
     /// Puts the banner in `slot` and gathers consent. Once per controller: the form is modal, so a
     /// second call on reappearance would bring it back.
     func start(in slot: UIView, from viewController: UIViewController) {
@@ -62,8 +66,24 @@ final class AdSlot: NSObject, BannerViewDelegate {
         ])
     }
 
+    /// Sizes the banner for the slot it has now and asks for one that fits.
+    ///
+    /// An anchored adaptive banner is sized for the width and orientation it was requested at, so
+    /// a rotation leaves the one on screen the wrong shape for its slot. OpenDocument.droid
+    /// rebuilds it from onConfigurationChanged for the same reason.
+    ///
+    /// Only once something has been requested: before that, consent has not settled and the slot
+    /// belongs to the house ad, which sizes itself.
+    func resize() {
+        guard hasRequestedAd else { return }
+
+        load()
+    }
+
     private func load() {
         guard let view = host?.view else { return }
+
+        hasRequestedAd = true
 
         let viewWidth = view.frame.inset(by: view.safeAreaInsets).size.width
 
