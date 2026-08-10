@@ -135,6 +135,8 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         config.relativeResourcePaths = false
         // the side margins of a printed page, which is what it was written to look like
         config.textDocumentMargin = true
+        // served with the pages rather than inlined as base64, as in OpenDocument.droid
+        config.embedImages = false
 
         let documentType: DocumentType
         let openedDocument: OdrCoreObjC.Document?
