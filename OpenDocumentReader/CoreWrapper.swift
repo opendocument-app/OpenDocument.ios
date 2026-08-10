@@ -186,11 +186,8 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
 
         try HtmlTranslator.edit(document: document, diff: diff)
 
-        // Never straight onto `outputPath`, which is the document we are editing: odrcore
-        // rewrites only the parts the edit touched and streams the rest - styles, images,
-        // the mimetype entry - out of the file it opened, and it truncates the destination
-        // before that read happens. Writing in place therefore reads back what it has just
-        // emptied and leaves an archive of blank parts where the document was.
+        // odrcore streams the parts the edit did not touch out of the file it opened, and
+        // truncates the destination first - so saving onto the open document empties it
         let output = URL(fileURLWithPath: outputPath)
 
         let staging = try stagingDirectory(for: output)
@@ -203,16 +200,11 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         try moveIntoPlace(from: temporary, to: output)
     }
 
-    /// A directory to save into before taking `output`'s place, on `output`'s own volume.
-    ///
-    /// Not `NSTemporaryDirectory()`: that lives in the app container, and ``moveIntoPlace``
-    /// swaps with `replaceItemAt`, which cannot reach across volumes - a document opened out
-    /// of iCloud Drive or another Files provider is rarely on the same one.
-    ///
-    /// The caller owns what this returns and has to delete it.
+    /// A directory on `output`'s own volume, because `replaceItemAt` cannot swap across one.
+    /// The caller has to delete it.
     private func stagingDirectory(for output: URL) throws -> URL {
-        // an existing file is what names the volume; a save target the user has only just
-        // named does not exist yet, so its directory answers for it
+        // a target the user has only just named does not exist yet, so its directory
+        // names the volume instead
         let reference =
             FileManager.default.fileExists(atPath: output.path)
             ? output : output.deletingLastPathComponent()
@@ -224,8 +216,7 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             create: true)
     }
 
-    /// Keeps `output`'s extension, so odrcore's own file type detection reads the staged copy
-    /// the same way it reads the document.
+    /// Keeps `output`'s extension, which is what odrcore detects the file type from.
     private func stagedFile(in directory: URL, for output: URL) -> URL {
         let staged = directory.appendingPathComponent("odr-save-\(UUID().uuidString)")
 
@@ -234,11 +225,8 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         return staged.appendingPathExtension(output.pathExtension)
     }
 
-    /// Replaces `output` with the file at `temporary`.
-    ///
-    /// `replaceItemAt` only where there is something to replace - it needs an existing item,
-    /// and a save target the user has just named may not exist yet.
     private func moveIntoPlace(from temporary: URL, to output: URL) throws {
+        // replaceItemAt needs something to replace, and a newly named target has nothing
         if FileManager.default.fileExists(atPath: output.path) {
             _ = try FileManager.default.replaceItemAt(output, withItemAt: temporary)
         } else {
