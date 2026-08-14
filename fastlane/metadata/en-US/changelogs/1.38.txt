@@ -4,7 +4,6 @@
 - Spreadsheets are drawn in a quieter grid, under a row and column ruler that stays put while scrolling
 - Documents keep the side margins of a printed page
 - Pictures sit where the document puts them, and slides show text that used to be invisible
-- PDFs are truer to the file: text and colours are placed as a PDF viewer places them, and pages that used to come up blank now draw
 - Documents with pictures open faster and use less memory
 - XML files open properly laid out instead of as one long line
 - The free app asks for advertising consent where that is required, and a new Privacy entry reopens the choice at any time

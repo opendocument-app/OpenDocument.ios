@@ -56,10 +56,6 @@ once the version tag exists.
   adrift in the running text.
 - Documents built on a template keep the margins that template leaves free, such
   as the room a letterhead needs.
-- PDFs are truer to the file. Text sits where it belongs instead of a few points
-  low, colours match what a PDF viewer shows, a page is cropped the way a viewer
-  crops it, and pages that used to come up blank — commented content, JPEG 2000
-  images — now draw.
 - XML files open properly laid out instead of as one long line.
 
 ### Fixed
