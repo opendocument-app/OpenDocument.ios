@@ -1,13 +1,13 @@
 {
-  "originHash" : "fb74b10a80d07407e1cef4ff366c543de15a310f0a4ae23e7fdda72de7a12f43",
+  "originHash" : "8a16f3ab10f63ca384f7610f0fa000e9080c756f1737be27cd7537a2916c52e0",
   "pins" : [
     {
       "identity" : "opendocument.core",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/opendocument-app/OpenDocument.core.git",
       "state" : {
-        "revision" : "a50cda610027f1c5638caf357e348aeb2f4c524c",
-        "version" : "6.4.0"
+        "revision" : "c7b9c37b8436f3823fcc4213522218b6bc15c6b6",
+        "version" : "6.6.0"
       }
     },
     {
