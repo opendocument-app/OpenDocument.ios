@@ -237,7 +237,7 @@ jobs:
           build_number=$(cat build-number.txt)
           [ -n "$build_number" ] || { echo "::error::build-number.txt is empty"; exit 1; }
 
-          tag="build/$version/$build_number"
+          tag="build/v$version/$build_number"
 
           # a re-run behind a repaired upload is expected, so an existing tag is
           # only wrong when it names a different commit
@@ -269,16 +269,19 @@ jobs:
           set -euo pipefail
           .github/scripts/changelog-section.py --version "$version" > "${RUNNER_TEMP}/notes.md"
 
-          if gh release view "$version" > /dev/null 2>&1; then
-            gh release edit "$version" --target "$GITHUB_SHA" --notes-file "${RUNNER_TEMP}/notes.md"
+          # the version input is bare, the tag it publishes is prefixed
+          tag="v$version"
+
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release edit "$tag" --target "$GITHUB_SHA" --notes-file "${RUNNER_TEMP}/notes.md"
           else
             # --generate-notes appends the pull requests below the changelog section
-            gh release create "$version" \
+            gh release create "$tag" \
               --draft \
               --target "$GITHUB_SHA" \
-              --title "$version" \
+              --title "$tag" \
               --notes-file "${RUNNER_TEMP}/notes.md" \
               --generate-notes
           fi
 
-          echo "drafted \`$version\`. publishing it writes the tag - do that once it is live." >> "$GITHUB_STEP_SUMMARY"
+          echo "drafted \`$tag\`. publishing it writes the tag - do that once it is live." >> "$GITHUB_STEP_SUMMARY"

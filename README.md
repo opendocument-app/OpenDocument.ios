@@ -198,13 +198,16 @@ one, and `resolveBuildNumber` prints the number both apps would get.
 
 Nothing is triggered by a tag, and no tag is pushed before a build: a version
 often takes more than one build to get through review, so a tag pushed up front
-names a commit that may never ship. That is what happened to `1.37`. Tags are
+names a commit that may never ship. That is what happened to `v1.37`. Tags are
 written afterwards instead, in two kinds:
 
 | tag | who writes it | what it means |
 | --- | --- | --- |
-| `build/<version>/<build>` | the workflow, once both apps are up | this commit was uploaded as that build |
-| `<version>` | publishing the drafted release | this is what shipped |
+| `build/v<version>/<build>` | the workflow, once both apps are up | this commit was uploaded as that build |
+| `v<version>` | publishing the drafted release | this is what shipped |
+
+Both are prefixed with a `v`; the `version` input is not (`-f version=1.39`
+writes `v1.39`).
 
 One build tag, not one per app, since both share a build number. It is never
 moved: a rebuild gets the next number, so a version that takes three builds to
@@ -212,12 +215,12 @@ clear review leaves three build tags. A half uploaded release gets none, and
 neither does a lane run locally.
 
 **The version tag is written neither by hand nor by the workflow.** `record` drafts
-a GitHub release named `<version>` - the changelog section with the generated list
+a GitHub release named `v<version>` - the changelog section with the generated list
 of pull requests below it - pointing at the built commit. A draft creates no tag;
 publishing it does, at exactly that commit:
 
 ```sh
-gh release edit 1.38 --draft=false
+gh release edit v1.38 --draft=false
 ```
 
 That step stays human because App Store Connect is the only thing that knows a
