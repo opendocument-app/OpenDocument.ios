@@ -224,3 +224,7 @@ That step stays human because App Store Connect is the only thing that knows a
 build went live. A rebuild re-points the same draft rather than making a second
 one, and if Pro clears review while Lite does not, wait: the build tags already
 record what went out.
+
+## License
+
+This project is licensed under the [Mozilla Public License 2.0](LICENSE).
