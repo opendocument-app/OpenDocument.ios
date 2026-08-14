@@ -16,7 +16,28 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [1.38]
+## [1.39]
+
+### Changed
+
+- The engine is odrcore 6.6.0, up from 6.5.0. Everything below is what it
+  renders differently.
+- Slides show text that was there all along but drawn in no font at all.
+- Pictures sit where the document puts them: centred where the file centres
+  them, inside their frame, and in the box a letter pins them to rather than
+  adrift in the running text.
+- Documents built on a template keep the margins that template leaves free, such
+  as the room a letterhead needs.
+- Spreadsheet cells are set in the font the file names, rather than the sheet's
+  own throughout.
+- Large documents take less memory to open.
+
+### Fixed
+
+- A document whose styles are built on one another many levels deep opens
+  instead of taking the app down with it.
+
+## [1.38] - 2026-08-10
 
 ### Added
 
@@ -44,18 +65,12 @@ once the version tag exists.
   than for anything it managed to render.
 - Pro no longer contains the Google ad and consent SDKs. It is built as its own
   target now and links neither, taking its executable from 4.4 MB to 0.5 MB.
-- The engine is odrcore 6.6.0, up from 6.2.0. Everything below is what it
+- The engine is odrcore 6.5.0, up from 6.2.0. Everything below is what it
   renders differently.
 - Word documents break onto the pages they were written for, and numbered lists
   keep their markers when you copy text out of one.
 - Spreadsheets are drawn in a quieter grid, under a row and column ruler that
-  stays put while scrolling, and their cells are set in the font the file names.
-- Slides show text that was there all along but drawn in no font at all.
-- Pictures sit where the document puts them: centred where the file centres
-  them, inside their frame, and in the box a letter pins them to rather than
-  adrift in the running text.
-- Documents built on a template keep the margins that template leaves free, such
-  as the room a letterhead needs.
+  stays put while scrolling.
 - XML files open properly laid out instead of as one long line.
 
 ### Fixed
@@ -64,8 +79,6 @@ once the version tag exists.
   beside the original and moved into place once it is whole; it used to be
   written over the document it was still reading from, which left an unopenable
   file behind.
-- A document whose styles are built on one another many levels deep opens
-  instead of taking the app down with it.
 - The ad in the Lite app is resized when the device is rotated, instead of
   keeping the shape it was requested at.
 - The ad slot in the Lite app no longer shows a brown bar. It was a placeholder
@@ -134,7 +147,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.37...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.38...HEAD
+[1.38]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.37...1.38
 [1.37]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.36...1.37
 [1.36]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.35...1.36
 [1.35]: https://github.com/opendocument-app/OpenDocument.ios/compare/1.34...1.35
