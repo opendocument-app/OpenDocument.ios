@@ -44,26 +44,23 @@ once the version tag exists.
   than for anything it managed to render.
 - Pro no longer contains the Google ad and consent SDKs. It is built as its own
   target now and links neither, taking its executable from 4.4 MB to 0.5 MB.
-- The engine is odrcore 6.6.0, up from 6.2.0. Documents come out closer to what
-  they look like in the program that wrote them:
-  - Word documents break onto the pages they were written for, and numbered
-    lists keep their markers when you copy text out of one.
-  - Spreadsheets are drawn in a quieter grid, under a row and column ruler that
-    stays put while scrolling, and their cells are set in the font the file
-    names.
-  - Slides show text that was there all along but drawn in no font at all.
-  - Pictures sit where the document puts them: centred where the file centres
-    them, inside their frame, and in the box a letter pins them to rather than
-    adrift in the running text.
-  - Documents built on a template keep the margins that template leaves free,
-    such as the room a letterhead needs.
-  - PDFs are truer to the file. Text sits where it belongs instead of a few
-    points low, colours match what a PDF viewer shows, a page is cropped the
-    way a viewer crops it, and pages that used to come up blank — commented
-    content, JPEG 2000 images — now draw.
-  - XML files open properly laid out instead of as one long line.
-  - Documents whose styles are built on one another many levels deep open
-    instead of taking the app down with them.
+- The engine is odrcore 6.6.0, up from 6.2.0. Everything below is what it
+  renders differently.
+- Word documents break onto the pages they were written for, and numbered lists
+  keep their markers when you copy text out of one.
+- Spreadsheets are drawn in a quieter grid, under a row and column ruler that
+  stays put while scrolling, and their cells are set in the font the file names.
+- Slides show text that was there all along but drawn in no font at all.
+- Pictures sit where the document puts them: centred where the file centres
+  them, inside their frame, and in the box a letter pins them to rather than
+  adrift in the running text.
+- Documents built on a template keep the margins that template leaves free, such
+  as the room a letterhead needs.
+- PDFs are truer to the file. Text sits where it belongs instead of a few points
+  low, colours match what a PDF viewer shows, a page is cropped the way a viewer
+  crops it, and pages that used to come up blank — commented content, JPEG 2000
+  images — now draw.
+- XML files open properly laid out instead of as one long line.
 
 ### Fixed
 
@@ -71,6 +68,8 @@ once the version tag exists.
   beside the original and moved into place once it is whole; it used to be
   written over the document it was still reading from, which left an unopenable
   file behind.
+- A document whose styles are built on one another many levels deep opens
+  instead of taking the app down with it.
 - The ad in the Lite app is resized when the device is rotated, instead of
   keeping the shape it was requested at.
 - The ad slot in the Lite app no longer shows a brown bar. It was a placeholder
