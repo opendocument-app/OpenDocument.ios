@@ -38,18 +38,25 @@ once the version tag exists.
   leaves limited ads, which carry none, rather than no ads at all.
 - Documents keep the side margins of a printed page, which is what they were
   written to look like.
-- The engine is odrcore 6.5.0, up from 6.2.0. Spreadsheets are drawn in a
-  quieter grid, under a row and column ruler that stays put while scrolling, and
-  a .docx breaks onto the pages it was written for, its numbered lists carrying
-  their markers into a copy.
-- An .xml file opens properly laid out instead of as one long line.
 - Documents with pictures open faster and hold less memory: the images are
   fetched as the page needs them instead of being built into it.
-- Smaller fixes to plain text and to the margin documents open with.
 - Edit is offered only for a document the engine holds open for editing, rather
   than for anything it managed to render.
 - Pro no longer contains the Google ad and consent SDKs. It is built as its own
   target now and links neither, taking its executable from 4.4 MB to 0.5 MB.
+- The engine is odrcore 6.6.0, up from 6.2.0. Everything below is what it
+  renders differently.
+- Word documents break onto the pages they were written for, and numbered lists
+  keep their markers when you copy text out of one.
+- Spreadsheets are drawn in a quieter grid, under a row and column ruler that
+  stays put while scrolling, and their cells are set in the font the file names.
+- Slides show text that was there all along but drawn in no font at all.
+- Pictures sit where the document puts them: centred where the file centres
+  them, inside their frame, and in the box a letter pins them to rather than
+  adrift in the running text.
+- Documents built on a template keep the margins that template leaves free, such
+  as the room a letterhead needs.
+- XML files open properly laid out instead of as one long line.
 
 ### Fixed
 
@@ -57,6 +64,8 @@ once the version tag exists.
   beside the original and moved into place once it is whole; it used to be
   written over the document it was still reading from, which left an unopenable
   file behind.
+- A document whose styles are built on one another many levels deep opens
+  instead of taking the app down with it.
 - The ad in the Lite app is resized when the device is rotated, instead of
   keeping the shape it was requested at.
 - The ad slot in the Lite app no longer shows a brown bar. It was a placeholder
