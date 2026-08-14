@@ -1,0 +1,6 @@
+- Slides show text that used to be invisible
+- Pictures sit where the document puts them: centred where the file centres them, and inside their frame instead of adrift in the text
+- Documents built on a template keep the margins it leaves free, such as the room a letterhead needs
+- Spreadsheet cells use the font the file names for them
+- Large documents take less memory to open
+- A document whose styles are built on one another many levels deep opens instead of closing the app
