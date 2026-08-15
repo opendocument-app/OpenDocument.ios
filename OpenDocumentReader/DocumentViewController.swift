@@ -59,6 +59,29 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     private lazy var toolBarItems: [UIBarButtonItem] = toolBar.items ?? []
     private lazy var toolBarItemsWithoutEdit: [UIBarButtonItem] = toolBarItems.filter { $0 !== editButton }
 
+    /// What OpenDocument.droid gets from `loadWithOverviewMode`, which iOS has
+    /// no setting for: a page wider than the screen is zoomed out until it fits
+    /// instead of running off the edge.
+    ///
+    /// odrcore asks for that by leaving the initial scale out of the viewport
+    /// meta - `width=device-width` alone, which every browser but a web view in
+    /// overview mode reads as "lay out at screen width and let the rest
+    /// overflow". A page that names its scale (a spreadsheet, a csv) means it,
+    /// and is left alone.
+    private static let fitToWidthScript = """
+        (function () {
+            var meta = document.querySelector('meta[name="viewport"]');
+            if (!meta || (meta.content || '').indexOf('initial-scale') !== -1) {
+                return;
+            }
+
+            var width = document.documentElement.scrollWidth;
+            if (width > window.innerWidth) {
+                meta.setAttribute('content', 'width=' + width + ',user-scalable=yes');
+            }
+        })();
+        """
+
     /// Fills the banner slot when no ad does. Sits on top of `bannerSlot` rather than in the
     /// layout chain, so the slot keeps its height and nothing below it moves.
     private let houseAdView = HouseAdView()
@@ -91,6 +114,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // would fight the first
         pageTabBar.addTarget(self, action: #selector(pageSelected(sender:)), for: .valueChanged)
         webview.navigationDelegate = self
+        webview.configuration.userContentController.addUserScript(
+            WKUserScript(source: Self.fitToWidthScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
 
         searchBar.delegate = self
         searchBar.showsCancelButton = true
