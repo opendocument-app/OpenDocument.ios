@@ -189,6 +189,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
+    /// From iOS 26 the bar's buttons are glass capsules filling its whole
+    /// height, which whatever is pinned to its bottom edge would cut off. Older
+    /// bars have a background of their own and want no such gap.
+    private static var toolBarBottomMargin: CGFloat {
+        if #available(iOS 26.0, *) {
+            return 8
+        }
+
+        return 0
+    }
+
     func setVCconstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         bannerSlot.translatesAutoresizingMaskIntoConstraints = false
@@ -197,7 +208,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor, constant: Self.toolBarBottomMargin).isActive =
+            true
 
         bannerSlot.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bannerSlot.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -205,6 +217,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // no height here: that is bannerSlotHeight from the storyboard, which
         // hideBannerSlot zeroes, and a second one would fight it
 
+        // below the banner, which is why the tab bar is not in the tool bar's
+        // stack: an arranged subview is placed by the stack, and these would be
+        // a second answer to the same question
         pageTabBar.topAnchor.constraint(equalTo: bannerSlot.bottomAnchor).isActive = true
         pageTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
