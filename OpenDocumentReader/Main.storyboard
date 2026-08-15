@@ -32,18 +32,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKS-nk-f6M">
-                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" notEnabled="YES"/>
-                                </accessibility>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-yf-jXf">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                         <items>
                                             <barButtonItem title="Back to documents" id="yhO-7V-lbn">
                                                 <connections>
@@ -96,14 +89,10 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HAk-oU-gAF"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="5Hh-GZ-aPw"/>
-                            <constraint firstItem="sKS-nk-f6M" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="HjQ-CN-3cF"/>
-                            <constraint firstItem="N1x-QM-Qks" firstAttribute="top" secondItem="9mi-yf-jXf" secondAttribute="top" id="Yiq-pe-hl5"/>
-                            <constraint firstItem="N1x-QM-Qks" firstAttribute="bottom" secondItem="sKS-nk-f6M" secondAttribute="bottom" constant="44" id="fDF-Mx-Nxy"/>
-                            <constraint firstItem="sKS-nk-f6M" firstAttribute="bottom" secondItem="HAk-oU-gAF" secondAttribute="top" id="gWh-EO-FK9"/>
-                            <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="SIE-Uh-Zny" secondAttribute="top" id="rED-wA-6gv"/>
+                            <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="HAk-oU-gAF" secondAttribute="top" id="rED-wA-6gv"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="tPc-vX-Egd"/>
                         </constraints>
                     </view>

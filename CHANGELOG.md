@@ -16,6 +16,13 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Fixed
+
+- The buttons above an open document no longer sit on the status bar, and the
+  empty band below them is gone.
+
 ## [1.39]
 
 ### Changed
@@ -147,7 +154,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.38...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.39...HEAD
+[1.39]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.38...v1.39
 [1.38]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.37...v1.38
 [1.37]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.36...v1.37
 [1.36]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.35...v1.36
