@@ -18,6 +18,13 @@ once the version tag exists.
 
 ## [Unreleased]
 
+### Changed
+
+- The way out of a document is a back chevron, not the words "Back to
+  documents".
+- Documents that can be edited offer a pencil next to the search button.
+  Editing has left the menu, which is where it used to hide.
+
 ### Fixed
 
 - The buttons above an open document no longer sit on the status bar, and the

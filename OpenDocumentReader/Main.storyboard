@@ -38,12 +38,18 @@
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1x-QM-Qks">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                         <items>
-                                            <barButtonItem title="Back to documents" id="yhO-7V-lbn">
+                                            <barButtonItem image="chevron.backward" catalog="system" id="yhO-7V-lbn">
                                                 <connections>
                                                     <action selector="returnToDocuments:" destination="M2k-L8-Olo" id="ILH-TV-slT"/>
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
+                                            <barButtonItem image="pencil" catalog="system" id="Ed1-tP-enc">
+                                                <connections>
+                                                    <action selector="editButton:" destination="M2k-L8-Olo" id="Ed2-tP-enc"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="Ed4-tP-enc"/>
                                             <barButtonItem title="Search Button" image="magnifyingglass" catalog="system" id="fGi-i7-iOR">
                                                 <connections>
                                                     <action selector="searchButton:" destination="M2k-L8-Olo" id="6fS-of-qcB"/>
@@ -100,6 +106,7 @@
                         <outlet property="bannerSlot" destination="yut-lR-gq5" id="28Z-1b-NAN"/>
                         <outlet property="bannerSlotHeight" destination="eXE-Ks-sQc" id="yQ1-l7-wiV"/>
                         <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
+                        <outlet property="editButton" destination="Ed1-tP-enc" id="Ed3-tP-enc"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
                         <outlet property="pageTabBar" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
@@ -213,8 +220,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.backward" catalog="system" width="76" height="128"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="pencil" catalog="system" width="128" height="127"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

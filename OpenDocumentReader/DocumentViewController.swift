@@ -51,6 +51,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     @IBOutlet weak var bannerSlotHeight: NSLayoutConstraint!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+
+    /// The bar as the storyboard has it, and the same without the edit button.
+    /// Taken before anything is removed, since that is the only moment both are
+    /// there to be read.
+    private lazy var toolBarItems: [UIBarButtonItem] = toolBar.items ?? []
+    private lazy var toolBarItemsWithoutEdit: [UIBarButtonItem] = toolBarItems.filter { $0 !== editButton }
 
     /// Fills the banner slot when no ad does. Sits on top of `bannerSlot` rather than in the
     /// layout chain, so the slot keeps its height and nothing below it moves.
@@ -93,7 +100,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         setVCconstraints()
         hideSearchBar()
 
-        barButtonItem.title = NSLocalizedString("back_to_documents", comment: "")
+        // the chevron says where it goes; the words are for VoiceOver, which is
+        // the one reader a glyph is no shorter for
+        barButtonItem.accessibilityLabel = NSLocalizedString("back_to_documents", comment: "")
+        editButton.accessibilityLabel = NSLocalizedString("menu_edit", comment: "")
+
+        // nothing is editable until a document says so
+        showEditButton(false)
 
         setUpHouseAd()
     }
@@ -323,6 +336,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         findAll(searchText: searchText)
     }
 
+    @IBAction func editButton(_ sender: UIBarButtonItem) {
+        editDocument()
+    }
+
+    /// In the bar for the documents that can be edited, and only while they are
+    /// not being edited already. Every other document keeps the room for itself.
+    private func showEditButton(_ show: Bool) {
+        toolBar.items = show ? toolBarItems : toolBarItemsWithoutEdit
+    }
+
+    private func updateEditButton() {
+        showEditButton((document?.isEditable ?? false) && !(document?.edit ?? false))
+    }
+
     @IBAction func searchButton(_ sender: UIBarButtonItem) {
         AnalyticsManager.shared.report("menu_search")
         AnalyticsManager.shared.report(AnalyticsConstants.eventSearch)
@@ -422,14 +449,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     @IBAction func showMenu(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        if (document?.isEditable ?? false) && !(document?.edit ?? false) {
-            alert.addAction(
-                UIAlertAction(
-                    title: NSLocalizedString("menu_edit", comment: ""), style: .default,
-                    handler: { (_) in
-                        self.editDocument()
-                    }))
-        }
+        // editing is not in here: it is the pencil in the bar
 
         if document?.edit ?? false {
             alert.addAction(
@@ -606,6 +626,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
 
             searchButton.isEnabled = false
+            showEditButton(false)
 
             AnalyticsManager.shared.report(
                 "load_success",
@@ -637,12 +658,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // only what odrcore translated is searchable, and a later parse — after
         // a password, say — may well get there
         searchButton.isEnabled = true
+
+        // whether this one can be edited is not known until it is parsed
+        showEditButton(false)
     }
 
     func documentLoadingCompleted(_ doc: Document) {
         AnalyticsManager.shared.report("load_odf_success")
 
         progressBar.isHidden = true
+
+        updateEditButton()
 
         let fileType = doc.fileURL.pathExtension.lowercased()
 
