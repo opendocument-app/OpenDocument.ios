@@ -217,6 +217,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // no height here: that is bannerSlotHeight from the storyboard, which
         // hideBannerSlot zeroes, and a second one would fight it
 
+        // below the banner, which is why the tab bar is not in the tool bar's
+        // stack: an arranged subview is placed by the stack, and these would be
+        // a second answer to the same question
         pageTabBar.topAnchor.constraint(equalTo: bannerSlot.bottomAnchor).isActive = true
         pageTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

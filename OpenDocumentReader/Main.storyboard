@@ -58,10 +58,6 @@
                                             </barButtonItem>
                                         </items>
                                     </toolbar>
-                                    <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="PageTabBar" customModule="OpenDocumentReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                    </view>
                                     <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-bQ-fV8">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                     </progressView>
@@ -86,6 +82,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="eXE-Ks-sQc"/>
                                 </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-zo-9kG" customClass="PageTabBar" customModule="OpenDocumentReader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="190" width="414" height="0.0"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HAk-oU-gAF"/>
