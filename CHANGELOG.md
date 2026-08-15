@@ -20,6 +20,8 @@ once the version tag exists.
 
 ### Changed
 
+- A document wider than the screen opens fitted to it rather than running off
+  the edge, which is what it has always done on Android.
 - The way out of a document is a back chevron, not the words "Back to
   documents".
 - Documents that can be edited offer a pencil next to the search button.

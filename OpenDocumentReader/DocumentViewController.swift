@@ -59,6 +59,61 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     private lazy var toolBarItems: [UIBarButtonItem] = toolBar.items ?? []
     private lazy var toolBarItemsWithoutEdit: [UIBarButtonItem] = toolBarItems.filter { $0 !== editButton }
 
+    /// What OpenDocument.droid gets from `loadWithOverviewMode`, which iOS has
+    /// no setting for: a page wider than the screen is zoomed out until it fits
+    /// instead of running off the edge.
+    ///
+    /// odrcore asks for that by leaving the initial scale out of the viewport
+    /// meta - `width=device-width` alone, which every browser but a web view in
+    /// overview mode reads as "lay out at screen width and let the rest
+    /// overflow". A page that names its scale (a spreadsheet, a csv) means it,
+    /// and is left alone.
+    ///
+    /// Only for what odrcore served, which is why `origin` is checked here as
+    /// well as before the script is installed: the same web view shows the
+    /// formats odrcore does not handle, and follows links out of a document.
+    /// Their viewport is their author's to write, and rewriting it would throw
+    /// away what it says - `user-scalable=no`, a maximum scale, a `viewport-fit`.
+    private static func fitToWidthScript(servedFrom origin: String) -> String {
+        """
+        (function () {
+            if (location.origin !== '\(origin)') {
+                return;
+            }
+
+            var meta = document.querySelector('meta[name="viewport"]');
+            if (!meta || (meta.content || '').indexOf('initial-scale') !== -1) {
+                return;
+            }
+
+            var width = document.documentElement.scrollWidth;
+            if (width > window.innerWidth) {
+                meta.setAttribute('content', 'width=' + width + ',user-scalable=yes');
+            }
+        })();
+        """
+    }
+
+    /// Arms ``fitToWidthScript(servedFrom:)`` for a page that came off our own
+    /// server, and disarms it for anything else. At document end rather than on
+    /// `didFinish`, so the page is fitted before it is first drawn instead of
+    /// jumping once the images are in.
+    private func installFitToWidth(for url: URL) {
+        let scripts = webview.configuration.userContentController
+        scripts.removeAllUserScripts()
+
+        guard CoreWrapper.isServedURL(url),
+            let scheme = url.scheme, let host = url.host, let port = url.port
+        else {
+            return
+        }
+
+        scripts.addUserScript(
+            WKUserScript(
+                source: Self.fitToWidthScript(servedFrom: "\(scheme)://\(host):\(port)"),
+                injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+    }
+
     /// Fills the banner slot when no ad does. Sits on top of `bannerSlot` rather than in the
     /// layout chain, so the slot keeps its height and nothing below it moves.
     private let houseAdView = HouseAdView()
@@ -571,6 +626,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
             return
         }
+
+        installFitToWidth(for: url)
 
         // pages come off the loopback server; a file URL needs read access
         // granted along with it

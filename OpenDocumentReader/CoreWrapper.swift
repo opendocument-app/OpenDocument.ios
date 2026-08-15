@@ -128,15 +128,23 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             throw coreWrapperError(.unsupportedFileType, "not a document file")
         }
 
+        // the same answers OpenDocument.droid gives odrcore, so a document is
+        // the same document on both — the viewport meta each page carries is
+        // decided from these
         let config = HtmlConfig()
         config.editable = editable
         // resource paths are resolved relative to an output directory, and in
         // server mode there is none — odrcore rejects the combination
         config.relativeResourcePaths = false
-        // the side margins of a printed page, which is what it was written to look like
+        // the side margins of a printed page, which is what it was written to
+        // look like, and what makes odrcore call a text document paged: its
+        // pages are then fitted to the screen rather than shown at full size
         config.textDocumentMargin = true
-        // served with the pages rather than inlined as base64, as in OpenDocument.droid
+        // served with the pages rather than inlined as base64
         config.embedImages = false
+        // odrcore's own css and js go into the page: there is no output
+        // directory to put them beside
+        config.embedShippedResources = true
 
         let documentType: DocumentType
         let openedDocument: OdrCoreObjC.Document?
