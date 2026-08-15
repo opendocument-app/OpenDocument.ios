@@ -1,0 +1,4 @@
+- A document opens fitted to the screen instead of running off the edge
+- The buttons above a document no longer sit on the status bar, and the empty band below them is gone
+- Editing a document is a pencil next to the search button, rather than something to find in the menu
+- The way back to your documents is a chevron, as everywhere else

@@ -16,7 +16,7 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.40]
 
 ### Changed
 
