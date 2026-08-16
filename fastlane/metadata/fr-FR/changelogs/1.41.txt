@@ -1,0 +1,3 @@
+- Le moteur intégré affiche désormais les PDF : ils s'adaptent à l'écran et se comportent comme tous les autres documents
+- Les boutons de recherche et de modification n'apparaissent que pour les documents qui les prennent en charge
+- Pendant la modification, le crayon devient un bouton d'enregistrement : il suffit d'un appui

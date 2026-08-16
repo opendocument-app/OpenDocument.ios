@@ -1,0 +1,3 @@
+- PDFs zeigt die App jetzt selbst an – sie passen sich dem Bildschirm an und verhalten sich wie jedes andere Dokument
+- Die Schaltflächen zum Suchen und Bearbeiten gibt es nur bei Dokumenten, die sich durchsuchen oder bearbeiten lassen
+- Beim Bearbeiten wird aus dem Stift eine Speichern-Schaltfläche – so speichern Sie mit einem Fingertipp

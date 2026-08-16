@@ -1,0 +1,3 @@
+- Os PDFs são exibidos pelo próprio app, então cabem na tela e funcionam como qualquer outro documento
+- Os botões de pesquisa e edição só aparecem nos documentos que dá para pesquisar ou modificar
+- Ao modificar um documento, o lápis vira um botão de salvar, assim você salva com um toque

@@ -1,0 +1,3 @@
+- PDF-filer visas med appens egen motor, så de anpassas efter skärmen och fungerar som alla andra dokument
+- Sök- och redigeringsknapparna visas bara för dokument som går att söka i eller redigera
+- När du redigerar ett dokument blir pennan en sparaknapp, så du sparar med ett tryck

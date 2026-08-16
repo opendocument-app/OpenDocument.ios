@@ -1,0 +1,3 @@
+- Los PDF se muestran con el motor propio de la aplicación: se ajustan a la pantalla y funcionan como cualquier otro documento
+- Los botones de búsqueda y edición solo aparecen en los documentos que se pueden buscar o editar
+- Al editar un documento, el lápiz se convierte en un botón de guardar: basta con un toque

@@ -15,13 +15,61 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios buildPro
+
+```sh
+[bundle exec] fastlane ios buildPro
+```
+
+Build a signed .ipa of the paid app
+
+### ios buildLite
+
+```sh
+[bundle exec] fastlane ios buildLite
+```
+
+Build a signed .ipa of the ad supported app
+
+### ios uploadPro
+
+```sh
+[bundle exec] fastlane ios uploadPro
+```
+
+Upload an already built Pro .ipa to App Store Connect
+
+### ios uploadLite
+
+```sh
+[bundle exec] fastlane ios uploadLite
+```
+
+Upload an already built Lite .ipa
+
+### ios uploadNotesPro
+
+```sh
+[bundle exec] fastlane ios uploadNotesPro
+```
+
+Write ODR_VERSION's release notes onto the paid app's listing
+
+### ios uploadNotesLite
+
+```sh
+[bundle exec] fastlane ios uploadNotesLite
+```
+
+Write ODR_VERSION's release notes onto the ad supported app's listing
+
 ### ios deployPro
 
 ```sh
 [bundle exec] fastlane ios deployPro
 ```
 
-Push a new release build of the paid app to the App Store
+Build and upload the paid app
 
 ### ios deployLite
 
@@ -29,7 +77,15 @@ Push a new release build of the paid app to the App Store
 [bundle exec] fastlane ios deployLite
 ```
 
-Push a new release build of the ad supported app to the App Store
+Build and upload the ad supported app
+
+### ios resolveBuildNumber
+
+```sh
+[bundle exec] fastlane ios resolveBuildNumber
+```
+
+Print the build number both apps would get
 
 ### ios tests
 

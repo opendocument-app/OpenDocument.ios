@@ -1,0 +1,3 @@
+- I PDF vengono visualizzati dal motore interno dell'app: si adattano allo schermo e si comportano come ogni altro documento
+- I pulsanti di ricerca e modifica compaiono solo nei documenti che si possono cercare o modificare
+- Quando modifichi un documento, la matita diventa un pulsante di salvataggio: salvi con un tocco

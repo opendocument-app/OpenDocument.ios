@@ -1,0 +1,3 @@
+- Pliki PDF wyświetla własny silnik aplikacji, więc dopasowują się do ekranu i działają jak każdy inny dokument
+- Przyciski wyszukiwania i edycji pojawiają się tylko w dokumentach, które można przeszukiwać lub edytować
+- Podczas edycji dokumentu ołówek zamienia się w przycisk zapisu — zapisujesz jednym dotknięciem

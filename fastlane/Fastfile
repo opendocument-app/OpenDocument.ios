@@ -15,6 +15,10 @@ APPS = {
 # Resolved at parse time, which fastlane also does from fastlane/.
 IPA_DIR = File.expand_path("../build").freeze
 
+# Absolute for the same reason. It resolves the repository from its own path, so
+# it does not care which of the two it is called from.
+STORE_NOTES = File.expand_path("../scripts/store-notes.py").freeze
+
 def dry_run?
   ENV["ODR_DRY_RUN"].to_s.strip == "true"
 end
@@ -43,6 +47,16 @@ platform :ios do
   desc "Upload an already built Lite .ipa"
   lane :uploadLite do
     upload_ipa(APPS[:lite])
+  end
+
+  desc "Write ODR_VERSION's release notes onto the paid app's listing"
+  lane :uploadNotesPro do
+    upload_notes(APPS[:pro])
+  end
+
+  desc "Write ODR_VERSION's release notes onto the ad supported app's listing"
+  lane :uploadNotesLite do
+    upload_notes(APPS[:lite])
   end
 
   desc "Build and upload the paid app"
@@ -207,6 +221,51 @@ platform :ios do
       )
     ensure
       FileUtils.remove_entry(File.dirname(key_path), true)
+    end
+  end
+
+  # The "What's New" text of ODR_VERSION, in every locale the listing has.
+  #
+  # deliver uploads every metadata file it finds under metadata_path, so it is
+  # given a directory staged with nothing but one release_notes.txt per locale.
+  # The descriptions checked in beside them are a snapshot of the listing, not a
+  # statement of what it should say.
+  #
+  # Separate from upload_ipa so a note can be rewritten and pushed again without
+  # touching the binary, which App Store Connect refuses a second time anyway.
+  private_lane :upload_notes do |options|
+    version = ENV["ODR_VERSION"].to_s.strip
+    UI.user_error!("no version to write notes for: set ODR_VERSION (e.g. ODR_VERSION=1.41)") if version.empty?
+
+    notes_dir = Dir.mktmpdir("release-notes")
+    key_path = nil
+
+    begin
+      # first, so a version some locale has no copy for fails before a key is
+      # ever written to disk
+      sh(STORE_NOTES, "--version", version, "--stage", notes_dir)
+      key_path = api_key_file
+
+      upload_to_app_store(
+        api_key: asc_key(path: key_path),
+        app_identifier: options[:app_identifier],
+        # creates the version when App Store Connect has none yet, which is the
+        # usual case: the build is still processing when this runs
+        app_version: version,
+        metadata_path: notes_dir,
+        skip_binary_upload: true,
+        skip_screenshots: true,
+        skip_metadata: false,
+        # deliver otherwise opens an HTML preview and waits to be told it is fine
+        force: true,
+        # same as the binary upload: precheck cannot read in-app purchases with
+        # an API key, and nothing is being submitted here either
+        run_precheck_before_submit: false,
+        submit_for_review: false
+      )
+    ensure
+      FileUtils.remove_entry(File.dirname(key_path), true) if key_path
+      FileUtils.remove_entry(notes_dir, true)
     end
   end
 end

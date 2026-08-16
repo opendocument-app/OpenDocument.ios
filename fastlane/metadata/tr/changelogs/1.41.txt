@@ -1,0 +1,3 @@
+- PDF'ler uygulamanın kendi motoruyla görüntüleniyor; böylece ekrana sığıyor ve diğer belgeler gibi çalışıyor
+- Arama ve düzenleme düğmeleri yalnızca aranabilen veya düzenlenebilen belgelerde görünüyor
+- Bir belgeyi düzenlerken kalem simgesi kaydetme düğmesine dönüşüyor; kaydetmek için tek dokunuş yetiyor
