@@ -122,7 +122,7 @@ It runs as four jobs:
 | --- | --- |
 | `build` | one run producing both signed `.ipa`s, archived on the run |
 | `upload` | one job per app, uploading its `.ipa` |
-| `notes` | one job per app, writing the release notes onto its listing |
+| `listing` | one job per app, writing what the store says about it |
 | `record` | once both landed: tag the build, draft the GitHub release |
 
 Both apps always go out together, and nothing chooses one: Pro and Lite are the
@@ -151,9 +151,16 @@ heading.
 
 The copy lives in `fastlane/metadata/<locale>/changelogs/1.41.txt`, one file per
 version per locale, because App Store Connect keeps only the notes of the
-submission in flight. `scripts/store-notes.py` checks it - the release run
+submission in flight. `scripts/store-listing.py` checks it - the release run
 refuses a version any locale is missing, before it builds anything - and stages
-it into the shape `deliver` reads. See `fastlane/metadata/README.md`.
+it into the shape `deliver` reads.
+
+The rest of the listing goes up with it: name, subtitle, description, keywords
+and the URLs are written in `fastlane/metadata/` and pushed by the same job, so
+the store says what is committed here rather than what someone last typed into
+App Store Connect. Only Pro's listing is checked in, and a name has to be unique
+in the store, so Lite takes the release notes alone. `review_information` and the
+categories are left out. See `fastlane/metadata/README.md`.
 
 Nothing has to be committed to cut a release, and a release leaves no commit
 behind either. Both halves of the version come from outside the tree:

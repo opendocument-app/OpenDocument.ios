@@ -5,9 +5,13 @@ require "tmpdir"
 
 default_platform(:ios)
 
+# listing: whose App Store text fastlane/metadata holds. It was pulled for Pro,
+# and an app's name has to be unique in the store, so pushing it to Lite would
+# rename Lite to Pro. Lite takes the release notes and nothing else until its own
+# listing is checked in beside Pro's.
 APPS = {
-  pro: { name: "pro", scheme: "ODR Full", app_identifier: "at.tomtasche.reader" },
-  lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1" },
+  pro: { name: "pro", scheme: "ODR Full", app_identifier: "at.tomtasche.reader", listing: true },
+  lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1", listing: false },
 }.freeze
 
 # Absolute, because lane bodies run in fastlane/ while actions run one directory
@@ -17,7 +21,7 @@ IPA_DIR = File.expand_path("../build").freeze
 
 # Absolute for the same reason. It resolves the repository from its own path, so
 # it does not care which of the two it is called from.
-STORE_NOTES = File.expand_path("../scripts/store-notes.py").freeze
+STORE_LISTING = File.expand_path("../scripts/store-listing.py").freeze
 
 def dry_run?
   ENV["ODR_DRY_RUN"].to_s.strip == "true"
@@ -49,14 +53,14 @@ platform :ios do
     upload_ipa(APPS[:lite])
   end
 
-  desc "Write ODR_VERSION's release notes onto the paid app's listing"
-  lane :uploadNotesPro do
-    upload_notes(APPS[:pro])
+  desc "Write the paid app's listing, and ODR_VERSION's release notes, to the store"
+  lane :uploadListingPro do
+    upload_listing(APPS[:pro])
   end
 
-  desc "Write ODR_VERSION's release notes onto the ad supported app's listing"
-  lane :uploadNotesLite do
-    upload_notes(APPS[:lite])
+  desc "Write ODR_VERSION's release notes to the ad supported app"
+  lane :uploadListingLite do
+    upload_listing(APPS[:lite])
   end
 
   desc "Build and upload the paid app"
@@ -224,16 +228,19 @@ platform :ios do
     end
   end
 
-  # The "What's New" text of ODR_VERSION, in every locale the listing has.
+  # What the store says about the app: the "What's New" of ODR_VERSION in every
+  # locale, and for Pro the rest of the listing text with it.
   #
   # deliver uploads every metadata file it finds under metadata_path, so it is
-  # given a directory staged with nothing but one release_notes.txt per locale.
-  # The descriptions checked in beside them are a snapshot of the listing, not a
-  # statement of what it should say.
+  # given a staged directory rather than fastlane/metadata itself, and
+  # store-listing.py names what goes into it. What is staged is what this
+  # repository says the store should say; anything else is left as App Store
+  # Connect has it.
   #
-  # Separate from upload_ipa so a note can be rewritten and pushed again without
-  # touching the binary, which App Store Connect refuses a second time anyway.
-  private_lane :upload_notes do |options|
+  # Separate from upload_ipa so a rejected word can be rewritten and pushed again
+  # without touching the binary, which App Store Connect refuses a second time
+  # anyway.
+  private_lane :upload_listing do |options|
     version = ENV["ODR_VERSION"].to_s.strip
     UI.user_error!("no version to write notes for: set ODR_VERSION (e.g. ODR_VERSION=1.41)") if version.empty?
 
@@ -243,7 +250,9 @@ platform :ios do
     begin
       # first, so a version some locale has no copy for fails before a key is
       # ever written to disk
-      sh(STORE_NOTES, "--version", version, "--stage", notes_dir)
+      staging = [STORE_LISTING, "--version", version, "--stage", notes_dir]
+      staging << "--full" if options[:listing]
+      sh(*staging)
       key_path = api_key_file
 
       upload_to_app_store(

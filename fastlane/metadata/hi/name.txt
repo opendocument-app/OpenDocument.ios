@@ -1,1 +1,1 @@
-LibreOffice document viewer
+LibreOffice: Reader & Editor

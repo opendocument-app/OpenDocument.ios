@@ -21,7 +21,7 @@
 # Unreleased while the heading is still open. A file that is already there is
 # left alone and translated, since that is the copy that was reviewed.
 #
-# Nothing here uploads: `scripts/store-notes.py` checks and stages what this
+# Nothing here uploads: `scripts/store-listing.py` checks and stages what this
 # writes, and the release run uploads it.
 
 import argparse
@@ -42,7 +42,7 @@ def load(path, name):
     return module
 
 
-notes = load(ROOT / "scripts" / "store-notes.py", "store_notes")
+listing = load(ROOT / "scripts" / "store-listing.py", "store_listing")
 changelog = load(ROOT / ".github" / "scripts" / "changelog-section.py", "changelog_section")
 
 SOURCE = "en-US"
@@ -144,7 +144,7 @@ def version_key(name):
 
 def previous_copy(locale, version):
     """The newest release before this one that has copy in this locale, or ""."""
-    folder = notes.METADATA / locale / "changelogs"
+    folder = listing.METADATA / locale / "changelogs"
     if not folder.is_dir():
         return ""
 
@@ -195,8 +195,8 @@ def check(text, against=None):
     lines = text.splitlines()
     if not lines:
         return "it is empty"
-    if len(text) > notes.LIMIT:
-        return f"it is {len(text)} characters, over the store's {notes.LIMIT}"
+    if len(text) > listing.LIMIT:
+        return f"it is {len(text)} characters, over the store's {listing.LIMIT}"
     if any(not line.startswith("- ") for line in lines):
         return "not every line is a bullet"
     if against is not None and len(lines) != len(against.splitlines()):
@@ -205,7 +205,7 @@ def check(text, against=None):
 
 
 def write(locale, version, text, dry_run):
-    path = notes.copy_path(locale, version)
+    path = listing.copy_path(locale, version)
     if dry_run:
         print(f"\n--- {path.relative_to(ROOT)}\n{text}")
         return
@@ -249,7 +249,7 @@ def english(version, model, attempts):
 
 
 def translate(locale, version, source, model, attempts, review=True):
-    description = (notes.METADATA / locale / "description.txt").read_text(encoding="utf-8").strip()
+    description = (listing.METADATA / locale / "description.txt").read_text(encoding="utf-8").strip()
 
     draft = produce(
         TRANSLATION_PROMPT.format(
@@ -314,7 +314,7 @@ def main(argv=None):
     version = args.version.strip().removeprefix("v")
 
     try:
-        known = notes.locales()
+        known = listing.locales()
     except (OSError, ValueError) as reason:
         print(reason, file=sys.stderr)
         return 1
@@ -336,7 +336,7 @@ def main(argv=None):
             print(f"no such locale: {', '.join(unknown)}", file=sys.stderr)
             return 1
 
-    source_path = notes.copy_path(SOURCE, version)
+    source_path = listing.copy_path(SOURCE, version)
     if args.english or not source_path.is_file():
         try:
             source = english(version, args.model, args.attempts)
@@ -351,7 +351,7 @@ def main(argv=None):
     targets = [
         locale
         for locale in wanted
-        if locale != SOURCE and (args.english or args.locales or not notes.copy_path(locale, version).is_file())
+        if locale != SOURCE and (args.english or args.locales or not listing.copy_path(locale, version).is_file())
     ]
     if not targets:
         print(f"every locale already has copy for {version}")

@@ -1,1 +1,1 @@
-doc,docx,pdf,openoffice,odt,ods,odp,odg,odf,opendocumentformat,opendocument,libre office
+doc,docx,odg,odf,openoffice,file,ufficio,foglio,calcolo,presentazioni,testo,modifica,visualizza,apri

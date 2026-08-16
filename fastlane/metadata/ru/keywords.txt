@@ -1,1 +1,1 @@
-doc,docx,pdf,openoffice,odt,ods,odp,odg,odf,opendocumentformat,opendocument,libre office
+doc,docx,xlsx,pdf,ods,odp,odg,openoffice,офис,чтение,текст,файлы,ридер,либре,открыть,презентации

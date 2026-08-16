@@ -2,9 +2,19 @@
 
 What App Store Connect shows about the app, one directory per locale.
 
-Only the release notes are ever uploaded from here. Everything else -
-descriptions, keywords, names - is a snapshot of the listing taken with
-`deliver init`, kept for reading, and never pushed.
+This is where the listing is written, and a release run uploads it: name,
+subtitle, description, keywords, the URLs, and the release notes of the version
+going out. What the store says is what is committed here.
+
+Two things are left out of the upload on purpose. `review_information` is the
+account's contact details and the note to the reviewer, and the category files
+say where the app sits in the store - neither is release copy.
+`scripts/store-listing.py` names what is staged, so adding a file to that list is
+a decision rather than an accident.
+
+Only Pro's listing lives here. An app's name has to be unique in the store, so
+pushing this to Lite would rename Lite to Pro; Lite takes the release notes and
+nothing else until its own listing is checked in beside this one.
 
 ## Release notes
 
@@ -22,9 +32,9 @@ files are the history the store does not keep. The limit is 4000 characters per
 locale.
 
 `deliver` does not read this layout. It reads one `release_notes.txt` per
-locale, so `scripts/store-notes.py` stages those into a throwaway directory at
-upload time - holding nothing else, which is what keeps the descriptions beside
-them out of the upload.
+locale, so `scripts/store-listing.py` stages the version's file under that name
+into a throwaway directory at upload time, with the rest of the listing beside
+it.
 
 ## Writing them
 
@@ -47,3 +57,12 @@ committing it - it goes to the store as written.
 
 The release run refuses a version any locale has no copy for, before it builds
 anything.
+
+## Name, subtitle, keywords
+
+30 characters for the name, 30 for the subtitle, 100 for the keywords, counting
+the commas. The App Store indexes name and subtitle as well as keywords, so a
+word in one of those is wasted in the other: none of the keyword lists here
+repeats a word from its own name or subtitle. Every listing leads with
+`LibreOffice`, which is the strongest thing the app has to be found by, and says
+somewhere that it edits and does not only read.

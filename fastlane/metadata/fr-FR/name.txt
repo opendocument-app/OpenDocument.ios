@@ -1,1 +1,1 @@
-Visionneuse LibreOffice
+LibreOffice : éditeur ODT/ODS

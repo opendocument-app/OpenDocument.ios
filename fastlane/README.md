@@ -47,21 +47,21 @@ Upload an already built Pro .ipa to App Store Connect
 
 Upload an already built Lite .ipa
 
-### ios uploadNotesPro
+### ios uploadListingPro
 
 ```sh
-[bundle exec] fastlane ios uploadNotesPro
+[bundle exec] fastlane ios uploadListingPro
 ```
 
-Write ODR_VERSION's release notes onto the paid app's listing
+Write the paid app's listing, and ODR_VERSION's release notes, to the store
 
-### ios uploadNotesLite
+### ios uploadListingLite
 
 ```sh
-[bundle exec] fastlane ios uploadNotesLite
+[bundle exec] fastlane ios uploadListingLite
 ```
 
-Write ODR_VERSION's release notes onto the ad supported app's listing
+Write ODR_VERSION's release notes to the ad supported app
 
 ### ios deployPro
 
