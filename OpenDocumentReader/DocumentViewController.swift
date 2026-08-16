@@ -67,6 +67,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether the document on screen can be edited and searched. Neither button
     /// stays in the bar when it cannot be used.
     private var canEdit = false { didSet { updateToolBar() } }
+    /// The same slot the pencil sits in, showing the way out of the edit it
+    /// started — as on OpenDocument.droid, where edit mode replaces the bar
+    /// rather than emptying it.
+    private var isEditingDocument = false { didSet { updateEditButtonRole() } }
     private var canSearch = false {
         didSet {
             updateToolBar()
@@ -176,7 +180,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // the chevron says where it goes; the words are for VoiceOver, which is
         // the one reader a glyph is no shorter for
         barButtonItem.accessibilityLabel = NSLocalizedString("back_to_documents", comment: "")
-        editButton.accessibilityLabel = NSLocalizedString("menu_edit", comment: "")
+        updateEditButtonRole()
 
         // nothing is editable or searchable until a page says so
         updateToolBar()
@@ -413,8 +417,21 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         findAll(searchText: searchText)
     }
 
-    @IBAction func editButton(_ sender: UIBarButtonItem) {
-        editDocument()
+    /// One button, both ways: the pencil starts an edit and the save glyph ends
+    /// it. See ``updateEditButtonRole()``.
+    @IBAction func editOrSave(_ sender: UIBarButtonItem) {
+        if isEditingDocument {
+            // the file holds the edit once it is written, so leaving edit mode
+            // reads back what was saved. A save that failed stays in the edit,
+            // which is the only place that text still exists.
+            saveContent { success in
+                guard success else { return }
+
+                self.document?.edit = false
+            }
+        } else {
+            editDocument()
+        }
     }
 
     private func updateToolBar() {
@@ -430,10 +447,19 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// Offered for the documents that can be edited, and only while they are not
-    /// being edited already.
+    /// Offered for the documents that can be edited, whether or not one is being
+    /// edited right now — the button is the way both into an edit and out of it.
     private func updateEditButton() {
-        canEdit = (document?.isEditable ?? false) && !(document?.edit ?? false)
+        canEdit = document?.isEditable ?? false
+        isEditingDocument = document?.edit ?? false
+    }
+
+    /// A pencil to start an edit, and the save glyph to write one. The label goes
+    /// with it: VoiceOver reads that, not the glyph.
+    private func updateEditButtonRole() {
+        editButton.image = UIImage(systemName: isEditingDocument ? "square.and.arrow.down" : "pencil")
+        editButton.accessibilityLabel = NSLocalizedString(
+            isEditingDocument ? "action_edit_save" : "menu_edit", comment: "")
     }
 
     /// Asked of the page rather than guessed from the format: odrcore writes the
@@ -545,19 +571,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     @IBAction func showMenu(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        // editing is not in here: it is the pencil in the bar
+        // neither editing nor saving is in here: both are the one button in the bar
 
         if document?.edit ?? false {
             alert.addAction(
                 UIAlertAction(
-                    title: NSLocalizedString("action_edit_save", comment: ""), style: .default,
-                    handler: { (_) in
-                        self.saveContent(completion: nil)
-                    }))
-
-            alert.addAction(
-                UIAlertAction(
-                    title: NSLocalizedString("menu_discard_changes", comment: ""), style: .default,
+                    title: NSLocalizedString("menu_discard_changes", comment: ""), style: .destructive,
                     handler: { (_) in
                         self.discardChanges()
                     }))
@@ -587,10 +606,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         self.present(alert, animated: true, completion: nil)
     }
 
+    /// Reads the document off disk again, which drops the edit, and leaves edit
+    /// mode with it — the only way back to reading without saving.
     func discardChanges() {
         AnalyticsManager.shared.report("menu_edit_discard")
 
-        document?.edit = true
+        document?.edit = false
     }
 
     func saveContent(completion: ((Bool) -> Void)?) {

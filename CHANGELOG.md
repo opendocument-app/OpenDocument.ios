@@ -26,6 +26,15 @@ once the version tag exists.
   for a pdf page as it does for a document.
 - The search button leaves the tool bar when the page cannot be searched,
   rather than greying out - the same as the edit button.
+- The pencil turns into a save button while editing, as on Android. Saving from
+  the bar ends the edit and shows what was written; a save that failed stays in
+  it. Saving has left the menu; discarding is still there and now leaves edit
+  mode.
+
+### Known issues
+
+- Tapping a document sets no cursor, so edit mode cannot be typed into. The
+  cause is in odrcore; `EditWorkflowTests` pins it until the fix ships.
 
 ### Fixed
 
