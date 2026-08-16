@@ -21,18 +21,18 @@ class OpenDocumentReaderTests: XCTestCase {
 
     /// Out of the read-only test bundle, and away from the temporary directory
     /// translating uses for its cache and output.
-    private func copyFixture(ofType pathExtension: String) throws -> URL {
+    private func copyFixture(ofType pathExtension: String, named name: String = "test") throws -> URL {
         let documentsURL = try FileManager.default.url(
             for: .documentDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
             create: false)
 
-        let url = documentsURL.appendingPathComponent("test." + pathExtension)
+        let url = documentsURL.appendingPathComponent(name + "." + pathExtension)
         try? FileManager.default.removeItem(at: url)
 
         let bundlePath = try XCTUnwrap(
-            Bundle(for: Self.self).path(forResource: "test", ofType: pathExtension))
+            Bundle(for: Self.self).path(forResource: name, ofType: pathExtension))
         try FileManager.default.copyItem(at: URL(fileURLWithPath: bundlePath), to: url)
 
         return url
@@ -117,6 +117,35 @@ class OpenDocumentReaderTests: XCTestCase {
 
         XCTAssertTrue(html.contains("First"), html)
         XCTAssertTrue(html.contains("Second"), html)
+    }
+
+    /// `wrongPassword` rather than `unsupportedFileType`, because that is what
+    /// `Document.parse` turns into the prompt instead of the error page.
+    func testEncryptedPdfAsksForItsPassword() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "pdf", named: "test-encrypted")
+
+        for password in [nil, "wrong"] {
+            XCTAssertThrowsError(
+                try wrapper.translate(
+                    url.path, cache: temporaryDirectory, into: temporaryDirectory, with: password, editable: false)
+            ) { error in
+                XCTAssertEqual((error as NSError).code, CoreWrapperError.wrongPassword.rawValue)
+            }
+        }
+    }
+
+    func testEncryptedPdfOpensWithItsPassword() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "pdf", named: "test-encrypted")
+
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: "secret", editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["document"])
+
+        let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
+        XCTAssertTrue(try XCTUnwrap(String(data: data, encoding: .utf8)).contains("First"))
     }
 
     func testPdfIsNotEditable() throws {

@@ -8,8 +8,14 @@ sheet spreadsheet turns into. Rerun when a fixture needs another sheet or slide:
     python3 OpenDocumentReaderTests/fixtures/make-fixtures.py
 """
 
+import shutil
+import subprocess
 import zipfile
 from pathlib import Path
+
+# what test-encrypted.pdf is locked with
+USER_PASSWORD = "secret"
+OWNER_PASSWORD = "owner"
 
 NAMESPACES = " ".join(
     [
@@ -126,6 +132,30 @@ def pdf(pages: list[str]) -> bytes:
     return bytes(out)
 
 
+def encrypt_pdf(source: Path, target: Path) -> None:
+    """AES-256, the standard security handler odrcore reads as `V 5`, `R 6`.
+
+    Through qpdf rather than by hand: AES is not in the standard library, and
+    R6 derives its key with it. Needs `brew install qpdf` to rerun.
+    """
+    if shutil.which("qpdf") is None:
+        raise SystemExit("qpdf not found; it writes the encrypted pdf fixture")
+
+    subprocess.run(
+        [
+            "qpdf",
+            "--encrypt",
+            f"--user-password={USER_PASSWORD}",
+            f"--owner-password={OWNER_PASSWORD}",
+            "--bits=256",
+            "--",
+            str(source),
+            str(target),
+        ],
+        check=True,
+    )
+
+
 def write(path: Path, mimetype: str, content_xml: str) -> None:
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as package:
         # first and uncompressed, or the package is only recognised by sniffing
@@ -155,6 +185,10 @@ def main() -> None:
     path = here.parent / "test.pdf"
     path.write_bytes(pdf(["First", "Second"]))
     print(f"wrote {path}")
+
+    encrypted = here.parent / "test-encrypted.pdf"
+    encrypt_pdf(path, encrypted)
+    print(f"wrote {encrypted}")
 
 
 if __name__ == "__main__":

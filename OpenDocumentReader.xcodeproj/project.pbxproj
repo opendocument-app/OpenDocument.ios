@@ -30,6 +30,7 @@
 		E2A17B1100000000000000B1 /* test.odp in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1300000000000000B3 /* test.odp */; };
 		E2A17B1400000000000000B4 /* test.csv in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1500000000000000B5 /* test.csv */; };
 		E2A17B1600000000000000B6 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1700000000000000B7 /* test.pdf */; };
+		E2A17B1800000000000000B8 /* test-encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1900000000000000B9 /* test-encrypted.pdf */; };
 		E2A17B2000000000000000C0 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2200000000000000C2 /* CoreFoundation.framework */; };
 		E2A17B2100000000000000C1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2300000000000000C3 /* CFNetwork.framework */; };
 		FB494C85E264BD924C1EA54E /* OdrCore in Frameworks */ = {isa = PBXBuildFile; productRef = E381918B979121CD165C966A /* OdrCore */; };
@@ -67,6 +68,7 @@
 		E2A17B1300000000000000B3 /* test.odp */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odp; sourceTree = "<group>"; };
 		E2A17B1500000000000000B5 /* test.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.csv; sourceTree = "<group>"; };
 		E2A17B1700000000000000B7 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
+		E2A17B1900000000000000B9 /* test-encrypted.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "test-encrypted.pdf"; sourceTree = "<group>"; };
 		E2A17B2200000000000000C2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E2A17B2300000000000000C3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -166,6 +168,7 @@
 				E2A17B1300000000000000B3 /* test.odp */,
 				E2A17B1500000000000000B5 /* test.csv */,
 				E2A17B1700000000000000B7 /* test.pdf */,
+				E2A17B1900000000000000B9 /* test-encrypted.pdf */,
 				E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */,
 				E2A17B0300000000000000A3 /* PageTabBarTests.swift */,
 				E22B25302557F0E2001D0C52 /* Info.plist */,
@@ -357,6 +360,7 @@
 				E2A17B1100000000000000B1 /* test.odp in Resources */,
 				E2A17B1400000000000000B4 /* test.csv in Resources */,
 				E2A17B1600000000000000B6 /* test.pdf in Resources */,
+				E2A17B1800000000000000B8 /* test-encrypted.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
