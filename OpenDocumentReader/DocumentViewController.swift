@@ -32,7 +32,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    private let EXTENSION_WHITELIST = [
+    /// The fallback for what odrcore does not render: what WKWebView and the
+    /// system decoders can show on their own. Not derived from odrcore's format
+    /// table — this is the other side of it.
+    private let systemRenderedExtensions = [
         "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "rtf", "rtfd.zip", "csv", "txt", "jpg", "jpeg", "png",
         "gif", "svg", "pages", "pages.zip", "numbers", "numbers.zip", "key", "key.zip", "mp3", "mp4", "flv", "mkv",
         "3gp", "aac", "bmp", "css", "htm", "html", "js", "json", "mpeg", "oga", "ogv", "sh", "tif", "tiff", "weba",
@@ -52,12 +55,27 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    /// The gaps behind those two. A button that leaves the bar takes its gap
+    /// with it, or what stays drifts off the trailing edge.
+    @IBOutlet weak var editButtonSpacer: UIBarButtonItem!
+    @IBOutlet weak var searchButtonSpacer: UIBarButtonItem!
 
-    /// The bar as the storyboard has it, and the same without the edit button.
-    /// Taken before anything is removed, since that is the only moment both are
-    /// there to be read.
+    /// The bar as the storyboard has it, taken before anything is removed, since
+    /// that is the only moment every button is there to be read.
     private lazy var toolBarItems: [UIBarButtonItem] = toolBar.items ?? []
-    private lazy var toolBarItemsWithoutEdit: [UIBarButtonItem] = toolBarItems.filter { $0 !== editButton }
+
+    /// Whether the document on screen can be edited and searched. Neither button
+    /// stays in the bar when it cannot be used.
+    private var canEdit = false { didSet { updateToolBar() } }
+    private var canSearch = false {
+        didSet {
+            updateToolBar()
+
+            if !canSearch {
+                hideSearchBar()
+            }
+        }
+    }
 
     /// What OpenDocument.droid gets from `loadWithOverviewMode`, which iOS has
     /// no setting for: a page wider than the screen is zoomed out until it fits
@@ -160,8 +178,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         barButtonItem.accessibilityLabel = NSLocalizedString("back_to_documents", comment: "")
         editButton.accessibilityLabel = NSLocalizedString("menu_edit", comment: "")
 
-        // nothing is editable until a document says so
-        showEditButton(false)
+        // nothing is editable or searchable until a page says so
+        updateToolBar()
 
         setUpHouseAd()
     }
@@ -206,6 +224,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         // the fallback loads a file or an HTML string, so this cannot recurse
         documentLoadingError(doc, error: DocumentError.pageNotServed)
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        updateSearchButton()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -395,14 +417,33 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         editDocument()
     }
 
-    /// In the bar for the documents that can be edited, and only while they are
-    /// not being edited already. Every other document keeps the room for itself.
-    private func showEditButton(_ show: Bool) {
-        toolBar.items = show ? toolBarItems : toolBarItemsWithoutEdit
+    private func updateToolBar() {
+        toolBar.items = toolBarItems.filter { item in
+            if item === editButton || item === editButtonSpacer {
+                return canEdit
+            }
+            if item === searchButton || item === searchButtonSpacer {
+                return canSearch
+            }
+
+            return true
+        }
     }
 
+    /// Offered for the documents that can be edited, and only while they are not
+    /// being edited already.
     private func updateEditButton() {
-        showEditButton((document?.isEditable ?? false) && !(document?.edit ?? false))
+        canEdit = (document?.isEditable ?? false) && !(document?.edit ?? false)
+    }
+
+    /// Asked of the page rather than guessed from the format: odrcore writes the
+    /// `odr` object into what it renders as a document or as text, and into
+    /// nothing else — a pdf picks the button up on its own once it does.
+    private func updateSearchButton() {
+        webview.evaluateJavaScript("typeof odr === 'object' && typeof odr.search === 'function'") {
+            [weak self] available, _ in
+            self?.canSearch = available as? Bool ?? false
+        }
     }
 
     @IBAction func searchButton(_ sender: UIBarButtonItem) {
@@ -678,12 +719,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         let fileType = doc.fileURL.pathExtension.lowercased()
 
         let fileName = doc.fileURL.absoluteString.lowercased()
-        if EXTENSION_WHITELIST.contains(where: fileName.hasSuffix) {
+        if systemRenderedExtensions.contains(where: fileName.hasSuffix) {
             // not odrcore's to render, but the web view knows the format
             self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
 
-            searchButton.isEnabled = false
-            showEditButton(false)
+            canEdit = false
+            canSearch = false
 
             AnalyticsManager.shared.report(
                 "load_success",
@@ -712,12 +753,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         progressBar.isHidden = false
         progressBar.observedProgress = doc.loadProgress
 
-        // only what odrcore translated is searchable, and a later parse — after
-        // a password, say — may well get there
-        searchButton.isEnabled = true
-
-        // whether this one can be edited is not known until it is parsed
-        showEditButton(false)
+        // neither is known until the page it produces is loaded
+        canEdit = false
+        canSearch = false
     }
 
     func documentLoadingCompleted(_ doc: Document) {

@@ -16,6 +16,18 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Changed
+
+- PDFs are rendered by odrcore, like every other document, instead of being
+  handed to the web view. Their text is in the page rather than behind the
+  system viewer, so they will be searchable as soon as odrcore writes the
+  search script for a pdf page as it does for a document.
+- The search button leaves the tool bar when the document on screen cannot be
+  searched, rather than sitting there greyed out - the same as the edit button.
+  Whether a page can be searched is asked of the page itself.
+
 ## [1.40]
 
 ### Changed

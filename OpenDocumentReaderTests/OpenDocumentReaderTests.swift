@@ -93,6 +93,57 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
 
+    /// odrcore renders these now; they used to be handed to the web view.
+    func testPdfIsTranslated() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "pdf")
+
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["document"])
+    }
+
+    /// Its text has to reach the page, or there is nothing for search to walk.
+    func testPdfPageCarriesItsText() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "pdf")
+
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
+        let html = try XCTUnwrap(String(data: data, encoding: .utf8))
+
+        XCTAssertTrue(html.contains("First"), html)
+        XCTAssertTrue(html.contains("Second"), html)
+    }
+
+    func testPdfIsNotEditable() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "pdf")
+
+        try wrapper.translate(
+            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+
+        XCTAssertFalse(wrapper.isEditable)
+    }
+
+    /// A png is one of the formats odrcore translates but we leave to the system.
+    func testImageIsLeftToTheSystem() throws {
+        let wrapper = CoreWrapper()
+
+        let image = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("test.png")
+        try Data([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]).write(to: image)
+
+        XCTAssertThrowsError(
+            try wrapper.translate(
+                image.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+        ) { error in
+            XCTAssertEqual((error as NSError).code, CoreWrapperError.unsupportedFileType.rawValue)
+        }
+    }
+
     /// And it has no document behind it, so the menu must not offer to edit one.
     func testCsvIsNotEditable() throws {
         let wrapper = CoreWrapper()

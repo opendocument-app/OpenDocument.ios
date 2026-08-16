@@ -81,6 +81,51 @@ def presentation(slides: list[str]) -> str:
     return content(f"  <office:presentation>\n{pages}\n  </office:presentation>")
 
 
+def pdf(pages: list[str]) -> bytes:
+    """A page per string, each showing it in Helvetica.
+
+    Assembled by hand rather than with a library, because the trailer carries the
+    byte offset of every object and nothing else about the file is hard.
+    """
+    font = 3
+    # 1 catalog, 2 pages, 3 font, then a page and its content stream each
+    page_numbers = [4 + 2 * index for index in range(len(pages))]
+
+    kids = " ".join(f"{number} 0 R" for number in page_numbers)
+    bodies = [
+        "<< /Type /Catalog /Pages 2 0 R >>",
+        f"<< /Type /Pages /Kids [{kids}] /Count {len(pages)} >>",
+        "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    ]
+
+    for number, text in zip(page_numbers, pages):
+        stream = f"BT /F1 24 Tf 72 700 Td ({text}) Tj ET"
+        bodies.append(
+            f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842]"
+            f" /Resources << /Font << /F1 {font} 0 R >> >>"
+            f" /Contents {number + 1} 0 R >>"
+        )
+        bodies.append(f"<< /Length {len(stream)} >>\nstream\n{stream}\nendstream")
+
+    out = bytearray(b"%PDF-1.4\n")
+    offsets = []
+    for number, body in enumerate(bodies, start=1):
+        offsets.append(len(out))
+        out += f"{number} 0 obj\n{body}\nendobj\n".encode("latin-1")
+
+    startxref = len(out)
+    out += f"xref\n0 {len(bodies) + 1}\n".encode("latin-1")
+    out += b"0000000000 65535 f \n"
+    for offset in offsets:
+        out += f"{offset:010d} 00000 n \n".encode("latin-1")
+    out += (
+        f"trailer\n<< /Size {len(bodies) + 1} /Root 1 0 R >>\n"
+        f"startxref\n{startxref}\n%%EOF\n"
+    ).encode("latin-1")
+
+    return bytes(out)
+
+
 def write(path: Path, mimetype: str, content_xml: str) -> None:
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as package:
         # first and uncompressed, or the package is only recognised by sniffing
@@ -106,6 +151,10 @@ def main() -> None:
         "application/vnd.oasis.opendocument.presentation",
         presentation(["Intro", "Outro"]),
     )
+
+    path = here.parent / "test.pdf"
+    path.write_bytes(pdf(["First", "Second"]))
+    print(f"wrote {path}")
 
 
 if __name__ == "__main__":

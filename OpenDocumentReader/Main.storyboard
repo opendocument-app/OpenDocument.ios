@@ -107,11 +107,13 @@
                         <outlet property="bannerSlotHeight" destination="eXE-Ks-sQc" id="yQ1-l7-wiV"/>
                         <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
                         <outlet property="editButton" destination="Ed1-tP-enc" id="Ed3-tP-enc"/>
+                        <outlet property="editButtonSpacer" destination="Ed4-tP-enc" id="Ed5-tP-enc"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
                         <outlet property="pageTabBar" destination="sIx-zo-9kG" id="pCn-x0-Z01"/>
                         <outlet property="progressBar" destination="ePk-bQ-fV8" id="nz6-qw-ouf"/>
                         <outlet property="searchBar" destination="A5V-8n-dvk" id="AIb-1s-JO6"/>
                         <outlet property="searchButton" destination="fGi-i7-iOR" id="77J-cW-TAe"/>
+                        <outlet property="searchButtonSpacer" destination="Di6-gg-JT6" id="Di7-gg-JT6"/>
                         <outlet property="toolBar" destination="N1x-QM-Qks" id="db4-aA-GH6"/>
                         <outlet property="webview" destination="VF5-Do-xh9" id="25W-hb-tHy"/>
                     </connections>
