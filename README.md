@@ -36,7 +36,7 @@ Two targets rather than two configurations of one, because a Swift package
 product is linked by a target and no build setting takes it back out. Pro's
 release executable is 0.5 MB against Lite's 4.4 MB.
 
-Three folders, each a synchronized group, so adding a file is all it takes to
+Four folders, each a synchronized group, so adding a file is all it takes to
 add it to the build:
 
 | folder | in |
@@ -44,6 +44,7 @@ add it to the build:
 | `OpenDocumentReader/` | both |
 | `Ads/` | Lite |
 | `NoAds/` | Full |
+| `OpenDocumentReaderTests/` | the test bundle |
 
 `Ads/` is the only place that names a type from an ad sdk. `AdSlot` (the banner
 and the consent form) and `AdPrivacy` (the way back to that choice) have a no-op
@@ -58,7 +59,10 @@ else, so there is nothing to withhold.
 
 `configs/full` and `configs/lite` hold each bundle's `Info.plist` and privacy
 manifest, out of the synchronized folder, since anything left in there would be
-copied into both apps.
+copied into both apps. For the same reason `scripts/make-test-fixtures.py`, which
+writes the small sample documents, sits outside the test folder: everything in
+there is copied into the test bundle, and the tests want the documents, not the
+script that made them.
 
 ## How a document reaches the screen
 
