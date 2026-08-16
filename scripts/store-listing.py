@@ -22,7 +22,10 @@
 # `name.txt`, or with nothing where the app has none.
 #
 # A release run checks before it builds, so a version missing a translation
-# fails in seconds rather than once both apps are uploaded.
+# fails in seconds rather than once both apps are uploaded. Which languages
+# there are, and which files a listing cannot be without, are written down below
+# rather than counted up from what is on disk: either going missing should stop
+# the release, not leave that storefront quietly as the console had it.
 # `scripts/store-copy.py` writes the release notes this reads.
 
 import argparse
@@ -40,22 +43,52 @@ METADATA = ROOT / "fastlane" / "metadata"
 APPS = ("pro", "lite")
 EVERY_LOCALE = "all"
 
+# The languages the store sells the app in. Written down rather than counted up
+# from whatever directories are there: a locale that loses its description, or
+# its directory altogether, would otherwise drop out of the check and out of the
+# upload alike, and the release would pass without ever mentioning it.
+LOCALES = (
+    "de-DE",
+    "en-US",
+    "es-ES",
+    "fr-FR",
+    "hi",
+    "it",
+    "pl",
+    "pt-BR",
+    "ru",
+    "sv",
+    "tr",
+)
+
 # what App Store Connect takes in one locale's "What's New"
 LIMIT = 4000
 
 # The text of the listing, per locale, as deliver names it. Listed rather than
 # globbed so that adding a file here is a decision: everything in this set is
 # pushed over whatever App Store Connect currently says.
-LOCALISED = (
+#
+# What a listing cannot be without. None of the three passes holding one of these
+# is an error rather than a file left out of what is staged: deliver reads a
+# field it was not given as "leave this be", so the console would keep the old
+# words through the one run meant to replace them. The name is the easiest to
+# lose - each app says it in a single file, for all eleven languages at once.
+REQUIRED = (
     "name.txt",
     "subtitle.txt",
     "description.txt",
     "keywords.txt",
+)
+
+# The rest, which a locale may genuinely not have.
+OPTIONAL = (
     "promotional_text.txt",
     "marketing_url.txt",
     "support_url.txt",
     "privacy_url.txt",
 )
+
+LOCALISED = REQUIRED + OPTIONAL
 
 # Attached to the version rather than to a locale.
 NON_LOCALISED = ("copyright.txt",)
@@ -87,13 +120,30 @@ FILL_IN = re.compile(r"( ?)\$\{([a-z_]+)\}")
 
 
 def locales(metadata=METADATA):
-    """The locales the listing has, in order."""
+    """The locales the listing has, in order. Every one of LOCALES, or an error."""
     # `review_information` and the loose category files sit beside them, so a
     # description is what makes a directory one of them
     found = sorted(d.name for d in metadata.iterdir() if (d / "description.txt").is_file())
-    if not found:
-        raise ValueError(f"{metadata} holds no locale directories")
-    return found
+
+    lost = [locale for locale in LOCALES if locale not in found]
+    strange = [locale for locale in found if locale not in LOCALES]
+    if lost or strange:
+        reasons = []
+        if lost:
+            reasons.append(f"nothing to read in {', '.join(lost)} under {metadata}")
+        if strange:
+            reasons.append(
+                f"{', '.join(strange)} is not one of the languages the store sells in - "
+                f"add it to LOCALES in {Path(__file__).name} if it now is"
+            )
+        raise ValueError("the listing is not in the languages it should be:\n  " + "\n  ".join(reasons))
+
+    return sorted(LOCALES)
+
+
+def shown(path):
+    """A path as it is worth reading in an error: from the repository, where it is in it."""
+    return path.relative_to(ROOT) if path.is_relative_to(ROOT) else path
 
 
 def copy_path(locale, version, metadata=METADATA):
@@ -148,7 +198,7 @@ def collect(version, metadata=METADATA):
 
     for locale in locales(metadata):
         path = copy_path(locale, version, metadata)
-        display = path.relative_to(ROOT) if path.is_relative_to(ROOT) else path
+        display = shown(path)
 
         if not path.is_file():
             problems.append(f"{locale}: no {display}")
@@ -177,6 +227,7 @@ def stage(texts, directory, app=None, metadata=METADATA):
         raise ValueError(f"no such app: {app} - one of {', '.join(APPS)}")
 
     oversized = []
+    unsaid = []
 
     def write(folder, name, text, places):
         text = fill_in(text, places, where=f"{folder.name}/{name}")
@@ -199,12 +250,21 @@ def stage(texts, directory, app=None, metadata=METADATA):
             text = read(name, places)
             if text is not None:
                 write(folder, name, text, places)
+            elif name in REQUIRED:
+                unsaid.append(f"{name}, in none of {', '.join(f'{shown(p)}/' for p in places)}")
 
     if app:
         for name in NON_LOCALISED:
             text = read(name, [metadata, metadata.parent / f"metadata-{app}"])
             if text is not None:
                 (directory / name).write_text(text, encoding="utf-8")
+
+    if unsaid:
+        raise ValueError(
+            "the listing does not say everything it has to:\n  "
+            + "\n  ".join(unsaid)
+            + "\nUnwritten is not blank: App Store Connect would keep what it already has."
+        )
 
     if oversized:
         raise ValueError("the store would refuse this listing:\n  " + "\n  ".join(oversized))
