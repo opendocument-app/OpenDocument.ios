@@ -20,14 +20,12 @@ once the version tag exists.
 
 ### Changed
 
-- PDFs are rendered by odrcore, like every other document, instead of being
-  handed to the web view. Their text is in the page rather than behind the
-  system viewer, so they will be searchable as soon as odrcore writes the
-  search script for a pdf page as it does for a document. A password protected
-  one is asked for its password by the same prompt the other formats use.
-- The search button leaves the tool bar when the document on screen cannot be
-  searched, rather than sitting there greyed out - the same as the edit button.
-  Whether a page can be searched is asked of the page itself.
+- PDFs are rendered by odrcore instead of being handed to the web view, and a
+  password protected one takes the prompt the other formats use. Their text is
+  in the page, so they become searchable once odrcore writes the search script
+  for a pdf page as it does for a document.
+- The search button leaves the tool bar when the page cannot be searched,
+  rather than greying out - the same as the edit button.
 
 ## [1.40]
 
