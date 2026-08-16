@@ -7,7 +7,7 @@ let CoreWrapperErrorDomain = "app.opendocument.CoreWrapperErrorDomain"
 @objc enum CoreWrapperError: Int {
     case unknown = 1
     case wrongPassword = 2
-    /// Not a document odrcore can translate. PDFs land here on purpose.
+    /// Not something odrcore renders for us — see the guard in `translate`.
     case unsupportedFileType = 3
 }
 
@@ -107,11 +107,6 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         guard !fileTypes.isEmpty else {
             throw coreWrapperError(.unsupportedFileType, "odrcore does not recognise this file type")
         }
-        // PDFs are handed to WKWebView instead, which renders them natively
-        guard !fileTypes.contains(NSNumber(value: FileType.portableDocumentFormat.rawValue)) else {
-            throw coreWrapperError(
-                .unsupportedFileType, "PDF is rendered by the web view, not by odrcore")
-        }
 
         var file = try DecodedFile.decode(path: inputPath)
         if file.isPasswordEncrypted {
@@ -124,8 +119,11 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             }
         }
 
-        guard file.isDocumentFile || isCsv(file) else {
-            throw coreWrapperError(.unsupportedFileType, "not a document file")
+        // odrcore also translates images, media and fonts, but only into an
+        // `<img>` or a `<video>` the web view decodes anyway. Those go to the
+        // system instead, through the fallback in `DocumentViewController`.
+        guard file.isDocumentFile || file.isPdfFile || isCsv(file) else {
+            throw coreWrapperError(.unsupportedFileType, "not a document, a pdf or a csv")
         }
 
         // the same answers OpenDocument.droid gives odrcore, so a document is
@@ -161,8 +159,10 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             service = try HtmlTranslator.translate(
                 document: document, cachePath: cachePath, config: config)
         } else {
-            // not `.spreadsheet`, though a csv is one: that asks for a tab per
-            // sheet, and a csv's single sheet is called "csv"
+            // a csv and a pdf have no document behind them to open or to edit.
+            // `.unknown` keeps the combined view for both; not `.spreadsheet`,
+            // though a csv is one, because that asks for a tab per sheet and a
+            // csv's single sheet is called "csv"
             documentType = .unknown
             openedDocument = nil
             service = try HtmlTranslator.translate(

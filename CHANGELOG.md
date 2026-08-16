@@ -16,6 +16,17 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Changed
+
+- PDFs are rendered by odrcore instead of being handed to the web view, and a
+  password protected one takes the prompt the other formats use. Their text is
+  in the page, so they become searchable once odrcore writes the search script
+  for a pdf page as it does for a document.
+- The search button leaves the tool bar when the page cannot be searched,
+  rather than greying out - the same as the edit button.
+
 ## [1.40]
 
 ### Changed
