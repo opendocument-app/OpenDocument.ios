@@ -1,13 +1,13 @@
-Consultez et modifiez où que vous soyez les documents créés avec LibreOffice ou OpenOffice grâce à la visionneuse et à l'éditeur de documents !
+Consultez où que vous soyez les documents créés avec LibreOffice ou OpenOffice, peu importe où vous les rangez, grâce à la visionneuse de documents !
 
-La visionneuse et l'éditeur de documents vous permettent d'ouvrir partout vos fichiers ODF (Open Document Format) créés avec LibreOffice ou OpenOffice. Dans le bus, sur le chemin de l'école, vous voulez relire vos notes avant le grand examen ? Aucun souci ! Avec la visionneuse, vous ouvrez vos fichiers où bon vous semble, puis vous lisez vos documents et y faites des recherches, simplement et clairement. Il ne reste qu'une faute de frappe à corriger avant d'envoyer votre document à vos collègues ? L'éditeur prend désormais en charge la modification des documents ! Rapide, simple et bien intégré.
+La visionneuse de documents vous permet d'ouvrir partout vos fichiers ODF (Open Document Format) créés avec LibreOffice ou OpenOffice. Dans le bus, sur le chemin de l'école, vous voulez relire vos notes avant le grand examen ? Aucun souci ! Avec la visionneuse, vous ouvrez vos fichiers où bon vous semble, puis vous lisez vos documents et y faites des recherches, simplement et clairement. Un éditeur de texte est également présent, pour la dernière faute de frappe avant l'envoi d'un document. Il est encore jeune et ne fonctionne pas avec tous les documents : cette application est avant tout une visionneuse.
 
 Vos fichiers ODF (ODT, ODS et bien d'autres) créés avec Libre Office ou OpenOffice s'ouvrent aussi depuis d'autres applications. Parmi celles qui sont prises en charge : GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox et beaucoup d'autres ! Ou utilisez notre explorateur de fichiers intégré pour ouvrir les fichiers de votre appareil.
 
-LA VISIONNEUSE ET L'ÉDITEUR DE DOCUMENTS TOUT-EN-UN
+LA VISIONNEUSE DE DOCUMENTS TOUT-EN-UN
 
 *ouvrez sans effort les fichiers ODF : ODT (writer), ODS (calc), ODP et ODG
-*modifiez vos documents pour corriger une faute de frappe, ajouter une phrase, etc
+*corrigez une faute de frappe ou ajoutez une phrase avec le jeune éditeur de texte
 *ouvrez en toute sécurité les documents protégés par mot de passe
 *recherchez des mots-clés dans vos ODT (writer), ODS (calc) ou ODG et mettez-les en évidence
 *imprimez vos documents si votre appareil est connecté à une imprimante
@@ -18,7 +18,7 @@ LA VISIONNEUSE ET L'ÉDITEUR DE DOCUMENTS TOUT-EN-UN
 
 VOS DOCUMENTS AVEC VOUS - OÙ QUE VOUS SOYEZ
 
-Par ailleurs, la visionneuse et l'éditeur de documents ont pour objectif de prendre en charge au mieux de nombreux autres formats de fichiers :
+Par ailleurs, la visionneuse de documents a pour objectif de prendre en charge au mieux de nombreux autres formats de fichiers :
 - Portable Document Format (PDF)
 - Archives : ZIP
 - Images : JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG, etc
@@ -32,6 +32,6 @@ Par ailleurs, la visionneuse et l'éditeur de documents ont pour objectif de pre
 - AutoCAD (DXF)
 - Photoshop (PSD)
 
-Cette application est open source. Nous ne sommes affiliés ni à OpenOffice, ni à LibreOffice, ni à aucun projet similaire. Fabriquée en Autriche. Des publicités sont affichées afin de soutenir le développement de l'application. Vous pouvez les retirer temporairement, gratuitement, depuis le menu de l'application. Tous vos retours par e-mail sont les bienvenus.
+Cette application est open source. Nous ne sommes affiliés ni à OpenOffice, ni à LibreOffice, ni à aucun projet similaire. Fabriquée en Autriche. ${ads} Tous vos retours par e-mail sont les bienvenus.
 
-ODF est le format utilisé par les suites bureautiques comme Open Office et Libre Office. Les documents texte (Writer, ODT), les feuilles de calcul (Calc, ODS) et les présentations (Impress, ODP) sont pris en charge, y compris, avec l'éditeur, les mises en forme complexes et les images intégrées. Les graphiques ne posent pas non plus de problème. Et pour protéger vos données, vous pouvez même ouvrir des documents protégés par mot de passe. Les autres applications qui utilisent ce format sont LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office et 602Office.
+ODF est le format utilisé par les suites bureautiques comme Open Office et Libre Office. Les documents texte (Writer, ODT), les feuilles de calcul (Calc, ODS) et les présentations (Impress, ODP) sont pris en charge, y compris les mises en forme complexes et les images intégrées. Les graphiques ne posent pas non plus de problème. Et pour protéger vos données, vous pouvez même ouvrir des documents protégés par mot de passe. Les autres applications qui utilisent ce format sont LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office et 602Office.

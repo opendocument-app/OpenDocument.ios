@@ -61,7 +61,7 @@ Write the paid app's listing, and ODR_VERSION's release notes, to the store
 [bundle exec] fastlane ios uploadListingLite
 ```
 
-Write ODR_VERSION's release notes to the ad supported app
+Write the ad supported app's listing, and ODR_VERSION's release notes, to the store
 
 ### ios deployPro
 

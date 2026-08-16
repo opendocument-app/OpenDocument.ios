@@ -1,6 +1,6 @@
 # Store metadata
 
-What App Store Connect shows about the app, one directory per locale.
+What App Store Connect shows about the apps, one directory per locale.
 
 This is where the listing is written, and a release run uploads it: name,
 subtitle, description, keywords, the URLs, and the release notes of the version
@@ -12,9 +12,31 @@ say where the app sits in the store - neither is release copy.
 `scripts/store-listing.py` names what is staged, so adding a file to that list is
 a decision rather than an accident.
 
-Only Pro's listing lives here. An app's name has to be unique in the store, so
-pushing this to Lite would rename Lite to Pro; Lite takes the release notes and
-nothing else until its own listing is checked in beside this one.
+## The two apps
+
+Pro and Lite are the same app, and they say almost the same thing about
+themselves. What is here is what they share. Where they have to differ:
+
+| | |
+| --- | --- |
+| `fastlane/metadata/<locale>/` | what both say |
+| `fastlane/metadata-<app>/all/` | what this app says instead, in every locale |
+| `fastlane/metadata-<app>/<locale>/` | what this app says instead, here |
+
+Read in that order, last one wins. `<app>` is `pro` or `lite`.
+
+Only the name differs outright, and it has to: an app's name is unique in the
+store, so one file each, `OpenDocument Reader Pro` and `OpenDocument Reader`.
+There is no `name.txt` in this directory - the apps own their names.
+
+One sentence differs inside otherwise shared text, which is the advertising
+line: Lite shows ads and Pro does not. Rather than keep two descriptions per
+locale and let them drift, the shared one holds `${ads}` and each app fills it
+in from its own `ads.txt` - Lite has one per locale, Pro has none, and a
+fill-in nobody answers leaves nothing behind, the space in front of it
+included. `FILL_INS` in `scripts/store-listing.py` lists the names one may
+have, so a misspelt `${adds}` is an error rather than a sentence that quietly
+vanishes from the store.
 
 ## Release notes
 
@@ -61,8 +83,17 @@ anything.
 ## Name, subtitle, keywords
 
 30 characters for the name, 30 for the subtitle, 100 for the keywords, counting
-the commas. The App Store indexes name and subtitle as well as keywords, so a
-word in one of those is wasted in the other: none of the keyword lists here
-repeats a word from its own name or subtitle. Every listing leads with
-`LibreOffice`, which is the strongest thing the app has to be found by, and says
-somewhere that it edits and does not only read.
+the commas. `scripts/store-listing.py` checks all three against what it stages
+rather than against what is written here, since an app's own name is what
+finally has to fit.
+
+The name is the same in every storefront and is not translated: `OpenDocument`
+is the format's own name and goes untranslated in every language anyway, and one
+name is one app that people can pass to each other. Nothing is lost to search by
+it, because the App Store indexes name, subtitle and keywords alike - so the
+local words, `LibreOffice` among them, live in the subtitle and the keywords
+instead. That also means a keyword repeating a word from the name or from its
+own subtitle is a wasted slot; none of these do.
+
+None of it sells the app as an editor. It edits text, but that is young and does
+not reach every document, so the listing says so once and calls itself a reader.

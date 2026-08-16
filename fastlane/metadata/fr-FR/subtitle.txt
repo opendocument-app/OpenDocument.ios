@@ -1,1 +1,1 @@
-Lecteur de documents et PDF
+Lecteur LibreOffice, ODT, PDF

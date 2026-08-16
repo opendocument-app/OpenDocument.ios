@@ -1,1 +1,1 @@
-doc,docx,pdf,odt,ods,odp,odg,odf,openoffice,arquivos,escritório,visualizador,apresentação,abrir,ler
+doc,docx,odt,ods,odp,odg,odf,xlsx,planilhas,apresentação,slides,leitor,abrir,openoffice,arquivos

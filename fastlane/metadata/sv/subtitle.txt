@@ -1,1 +1,1 @@
-Dokumentläsare, ODT, ODS, PDF
+Dokumentläsare för LibreOffice

@@ -1,1 +1,1 @@
-doc,docx,xlsx,odp,odg,odf,openoffice,visor,archivos,texto,hojas,cálculo,presentaciones,ofimática
+doc,docx,odt,ods,odp,odg,odf,xlsx,pdf,visor,abrir,archivos,ofimática,hojas,cálculo,texto,openoffice

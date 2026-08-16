@@ -1,1 +1,1 @@
-Abrir documentos ODT, ODS, PDF
+Leer documentos de LibreOffice

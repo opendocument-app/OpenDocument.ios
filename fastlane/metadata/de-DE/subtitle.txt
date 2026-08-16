@@ -1,1 +1,1 @@
-Betrachter für ODT, ODS & PDF
+LibreOffice Dokumente öffnen

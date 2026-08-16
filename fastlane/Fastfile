@@ -5,13 +5,12 @@ require "tmpdir"
 
 default_platform(:ios)
 
-# listing: whose App Store text fastlane/metadata holds. It was pulled for Pro,
-# and an app's name has to be unique in the store, so pushing it to Lite would
-# rename Lite to Pro. Lite takes the release notes and nothing else until its own
-# listing is checked in beside Pro's.
+# name also picks the app's half of the listing: fastlane/metadata is what both
+# say, and fastlane/metadata-pro and -lite are where they differ. An app's name
+# has to be unique in the store, so that much always differs.
 APPS = {
-  pro: { name: "pro", scheme: "ODR Full", app_identifier: "at.tomtasche.reader", listing: true },
-  lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1", listing: false },
+  pro: { name: "pro", scheme: "ODR Full", app_identifier: "at.tomtasche.reader" },
+  lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1" },
 }.freeze
 
 # Absolute, because lane bodies run in fastlane/ while actions run one directory
@@ -58,7 +57,7 @@ platform :ios do
     upload_listing(APPS[:pro])
   end
 
-  desc "Write ODR_VERSION's release notes to the ad supported app"
+  desc "Write the ad supported app's listing, and ODR_VERSION's release notes, to the store"
   lane :uploadListingLite do
     upload_listing(APPS[:lite])
   end
@@ -229,7 +228,7 @@ platform :ios do
   end
 
   # What the store says about the app: the "What's New" of ODR_VERSION in every
-  # locale, and for Pro the rest of the listing text with it.
+  # locale, and the rest of the listing text with it.
   #
   # deliver uploads every metadata file it finds under metadata_path, so it is
   # given a staged directory rather than fastlane/metadata itself, and
@@ -250,9 +249,7 @@ platform :ios do
     begin
       # first, so a version some locale has no copy for fails before a key is
       # ever written to disk
-      staging = [STORE_LISTING, "--version", version, "--stage", notes_dir]
-      staging << "--full" if options[:listing]
-      sh(*staging)
+      sh(STORE_LISTING, "--version", version, "--stage", notes_dir, "--app", options[:name])
       key_path = api_key_file
 
       upload_to_app_store(

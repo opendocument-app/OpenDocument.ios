@@ -249,7 +249,11 @@ def english(version, model, attempts):
 
 
 def translate(locale, version, source, model, attempts, review=True):
-    description = (listing.METADATA / locale / "description.txt").read_text(encoding="utf-8").strip()
+    # the description is shown to the agent as the app already speaks that
+    # language, so the ${...} an app fills in comes out rather than being read
+    # as something the listing says
+    path = listing.METADATA / locale / "description.txt"
+    description = listing.fill_in(path.read_text(encoding="utf-8"), [], where=path.name).strip()
 
     draft = produce(
         TRANSLATION_PROMPT.format(

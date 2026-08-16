@@ -1,1 +1,1 @@
-ODT, ODS, PDF Görüntüleyici
+LibreOffice, PDF belge okuyucu

@@ -1,1 +1,1 @@
-doc,docx,odp,odg,odf,openoffice,libreoffice,dateien,öffnen,tabellen,bearbeiten,viewer,präsentation
+doc,docx,odt,ods,odp,odg,odf,xlsx,pdf,openoffice,dateien,tabellen,betrachter,präsentation,lesen,büro

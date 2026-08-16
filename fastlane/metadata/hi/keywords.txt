@@ -1,1 +1,1 @@
-doc,docx,odp,odg,odf,openoffice,word,excel,ppt,pptx,xls,xlsx,office,viewer,docs,दस्तावेज,ऑफिस
+doc,docx,odt,ods,odp,odg,odf,xls,xlsx,ppt,pptx,pdf,openoffice,viewer,office,word,फाइल,ऑफिस

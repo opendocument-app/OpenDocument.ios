@@ -158,9 +158,12 @@ it into the shape `deliver` reads.
 The rest of the listing goes up with it: name, subtitle, description, keywords
 and the URLs are written in `fastlane/metadata/` and pushed by the same job, so
 the store says what is committed here rather than what someone last typed into
-App Store Connect. Only Pro's listing is checked in, and a name has to be unique
-in the store, so Lite takes the release notes alone. `review_information` and the
-categories are left out. See `fastlane/metadata/README.md`.
+App Store Connect. Both apps say it. What they share is in `fastlane/metadata/`
+and what one of them says instead is in `fastlane/metadata-pro/` or
+`fastlane/metadata-lite/`, read in that order - which is the name outright, since
+an app's name is unique in the store, and the one sentence about ads inside the
+description. `review_information` and the categories are left out. See
+`fastlane/metadata/README.md`.
 
 Nothing has to be committed to cut a release, and a release leaves no commit
 behind either. Both halves of the version come from outside the tree:

@@ -1,1 +1,1 @@
-doc,docx,odp,odg,odf,openoffice,bureautique,tableur,texte,fichiers,visionneuse,diaporama,calc,writer
+doc,docx,ods,odp,odg,odf,xlsx,openoffice,visionneuse,bureautique,tableur,diaporama,calc,writer,texte

@@ -1,1 +1,1 @@
-doc,docx,odp,odg,odf,openoffice,arkusz,kalkulacyjny,prezentacje,przeglądarka,biuro,tekst,office,xlsx
+doc,docx,odt,ods,odp,odg,odf,xlsx,pdf,openoffice,przeglądarka,plików,arkusz,kalkulacyjny,prezentacje

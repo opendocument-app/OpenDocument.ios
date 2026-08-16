@@ -1,13 +1,13 @@
-Просматривайте и редактируйте документы, созданные в LibreOffice или OpenOffice, прямо на ходу — приложение для чтения и редактирования документов!
+Читайте документы, созданные в LibreOffice или OpenOffice, прямо на ходу и где бы вы их ни хранили — приложение для чтения документов!
 
-Приложение открывает файлы формата ODF (Open Document Format), созданные в LibreOffice или OpenOffice, где бы вы ни были. Едете в автобусе и хотите просмотреть конспект перед важным экзаменом? Не проблема! Открывайте файлы в любом месте, читайте документы и ищите в них нужное — просто и без лишних действий. Осталось исправить последнюю опечатку перед тем, как отправить документ коллегам? Теперь документы можно редактировать прямо здесь. Быстро, просто и удобно.
+Приложение открывает файлы формата ODF (Open Document Format), созданные в LibreOffice или OpenOffice, где бы вы ни были. Едете в автобусе и хотите просмотреть конспект перед важным экзаменом? Не проблема! Открывайте файлы в любом месте, читайте документы и ищите в них нужное — просто и без лишних действий. Здесь есть и текстовый редактор — для последней опечатки перед тем, как отправить документ. Он совсем молодой и подходит пока не к каждому документу, поэтому главное в приложении — чтение.
 
 Файлы ODF (ODT, ODS и многие другие), созданные в Libre Office или OpenOffice, можно открывать и из других приложений: GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox и множества других! Или откройте файлы на устройстве через встроенный проводник.
 
-ЧТЕНИЕ И РЕДАКТИРОВАНИЕ ДОКУМЕНТОВ В ОДНОМ ПРИЛОЖЕНИИ
+ЧТЕНИЕ ДОКУМЕНТОВ В ОДНОМ ПРИЛОЖЕНИИ
 
 *открывайте файлы ODF: ODT (writer), ODS (calc), ODP и ODG без лишних хлопот
-*редактируйте документы: исправляйте опечатки, дописывайте предложения и не только
+*исправьте опечатку или допишите предложение в молодом текстовом редакторе
 *безопасно открывайте документы, защищенные паролем
 *ищите ключевые слова в ODT (writer), ODS (calc) или ODG — они подсвечиваются
 *печатайте документы, если устройство подключено к принтеру
@@ -32,6 +32,6 @@
 - AutoCAD (DXF)
 - Photoshop (PSD)
 
-Это приложение с открытым исходным кодом. Мы никак не связаны с OpenOffice, LibreOffice или подобными проектами. Сделано в Австрии. Реклама помогает развивать приложение, и ее можно временно убрать через меню в приложении. Будем рады любым отзывам по электронной почте.
+Это приложение с открытым исходным кодом. Мы никак не связаны с OpenOffice, LibreOffice или подобными проектами. Сделано в Австрии. ${ads} Будем рады любым отзывам по электронной почте.
 
-ODF — это формат офисных пакетов Open Office и Libre Office. Поддерживаются текстовые документы (Writer, ODT), электронные таблицы (Calc, ODS) и презентации (Impress, ODP), в том числе сложное форматирование и встроенные изображения при редактировании. Диаграммы тоже не проблема. А если данные нужно защитить, вы сможете открыть и документы с паролем. Этот формат используют и другие приложения: LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office и 602Office.
+ODF — это формат офисных пакетов Open Office и Libre Office. Поддерживаются текстовые документы (Writer, ODT), электронные таблицы (Calc, ODS) и презентации (Impress, ODP), в том числе сложное форматирование и встроенные изображения. Диаграммы тоже не проблема. А если данные нужно защитить, вы сможете открыть и документы с паролем. Этот формат используют и другие приложения: LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office и 602Office.

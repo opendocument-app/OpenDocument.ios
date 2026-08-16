@@ -1,1 +1,1 @@
-doc,docx,pdf,openoffice,editor,docs,to,go,documents,file,opener,suite,writer,viewer,libreoffice
+doc,docx,xls,xlsx,ppt,pptx,odt,ods,odp,odg,odf,openoffice,viewer,file,opener,office,writer,calc

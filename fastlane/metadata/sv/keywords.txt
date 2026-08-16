@@ -1,1 +1,1 @@
-doc,docx,odp,odg,odf,openoffice,dokument,kalkylblad,presentation,kontor,visare,öppna,filer,läsare
+odt,ods,odp,odg,odf,doc,docx,xlsx,pdf,openoffice,kontor,filer,kalkylblad,presentation,writer,calc

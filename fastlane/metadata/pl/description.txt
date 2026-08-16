@@ -1,13 +1,13 @@
-Przeglądaj i edytuj w podróży dokumenty utworzone w LibreOffice lub OpenOffice — dzięki przeglądarce i edytorowi dokumentów w jednym!
+Czytaj w podróży dokumenty utworzone w LibreOffice lub OpenOffice — wszędzie tam, gdzie je trzymasz, dzięki przeglądarce dokumentów!
 
-Przeglądarka i edytor plików pozwala otwierać dokumenty ODF (Open Document Format) utworzone w LibreOffice lub OpenOffice wszędzie tam, gdzie jesteś. Jedziesz autobusem do szkoły i chcesz jeszcze zerknąć w notatki przed ważnym egzaminem? Żaden problem! Dzięki przeglądarce dokumentów otworzysz pliki, gdziekolwiek chcesz, a swoje dokumenty przeczytasz i przeszukasz w prosty, przejrzysty sposób. Została Ci do poprawienia ostatnia literówka, zanim wyślesz dokument współpracownikom? Edytor plików obsługuje teraz modyfikowanie dokumentów! Szybko, prosto i dobrze zintegrowane.
+Przeglądarka plików pozwala otwierać dokumenty ODF (Open Document Format) utworzone w LibreOffice lub OpenOffice wszędzie tam, gdzie jesteś. Jedziesz autobusem do szkoły i chcesz jeszcze zerknąć w notatki przed ważnym egzaminem? Żaden problem! Dzięki przeglądarce dokumentów otworzysz pliki, gdziekolwiek chcesz, a swoje dokumenty przeczytasz i przeszukasz w prosty, przejrzysty sposób. Jest tu również edytor tekstu, na ostatnią literówkę przed wysłaniem dokumentu. Jest młody i nie radzi sobie jeszcze z każdym plikiem, więc ta aplikacja jest przede wszystkim do czytania.
 
 Pliki ODF (ODT, ODS i wiele innych) utworzone w LibreOffice lub OpenOffice otworzysz także prosto z innych aplikacji. Obsługiwane są między innymi GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox i wiele więcej! Możesz też skorzystać z wbudowanego eksploratora plików i otworzyć dokumenty zapisane na urządzeniu.
 
-PRZEGLĄDARKA I EDYTOR DOKUMENTÓW — WSZYSTKO W JEDNYM
+PRZEGLĄDARKA DOKUMENTÓW — WSZYSTKO W JEDNYM
 
 *otwieraj bez trudu pliki ODF: ODT (Writer), ODS (Calc), ODP i ODG
-*poprawiaj literówki, dopisuj zdania i wprowadzaj inne podstawowe zmiany w edytorze plików
+*popraw literówkę lub dopisz zdanie w młodym edytorze tekstu
 *bezpiecznie otwieraj dokumenty chronione hasłem
 *wyszukuj słowa kluczowe w plikach ODT (Writer), ODS (Calc) i ODG oraz podświetlaj wyniki
 *drukuj dokumenty, jeśli urządzenie jest połączone z drukarką
@@ -18,7 +18,7 @@ PRZEGLĄDARKA I EDYTOR DOKUMENTÓW — WSZYSTKO W JEDNYM
 
 DOKUMENTY POD RĘKĄ — GDZIEKOLWIEK JESTEŚ
 
-Poza tym przeglądarka i edytor dokumentów stara się jak najlepiej obsługiwać również wiele innych formatów plików:
+Poza tym przeglądarka dokumentów stara się jak najlepiej obsługiwać również wiele innych formatów plików:
 - Portable Document Format (PDF)
 - Archiwa: ZIP
 - Obrazy: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG i inne
@@ -32,6 +32,6 @@ Poza tym przeglądarka i edytor dokumentów stara się jak najlepiej obsługiwa�
 - AutoCAD (DXF)
 - Photoshop (PSD)
 
-Ta aplikacja jest oprogramowaniem open source. Nie jesteśmy powiązani z OpenOffice, LibreOffice ani podobnymi projektami. Made in Austria. Reklamy wspierają rozwój aplikacji, a w menu w aplikacji możesz je tymczasowo i bezpłatnie wyłączyć. Bardzo cenimy sobie każdą opinię przesłaną e-mailem.
+Ta aplikacja jest oprogramowaniem open source. Nie jesteśmy powiązani z OpenOffice, LibreOffice ani podobnymi projektami. Made in Austria. ${ads} Bardzo cenimy sobie każdą opinię przesłaną e-mailem.
 
-Format ODF wykorzystują pakiety biurowe takie jak Open Office i Libre Office. Obsługiwane są dokumenty tekstowe (Writer, ODT), arkusze kalkulacyjne (Calc, ODS), a także prezentacje (Impress, ODP) — edytor plików radzi sobie przy tym ze złożonym formatowaniem i osadzonymi obrazami. Wykresy również nie stanowią problemu. Jeśli chcesz zabezpieczyć swoje dane, otworzysz nawet dokumenty chronione hasłem. Z tego formatu korzystają też inne programy: LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office i 602Office.
+Format ODF wykorzystują pakiety biurowe takie jak Open Office i Libre Office. Obsługiwane są dokumenty tekstowe (Writer, ODT), arkusze kalkulacyjne (Calc, ODS), a także prezentacje (Impress, ODP) — łącznie ze złożonym formatowaniem i osadzonymi obrazami. Wykresy również nie stanowią problemu. Jeśli chcesz zabezpieczyć swoje dane, otworzysz nawet dokumenty chronione hasłem. Z tego formatu korzystają też inne programy: LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office i 602Office.

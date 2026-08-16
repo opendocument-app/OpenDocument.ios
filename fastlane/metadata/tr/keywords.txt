@@ -1,1 +1,1 @@
-doc,docx,odp,odg,odf,openoffice,dosya,ofis,editör,tablo,sunum,doküman,okuyucu,elektronik,txt,csv,rtf
+doc,docx,odt,ods,odp,odg,odf,xlsx,openoffice,görüntüleyici,dosya,ofis,doküman,tablo,sunum,metin
