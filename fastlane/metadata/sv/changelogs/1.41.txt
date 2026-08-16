@@ -1,3 +1,4 @@
-- PDF-filer visas med appens egen motor, så de anpassas efter skärmen och fungerar som alla andra dokument
-- Sök- och redigeringsknapparna visas bara för dokument som går att söka i eller redigera
-- När du redigerar ett dokument blir pennan en sparaknapp, så du sparar med ett tryck
+- PDF-filer anpassas nu efter skärmen och fungerar som alla andra dokument, även lösenordsskyddade
+- Knapparna för sök och redigera visas bara för dokument som går att söka i eller redigera
+- LibreOffices platta XML-dokument, mallar för huvuddokument och Excel-mallar går nu att öppna i filhanteraren i stället för att vara gråmarkerade
+- När du redigerar ett dokument blir pennan en sparaknapp – att spara är bara ett tryck bort

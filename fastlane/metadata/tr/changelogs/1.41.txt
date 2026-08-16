@@ -1,3 +1,4 @@
-- PDF'ler uygulamanın kendi motoruyla görüntüleniyor; böylece ekrana sığıyor ve diğer belgeler gibi çalışıyor
+- PDF'ler artık ekrana sığıyor ve parola korumalı olanlar dahil diğer belgeler gibi davranıyor
 - Arama ve düzenleme düğmeleri yalnızca aranabilen veya düzenlenebilen belgelerde görünüyor
-- Bir belgeyi düzenlerken kalem simgesi kaydetme düğmesine dönüşüyor; kaydetmek için tek dokunuş yetiyor
+- LibreOffice'in düz XML belgeleri, ana belge şablonları ve Excel şablonları artık soluk görünmüyor, dosya gezgininden açılabiliyor
+- Belgeyi düzenlerken kalem simgesi kaydetme düğmesine dönüşüyor, kaydetmek için tek dokunuş yeterli

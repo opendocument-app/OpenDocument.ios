@@ -34,6 +34,9 @@ once the version tag exists.
 
 ### Fixed
 
+- Flat XML documents (`.fodt`, `.fodp`, `.fods`, `.fodg`), `.otm`, `.xlt` and
+  `.xlm` can be picked in the document browser instead of being greyed out.
+  odrcore rendered them already; the app claimed no type that reached them.
 - The app is translated again. Every language but English was showing English
   for the onboarding buttons, the privacy screen and the banner, and Danish,
   Catalan, Turkish and Czech showed it for most of the rest.
@@ -43,12 +46,6 @@ once the version tag exists.
 
 - Tapping a document sets no cursor, so edit mode cannot be typed into. The
   cause is in odrcore; `EditWorkflowTests` pins it until the fix ships.
-
-### Fixed
-
-- Flat XML documents (`.fodt`, `.fodp`, `.fods`, `.fodg`), `.otm`, `.xlt` and
-  `.xlm` can be picked in the document browser instead of being greyed out.
-  odrcore rendered them already; the app claimed no type that reached them.
 
 ## [1.40]
 

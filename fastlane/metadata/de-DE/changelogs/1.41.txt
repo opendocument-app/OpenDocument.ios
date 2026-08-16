@@ -1,3 +1,4 @@
-- PDFs zeigt die App jetzt selbst an – sie passen sich dem Bildschirm an und verhalten sich wie jedes andere Dokument
-- Die Schaltflächen zum Suchen und Bearbeiten gibt es nur bei Dokumenten, die sich durchsuchen oder bearbeiten lassen
-- Beim Bearbeiten wird aus dem Stift eine Speichern-Schaltfläche – so speichern Sie mit einem Fingertipp
+- PDFs passen sich jetzt dem Bildschirm an und verhalten sich wie jedes andere Dokument, auch passwortgeschützte
+- Die Schaltflächen zum Suchen und Bearbeiten erscheinen nur bei Dokumenten, die sich durchsuchen oder bearbeiten lassen
+- Flache XML-Dokumente von LibreOffice, Globaldokument-Vorlagen und Excel-Vorlagen lassen sich jetzt im Dateimanager öffnen, statt ausgegraut zu sein
+- Beim Bearbeiten wird der Stift zur Schaltfläche zum Speichern – ein Antippen genügt

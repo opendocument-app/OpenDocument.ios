@@ -1,3 +1,4 @@
-- Pliki PDF wyświetla własny silnik aplikacji, więc dopasowują się do ekranu i działają jak każdy inny dokument
-- Przyciski wyszukiwania i edycji pojawiają się tylko w dokumentach, które można przeszukiwać lub edytować
-- Podczas edycji dokumentu ołówek zamienia się w przycisk zapisu — zapisujesz jednym dotknięciem
+- Pliki PDF dopasowują się teraz do ekranu i działają jak każdy inny dokument, także te chronione hasłem
+- Przyciski wyszukiwania i edycji pojawiają się tylko przy dokumentach, które można przeszukać lub edytować
+- Dokumenty LibreOffice w płaskim XML, szablony dokumentów głównych i szablony Excela otworzysz z eksploratora plików, zamiast oglądać je wyszarzone
+- Podczas edycji dokumentu ołówek zmienia się w przycisk zapisu, więc zapiszesz jednym dotknięciem
