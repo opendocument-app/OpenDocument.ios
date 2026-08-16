@@ -21,10 +21,13 @@ once the version tag exists.
 
 ### Changed
 
+- The engine is odrcore 6.7.1, up from 6.6.0. A pdf, a text file and an archive
+  listing can be searched, not only a document. A pdf's text also sits where the
+  file puts it: words no longer drift to the right of where they belong, bold
+  and italic are bold and italic, and a hit is highlighted in one piece.
 - PDFs are rendered by odrcore instead of being handed to the web view, and a
-  password protected one takes the prompt the other formats use. Their text is
-  in the page, so they become searchable once odrcore writes the search script
-  for a pdf page as it does for a document.
+  password protected one takes the prompt the other formats use. They can be
+  searched like a document, and a hit tints the text rather than covering it.
 - The search button leaves the tool bar when the page cannot be searched,
   rather than greying out - the same as the edit button.
 - The pencil turns into a save button while editing, as on Android. Saving from
@@ -41,11 +44,8 @@ once the version tag exists.
   for the onboarding buttons, the privacy screen and the banner, and Danish,
   Catalan, Turkish and Czech showed it for most of the rest.
 - The Chinese introduction named a different app.
-
-### Known issues
-
-- Tapping a document sets no cursor, so edit mode cannot be typed into. The
-  cause is in odrcore; `EditWorkflowTests` pins it until the fix ships.
+- Tapping a document sets the cursor, so an edit can be typed. The keyboard
+  never came up before.
 
 ## [1.40]
 
