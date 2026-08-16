@@ -22,17 +22,7 @@
 		A11E00000000000000000016 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A11E00000000000000000013 /* PrivacyInfo.xcprivacy */; };
 		A11E00000000000000000017 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A11E00000000000000000015 /* PrivacyInfo.xcprivacy */; };
 		E1A78CF72C1A53DB00CD43E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EB6C492C1A510D003EC5A0 /* Foundation.framework */; };
-		E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */; };
-		E24110312586349500800247 /* test.odt in Resources */ = {isa = PBXBuildFile; fileRef = E24110232586349500800247 /* test.odt */; };
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
-		E2A17B0400000000000000A4 /* PageTabBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0300000000000000A3 /* PageTabBarTests.swift */; };
-		E2A17B0500000000000000A5 /* DeclaredDocumentTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0600000000000000A6 /* DeclaredDocumentTypesTests.swift */; };
-		E2A17B0700000000000000A7 /* EditWorkflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0800000000000000A8 /* EditWorkflowTests.swift */; };
-		E2A17B1000000000000000B0 /* test.ods in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1200000000000000B2 /* test.ods */; };
-		E2A17B1100000000000000B1 /* test.odp in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1300000000000000B3 /* test.odp */; };
-		E2A17B1400000000000000B4 /* test.csv in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1500000000000000B5 /* test.csv */; };
-		E2A17B1600000000000000B6 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1700000000000000B7 /* test.pdf */; };
-		E2A17B1800000000000000B8 /* test-encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1900000000000000B9 /* test-encrypted.pdf */; };
 		E2A17B2000000000000000C0 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2200000000000000C2 /* CoreFoundation.framework */; };
 		E2A17B2100000000000000C1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A17B2300000000000000C3 /* CFNetwork.framework */; };
 		FB494C85E264BD924C1EA54E /* OdrCore in Frameworks */ = {isa = PBXBuildFile; productRef = E381918B979121CD165C966A /* OdrCore */; };
@@ -60,19 +50,8 @@
 		A11E00000000000000000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A11E00000000000000000015 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		E1EB6C492C1A510D003EC5A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentReaderTests.swift; sourceTree = "<group>"; };
-		E22B25302557F0E2001D0C52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E237952F2274844400BA7238 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		E24110232586349500800247 /* test.odt */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odt; sourceTree = "<group>"; };
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		E2A17B0300000000000000A3 /* PageTabBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabBarTests.swift; sourceTree = "<group>"; };
-		E2A17B0600000000000000A6 /* DeclaredDocumentTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredDocumentTypesTests.swift; sourceTree = "<group>"; };
-		E2A17B0800000000000000A8 /* EditWorkflowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkflowTests.swift; sourceTree = "<group>"; };
-		E2A17B1200000000000000B2 /* test.ods */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.ods; sourceTree = "<group>"; };
-		E2A17B1300000000000000B3 /* test.odp */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odp; sourceTree = "<group>"; };
-		E2A17B1500000000000000B5 /* test.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.csv; sourceTree = "<group>"; };
-		E2A17B1700000000000000B7 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
-		E2A17B1900000000000000B9 /* test-encrypted.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "test-encrypted.pdf"; sourceTree = "<group>"; };
 		E2A17B2200000000000000C2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E2A17B2300000000000000C3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -91,6 +70,11 @@
 		A11E0000000000000000000B /* OpenDocumentReader */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = OpenDocumentReader;
+			sourceTree = "<group>";
+		};
+		A11E00000000000000000022 /* OpenDocumentReaderTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OpenDocumentReaderTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -164,24 +148,6 @@
 			path = configs;
 			sourceTree = "<group>";
 		};
-		E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */ = {
-			isa = PBXGroup;
-			children = (
-				E24110232586349500800247 /* test.odt */,
-				E2A17B1200000000000000B2 /* test.ods */,
-				E2A17B1300000000000000B3 /* test.odp */,
-				E2A17B1500000000000000B5 /* test.csv */,
-				E2A17B1700000000000000B7 /* test.pdf */,
-				E2A17B1900000000000000B9 /* test-encrypted.pdf */,
-				E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */,
-				E2A17B0300000000000000A3 /* PageTabBarTests.swift */,
-				E2A17B0600000000000000A6 /* DeclaredDocumentTypesTests.swift */,
-				E2A17B0800000000000000A8 /* EditWorkflowTests.swift */,
-				E22B25302557F0E2001D0C52 /* Info.plist */,
-			);
-			path = OpenDocumentReaderTests;
-			sourceTree = "<group>";
-		};
 		E2BB4B64220EF4F20056176B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,7 +170,7 @@
 				A11E0000000000000000000B /* OpenDocumentReader */,
 				A11E00000000000000000009 /* Ads */,
 				A11E0000000000000000000A /* NoAds */,
-				E22B252D2557F0E2001D0C52 /* OpenDocumentReaderTests */,
+				A11E00000000000000000022 /* OpenDocumentReaderTests */,
 				E2BB4B64220EF4F20056176B /* Frameworks */,
 				52A348B12A9262D100DACAB9 /* OpenDocumentReader.app */,
 				A11E00000000000000000008 /* OpenDocumentReader Lite.app */,
@@ -253,6 +219,9 @@
 			);
 			dependencies = (
 				E22B25322557F0E2001D0C52 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A11E00000000000000000022 /* OpenDocumentReaderTests */,
 			);
 			name = OpenDocumentReaderTests;
 			productName = OpenDocumentReaderTests;
@@ -361,12 +330,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E24110312586349500800247 /* test.odt in Resources */,
-				E2A17B1000000000000000B0 /* test.ods in Resources */,
-				E2A17B1100000000000000B1 /* test.odp in Resources */,
-				E2A17B1400000000000000B4 /* test.csv in Resources */,
-				E2A17B1600000000000000B6 /* test.pdf in Resources */,
-				E2A17B1800000000000000B8 /* test-encrypted.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,10 +355,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */,
-				E2A17B0400000000000000A4 /* PageTabBarTests.swift in Sources */,
-				E2A17B0500000000000000A5 /* DeclaredDocumentTypesTests.swift in Sources */,
-				E2A17B0700000000000000A7 /* EditWorkflowTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,7 +448,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				INFOPLIST_FILE = OpenDocumentReaderTests/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -508,7 +467,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = OpenDocumentReaderTests/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -5,7 +5,7 @@ A few hundred bytes each, rather than the megabytes of third party material our
 sample documents are, because all a test asks of them is how many pages a two
 sheet spreadsheet turns into. Rerun when a fixture needs another sheet or slide:
 
-    python3 OpenDocumentReaderTests/fixtures/make-fixtures.py
+    python3 scripts/make-test-fixtures.py
 """
 
 import shutil
@@ -169,24 +169,24 @@ def write(path: Path, mimetype: str, content_xml: str) -> None:
 
 
 def main() -> None:
-    here = Path(__file__).resolve().parent
+    tests = Path(__file__).resolve().parent.parent / "OpenDocumentReaderTests"
 
     write(
-        here.parent / "test.ods",
+        tests / "test.ods",
         "application/vnd.oasis.opendocument.spreadsheet",
         spreadsheet(["Alpha", "Beta", "Gamma"]),
     )
     write(
-        here.parent / "test.odp",
+        tests / "test.odp",
         "application/vnd.oasis.opendocument.presentation",
         presentation(["Intro", "Outro"]),
     )
 
-    path = here.parent / "test.pdf"
+    path = tests / "test.pdf"
     path.write_bytes(pdf(["First", "Second"]))
     print(f"wrote {path}")
 
-    encrypted = here.parent / "test-encrypted.pdf"
+    encrypted = tests / "test-encrypted.pdf"
     encrypt_pdf(path, encrypted)
     print(f"wrote {encrypted}")
 
