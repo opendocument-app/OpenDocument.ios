@@ -35,6 +35,16 @@
 				<string>public.image</string>
 				<string>public.audiovisual-content</string>
 				<string>public.composite-content</string>
+				<!-- The broad types above miss these: a system type that conforms
+				     to none of them, and the six below that iOS has no type for
+				     until UTImportedTypeDeclarations gives it one. -->
+				<string>com.microsoft.excel.xlt</string>
+				<string>com.microsoft.excel.xlm</string>
+				<string>org.oasis-open.opendocument.text-flat-xml</string>
+				<string>org.oasis-open.opendocument.presentation-flat-xml</string>
+				<string>org.oasis-open.opendocument.spreadsheet-flat-xml</string>
+				<string>org.oasis-open.opendocument.graphics-flat-xml</string>
+				<string>org.oasis-open.opendocument.text-master-template</string>
 			</array>
 		</dict>
 	</array>
@@ -104,5 +114,140 @@
 	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
+	<!-- Formats odrcore renders that iOS has no type for. Without these the
+	     document browser resolves them to a dynamic type, which conforms to
+	     nothing we claim, and greys the file out. Imported rather than exported:
+	     none of them is ours. -->
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.text-flat-xml</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Text (Flat XML)</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+				<string>public.composite-content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>fodt</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.text-flat-xml</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.presentation-flat-xml</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Presentation (Flat XML)</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+				<string>public.composite-content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>fodp</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.presentation-flat-xml</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.spreadsheet-flat-xml</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Spreadsheet (Flat XML)</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+				<string>public.composite-content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>fods</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.spreadsheet-flat-xml</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.graphics-flat-xml</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Drawing (Flat XML)</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+				<string>public.composite-content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>fodg</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.graphics-flat-xml</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.text-master-template</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Master Document Template</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.zip-archive</string>
+				<string>public.composite-content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>otm</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.text-master-template</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.microsoft.excel.xlm</string>
+			<key>UTTypeDescription</key>
+			<string>Microsoft Excel Macro Sheet</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.composite-content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xlm</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -27,6 +27,12 @@ once the version tag exists.
 - The search button leaves the tool bar when the page cannot be searched,
   rather than greying out - the same as the edit button.
 
+### Fixed
+
+- Flat XML documents (`.fodt`, `.fodp`, `.fods`, `.fodg`), `.otm`, `.xlt` and
+  `.xlm` can be picked in the document browser instead of being greyed out.
+  odrcore rendered them already; the app claimed no type that reached them.
+
 ## [1.40]
 
 ### Changed
