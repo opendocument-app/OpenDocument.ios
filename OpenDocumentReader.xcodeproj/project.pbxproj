@@ -27,6 +27,7 @@
 		E26C39392250DC6E009C484A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26C39382250DC6E009C484A /* WebKit.framework */; };
 		E2A17B0400000000000000A4 /* PageTabBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0300000000000000A3 /* PageTabBarTests.swift */; };
 		E2A17B0500000000000000A5 /* DeclaredDocumentTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0600000000000000A6 /* DeclaredDocumentTypesTests.swift */; };
+		E2A17B0700000000000000A7 /* EditWorkflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A17B0800000000000000A8 /* EditWorkflowTests.swift */; };
 		E2A17B1000000000000000B0 /* test.ods in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1200000000000000B2 /* test.ods */; };
 		E2A17B1100000000000000B1 /* test.odp in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1300000000000000B3 /* test.odp */; };
 		E2A17B1400000000000000B4 /* test.csv in Resources */ = {isa = PBXBuildFile; fileRef = E2A17B1500000000000000B5 /* test.csv */; };
@@ -66,6 +67,7 @@
 		E26C39382250DC6E009C484A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E2A17B0300000000000000A3 /* PageTabBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabBarTests.swift; sourceTree = "<group>"; };
 		E2A17B0600000000000000A6 /* DeclaredDocumentTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclaredDocumentTypesTests.swift; sourceTree = "<group>"; };
+		E2A17B0800000000000000A8 /* EditWorkflowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkflowTests.swift; sourceTree = "<group>"; };
 		E2A17B1200000000000000B2 /* test.ods */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.ods; sourceTree = "<group>"; };
 		E2A17B1300000000000000B3 /* test.odp */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.odp; sourceTree = "<group>"; };
 		E2A17B1500000000000000B5 /* test.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.csv; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				E22B252E2557F0E2001D0C52 /* OpenDocumentReaderTests.swift */,
 				E2A17B0300000000000000A3 /* PageTabBarTests.swift */,
 				E2A17B0600000000000000A6 /* DeclaredDocumentTypesTests.swift */,
+				E2A17B0800000000000000A8 /* EditWorkflowTests.swift */,
 				E22B25302557F0E2001D0C52 /* Info.plist */,
 			);
 			path = OpenDocumentReaderTests;
@@ -392,6 +395,7 @@
 				E22B252F2557F0E2001D0C52 /* OpenDocumentReaderTests.swift in Sources */,
 				E2A17B0400000000000000A4 /* PageTabBarTests.swift in Sources */,
 				E2A17B0500000000000000A5 /* DeclaredDocumentTypesTests.swift in Sources */,
+				E2A17B0700000000000000A7 /* EditWorkflowTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

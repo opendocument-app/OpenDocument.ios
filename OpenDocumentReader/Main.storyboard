@@ -46,7 +46,7 @@
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="lgr-dX-fUO"/>
                                             <barButtonItem image="pencil" catalog="system" id="Ed1-tP-enc">
                                                 <connections>
-                                                    <action selector="editButton:" destination="M2k-L8-Olo" id="Ed2-tP-enc"/>
+                                                    <action selector="editOrSave:" destination="M2k-L8-Olo" id="Ed2-tP-enc"/>
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="Ed4-tP-enc"/>
