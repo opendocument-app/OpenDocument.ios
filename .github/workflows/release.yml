@@ -1,6 +1,6 @@
 name: release
 
-# Three jobs rather than one so that "Re-run failed jobs" repairs a failed upload
+# Several jobs rather than one so that "Re-run failed jobs" repairs a failed upload
 # against the .ipa already built and signed. See the README.
 
 on:
@@ -68,6 +68,14 @@ jobs:
         env:
           version: ${{ steps.version.outputs.version }}
         run: .github/scripts/changelog-section.py --version "$version"
+
+      # what the listing job uploads, so a missing translation fails here rather
+      # than once both apps are up
+      - name: check the store copy is written in every locale
+        if: ${{ steps.version.outputs.version != '' }}
+        env:
+          version: ${{ steps.version.outputs.version }}
+        run: scripts/store-listing.py --version "$version"
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -205,6 +213,43 @@ jobs:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+        run: bundle exec fastlane ios ${{ matrix.lane }}
+
+  # its own job because the listing stays editable until the version is submitted,
+  # while a build cannot be uploaded twice. No macOS runner: this touches the
+  # listing, not the app
+  listing:
+    needs: upload
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: pro
+            lane: uploadListingPro
+          - app: lite
+            lane: uploadListingLite
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: resolve version
+        id: version
+        env:
+          given: ${{ inputs.version }}
+        run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
+
+      - name: write ${{ matrix.app }}'s listing
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+          ODR_VERSION: ${{ steps.version.outputs.version }}
         run: bundle exec fastlane ios ${{ matrix.lane }}
 
   record:

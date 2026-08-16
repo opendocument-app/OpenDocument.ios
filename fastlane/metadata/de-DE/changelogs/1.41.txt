@@ -1,0 +1,4 @@
+- PDFs passen sich jetzt dem Bildschirm an und verhalten sich wie jedes andere Dokument, auch passwortgeschützte
+- Die Schaltflächen zum Suchen und Bearbeiten erscheinen nur bei Dokumenten, die sich durchsuchen oder bearbeiten lassen
+- Flache XML-Dokumente von LibreOffice, Globaldokument-Vorlagen und Excel-Vorlagen lassen sich jetzt im Dateimanager öffnen, statt ausgegraut zu sein
+- Beim Bearbeiten wird der Stift zur Schaltfläche zum Speichern – ein Antippen genügt

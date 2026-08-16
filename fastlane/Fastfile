@@ -5,6 +5,9 @@ require "tmpdir"
 
 default_platform(:ios)
 
+# name also picks the app's half of the listing: fastlane/metadata is what both
+# say, and fastlane/metadata-pro and -lite are where they differ. An app's name
+# has to be unique in the store, so that much always differs.
 APPS = {
   pro: { name: "pro", scheme: "ODR Full", app_identifier: "at.tomtasche.reader" },
   lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1" },
@@ -14,6 +17,10 @@ APPS = {
 # up: a bare "build" would be fastlane/build/ to File.exist? and build/ to gym.
 # Resolved at parse time, which fastlane also does from fastlane/.
 IPA_DIR = File.expand_path("../build").freeze
+
+# Absolute for the same reason. It resolves the repository from its own path, so
+# it does not care which of the two it is called from.
+STORE_LISTING = File.expand_path("../scripts/store-listing.py").freeze
 
 def dry_run?
   ENV["ODR_DRY_RUN"].to_s.strip == "true"
@@ -43,6 +50,16 @@ platform :ios do
   desc "Upload an already built Lite .ipa"
   lane :uploadLite do
     upload_ipa(APPS[:lite])
+  end
+
+  desc "Write the paid app's listing, and ODR_VERSION's release notes, to the store"
+  lane :uploadListingPro do
+    upload_listing(APPS[:pro])
+  end
+
+  desc "Write the ad supported app's listing, and ODR_VERSION's release notes, to the store"
+  lane :uploadListingLite do
+    upload_listing(APPS[:lite])
   end
 
   desc "Build and upload the paid app"
@@ -207,6 +224,54 @@ platform :ios do
       )
     ensure
       FileUtils.remove_entry(File.dirname(key_path), true)
+    end
+  end
+
+  # What the store says about the app: the "What's New" of ODR_VERSION in every
+  # locale, and the rest of the listing text with it.
+  #
+  # deliver uploads every metadata file it finds under metadata_path, so it is
+  # given a staged directory rather than fastlane/metadata itself, and
+  # store-listing.py names what goes into it. What is staged is what this
+  # repository says the store should say; anything else is left as App Store
+  # Connect has it.
+  #
+  # Separate from upload_ipa so a rejected word can be rewritten and pushed again
+  # without touching the binary, which App Store Connect refuses a second time
+  # anyway.
+  private_lane :upload_listing do |options|
+    version = ENV["ODR_VERSION"].to_s.strip
+    UI.user_error!("no version to write notes for: set ODR_VERSION (e.g. ODR_VERSION=1.41)") if version.empty?
+
+    notes_dir = Dir.mktmpdir("release-notes")
+    key_path = nil
+
+    begin
+      # first, so a version some locale has no copy for fails before a key is
+      # ever written to disk
+      sh(STORE_LISTING, "--version", version, "--stage", notes_dir, "--app", options[:name])
+      key_path = api_key_file
+
+      upload_to_app_store(
+        api_key: asc_key(path: key_path),
+        app_identifier: options[:app_identifier],
+        # creates the version when App Store Connect has none yet, which is the
+        # usual case: the build is still processing when this runs
+        app_version: version,
+        metadata_path: notes_dir,
+        skip_binary_upload: true,
+        skip_screenshots: true,
+        skip_metadata: false,
+        # deliver otherwise opens an HTML preview and waits to be told it is fine
+        force: true,
+        # same as the binary upload: precheck cannot read in-app purchases with
+        # an API key, and nothing is being submitted here either
+        run_precheck_before_submit: false,
+        submit_for_review: false
+      )
+    ensure
+      FileUtils.remove_entry(File.dirname(key_path), true) if key_path
+      FileUtils.remove_entry(notes_dir, true)
     end
   end
 end

@@ -1,75 +1,111 @@
 /*  */
-"toast_error_generic" = "Ha pasado algo malo. No se ha podido abrir el archivo.";
+"toast_error_generic" = "Ha ocurrido un error. No se ha podido abrir el archivo.";
 
 /*  */
 "ok" = "OK";
 
 /*  */
-"alert_unsaved_changes" = "You have unsaved changes";
+"alert_unsaved_changes" = "Tiene cambios sin guardar";
 
 /*  */
-"alert_save_now" = "Save them now?";
+"alert_save_now" = "¿Quiere guardarlos ahora?";
 
 /*  */
-"yes" = "Yes";
+"yes" = "Sí";
 
 /*  */
 "no" = "No";
 
 /*  */
-"menu_edit" = "Editar";
+"menu_edit" = "Editar documento";
 
 /*  */
 "action_edit_save" = "Guardar";
 
 /*  */
-"menu_discard_changes" = "Discard changes";
+"menu_discard_changes" = "Descartar cambios";
 
 /*  */
-"menu_fullscreen" = "Modo a pantalla completa";
+"menu_fullscreen" = "Abrir en pantalla completa";
 
 /*  */
-"menu_cloud_print" = "Imprimir";
+"menu_cloud_print" = "Imprimir documento";
 
 /*  */
 "action_edit_help" = "¿Ayuda?";
 
 /*  */
-"cancel" = "Cancel";
+"cancel" = "Cancelar";
 
 /*  */
-"toast_edit_status_saved" = "Document saved";
+"toast_edit_status_saved" = "Documento guardado";
 
 /*  */
-"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "No se ha podido guardar el archivo. Escríbanos a support@opendocument.app";
 
 /*  */
-"toast_error_password_protected" = "El documento está protegido con contraseña.";
+"toast_error_password_protected" = "El documento está protegido con contraseña";
 
 /*  */
 "intro_title_open" = "¡Abra y lea su archivo ODF desde cualquier lugar!";
 
 /*  */
-"intro_title_edit" = "¿Encontró un error tipográfico en su documento? ¡Ahora permite hacer modificaciones!";
+"intro_title_edit" = "¿Ha encontrado una errata en su documento? ¡Ahora también puede modificarlo!";
 
 /*  */
 "intro_title_apps" = "Lea sus documentos desde otras aplicaciones";
 
 /*  */
-"intro_description_open" = "OpenDocument Reader le permite ver documentos almacenados en formato OpenDocument (.odt, .ods, .odp y .odg). Estos archivos se suelen crear utilizando LibreOffice u OpenOffice. Esta aplicación permite abrir estos archivos también en su dispositivo móvil, para que pueda leerlos desde cualquier lugar.";
+"intro_description_open" = "OpenDocument Reader le permite ver documentos almacenados en formato OpenDocument (.odt, .ods, .odp y .odg). Estos archivos se suelen crear con LibreOffice u OpenOffice. Esta aplicación permite abrirlos también en su dispositivo móvil, para que pueda leerlos desde cualquier lugar.";
 
 /*  */
-"intro_description_edit" = "OpenDocument Reader no solo permite leer documentos en su dispositivo móvil, sino que también puede modificarlos. ¡Los errores tipográficos se arreglan en un abrir y cerrar de ojos, incluso en el tren!";
+"intro_description_edit" = "OpenDocument Reader no solo permite leer documentos en su dispositivo móvil, sino que también puede modificarlos. ¡Las erratas se corrigen en un abrir y cerrar de ojos, incluso en el tren!";
 
 /*  */
-"intro_description_apps" = "OpenDocument Reader es compatible con una amplia gama de aplicaciones, y puede abrir los documentos creados con ellas. ¿Un compañero ha enviado una presentación a través de Gmail? ¡Haga clic en el archivo adjunto y la aplicación se abrirá de inmediato!";
+"intro_description_apps" = "OpenDocument Reader puede abrir documentos desde muchísimas otras aplicaciones. ¿Un compañero le ha enviado una presentación por Gmail? ¡Toque el archivo adjunto y la aplicación se abrirá al instante!";
 
 /*  */
-"back_to_documents" = "Back to documents";
+"back_to_documents" = "Volver a los documentos";
 
 /*  */
-"loading" = "S'està carregan";
+"loading" = "Cargando";
 
 /*  */
 "error" = "Error";
 
+/* Onboarding buttons. Were hardcoded English in Constants.swift before. */
+"intro_next" = "Siguiente";
+"intro_skip" = "Omitir";
+"intro_start" = "Empezar";
+
+/* Entry point in the document browser that reopens the advertising consent choices */
+"privacy" = "Privacidad";
+
+/* Reopens the Google UMP consent form */
+"privacy_ad_choices" = "Privacidad de los anuncios";
+
+/* Leads to the iOS tracking permission for this app */
+"privacy_tracking" = "Permiso de rastreo";
+
+/* Explains that ATT is asked once per install and lives in iOS Settings afterwards */
+"privacy_tracking_message" = "iOS pide el permiso de rastreo una sola vez. Puede cambiarlo cuando quiera en Ajustes, en Privacidad y seguridad → Rastreo. Al cambiarlo, la aplicación se cierra.";
+
+/* Opens this app's page in the Settings app */
+"privacy_open_settings" = "Abrir Ajustes";
+
+/* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
+"house_ad_support_short" = "Apóyenos";
+"house_ad_support_headline" = "Apoye a OpenDocument Reader";
+"house_ad_support_subline" = "Con Pro no hay anuncios, nunca";
+
+"house_ad_adfree_short" = "Sin anuncios";
+"house_ad_adfree_headline" = "Lea sin anuncios";
+"house_ad_adfree_subline" = "ODR Pro: un único pago";
+
+"house_ad_source_short" = "Código abierto";
+"house_ad_source_headline" = "Código abierto y gratuito";
+"house_ad_source_subline" = "Pro lo financia y quita los anuncios";
+
+/* Buttons on the house ad */
+"house_ad_cta_go_pro" = "Hágase Pro";
+"house_ad_cta_get_pro" = "Obtener Pro";

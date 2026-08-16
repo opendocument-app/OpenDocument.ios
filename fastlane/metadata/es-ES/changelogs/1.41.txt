@@ -1,0 +1,4 @@
+- Los PDF ahora se ajustan a la pantalla y se comportan como cualquier otro documento, incluidos los protegidos con contraseña
+- Los botones de búsqueda y edición solo aparecen en los documentos que se pueden buscar o modificar
+- Los documentos en XML plano de LibreOffice, las plantillas de documento maestro y las plantillas de Excel ya se pueden abrir desde el explorador de archivos en lugar de aparecer atenuados
+- Al modificar un documento, el lápiz se convierte en un botón de guardar, así que guardar es cuestión de un toque

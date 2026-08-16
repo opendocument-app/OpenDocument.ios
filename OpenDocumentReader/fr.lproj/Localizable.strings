@@ -1,53 +1,53 @@
 /*  */
-"toast_error_generic" = "Une erreur est survenue. Impossible d'ouvrir le fichier.";
+"toast_error_generic" = "Une erreur est survenue. Impossible d’ouvrir le fichier.";
 
 /*  */
 "ok" = "OK";
 
 /*  */
-"alert_unsaved_changes" = "You have unsaved changes";
+"alert_unsaved_changes" = "Vous avez des modifications non enregistrées";
 
 /*  */
-"alert_save_now" = "Save them now?";
+"alert_save_now" = "Les enregistrer maintenant ?";
 
 /*  */
-"yes" = "Yes";
+"yes" = "Oui";
 
 /*  */
-"no" = "No";
+"no" = "Non";
 
 /*  */
-"menu_edit" = "Modifier";
+"menu_edit" = "Modifier le document";
 
 /*  */
 "action_edit_save" = "Enregistrer";
 
 /*  */
-"menu_discard_changes" = "Discard changes";
+"menu_discard_changes" = "Ignorer les modifications";
 
 /*  */
 "menu_fullscreen" = "Mode plein écran";
 
 /*  */
-"menu_cloud_print" = "Imprimer";
+"menu_cloud_print" = "Imprimer le document";
 
 /*  */
 "action_edit_help" = "Aide";
 
 /*  */
-"cancel" = "Cancel";
+"cancel" = "Annuler";
 
 /*  */
-"toast_edit_status_saved" = "Document saved";
+"toast_edit_status_saved" = "Document enregistré";
 
 /*  */
-"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "Impossible d’enregistrer le fichier. Contactez support@opendocument.app";
 
 /*  */
 "toast_error_password_protected" = "Ce document est protégé par mot de passe";
 
 /*  */
-"intro_title_open" = "Ouvrez et lisez votre fichier ODF n’importe où !";
+"intro_title_open" = "Ouvrez et lisez votre fichier ODF n’importe où !";
 
 /*  */
 "intro_title_edit" = "Vous avez trouvé une faute de frappe dans votre document ? Il est désormais possible de la corriger !";
@@ -62,14 +62,50 @@
 "intro_description_edit" = "OpenDocument Reader permet non seulement de lire des documents mais aussi de les modifier sur votre appareil mobile. Vous pouvez corriger les fautes de frappe y compris dans le train !";
 
 /*  */
-"intro_description_apps" = "OpenDocument Reader prend en charge un grand nombre d’autres applications depuis lesquelles il est possible d’ouvrir des documents. Un collègue a envoyé une présentation via Gmail ? Cliquez sur la pièce jointe et cette application s’ouvrira instantanément !";
+"intro_description_apps" = "OpenDocument Reader prend en charge un grand nombre d’autres applications depuis lesquelles il est possible d’ouvrir des documents. Un collègue a envoyé une présentation via Gmail ? Cliquez sur la pièce jointe et cette application s’ouvrira instantanément !";
 
 /*  */
-"back_to_documents" = "Back to documents";
+"back_to_documents" = "Retour aux documents";
 
 /*  */
 "loading" = "Chargement en cours";
 
 /*  */
-"error" = "Error";
+"error" = "Erreur";
 
+/* Onboarding buttons. Were hardcoded English in Constants.swift before. */
+"intro_next" = "Suivant";
+"intro_skip" = "Passer";
+"intro_start" = "Commencer";
+
+/* Entry point in the document browser that reopens the advertising consent choices */
+"privacy" = "Confidentialité";
+
+/* Reopens the Google UMP consent form */
+"privacy_ad_choices" = "Confidentialité publicitaire";
+
+/* Leads to the iOS tracking permission for this app */
+"privacy_tracking" = "Autorisation de suivi";
+
+/* Explains that ATT is asked once per install and lives in iOS Settings afterwards */
+"privacy_tracking_message" = "iOS ne demande l’autorisation de suivi qu’une seule fois. Vous pouvez la modifier à tout moment dans Réglages, sous Confidentialité et sécurité → Suivi. La modifier ferme l’application.";
+
+/* Opens this app's page in the Settings app */
+"privacy_open_settings" = "Ouvrir Réglages";
+
+/* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
+"house_ad_support_short" = "Soutenez-nous";
+"house_ad_support_headline" = "Soutenez OpenDocument Reader";
+"house_ad_support_subline" = "Passez à Pro — plus aucune publicité";
+
+"house_ad_adfree_short" = "Sans publicité";
+"house_ad_adfree_headline" = "Lisez sans publicité";
+"house_ad_adfree_subline" = "ODR Pro — un achat unique";
+
+"house_ad_source_short" = "Open source";
+"house_ad_source_headline" = "Open source et gratuit";
+"house_ad_source_subline" = "Pro le finance — et retire les publicités";
+
+/* Buttons on the house ad */
+"house_ad_cta_go_pro" = "Passer à Pro";
+"house_ad_cta_get_pro" = "Obtenir Pro";

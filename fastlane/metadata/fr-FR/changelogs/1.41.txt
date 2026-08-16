@@ -1,0 +1,4 @@
+- Les PDF s'adaptent maintenant à l'écran et se comportent comme tout autre document, y compris ceux protégés par mot de passe
+- Les boutons de recherche et de modification n'apparaissent que pour les documents que l'on peut modifier ou dans lesquels on peut faire une recherche
+- Les documents XML plat de LibreOffice, les modèles de document maître et les modèles Excel s'ouvrent depuis l'explorateur de fichiers au lieu d'être grisés
+- Pendant la modification d'un document, le crayon devient un bouton d'enregistrement : il suffit d'un appui pour enregistrer

@@ -1,1 +1,1 @@
-Visualisez les fichiers ODT
+Lecteur LibreOffice, ODT, PDF

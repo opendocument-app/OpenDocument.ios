@@ -1,4 +1,4 @@
-- PDFs are drawn by the app's own engine, so they fit the screen and behave like every other document
+- PDFs now fit the screen and behave like every other document, password protected ones included
 - The search and edit buttons are there only for documents that can be searched or edited
 - LibreOffice's flat XML documents, master document templates and Excel templates can be opened from the document browser instead of being greyed out
 - Editing a document turns the pencil into a save button, so saving is one tap away

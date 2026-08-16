@@ -1,15 +1,37 @@
-OpenDocument Reader'ı kullanarak hareket halindeyken de OpenOffice veya LibreOffice ile oluşturulmuş belgeleri görüntüleyin ve değiştirin!
+Belge Okuyucu ile LibreOffice veya OpenOffice ile oluşturulmuş belgeleri, nerede tutuyorsanız orada, hareket halindeyken okuyun!
 
-OpenDocument Reader, ODF* (OpenDocument Format) belgelerinizi nerede olursanız olun okuyabilmenizi sağlar. Otobüsle okula mı gidiyorsunuz? Sorun değil! OpenDocument Reader ile belgelerinizi çok temiz ve basit bir şekilde okuyabilir ve arayabilirsiniz. Belgenizde düzeltilecek son bir yazım hatası mı kaldı? Uygulama artık belgelerin değiştirilmesini de destekliyor! Hızlı, basit ve iyi entegre edilmiş.
+Bu dosya okuyucu, LibreOffice veya OpenOffice ile oluşturulmuş ODF (Open Document Format) belgelerini nerede olursanız olun açmanızı sağlar. Otobüsle okula giderken sınav öncesi notlarınıza bir göz atmak mı istiyorsunuz? Sorun değil! Belge Okuyucu ile dosyalarınızı istediğiniz yerde açar, belgelerinizi temiz ve basit bir görünümde okur, içlerinde arama yaparsınız. Bir belge yola çıkmadan önceki son yazım hatası için burada bir metin düzenleyici de var. Henüz çok yeni ve her belgeye yetişemiyor, bu yüzden bu uygulamanın asıl işi okumak.
 
-Belgelerinizi diğer uygulamalardan okumaya başlayabilirsiniz. Desteklenen uygulamalar arasında GMail, Google Drive, Box.net, Dropbox ve daha fazlası sayılabilir!
+LibreOffice veya OpenOffice ile oluşturduğunuz ODF dosyalarını (ODT, ODS ve daha birçoğu) diğer uygulamaların içinden de açabilirsiniz. Desteklenen uygulamalar arasında GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox ve daha pek çoğu var! Ya da cihazınızdaki dosyaları açmak için yerleşik dosya gezginimizi kullanın.
 
-Tek bakışta tüm özellikler:
-- .odt, .ods ve .odp dosyalarını kolayca açma
-- yazım hatalarını düzeltmek, cümleler eklemek vb. için temel belge düzenleme
-- tamamen çevrimdışı çalışabilme
-- küçük uygulama boyutu
+HEPSİ BİR ARADA BELGE OKUYUCU
 
-* ODF, OpenOffice ve LibreOffice gibi ofis paketleri tarafından kullanılan formattır. Karmaşık biçimlendirme ve gömülü resimler için destek de dahil olmak üzere, metin belgeleri (.odt), elektronik tablolar (.ods) ve sunumlar (.odp) desteklenmektedir. Grafikler de sorun teşkil etmez. Verilerinizi korumak istiyorsanız parola korumalı belgeleri bile açabilirsiniz.
+*ODF dosyalarını zahmetsizce açın: ODT (writer), ODS (calc), ODP ve ODG
+*yeni metin düzenleyiciyle bir yazım hatasını düzeltin ya da bir cümle ekleyin
+*parola korumalı belgeleri güvenle açın
+*ODT (writer), ODS (calc) veya ODG belgelerinizde anahtar kelime arayın ve bulunanları vurgulayın
+*cihazınız bir yazıcıya bağlıysa belgeleri yazdırın
+*dikkatiniz dağılmasın diye belgelerinizi tam ekranda okuyun
+*belgelerinizdeki metni seçin ve kopyalayın
+*internet bağlantısı olmadan da belgelerinizin keyfini çıkarın - tamamen çevrimdışı çalışır
+*belgelerinizi Metin Okuma (Text-To-Speech) teknolojisiyle sesli dinleyin
 
-Bu uygulama açık kaynaklıdır. OpenOffice, LibreOffice veya benzeri programlar ile herhangi bir bağlantımız yoktur. Avusturya'da üretilmiştir. 
+BELGELERİNİZ YANINIZDA - NEREDE OLURSANIZ OLUN
+
+Bunlara ek olarak belge okuyucu, diğer birçok dosya biçimini de elinden geldiğince desteklemeyi amaçlar:
+- Portable Document Format (PDF)
+- Arşivler: ZIP
+- Resimler: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG vb.
+- Videolar: MP4, WEBM vb.
+- Ses: MP3, OGG vb.
+- Metin dosyaları: CSV, TXT, HTML, RTF
+- Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
+- Apple iWork: Pages, Numbers, Keynote
+- Libre Office ve Open Office ODF (ODT, ODS, ODP, ODG)
+- PostScript (EPS)
+- AutoCAD (DXF)
+- Photoshop (PSD)
+
+Bu uygulama açık kaynaklıdır. OpenOffice, LibreOffice veya benzeri programlarla herhangi bir bağlantımız yoktur. Avusturya'da üretilmiştir. ${ads} Her türlü geri bildiriminizi e-posta ile bize iletmenizden memnuniyet duyarız.
+
+ODF, Open Office ve Libre Office gibi ofis paketlerinin kullandığı biçimdir. Metin belgeleri (Writer, ODT), elektronik tablolar (Calc, ODS) ve sunumlar (Impress, ODP) desteklenir; karmaşık biçimlendirme ve gömülü resimler de buna dahildir. Grafikler de sorun değildir. Verilerinizi korumak isterseniz parola korumalı belgeleri bile açabilirsiniz. Bu biçimi kullanan diğer uygulamalar: LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office ve 602Office.

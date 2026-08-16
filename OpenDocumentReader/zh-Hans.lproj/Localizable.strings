@@ -1,75 +1,111 @@
 /*  */
-"toast_error_generic" = "出现了一些错误，无法打开文件。";
+"toast_error_generic" = "出错了，无法打开此文件。";
 
 /*  */
-"ok" = "OK";
+"ok" = "好";
 
 /*  */
-"alert_unsaved_changes" = "You have unsaved changes";
+"alert_unsaved_changes" = "您有尚未存储的更改";
 
 /*  */
-"alert_save_now" = "Save them now?";
+"alert_save_now" = "要现在存储吗？";
 
 /*  */
-"yes" = "Yes";
+"yes" = "是";
 
 /*  */
-"no" = "No";
+"no" = "否";
 
 /*  */
-"menu_edit" = "编辑文档";
+"menu_edit" = "编辑文稿";
 
 /*  */
-"action_edit_save" = "保存";
+"action_edit_save" = "存储";
 
 /*  */
-"menu_discard_changes" = "Discard changes";
+"menu_discard_changes" = "放弃更改";
 
 /*  */
-"menu_fullscreen" = "打开全屏模式";
+"menu_fullscreen" = "进入全屏模式";
 
 /*  */
-"menu_cloud_print" = "打印文档";
+"menu_cloud_print" = "打印文稿";
 
 /*  */
 "action_edit_help" = "帮助";
 
 /*  */
-"cancel" = "cancel";
+"cancel" = "取消";
 
 /*  */
-"toast_edit_status_saved" = "Document saved";
+"toast_edit_status_saved" = "文稿已存储";
 
 /*  */
-"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "无法存储文件，请联系 support@opendocument.app";
 
 /*  */
-"toast_error_password_protected" = "此文档受密码保护。";
+"toast_error_password_protected" = "此文稿受密码保护";
 
 /*  */
 "intro_title_open" = "随时随地打开并阅读您的 ODF 文件！";
 
 /*  */
-"intro_title_edit" = "发现文件存在一处文稿错误？支持修改！";
+"intro_title_edit" = "文稿里有错别字？现在可以直接修改了！";
 
 /*  */
-"intro_title_apps" = "通过其他app阅读文件";
+"intro_title_apps" = "在其他 App 里阅读您的文稿";
 
 /*  */
-"intro_description_open" = "您可以使用 OpenDocument 阅读器查看以 OpenDocument 格式（.odt, .ods, .odp 和 .odg）储存的文档文件。这些文件通常是使用 LibreOffice 或 OpenOffice 创建的。本应用允许您在移动设备上打开这些文档，助您随时随地阅读它们。";
+"intro_description_open" = "OpenDocument Reader 可以查看以 OpenDocument 格式（.odt、.ods、.odp 和 .odg）存储的文稿，这些文件通常由 LibreOffice 或 OpenOffice 创建。有了这款 App，您也能在移动设备上打开它们，随时随地阅读。";
 
 /*  */
-"intro_description_edit" = "超级文件管理大师不仅允许用户在移动设备上阅读文件，同时还支持文件修改。用户即使在火车上也可轻松修改文稿错误。";
+"intro_description_edit" = "OpenDocument Reader 不只能在移动设备上阅读文稿，还能修改文稿。就算在火车上，改个错别字也很轻松。";
 
 /*  */
-"intro_description_apps" = "超级文件管理大师支持通过大量其他的app打开文件。一位同事通过Gmail发来一份演示文稿？只需点击附件，立刻将其打开！";
+"intro_description_apps" = "OpenDocument Reader 支持从大量其他 App 中打开文稿。同事用 Gmail 发来一份演示文稿？点一下附件，这款 App 就会立即打开它。";
 
 /*  */
-"back_to_documents" = "Back to documents";
+"back_to_documents" = "返回文稿列表";
 
 /*  */
-"loading" = "正在加载";
+"loading" = "正在载入";
 
 /*  */
-"error" = "error";
+"error" = "错误";
 
+/* Onboarding buttons. Were hardcoded English in Constants.swift before. */
+"intro_next" = "下一步";
+"intro_skip" = "跳过";
+"intro_start" = "开始使用";
+
+/* Entry point in the document browser that reopens the advertising consent choices */
+"privacy" = "隐私";
+
+/* Reopens the Google UMP consent form */
+"privacy_ad_choices" = "广告隐私选项";
+
+/* Leads to the iOS tracking permission for this app */
+"privacy_tracking" = "跟踪权限";
+
+/* Explains that ATT is asked once per install and lives in iOS Settings afterwards */
+"privacy_tracking_message" = "iOS 只会请求一次跟踪权限。您可以随时在“设置”中更改：“隐私与安全性”→“跟踪”。在那里更改后，App 会关闭。";
+
+/* Opens this app's page in the Settings app */
+"privacy_open_settings" = "打开“设置”";
+
+/* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
+"house_ad_support_short" = "支持我们";
+"house_ad_support_headline" = "支持 OpenDocument Reader";
+"house_ad_support_subline" = "升级到 Pro，从此没有广告";
+
+"house_ad_adfree_short" = "无广告阅读";
+"house_ad_adfree_headline" = "无广告阅读";
+"house_ad_adfree_subline" = "ODR Pro，一次购买";
+
+"house_ad_source_short" = "开源";
+"house_ad_source_headline" = "开源，始终免费";
+"house_ad_source_subline" = "Pro 支持开发，也去掉广告";
+
+/* Buttons on the house ad */
+"house_ad_cta_go_pro" = "升级 Pro";
+"house_ad_cta_get_pro" = "获取 Pro";

@@ -1,0 +1,1 @@
+Annonser visas för att finansiera utvecklingen av appen, och de går att ta bort tillfälligt via menyn i appen.

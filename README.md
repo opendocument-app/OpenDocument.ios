@@ -116,12 +116,13 @@ in App Store Connect:
 gh workflow run release.yml -f version=1.38
 ```
 
-It runs as three jobs:
+It runs as four jobs:
 
 | job | what it does |
 | --- | --- |
 | `build` | one run producing both signed `.ipa`s, archived on the run |
 | `upload` | one job per app, uploading its `.ipa` |
+| `listing` | one job per app, writing what the store says about it |
 | `record` | once both landed: tag the build, draft the GitHub release |
 
 Both apps always go out together, and nothing chooses one: Pro and Lite are the
@@ -130,6 +131,39 @@ same sources built as two targets, one of which links no ad sdk.
 **If one app's upload fails, press "Re-run failed jobs".** Only that upload runs
 again, against the `.ipa` already built and signed - build number included, since
 it is baked in at archive time - and `record` runs behind it once it lands.
+
+### The release notes
+
+The "What's New" text of every locale is written before the release, not typed
+into App Store Connect during it:
+
+```sh
+scripts/store-copy.py 1.41
+```
+
+The English comes from the `CHANGELOG.md` section of that version - or from
+`Unreleased`, where a version being cut still sits - and every other locale is
+translated by an agent of its own, given that locale's store description and the
+release before it, so the notes keep the words the listing already uses in that
+language. A second agent reads each draft back against the English before it is
+written. Read the diff, then commit it with the pull request that cuts the
+heading.
+
+The copy lives in `fastlane/metadata/<locale>/changelogs/1.41.txt`, one file per
+version per locale, because App Store Connect keeps only the notes of the
+submission in flight. `scripts/store-listing.py` checks it - the release run
+refuses a version any locale is missing, before it builds anything - and stages
+it into the shape `deliver` reads.
+
+The rest of the listing goes up with it: name, subtitle, description, keywords
+and the URLs are written in `fastlane/metadata/` and pushed by the same job, so
+the store says what is committed here rather than what someone last typed into
+App Store Connect. Both apps say it. What they share is in `fastlane/metadata/`
+and what one of them says instead is in `fastlane/metadata-pro/` or
+`fastlane/metadata-lite/`, read in that order - which is the name outright, since
+an app's name is unique in the store, and the one sentence about ads inside the
+description. `review_information` and the categories are left out. See
+`fastlane/metadata/README.md`.
 
 Nothing has to be committed to cut a release, and a release leaves no commit
 behind either. Both halves of the version come from outside the tree:

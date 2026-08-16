@@ -1,0 +1,4 @@
+- I PDF ora si adattano allo schermo e si comportano come ogni altro documento, compresi quelli protetti da password
+- I pulsanti di ricerca e modifica compaiono solo per i documenti in cui si può cercare o che si possono modificare
+- I documenti XML piatti di LibreOffice, i modelli di documento master e i modelli di Excel si aprono dall'esplora file invece di restare in grigio
+- Mentre modifichi un documento la matita diventa un pulsante di salvataggio: salvi con un tocco

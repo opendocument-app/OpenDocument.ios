@@ -1,0 +1,4 @@
+- Os PDFs agora se ajustam à tela e funcionam como qualquer outro documento, inclusive os protegidos por senha
+- Os botões de pesquisar e editar aparecem só nos documentos que dá para pesquisar ou editar
+- Documentos em XML plano do LibreOffice, modelos de documento mestre e modelos do Excel podem ser abertos no explorador de arquivos, em vez de ficarem esmaecidos
+- Ao editar um documento, o lápis vira botão de salvar, e salvar fica a um toque de distância
