@@ -4,7 +4,8 @@ Developer-facing changes to OpenDocument Reader for iOS, in [Keep a
 Changelog](https://keepachangelog.com/en/1.1.0/) format. Changes to the shared
 OpenDocument core are listed under the release that shipped them. The shorter
 "What's New" copy the store shows lives in
-`fastlane/metadata/en-US/changelogs/`.
+`fastlane/metadata/<locale>/changelogs/`, written from these entries by
+`scripts/store-copy.py`.
 
 Entries go under `Unreleased` in the pull request that makes the change. The
 heading is cut when the release is **submitted**, in one pull request that also
@@ -30,6 +31,13 @@ once the version tag exists.
   the bar ends the edit and shows what was written; a save that failed stays in
   it. Saving has left the menu; discarding is still there and now leaves edit
   mode.
+
+### Fixed
+
+- The app is translated again. Every language but English was showing English
+  for the onboarding buttons, the privacy screen and the banner, and Danish,
+  Catalan, Turkish and Czech showed it for most of the rest.
+- The Chinese introduction named a different app.
 
 ### Known issues
 

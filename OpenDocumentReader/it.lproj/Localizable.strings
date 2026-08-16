@@ -5,13 +5,13 @@
 "ok" = "OK";
 
 /*  */
-"alert_unsaved_changes" = "You have unsaved changes";
+"alert_unsaved_changes" = "Hai modifiche non salvate";
 
 /*  */
-"alert_save_now" = "Save them now?";
+"alert_save_now" = "Vuoi salvarle ora?";
 
 /*  */
-"yes" = "Yes";
+"yes" = "Sì";
 
 /*  */
 "no" = "No";
@@ -23,53 +23,89 @@
 "action_edit_save" = "Salva";
 
 /*  */
-"menu_discard_changes" = "Discard changes";
+"menu_discard_changes" = "Ignora modifiche";
 
 /*  */
-"menu_fullscreen" = "Apri in modalità schermo intero";
+"menu_fullscreen" = "Apri a schermo intero";
 
 /*  */
-"menu_cloud_print" = "Stampa il documento";
+"menu_cloud_print" = "Stampa documento";
 
 /*  */
 "action_edit_help" = "Aiuto!?";
 
 /*  */
-"cancel" = "Cancel";
+"cancel" = "Annulla";
 
 /*  */
-"toast_edit_status_saved" = "Document saved";
+"toast_edit_status_saved" = "Documento salvato";
 
 /*  */
-"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "Impossibile salvare il file. Scrivi a support@opendocument.app";
 
 /*  */
-"toast_error_password_protected" = "Il documento è protetto da password.";
+"toast_error_password_protected" = "Il documento è protetto da password";
 
 /*  */
 "intro_title_open" = "Apri e leggi il tuo file ODF mentre sei in movimento!";
 
 /*  */
-"intro_title_edit" = "Hai trovato un errore nel tuo documento? Ora la modifica è supportata!";
+"intro_title_edit" = "Hai trovato un errore di battitura nel documento? Ora puoi anche modificarlo!";
 
 /*  */
 "intro_title_apps" = "Leggi i tuoi documenti da altre app";
 
 /*  */
-"intro_description_open" = "OpenDocument Reader ti consente di visualizzare documenti archiviati in formato OpenDocument (.odt, .ods, .odp e .odg). Questi file vengono generalmente creati usando LibreOffice od OpenOffice. Questa app consente di aprire tali file anche sul tuo dispositivo mobile, in modo che tu possa leggerli mentre sei in movimento.";
+"intro_description_open" = "OpenDocument Reader ti permette di visualizzare i documenti salvati in formato OpenDocument (.odt, .ods, .odp e .odg). Di solito questi file vengono creati con LibreOffice o OpenOffice. Con questa app puoi aprirli anche sul tuo dispositivo mobile e leggerli ovunque tu sia.";
 
 /*  */
-"intro_description_edit" = "OpenDocument Reader non solo consente di leggere documenti sul tuo dispositivo mobile, ma supporta anche la modifica di questi. Correggere gli errori di battitura è un gioco da ragazzi, anche sul treno!";
+"intro_description_edit" = "OpenDocument Reader non ti permette solo di leggere i documenti sul tuo dispositivo mobile, ma anche di modificarli. Correggere un errore di battitura è un attimo, perfino in treno!";
 
 /*  */
-"intro_description_apps" = "OpenDocument Reader supporta una vasta gamma di altre app da cui aprire documenti. Un collega ha inviato una presentazione tramite Gmail? Fai clic sull'allegato e questa app si aprirà subito!";
+"intro_description_apps" = "Con OpenDocument Reader puoi aprire i documenti da tantissime altre app. Un collega ti ha mandato una presentazione via Gmail? Tocca l'allegato e l'app si apre subito!";
 
 /*  */
-"back_to_documents" = "Back to documents";
+"back_to_documents" = "Torna ai documenti";
 
 /*  */
 "loading" = "Caricamento in corso";
 
 /*  */
-"error" = "Error";
+"error" = "Errore";
 
+/* Onboarding buttons. Were hardcoded English in Constants.swift before. */
+"intro_next" = "Avanti";
+"intro_skip" = "Salta";
+"intro_start" = "Inizia";
+
+/* Entry point in the document browser that reopens the advertising consent choices */
+"privacy" = "Privacy";
+
+/* Reopens the Google UMP consent form */
+"privacy_ad_choices" = "Opzioni privacy degli annunci";
+
+/* Leads to the iOS tracking permission for this app */
+"privacy_tracking" = "Autorizzazione al tracciamento";
+
+/* Explains that ATT is asked once per install and lives in iOS Settings afterwards */
+"privacy_tracking_message" = "iOS chiede l'autorizzazione al tracciamento una sola volta. Puoi cambiarla quando vuoi in Impostazioni, alla voce Privacy e sicurezza → Tracciamento. Se la cambi lì, l'app si chiude.";
+
+/* Opens this app's page in the Settings app */
+"privacy_open_settings" = "Apri Impostazioni";
+
+/* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
+"house_ad_support_short" = "Sostienici";
+"house_ad_support_headline" = "Sostieni OpenDocument Reader";
+"house_ad_support_subline" = "Passa a Pro: mai più pubblicità";
+
+"house_ad_adfree_short" = "Senza pubblicità";
+"house_ad_adfree_headline" = "Leggi senza pubblicità";
+"house_ad_adfree_subline" = "ODR Pro, un acquisto una tantum";
+
+"house_ad_source_short" = "Open source";
+"house_ad_source_headline" = "Open source, e resta gratuito";
+"house_ad_source_subline" = "Pro lo sostiene e toglie la pubblicità";
+
+/* Buttons on the house ad */
+"house_ad_cta_go_pro" = "Passa a Pro";
+"house_ad_cta_get_pro" = "Ottieni Pro";

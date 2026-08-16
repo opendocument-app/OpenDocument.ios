@@ -2,74 +2,110 @@
 "toast_error_generic" = "Nekaj je šlo narobe. Datoteke ni bilo mogoče odpreti.";
 
 /*  */
-"ok" = "OK";
+"ok" = "V redu";
 
 /*  */
-"alert_unsaved_changes" = "You have unsaved changes";
+"alert_unsaved_changes" = "Imate neshranjene spremembe";
 
 /*  */
-"alert_save_now" = "Save them now?";
+"alert_save_now" = "Ali jih želite shraniti zdaj?";
 
 /*  */
-"yes" = "Yes";
+"yes" = "Da";
 
 /*  */
-"no" = "No";
+"no" = "Ne";
 
 /*  */
-"menu_edit" = "Uredi";
+"menu_edit" = "Uredi dokument";
 
 /*  */
 "action_edit_save" = "Shrani";
 
 /*  */
-"menu_discard_changes" = "Discard changes";
+"menu_discard_changes" = "Zavrzi spremembe";
 
 /*  */
 "menu_fullscreen" = "Celozaslonski način";
 
 /*  */
-"menu_cloud_print" = "Natisni";
+"menu_cloud_print" = "Natisni dokument";
 
 /*  */
 "action_edit_help" = "Pomoč!?";
 
 /*  */
-"cancel" = "Cancel";
+"cancel" = "Prekliči";
 
 /*  */
-"toast_edit_status_saved" = "Document saved";
+"toast_edit_status_saved" = "Dokument je shranjen";
 
 /*  */
-"toast_error_save_failed" = "Datoteke ni bilo mogoče shraniti. Prosimo, pišite na support@opendocument.app";
+"toast_error_save_failed" = "Datoteke ni bilo mogoče shraniti. Pišite nam na support@opendocument.app";
 
 /*  */
 "toast_error_password_protected" = "Dokument je zaščiten z geslom";
 
 /*  */
-"intro_title_open" = "Odprite in berite vašo datoteko ODF na poti!!";
+"intro_title_open" = "Odprite in berite svoje datoteke ODF, kjer koli ste!";
 
 /*  */
-"intro_title_edit" = "Ste v dokumentu našli napako? Sedaj podpira tudi urejanje!";
+"intro_title_edit" = "Ste v dokumentu našli tipkarsko napako? Zdaj ga lahko tudi uredite!";
 
 /*  */
-"intro_title_apps" = "Berite svoje dokumente iz drugih programov";
+"intro_title_apps" = "Berite dokumente kar iz drugih aplikacij";
 
 /*  */
-"intro_description_open" = "OpenDocument Reader omogoča ogled dokumentov, ki so shranjeni v obliki OpenDocument (.odt, .ods, .odp in .odg). Te datoteke se običajno ustvarijo z LibreOfficeom ali OpenOfficeom. Ta program omogoča odpiranje takih datotek tudi na vaši prenosni napravi, da jih lahko berete na poti.";
+"intro_description_open" = "OpenDocument Reader omogoča ogled dokumentov v zapisu OpenDocument (.odt, .ods, .odp in .odg). Take datoteke običajno nastanejo v LibreOfficeu ali OpenOfficeu. S to aplikacijo jih odprete tudi na mobilni napravi in jih berete na poti.";
 
 /*  */
-"intro_description_edit" = "OpenDocument Reader ne omogoča samo branje dokumentov na vaši prenosni napravi, ampak tudi njihovo urejanje. Napake lahko popravite v trenutku, tudi na vlaku!";
+"intro_description_edit" = "Z OpenDocument Readerjem dokumentov ne le berete na mobilni napravi, ampak jih lahko tudi urejate. Tipkarsko napako popravite v hipu, tudi na vlaku!";
 
 /*  */
-"intro_description_apps" = "OpenDocument Reader supports a huge range of other apps to open documents from. A colleague sent a presentation via Gmail? Click the attachment and this app is going to open right away!";
+"intro_description_apps" = "OpenDocument Reader podpira odpiranje dokumentov iz številnih drugih aplikacij. Vam je sodelavec po Gmailu poslal predstavitev? Tapnite priponko in aplikacija se odpre takoj!";
 
 /*  */
-"back_to_documents" = "Back to documents";
+"back_to_documents" = "Nazaj na dokumente";
 
 /*  */
 "loading" = "Nalaganje";
 
 /*  */
-"error" = "Error";
+"error" = "Napaka";
 
+/* Onboarding buttons. Were hardcoded English in Constants.swift before. */
+"intro_next" = "Naprej";
+"intro_skip" = "Preskoči";
+"intro_start" = "Začni";
+
+/* Entry point in the document browser that reopens the advertising consent choices */
+"privacy" = "Zasebnost";
+
+/* Reopens the Google UMP consent form */
+"privacy_ad_choices" = "Zasebnost pri oglasih";
+
+/* Leads to the iOS tracking permission for this app */
+"privacy_tracking" = "Dovoljenje za sledenje";
+
+/* Explains that ATT is asked once per install and lives in iOS Settings afterwards */
+"privacy_tracking_message" = "iOS za dovoljenje za sledenje vpraša samo enkrat. Kadar koli ga lahko spremenite v aplikaciji Settings, pod Privacy & Security → Tracking. Ob spremembi se aplikacija zapre.";
+
+/* Opens this app's page in the Settings app */
+"privacy_open_settings" = "Odpri Settings";
+
+/* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
+"house_ad_support_short" = "Podprite nas";
+"house_ad_support_headline" = "Podprite OpenDocument Reader";
+"house_ad_support_subline" = "S Pro ni oglasov, nikoli";
+
+"house_ad_adfree_short" = "Brez oglasov";
+"house_ad_adfree_headline" = "Berite brez oglasov";
+"house_ad_adfree_subline" = "ODR Pro – enkraten nakup";
+
+"house_ad_source_short" = "Odprta koda";
+"house_ad_source_headline" = "Odprta koda, še naprej brezplačna";
+"house_ad_source_subline" = "Pro to omogoča – in odstrani oglase";
+
+/* Buttons on the house ad */
+"house_ad_cta_go_pro" = "Izberite Pro";
+"house_ad_cta_get_pro" = "Kupite Pro";

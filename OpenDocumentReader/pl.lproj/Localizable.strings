@@ -1,20 +1,20 @@
 /*  */
-"toast_error_generic" = "Jest jakaś przeszkoda. Nie można otworzyć pliku.";
+"toast_error_generic" = "Coś poszło nie tak. Nie można otworzyć pliku.";
 
 /*  */
 "ok" = "OK";
 
 /*  */
-"alert_unsaved_changes" = "You have unsaved changes";
+"alert_unsaved_changes" = "Masz niezapisane zmiany";
 
 /*  */
-"alert_save_now" = "Save them now?";
+"alert_save_now" = "Zapisać je teraz?";
 
 /*  */
-"yes" = "Yes";
+"yes" = "Tak";
 
 /*  */
-"no" = "No";
+"no" = "Nie";
 
 /*  */
 "menu_edit" = "Edytuj dokument";
@@ -23,7 +23,7 @@
 "action_edit_save" = "Zapisz";
 
 /*  */
-"menu_discard_changes" = "Discard changes";
+"menu_discard_changes" = "Odrzuć zmiany";
 
 /*  */
 "menu_fullscreen" = "Otwórz tryb pełnoekranowy";
@@ -32,43 +32,80 @@
 "menu_cloud_print" = "Drukuj dokument";
 
 /*  */
-"action_edit_help" = "Potrzebujesz pomocy?";
+"action_edit_help" = "Pomocy!?";
 
 /*  */
-"cancel" = "Cancel";
+"cancel" = "Anuluj";
 
 /*  */
-"toast_edit_status_saved" = "Document saved";
+"toast_edit_status_saved" = "Dokument zapisany";
 
 /*  */
-"toast_error_save_failed" = "File could not be saved. Please contact support@opendocument.app";
+"toast_error_save_failed" = "Nie udało się zapisać pliku. Napisz na adres support@opendocument.app";
 
 /*  */
-"toast_error_password_protected" = "Dokument zabezpieczony jest hasłem";
+"toast_error_password_protected" = "Ten dokument jest chroniony hasłem";
 
 /*  */
 "intro_title_open" = "Otwórz i czytaj swój plik ODF nawet w podróży!";
 
 /*  */
-"intro_title_edit" = "Znajdujesz literówkę w swoim dokumencie? Czytnik obsługuje teraz zmiany!";
+"intro_title_edit" = "Literówka w dokumencie? Teraz możesz ją poprawić!";
 
 /*  */
-"intro_title_apps" = "Czytaj swoje dokumenty pochodzące z innych aplikacji";
+"intro_title_apps" = "Czytaj dokumenty prosto z innych aplikacji";
 
 /*  */
 "intro_description_open" = "Przeglądarka OpenDocument Reader umożliwia przeglądanie dokumentów przechowywanych w formacie OpenDocument (.odt, .ods, .odp i .odg). Pliki te są zazwyczaj tworzone przy użyciu programów LibreOffice lub OpenOffice. Ta aplikacja umożliwia również otwieranie tego typu plików na urządzeniu mobilnym, dzięki czemu możesz je czytać również w podróży.";
 
 /*  */
-"intro_description_edit" = "Przeglądarka OpenDocument Reader nie tylko pozwala czytać dokumenty na urządzeniu mobilnym, ale także obsługuje ich modyfikowanie. Literówki są usuwane natychmiast, nawet w pociągu!";
+"intro_description_edit" = "Przeglądarka OpenDocument Reader nie tylko pozwala czytać dokumenty na urządzeniu mobilnym, ale także obsługuje ich modyfikowanie. Literówkę poprawisz w mgnieniu oka, nawet w pociągu!";
 
 /*  */
-"intro_description_apps" = "Przeglądarka OpenDocument Reader obsługuje wiele różnych aplikacji, umożliwiając otwieranie w nich dokumentów. Kolega wysłał prezentację za pośrednictwem poczty Gmail? Kliknij załącznik i aplikacja ta natychmiast się otworzy!";
+"intro_description_apps" = "Przeglądarka OpenDocument Reader obsługuje wiele innych aplikacji, z których możesz otwierać dokumenty. Kolega wysłał prezentację przez Gmaila? Kliknij załącznik, a aplikacja od razu się otworzy!";
 
 /*  */
-"back_to_documents" = "Back to documents";
+"back_to_documents" = "Powrót do dokumentów";
 
 /*  */
-"loading" = "Pobieranie";
+"loading" = "Ładowanie";
 
 /*  */
-"error" = "Error";
+"error" = "Błąd";
+
+/* Onboarding buttons. Were hardcoded English in Constants.swift before. */
+"intro_next" = "Dalej";
+"intro_skip" = "Pomiń";
+"intro_start" = "Rozpocznij";
+
+/* Entry point in the document browser that reopens the advertising consent choices */
+"privacy" = "Prywatność";
+
+/* Reopens the Google UMP consent form */
+"privacy_ad_choices" = "Opcje prywatności reklam";
+
+/* Leads to the iOS tracking permission for this app */
+"privacy_tracking" = "Zgoda na śledzenie";
+
+/* Explains that ATT is asked once per install and lives in iOS Settings afterwards */
+"privacy_tracking_message" = "iOS pyta o zgodę na śledzenie tylko raz. Możesz ją zmienić w dowolnej chwili w Ustawieniach, w sekcji Prywatność i ochrona → Śledzenie. Zmiana tam zamyka aplikację.";
+
+/* Opens this app's page in the Settings app */
+"privacy_open_settings" = "Otwórz Ustawienia";
+
+/* House ad shown in the banner slot when no ad is available. "short" variants are used on narrow screens. */
+"house_ad_support_short" = "Wesprzyj nas";
+"house_ad_support_headline" = "Wesprzyj OpenDocument Reader";
+"house_ad_support_subline" = "Kup Pro — koniec z reklamami";
+
+"house_ad_adfree_short" = "Bez reklam";
+"house_ad_adfree_headline" = "Czytaj bez reklam";
+"house_ad_adfree_subline" = "ODR Pro — jednorazowy zakup";
+
+"house_ad_source_short" = "Open source";
+"house_ad_source_headline" = "Open source i wciąż za darmo";
+"house_ad_source_subline" = "Pro to finansuje — i usuwa reklamy";
+
+/* Buttons on the house ad */
+"house_ad_cta_go_pro" = "Przejdź na Pro";
+"house_ad_cta_get_pro" = "Kup Pro";
