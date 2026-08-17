@@ -224,7 +224,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: build/screenshots
-          key: screenshots-${{ runner.os }}-${{ env.xcode_version }}-${{ hashFiles('OpenDocumentReader.xcodeproj/project.pbxproj', 'OpenDocumentReader.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'OpenDocumentReader/**', 'OpenDocumentReaderUITests/**', 'Ads/**', 'NoAds/**', 'configs/**', 'scripts/make-screenshot-documents.py') }}
+          key: screenshots-${{ matrix.device }}-${{ runner.os }}-${{ env.xcode_version }}-${{ hashFiles('OpenDocumentReader.xcodeproj/project.pbxproj', 'OpenDocumentReader.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'OpenDocumentReader/**', 'OpenDocumentReaderUITests/**', 'Ads/**', 'NoAds/**', 'configs/**', 'scripts/make-screenshot-documents.py') }}
 
       # half a set, so the lane does not check it - the job below does, once
       # both halves are in
