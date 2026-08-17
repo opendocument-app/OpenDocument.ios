@@ -45,6 +45,8 @@ once the version tag exists.
   showed it for most of the rest.
 - Tapping a document sets the cursor, so an edit can be typed. The keyboard
   never came up before.
+- A document opens at the top of its first page. On a wide screen it opened far
+  enough down to cut off the heading.
 
 ### Removed
 

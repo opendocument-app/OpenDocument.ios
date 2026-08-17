@@ -108,10 +108,28 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 return;
             }
 
-            var width = document.documentElement.scrollWidth;
-            if (width > window.innerWidth) {
-                meta.setAttribute('content', 'width=' + width + ',user-scalable=yes');
+            var served = meta.content;
+            var natural = document.documentElement.scrollWidth;
+
+            // The web view's own width, which the viewport named below does not
+            // change: the visual viewport is that many CSS pixels at that scale.
+            function available() {
+                var seen = window.visualViewport;
+
+                return seen ? Math.round(seen.width * seen.scale) : window.innerWidth;
             }
+
+            function fit() {
+                meta.setAttribute(
+                    'content',
+                    natural > available() ? 'width=' + natural + ',user-scalable=yes' : served);
+            }
+
+            // On every resize, not just now: this first runs before the web view
+            // has the width it will keep, and a page held at a width it no
+            // longer needs is left scrolled off its own top.
+            fit();
+            window.addEventListener('resize', fit);
         })();
         """
     }
