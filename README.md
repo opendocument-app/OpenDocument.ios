@@ -156,7 +156,7 @@ heading.
 
 The copy lives in `fastlane/metadata/<locale>/changelogs/1.41.txt`, one file per
 version per locale, because App Store Connect keeps only the notes of the
-submission in flight. `scripts/store-listing.py` checks it - the release run
+submission in flight. `scripts/store_listing.py` checks it - the release run
 refuses a version any locale is missing, before it builds anything - and stages
 it into the shape `deliver` reads.
 
@@ -217,8 +217,8 @@ The build number is resolved once and given to both apps, so one `(version, buil
 pair names one commit in both listings. App Store Connect only requires it to
 increase, not to be contiguous, so whichever app was behind skips ahead.
 
-`.github/scripts/resolve-version.py` decides which version a run builds and
-refuses runs that cannot name one; `changelog-section.py` refuses a version with
+`scripts/resolve-version.py` decides which version a run builds and
+refuses runs that cannot name one; `scripts/changelog_section.py` refuses a version with
 no `CHANGELOG.md` section, before anything is built, since that section becomes
 the release body. Run either by hand to see what a dispatch would do.
 

@@ -11,9 +11,9 @@
 # staged directory rather than at fastlane/metadata itself, and what is copied
 # in is named here rather than being whatever happens to be lying around.
 #
-#   scripts/store-listing.py --version 1.41                       check the notes
-#   scripts/store-listing.py --version 1.41 --stage DIR           notes alone
-#   scripts/store-listing.py --version 1.41 --stage DIR --app pro the whole listing
+#   scripts/store_listing.py --version 1.41                       check the notes
+#   scripts/store_listing.py --version 1.41 --stage DIR           notes alone
+#   scripts/store_listing.py --version 1.41 --stage DIR --app pro the whole listing
 #
 # The two apps share one listing and differ in a few places, so what is staged
 # is read in three passes - `fastlane/metadata/<locale>/`, then the app's own

@@ -9,7 +9,7 @@ going out. What the store says is what is committed here.
 Two things are left out of the upload on purpose. `review_information` is the
 account's contact details and the note to the reviewer, and the category files
 say where the app sits in the store - neither is release copy.
-`scripts/store-listing.py` names what is staged, so adding a file to that list is
+`scripts/store_listing.py` names what is staged, so adding a file to that list is
 a decision rather than an accident.
 
 ## The two apps
@@ -34,7 +34,7 @@ line: Lite shows ads and Pro does not. Rather than keep two descriptions per
 locale and let them drift, the shared one holds `${ads}` and each app fills it
 in from its own `ads.txt` - Lite has one per locale, Pro has none, and a
 fill-in nobody answers leaves nothing behind, the space in front of it
-included. `FILL_INS` in `scripts/store-listing.py` lists the names one may
+included. `FILL_INS` in `scripts/store_listing.py` lists the names one may
 have, so a misspelt `${adds}` is an error rather than a sentence that quietly
 vanishes from the store.
 
@@ -54,7 +54,7 @@ files are the history the store does not keep. The limit is 4000 characters per
 locale.
 
 `deliver` does not read this layout. It reads one `release_notes.txt` per
-locale, so `scripts/store-listing.py` stages the version's file under that name
+locale, so `scripts/store_listing.py` stages the version's file under that name
 into a throwaway directory at upload time, with the rest of the listing beside
 it.
 
@@ -83,7 +83,7 @@ anything.
 ## Name, subtitle, keywords
 
 30 characters for the name, 30 for the subtitle, 100 for the keywords, counting
-the commas. `scripts/store-listing.py` checks all three against what it stages
+the commas. `scripts/store_listing.py` checks all three against what it stages
 rather than against what is written here, since an app's own name is what
 finally has to fit.
 
