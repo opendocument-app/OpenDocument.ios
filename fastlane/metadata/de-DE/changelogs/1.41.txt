@@ -1,4 +1,4 @@
-- PDFs passen sich jetzt dem Bildschirm an und verhalten sich wie jedes andere Dokument, auch passwortgeschützte
-- Die Schaltflächen zum Suchen und Bearbeiten erscheinen nur bei Dokumenten, die sich durchsuchen oder bearbeiten lassen
-- Flache XML-Dokumente von LibreOffice, Globaldokument-Vorlagen und Excel-Vorlagen lassen sich jetzt im Dateimanager öffnen, statt ausgegraut zu sein
-- Beim Bearbeiten wird der Stift zur Schaltfläche zum Speichern – ein Antippen genügt
+- PDFs lassen sich durchsuchen, und passwortgeschützte fragen nach dem Passwort wie andere Dokumente
+- Wenn Sie beim Bearbeiten ins Dokument tippen, steht der Cursor dort, und Speichern liegt jetzt in der Leiste statt im Menü
+- Die App ist wieder in Ihrer Sprache und zeigt nicht mehr stellenweise Englisch
+- Die drei Willkommensseiten sind weg, die App startet direkt bei Ihren Dokumenten

@@ -1,4 +1,4 @@
-- Pliki PDF dopasowują się teraz do ekranu i działają jak każdy inny dokument, także te chronione hasłem
-- Przyciski wyszukiwania i edycji pojawiają się tylko przy dokumentach, które można przeszukać lub edytować
-- Dokumenty LibreOffice w płaskim XML, szablony dokumentów głównych i szablony Excela otworzysz z eksploratora plików, zamiast oglądać je wyszarzone
-- Podczas edycji dokumentu ołówek zmienia się w przycisk zapisu, więc zapiszesz jednym dotknięciem
+- Pliki PDF można przeszukiwać, a te chronione hasłem proszą o hasło jak inne dokumenty
+- Dotknięcie dokumentu podczas edycji ustawia w tym miejscu kursor, a zapisywanie jest teraz na pasku, nie w menu
+- Aplikacja znów jest w Twoim języku, zamiast miejscami pokazywać angielski
+- Trzy ekrany powitalne zniknęły, więc aplikacja od razu pokazuje Twoje dokumenty

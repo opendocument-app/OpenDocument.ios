@@ -17,7 +17,7 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.41]
 
 ### Changed
 
@@ -54,7 +54,7 @@ once the version tag exists.
 - The three onboarding pages on first launch. The app opens on the document
   browser instead.
 
-## [1.40]
+## [1.40] - 2026-08-15
 
 ### Changed
 
@@ -201,7 +201,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.39...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.40...HEAD
+[1.40]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.39...v1.40
 [1.39]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.38...v1.39
 [1.38]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.37...v1.38
 [1.37]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.36...v1.37

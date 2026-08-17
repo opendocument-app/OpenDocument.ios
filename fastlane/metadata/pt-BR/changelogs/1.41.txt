@@ -1,4 +1,4 @@
-- Os PDFs agora se ajustam à tela e funcionam como qualquer outro documento, inclusive os protegidos por senha
-- Os botões de pesquisar e editar aparecem só nos documentos que dá para pesquisar ou editar
-- Documentos em XML plano do LibreOffice, modelos de documento mestre e modelos do Excel podem ser abertos no explorador de arquivos, em vez de ficarem esmaecidos
-- Ao editar um documento, o lápis vira botão de salvar, e salvar fica a um toque de distância
+- Agora dá para pesquisar nos PDFs, e os protegidos por senha pedem a senha como os outros documentos
+- Ao editar, toque no documento para pôr o cursor ali, e salvar agora fica na barra, não no menu
+- O app voltou a ficar no seu idioma, em vez de mostrar inglês em alguns lugares
+- As três páginas de boas-vindas não existem mais, então o app abre direto nos seus documentos

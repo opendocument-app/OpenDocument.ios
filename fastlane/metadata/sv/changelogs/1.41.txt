@@ -1,4 +1,4 @@
-- PDF-filer anpassas nu efter skärmen och fungerar som alla andra dokument, även lösenordsskyddade
-- Knapparna för sök och redigera visas bara för dokument som går att söka i eller redigera
-- LibreOffices platta XML-dokument, mallar för huvuddokument och Excel-mallar går nu att öppna i filhanteraren i stället för att vara gråmarkerade
-- När du redigerar ett dokument blir pennan en sparaknapp – att spara är bara ett tryck bort
+- Nu kan du söka i PDF-filer, och de som är lösenordsskyddade frågar efter lösenordet som andra dokument
+- Tryck i dokumentet när du redigerar så hamnar markören där, och Spara finns nu i verktygsfältet i stället för i menyn
+- LibreOffices platta XML-dokument och Excel-mallar går att öppna från filhanteraren i stället för att vara gråmarkerade
+- De tre välkomstsidorna är borta, så appen visar dina dokument direkt
