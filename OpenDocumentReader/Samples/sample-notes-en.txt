@@ -1,0 +1,72 @@
+Quarterly report
+================
+
+The team met every goal of the second quarter, and the new release went out on time.
+
+Highlights
+----------
+
+Costs stayed below budget, and two new partners joined the project.
+
+The new release reached more people in its first week than the last one did in a month.
+
+Support answered nine of ten questions the same day.
+
+Costs and budget
+----------------
+
+Spending on software rose with the new licences, while travel fell again.
+
+Hardware was replaced once, and support stayed steady through the quarter.
+
+Two servers moved to the new provider without a day of downtime.
+
+Next quarter
+------------
+
+The release in September is the last one planned this year.
+
+Two positions open in support, and one in design.
+
+The office moves in November, and the budget for it is agreed.
+
+The people
+----------
+
+Six people worked on the release, two of them new this year.
+
+Holiday cover was arranged in April and held through the summer.
+
+Everyone has taken the training the new licence requires.
+
+Risks
+-----
+
+The move in November is the one date nothing else can slip past.
+
+One supplier has not signed the new terms, and is being chased.
+
+Hosting costs rise in January unless the contract is renewed early.
+
+Project plan
+------------
+
+* Goals for the quarter
+* Budget and costs
+* Next steps
+
+Schedule
+--------
+
+* Release in June
+* Review in July
+* Planning in August
+
+Team
+----
+
+* Two new partners
+* Support in three languages
+* Training in autumn
+
+The next meeting is at the end of July.

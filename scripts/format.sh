@@ -27,6 +27,11 @@ if ! xcrun --find swift-format >/dev/null 2>&1; then
     exit 1
 fi
 
+# SnapshotHelper.swift is left out: it belongs to fastlane and is kept byte for
+# byte as they ship it, so the next version can be copied over it.
+#
+# The comment stays out here. bash 3.2, which is the one macOS ships and the one
+# CI runs, cannot parse an apostrophe in a comment inside a <( ).
 files=()
 while IFS= read -r -d '' file; do
     # tracked files can be staged for deletion and no longer exist on disk
@@ -34,7 +39,8 @@ while IFS= read -r -d '' file; do
         files+=("$file")
     fi
 done < <(
-    git ls-files -z --cached --others --exclude-standard -- '*.swift'
+    git ls-files -z --cached --others --exclude-standard -- \
+        '*.swift' ':!:OpenDocumentReaderUITests/SnapshotHelper.swift'
 )
 
 if [ ${#files[@]} -eq 0 ]; then

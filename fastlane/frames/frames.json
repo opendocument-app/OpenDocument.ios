@@ -1,0 +1,359 @@
+{
+  "_comment": [
+    "What the App Store pictures show, and what they say in every language.",
+    "scripts/frame-screenshots.py draws them; see that file for the geometry.",
+    "",
+    "One entry per screen, in the order the store shows them, named as the",
+    "screenshot test writes them. `headline` is two lines: the first is set",
+    "light and the second bold, so each language picks its own break rather",
+    "than inheriting the English one."
+  ],
+  "font": "Nunito[wght].ttf",
+  "backgrounds": {
+    "orange": [
+      "#f4b663",
+      "#e8ad5e"
+    ],
+    "green": [
+      "#9fbc77",
+      "#94b46c"
+    ],
+    "blue": [
+      "#90acd6",
+      "#86a2cc"
+    ]
+  },
+  "chips": {
+    "odt": "#4bb3e8",
+    "ods": "#62bc77",
+    "odp": "#fca110",
+    "pdf": "#d63a2f",
+    "docx": "#3b7dd8",
+    "xlsx": "#3fa06a",
+    "pptx": "#e08a2e"
+  },
+  "screens": [
+    {
+      "name": "01-browser",
+      "background": "blue",
+      "chips": [
+        "odt",
+        "ods",
+        "odp"
+      ],
+      "headline": {
+        "en-US": [
+          "All your documents,",
+          "anywhere. anytime."
+        ],
+        "de-DE": [
+          "Alle Ihre Dokumente,",
+          "überall. jederzeit."
+        ],
+        "es-ES": [
+          "Todos tus documentos,",
+          "en cualquier momento."
+        ],
+        "fr-FR": [
+          "Tous vos documents,",
+          "partout. à tout moment."
+        ],
+        "hi": [
+          "आपके सभी दस्तावेज़,",
+          "कहीं भी. कभी भी."
+        ],
+        "it": [
+          "Tutti i tuoi documenti,",
+          "ovunque. sempre."
+        ],
+        "pl": [
+          "Wszystkie dokumenty,",
+          "wszędzie. zawsze."
+        ],
+        "pt-BR": [
+          "Todos os seus documentos,",
+          "em qualquer lugar. sempre."
+        ],
+        "ru": [
+          "Все ваши документы,",
+          "везде. всегда."
+        ],
+        "sv": [
+          "Alla dina dokument,",
+          "var som helst. när som helst."
+        ],
+        "tr": [
+          "Tüm belgeleriniz,",
+          "her yerde. her zaman."
+        ]
+      }
+    },
+    {
+      "name": "02-text",
+      "background": "green",
+      "chips": [
+        "odt"
+      ],
+      "headline": {
+        "en-US": [
+          "Text documents,",
+          "read and searchable."
+        ],
+        "de-DE": [
+          "Textdokumente,",
+          "lesen und durchsuchen."
+        ],
+        "es-ES": [
+          "Documentos de texto,",
+          "leer y buscar."
+        ],
+        "fr-FR": [
+          "Documents texte,",
+          "lire et rechercher."
+        ],
+        "hi": [
+          "टेक्स्ट दस्तावेज़,",
+          "पढ़ें और खोजें."
+        ],
+        "it": [
+          "Documenti di testo,",
+          "leggi e cerca."
+        ],
+        "pl": [
+          "Dokumenty tekstowe,",
+          "czytaj i wyszukuj."
+        ],
+        "pt-BR": [
+          "Documentos de texto,",
+          "leia e pesquise."
+        ],
+        "ru": [
+          "Текстовые документы,",
+          "читайте и ищите."
+        ],
+        "sv": [
+          "Textdokument,",
+          "läs och sök."
+        ],
+        "tr": [
+          "Metin belgeleri,",
+          "okuyun ve arayin."
+        ]
+      }
+    },
+    {
+      "name": "03-sheet",
+      "background": "orange",
+      "chips": [
+        "ods"
+      ],
+      "headline": {
+        "en-US": [
+          "Spreadsheets,",
+          "sheet by sheet."
+        ],
+        "de-DE": [
+          "Tabellenkalkulationen,",
+          "Blatt für Blatt."
+        ],
+        "es-ES": [
+          "Hojas de cálculo,",
+          "hoja por hoja."
+        ],
+        "fr-FR": [
+          "Feuilles de calcul,",
+          "feuille par feuille."
+        ],
+        "hi": [
+          "स्प्रेडशीट,",
+          "शीट दर शीट."
+        ],
+        "it": [
+          "Fogli di calcolo,",
+          "foglio per foglio."
+        ],
+        "pl": [
+          "Arkusze kalkulacyjne,",
+          "arkusz po arkuszu."
+        ],
+        "pt-BR": [
+          "Planilhas,",
+          "planilha por planilha."
+        ],
+        "ru": [
+          "Электронные таблицы,",
+          "лист за листом."
+        ],
+        "sv": [
+          "Kalkylblad,",
+          "blad för blad."
+        ],
+        "tr": [
+          "Hesap tabloları,",
+          "sayfa sayfa."
+        ]
+      }
+    },
+    {
+      "name": "04-edit",
+      "background": "blue",
+      "chips": [
+        "odt"
+      ],
+      "headline": {
+        "en-US": [
+          "Found a typo?",
+          "Fix it right here."
+        ],
+        "de-DE": [
+          "Ein Tippfehler?",
+          "Gleich hier ausbessern."
+        ],
+        "es-ES": [
+          "¿Una errata?",
+          "Corrígela aquí mismo."
+        ],
+        "fr-FR": [
+          "Une faute de frappe ?",
+          "Corrigez-la ici."
+        ],
+        "hi": [
+          "कोई गलती?",
+          "यहीं ठीक करें."
+        ],
+        "it": [
+          "Un refuso?",
+          "Correggilo qui."
+        ],
+        "pl": [
+          "Literówka?",
+          "Popraw ją tutaj."
+        ],
+        "pt-BR": [
+          "Um erro de digitação?",
+          "Corrija aqui mesmo."
+        ],
+        "ru": [
+          "Опечатка?",
+          "Исправьте здесь."
+        ],
+        "sv": [
+          "Ett stavfel?",
+          "Rätta det här."
+        ],
+        "tr": [
+          "Yazım hatası mı?",
+          "Hemen burada düzeltin."
+        ]
+      }
+    },
+    {
+      "name": "05-pdf",
+      "background": "green",
+      "chips": [
+        "pdf"
+      ],
+      "headline": {
+        "en-US": [
+          "Open any PDF,",
+          "right in the app."
+        ],
+        "de-DE": [
+          "Jedes PDF öffnen,",
+          "direkt in der App."
+        ],
+        "es-ES": [
+          "Abre cualquier PDF,",
+          "aquí mismo."
+        ],
+        "fr-FR": [
+          "Ouvrez tout PDF,",
+          "directement dans l'app."
+        ],
+        "hi": [
+          "कोई भी PDF खोलें,",
+          "ऐप में ही."
+        ],
+        "it": [
+          "Apri qualsiasi PDF,",
+          "direttamente nell'app."
+        ],
+        "pl": [
+          "Otwórz każdy PDF,",
+          "od razu w aplikacji."
+        ],
+        "pt-BR": [
+          "Abra qualquer PDF,",
+          "aqui mesmo no app."
+        ],
+        "ru": [
+          "Любой PDF —",
+          "прямо в приложении."
+        ],
+        "sv": [
+          "Öppna vilken PDF som helst,",
+          "direkt i appen."
+        ],
+        "tr": [
+          "Her PDF'i açın,",
+          "doğrudan uygulamada."
+        ]
+      }
+    },
+    {
+      "name": "06-office",
+      "background": "orange",
+      "chips": [
+        "docx",
+        "xlsx",
+        "pptx"
+      ],
+      "headline": {
+        "en-US": [
+          "Office files too:",
+          ".docx, .xlsx and .pptx."
+        ],
+        "de-DE": [
+          "Auch Office-Dateien:",
+          ".docx, .xlsx und .pptx."
+        ],
+        "es-ES": [
+          "También archivos Office:",
+          ".docx, .xlsx y .pptx."
+        ],
+        "fr-FR": [
+          "Aussi les fichiers Office :",
+          ".docx, .xlsx et .pptx."
+        ],
+        "hi": [
+          "Office फ़ाइलें भी:",
+          ".docx, .xlsx और .pptx."
+        ],
+        "it": [
+          "Anche i file Office:",
+          ".docx, .xlsx e .pptx."
+        ],
+        "pl": [
+          "Także pliki Office:",
+          ".docx, .xlsx i .pptx."
+        ],
+        "pt-BR": [
+          "Arquivos do Office também:",
+          ".docx, .xlsx e .pptx."
+        ],
+        "ru": [
+          "И файлы Office:",
+          ".docx, .xlsx и .pptx."
+        ],
+        "sv": [
+          "Även Office-filer:",
+          ".docx, .xlsx och .pptx."
+        ],
+        "tr": [
+          "Office dosyaları da:",
+          ".docx, .xlsx ve .pptx."
+        ]
+      }
+    }
+  ]
+}

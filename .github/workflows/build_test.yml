@@ -45,6 +45,16 @@ jobs:
       - name: run tests
         run: bundle exec fastlane tests
 
+      # taking the pictures is a quarter hour of simulators and belongs to the
+      # release, but a screenshot target that no longer compiles should not wait
+      # for one to say so
+      - name: build the screenshot tests
+        run: >
+          xcodebuild build-for-testing
+          -project OpenDocumentReader.xcodeproj
+          -scheme "ODR Screenshots"
+          -destination 'generic/platform=iOS Simulator'
+
       - uses: actions/upload-artifact@v7
         if: always()
         with:

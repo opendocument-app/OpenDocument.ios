@@ -1,0 +1,4 @@
+# The sample pdfs are written with uncompressed content streams, so git reads
+# them as text and puts a hundred and thirty lines of placed words in the diff
+# for each one. They are generated files; nobody reads them as a diff.
+*.pdf binary

@@ -20,8 +20,60 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        // before anything that depends on how often the app has been opened:
+        // a screenshot run wants one screen and nothing over it
+        if let screen = ScreenshotMode.screen {
+            showForScreenshot(screen)
+
+            return
+        }
+
         StoreReviewHelper.checkAndAskForReview()
+
         refreshPrivacyButton()
+    }
+
+    /// Whether the screen `-ODRScreenshot` asked for is already up.
+    /// `viewDidAppear` runs again every time something over the browser goes
+    /// away, and a second document presented over the first would be the picture.
+    private var isShowingScreenshot = false
+
+    private func showForScreenshot(_ screen: ScreenshotMode.Screen) {
+        guard !isShowingScreenshot else { return }
+        isShowingScreenshot = true
+
+        // The browser is the picture. It opens on Recents, which is empty when
+        // the samples were laid out rather than opened, so each is revealed in
+        // turn to put it there.
+        guard screen != .browser else {
+            reveal(ScreenshotMode.browserDocuments) { [weak self] in
+                guard let self else { return }
+
+                ScreenshotMode.markReady(self.view)
+            }
+
+            return
+        }
+
+        // nothing on a missing sample, so the test fails waiting for a document
+        // rather than photographing the browser
+        guard let document = ScreenshotMode.document(for: screen) else { return }
+
+        presentDocument(at: document)
+    }
+
+    /// Reveals each document in turn, one after the previous has landed, and
+    /// then says so. One call per document because revealing takes one URL.
+    private func reveal(_ documents: [URL], then finish: @escaping () -> Void) {
+        guard let next = documents.first else {
+            finish()
+
+            return
+        }
+
+        revealDocument(at: next, importIfNeeded: false) { [weak self] _, _ in
+            self?.reveal(Array(documents.dropFirst()), then: finish)
+        }
     }
 
     // MARK: - Privacy

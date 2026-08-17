@@ -1,0 +1,72 @@
+Relazione trimestrale
+=====================
+
+Il team ha raggiunto tutti gli obiettivi del secondo trimestre e la nuova versione è uscita in tempo.
+
+In evidenza
+-----------
+
+I costi sono rimasti sotto il budget e due nuovi partner si sono uniti al progetto.
+
+La nuova versione ha raggiunto più persone in una settimana di quante la precedente in un mese.
+
+Il supporto ha risposto a nove richieste su dieci in giornata.
+
+Costi e budget
+--------------
+
+La spesa per il software è cresciuta con le nuove licenze, mentre i viaggi sono di nuovo calati.
+
+L'hardware è stato sostituito una volta e il supporto è rimasto stabile per tutto il trimestre.
+
+Due server sono passati al nuovo fornitore senza un giorno di fermo.
+
+Prossimo trimestre
+------------------
+
+La versione di settembre è l'ultima prevista quest'anno.
+
+Ci sono due posizioni aperte nel supporto e una nel design.
+
+Il trasloco è a novembre e il budget è approvato.
+
+Le persone
+----------
+
+Alla versione hanno lavorato sei persone, due delle quali nuove quest'anno.
+
+Le sostituzioni estive sono state organizzate ad aprile e hanno retto.
+
+Tutti hanno seguito il corso richiesto dalla nuova licenza.
+
+Rischi
+------
+
+Il trasloco di novembre è l'unica data che non può slittare.
+
+Un fornitore non ha ancora firmato le nuove condizioni.
+
+L'hosting aumenta a gennaio se il contratto non si rinnova prima.
+
+Piano di progetto
+-----------------
+
+* Obiettivi del trimestre
+* Budget e costi
+* Prossimi passi
+
+Calendario
+----------
+
+* Versione a giugno
+* Revisione a luglio
+* Pianificazione ad agosto
+
+Team
+----
+
+* Due nuovi partner
+* Supporto in tre lingue
+* Formazione in autunno
+
+Il prossimo incontro è a fine luglio.

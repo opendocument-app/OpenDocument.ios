@@ -1,0 +1,72 @@
+Relatório trimestral
+====================
+
+A equipe alcançou todas as metas do segundo trimestre e a nova versão saiu no prazo.
+
+Destaques
+---------
+
+Os custos ficaram abaixo do orçamento e dois novos parceiros entraram no projeto.
+
+A nova versão alcançou mais pessoas na primeira semana do que a anterior em um mês.
+
+O suporte respondeu nove de cada dez chamados no mesmo dia.
+
+Custos e orçamento
+------------------
+
+Os gastos com software subiram com as novas licenças, enquanto as viagens caíram de novo.
+
+O hardware foi substituído uma vez e o suporte se manteve estável no trimestre.
+
+Dois servidores migraram para o novo provedor sem um dia de indisponibilidade.
+
+Próximo trimestre
+-----------------
+
+A versão de setembro é a última prevista para este ano.
+
+Há duas vagas no suporte e uma no design.
+
+A mudança de escritório é em novembro e já tem orçamento.
+
+As pessoas
+----------
+
+Seis pessoas trabalharam na versão, duas delas novas este ano.
+
+A cobertura de férias foi combinada em abril e durou o verão todo.
+
+Todos fizeram o treinamento que a nova licença exige.
+
+Riscos
+------
+
+A mudança de novembro é a única data que não pode atrasar.
+
+Um fornecedor ainda não assinou as novas condições.
+
+A hospedagem sobe em janeiro se o contrato não for renovado antes.
+
+Plano do projeto
+----------------
+
+* Metas do trimestre
+* Orçamento e custos
+* Próximos passos
+
+Cronograma
+----------
+
+* Versão em junho
+* Revisão em julho
+* Planejamento em agosto
+
+Equipe
+------
+
+* Dois novos parceiros
+* Suporte em três idiomas
+* Treinamento no outono
+
+A próxima reunião é no fim de julho.
