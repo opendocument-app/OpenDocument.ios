@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "Dokumentet er beskyttet med en adgangskode";
 
-/*  */
-"intro_title_open" = "Åbn og læs dine ODF-filer, når du er på farten!";
 
-/*  */
-"intro_title_edit" = "Fundet en tastefejl i dit dokument? Nu kan du også rette i det!";
 
-/*  */
-"intro_title_apps" = "Læs dine dokumenter direkte fra andre apps";
 
-/*  */
-"intro_description_open" = "Med OpenDocument Reader kan du se dokumenter, der er gemt i OpenDocument-formatet (.odt, .ods, .odp og .odg). De filer bliver som regel lavet i LibreOffice eller OpenOffice. Med appen kan du også åbne dem på din telefon og læse dem, når du er på farten.";
 
-/*  */
-"intro_description_edit" = "OpenDocument Reader kan ikke bare læse dine dokumenter på telefonen – du kan også rette i dem. Tastefejl er hurtigt væk, selv i toget!";
 
-/*  */
-"intro_description_apps" = "OpenDocument Reader kan åbne dokumenter fra en lang række andre apps. Har en kollega sendt en præsentation i Gmail? Tryk på den vedhæftede fil, så åbner appen med det samme.";
 
 /*  */
 "back_to_documents" = "Tilbage til dokumenter";
@@ -74,9 +62,6 @@
 "error" = "Fejl";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "Næste";
-"intro_skip" = "Spring over";
-"intro_start" = "Start";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Anonymitet";

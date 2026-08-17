@@ -9,10 +9,6 @@
 import Foundation
 
 enum Constants {
-    static let onboardingImages = ["onboard1", "onboard2", "onboard3"]
-
-    static let key_was_intro_watched = "wasIntroWatched"
-
     /// Which of the house ad's rotations comes next.
     static let key_house_ad_index = "houseAdIndex"
 

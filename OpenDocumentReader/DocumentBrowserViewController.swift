@@ -9,8 +9,6 @@ import UIKit
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
 
-    let pageViewController = "pageViewController"
-
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -23,19 +21,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         super.viewDidAppear(animated)
 
         StoreReviewHelper.checkAndAskForReview()
-
-        // ahead of the intro guard below, which most launches return at
         refreshPrivacyButton()
-
-        let userDefaults = UserDefaults.standard
-        let wasIntroWatched = userDefaults.bool(forKey: Constants.key_was_intro_watched)
-
-        guard !wasIntroWatched else { return }
-
-        if let pageVC = storyboard?.instantiateViewController(withIdentifier: pageViewController) as? PageViewController
-        {
-            present(pageVC, animated: true, completion: nil)
-        }
     }
 
     // MARK: - Privacy
