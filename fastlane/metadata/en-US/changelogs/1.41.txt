@@ -1,4 +1,4 @@
-- PDFs now fit the screen and behave like every other document, password protected ones included
-- The search and edit buttons are there only for documents that can be searched or edited
-- LibreOffice's flat XML documents, master document templates and Excel templates can be opened from the document browser instead of being greyed out
-- Editing a document turns the pencil into a save button, so saving is one tap away
+- PDFs can be searched, and password protected ones ask for the password like other documents
+- Tapping a document while editing puts the cursor there, and saving is now on the bar rather than in the menu
+- LibreOffice's flat XML documents and Excel templates open from the document browser instead of being greyed out
+- The three welcome pages are gone, so the app opens straight on your documents
