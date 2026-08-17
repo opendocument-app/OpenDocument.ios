@@ -171,6 +171,11 @@ platform :ios do
         "--cellularMode active --cellularBars 4 --batteryState discharging --batteryLevel 100",
       # a rerun replaces the set rather than adding to it
       clear_previous_screenshots: true,
+      # snapshot refuses to start without a file named SnapshotHelper.swift,
+      # and checks its version marker. We do not carry theirs - the hand-off is
+      # OpenDocumentReaderUITests/Snapshots.swift, which is ours - so there is
+      # nothing for it to find and nothing for it to check.
+      skip_helper_version_check: true,
       # the runner has no browser to open the summary in, and no one watching it
       skip_open_summary: true,
       stop_after_first_error: true

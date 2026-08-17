@@ -25,8 +25,8 @@ final class ScreenshotTests: XCTestCase {
     func testTakesTheStoreScreenshots() throws {
         let app = XCUIApplication()
 
-        // adds the language, the locale and fastlane's own arguments, once
-        setupSnapshot(app)
+        // the language and the region this run is for, once
+        Snapshots.prepare(app)
 
         // The keyboard offers to teach swipe typing the first time it comes up
         // on a fresh simulator, over the keyboard the edit screenshot is of.
@@ -53,7 +53,7 @@ final class ScreenshotTests: XCTestCase {
                 raiseTheKeyboard(in: app)
             }
 
-            snapshot(String(format: "%02d-%@", index + 1, screen))
+            Snapshots.take(String(format: "%02d-%@", index + 1, screen))
 
             // rather than leaving it running: the next launch has to go through
             // didFinishLaunching again to be handed the next screen
