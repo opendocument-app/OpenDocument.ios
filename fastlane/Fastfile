@@ -20,7 +20,7 @@ IPA_DIR = File.expand_path("../build").freeze
 
 # Absolute for the same reason. They resolve the repository from their own path,
 # so they do not care which of the two they are called from.
-STORE_LISTING = File.expand_path("../scripts/store-listing.py").freeze
+STORE_LISTING = File.expand_path("../scripts/store_listing.py").freeze
 STORE_SCREENSHOTS = File.expand_path("../scripts/store_screenshots.py").freeze
 FRAME_SCREENSHOTS = File.expand_path("../scripts/frame-screenshots.py").freeze
 MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").freeze
@@ -368,7 +368,7 @@ platform :ios do
   #
   # deliver uploads every metadata file it finds under metadata_path, so it is
   # given a staged directory rather than fastlane/metadata itself, and
-  # store-listing.py names what goes into it. What is staged is what this
+  # store_listing.py names what goes into it. What is staged is what this
   # repository says the store should say; anything else is left as App Store
   # Connect has it.
   #

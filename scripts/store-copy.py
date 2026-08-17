@@ -21,29 +21,19 @@
 # Unreleased while the heading is still open. A file that is already there is
 # left alone and translated, since that is the copy that was reviewed.
 #
-# Nothing here uploads: `scripts/store-listing.py` checks and stages what this
+# Nothing here uploads: `scripts/store_listing.py` checks and stages what this
 # writes, and the release run uploads it.
 
 import argparse
 import concurrent.futures
-import importlib.util
 import subprocess
 import sys
 from pathlib import Path
 
+import changelog_section as changelog
+import store_listing as listing
+
 ROOT = Path(__file__).resolve().parent.parent
-
-
-def load(path, name):
-    """Import a sibling script, whose file name is not an identifier."""
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-listing = load(ROOT / "scripts" / "store-listing.py", "store_listing")
-changelog = load(ROOT / ".github" / "scripts" / "changelog-section.py", "changelog_section")
 
 SOURCE = "en-US"
 

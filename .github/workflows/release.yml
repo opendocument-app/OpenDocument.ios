@@ -60,14 +60,14 @@ jobs:
         # would be a shell injection
         env:
           given: ${{ inputs.version }}
-        run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
+        run: scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
 
       # this section becomes the release body, so a dry run checks it too
       - name: check the changelog names this version
         if: ${{ steps.version.outputs.version != '' }}
         env:
           version: ${{ steps.version.outputs.version }}
-        run: .github/scripts/changelog-section.py --version "$version"
+        run: scripts/changelog_section.py --version "$version"
 
       # what the listing job uploads, so a missing translation fails here rather
       # than once both apps are up
@@ -75,7 +75,7 @@ jobs:
         if: ${{ steps.version.outputs.version != '' }}
         env:
           version: ${{ steps.version.outputs.version }}
-        run: scripts/store-listing.py --version "$version"
+        run: scripts/store_listing.py --version "$version"
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -298,7 +298,7 @@ jobs:
         id: version
         env:
           given: ${{ inputs.version }}
-        run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
+        run: scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
 
       # where the lane looks for them, and the same set both apps are given
       - name: fetch the screenshots
@@ -330,7 +330,7 @@ jobs:
         id: version
         env:
           given: ${{ inputs.version }}
-        run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
+        run: scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
 
       - name: fetch the ipas
         uses: actions/download-artifact@v8
@@ -375,7 +375,7 @@ jobs:
           version: ${{ steps.version.outputs.version }}
         run: |
           set -euo pipefail
-          .github/scripts/changelog-section.py --version "$version" > "${RUNNER_TEMP}/notes.md"
+          scripts/changelog_section.py --version "$version" > "${RUNNER_TEMP}/notes.md"
 
           # the version input is bare, the tag it publishes is prefixed
           tag="v$version"
