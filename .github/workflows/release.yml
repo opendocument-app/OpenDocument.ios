@@ -207,6 +207,16 @@ jobs:
           python-version: "3.13"
       - run: python3 -m pip install --quiet Pillow
 
+      # The lane builds once into build/screenshots and photographs eighteen
+      # times without building again. Keeping it means a rerun starts at the
+      # first simulator instead of at the compiler. Keyed on everything the
+      # build reads, so a stale one is never used - only ever missed.
+      - name: reuse the last build
+        uses: actions/cache@v4
+        with:
+          path: build/screenshots
+          key: screenshots-${{ runner.os }}-${{ env.xcode_version }}-${{ hashFiles('OpenDocumentReader.xcodeproj/project.pbxproj', 'OpenDocumentReader.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'OpenDocumentReader/**', 'OpenDocumentReaderUITests/**', 'Ads/**', 'NoAds/**', 'configs/**', 'scripts/make-screenshot-documents.py') }}
+
       # the lane checks the set it produced, so a language that came out short
       # fails here rather than half way up to App Store Connect
       - name: photograph both devices in every locale

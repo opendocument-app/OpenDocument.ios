@@ -30,6 +30,11 @@ MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").fre
 SCREENSHOT_DIR = File.expand_path("screenshots").freeze
 FRAMED_DIR = File.expand_path("framed").freeze
 
+# Named, where snapshot would pick a fresh temp directory each run. The app is
+# built once into it and then photographed eighteen times without building
+# again, and CI keeps it between runs.
+SCREENSHOT_BUILD_DIR = File.expand_path("../build/screenshots").freeze
+
 # The two sizes App Store Connect asks an app that runs on both for, named by
 # whatever the runner's Xcode calls them. Newest first, and the first one the
 # runner actually has wins - a simulator's name changes with every Xcode, the
@@ -149,6 +154,23 @@ platform :ios do
     # it starts - a file written later lands in the next build, not this one.
     sh(MAKE_DOCUMENTS)
 
+    # Built once, here. snapshot asks xcodebuild to build and then test on every
+    # run, and there are eighteen of them - two devices in nine languages. The
+    # build is the same every time, and checking it is still up to date costs
+    # about two minutes on a runner.
+    scan(
+      project: "OpenDocumentReader.xcodeproj",
+      scheme: "ODR Screenshots",
+      # not a device: this is the one build both simulators are photographed from
+      destination: "generic/platform=iOS Simulator",
+      derived_data_path: SCREENSHOT_BUILD_DIR,
+      build_for_testing: true,
+      skip_detect_devices: true,
+      # what snapshot reads the build with. xcpretty is the default here and
+      # says itself that it can swallow a build error.
+      xcodebuild_formatter: "xcbeautify"
+    )
+
     # The Pro scheme, so no ad sdk is linked and no consent form can come up in
     # front of a picture. The two apps are the same app, and what differs - the
     # banner Lite carries - is not in a screenshot either way, so one set of
@@ -182,7 +204,14 @@ platform :ios do
       # one device per xcodebuild rather than both at once: two simulators
       # rendering on a three core runner took ten minutes over one, and ran the
       # test out of the time XCTest allows it
-      concurrent_simulators: false
+      concurrent_simulators: false,
+      # the build above, photographed as it stands
+      derived_data_path: SCREENSHOT_BUILD_DIR,
+      test_without_building: true,
+      # the language the app is given is not the language the status bar is
+      # drawn in, and an iPad's status bar carries the date. Without this it
+      # reads Mon Aug 17 over a Russian document.
+      localize_simulator: true
     )
 
     # A raw capture is not what the store shows. The framing is separate from the
