@@ -186,6 +186,8 @@ jobs:
   # the artifact is the only way to look at the pictures before the store does.
   screenshots:
     runs-on: macos-26
+    # long by nature, but the default is six hours for a wedged simulator to sit in
+    timeout-minutes: 180
     steps:
       - name: checkout
         uses: actions/checkout@v7
@@ -223,11 +225,14 @@ jobs:
       # and what they were framed from, which is where to look when a picture
       # comes out wrong
       - name: archive the raw captures
+        # also when the lane failed: a half finished set is what says which
+        # language it got to
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
           name: screenshots
           path: fastlane/screenshots
-          if-no-files-found: error
+          if-no-files-found: warn
           compression-level: 0
 
       - uses: actions/upload-artifact@v7

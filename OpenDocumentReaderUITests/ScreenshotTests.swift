@@ -19,6 +19,10 @@ final class ScreenshotTests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+
+        // A ceiling, not a target: six launches on a shared runner outrun
+        // XCTest's ten minute default and get killed mid-test.
+        executionTimeAllowance = 1800
     }
 
     @MainActor
