@@ -14,8 +14,9 @@ They are bundled in Debug builds only; `EXCLUDED_SOURCE_FILE_NAMES` keeps
     python3 scripts/make-screenshot-documents.py
     python3 scripts/make-screenshot-documents.py --language en    one of them
 
-Rerun it when the wording changes, and commit what it writes. The packages are
-byte for byte reproducible, so a rerun that changes nothing leaves no diff.
+What it writes is not committed - the screenshot lane runs this before it
+builds. The packages are byte for byte reproducible, so a rerun that changes
+no wording writes the same bytes.
 """
 
 import argparse

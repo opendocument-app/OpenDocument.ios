@@ -60,6 +60,11 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/screenshots/screenshots.html
 fastlane/framed
+
+# The documents the screenshots are taken of, and the names the app lays
+# them out under. Build output: `scripts/make-screenshot-documents.py`
+# writes them, and the screenshot lane runs it before the build.
+OpenDocumentReader/Samples/
 fastlane/test_output
 
 .DS_Store

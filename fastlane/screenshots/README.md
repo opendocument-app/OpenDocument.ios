@@ -46,9 +46,10 @@ Eleven in the store, nine in the app. `de-DE`, `en-US`, `es-ES`, `fr-FR`, `it`,
 either - that is what those storefronts would show whatever we upload.
 
 The documents in the pictures are localized too, which is most of what a reader
-has to show: `scripts/make-screenshot-documents.py` writes them, they are
-bundled into Debug builds only, and `-ODRScreenshot <screen>` is how the app is
-asked to open one. See `OpenDocumentReader/ScreenshotMode.swift`.
+has to show. The lane writes them with `scripts/make-screenshot-documents.py`
+before it builds, rather than keeping them in git: they are build output, and
+they are bundled into Debug builds only. `-ODRScreenshot <screen>` is how the
+app is asked to open one. See `OpenDocumentReader/ScreenshotMode.swift`.
 
 ## Both apps get the same pictures
 

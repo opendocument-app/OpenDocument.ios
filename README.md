@@ -179,11 +179,15 @@ worth what the build it was taken from is worth:
 bundle exec fastlane ios screenshots
 ```
 
-Four pictures per device - the onboarding pages, a text document, a spreadsheet
-and a presentation - on a 6.9" iPhone and a 13" iPad, in the nine store locales
-the app is translated into. `hi` and `sv` are given the English set, which is
-what those storefronts would show anyway. The documents in them are localized
-too, and written by `scripts/make-screenshot-documents.py`.
+Six pictures per device - the folder, a text document, a spreadsheet, an edit
+under way, a pdf and a Word file - on a 6.9" iPhone and a 13" iPad, in the nine
+store locales the app is translated into. `hi` and `sv` are given the English
+set, which is what those storefronts would show anyway.
+
+The documents in them are localized too. They are not committed: the lane runs
+`scripts/make-screenshot-documents.py` before the build, because they are build
+output and nothing but a screenshot run opens them. Building the app needs
+none of it.
 
 Nothing is tapped to get there. The app takes `-ODRScreenshot <screen>` in Debug
 builds and puts itself on that screen, so the same picture comes out in every

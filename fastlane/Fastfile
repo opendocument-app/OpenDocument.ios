@@ -23,6 +23,7 @@ IPA_DIR = File.expand_path("../build").freeze
 STORE_LISTING = File.expand_path("../scripts/store-listing.py").freeze
 STORE_SCREENSHOTS = File.expand_path("../scripts/store-screenshots.py").freeze
 FRAME_SCREENSHOTS = File.expand_path("../scripts/frame-screenshots.py").freeze
+MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").freeze
 
 # Where snapshot writes, and where the framed set goes. Neither is committed:
 # a picture of the app is worth what the build it was taken from is.
@@ -141,6 +142,12 @@ platform :ios do
     devices = screenshot_devices(ios)
 
     UI.message("photographing #{devices.join(' and ')} on iOS #{ios} in #{languages.join(', ')}")
+
+    # The documents in the pictures, written rather than committed: they are
+    # build output, and the only thing that opens them is the run below. Ahead
+    # of the build, because the target picks its resources up off the disk as
+    # it starts - a file written later lands in the next build, not this one.
+    sh(MAKE_DOCUMENTS)
 
     # The Pro scheme, so no ad sdk is linked and no consent form can come up in
     # front of a picture. The two apps are the same app, and what differs - the
