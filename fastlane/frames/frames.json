@@ -52,11 +52,11 @@
         ],
         "es-ES": [
           "Todos tus documentos,",
-          "en cualquier momento."
+          "donde y cuando quieras."
         ],
         "fr-FR": [
           "Tous vos documents,",
-          "partout. à tout moment."
+          "partout, à tout moment."
         ],
         "hi": [
           "आपके सभी दस्तावेज़,",
@@ -64,19 +64,19 @@
         ],
         "it": [
           "Tutti i tuoi documenti,",
-          "ovunque. sempre."
+          "sempre e ovunque."
         ],
         "pl": [
           "Wszystkie dokumenty,",
-          "wszędzie. zawsze."
+          "zawsze i wszędzie."
         ],
         "pt-BR": [
           "Todos os seus documentos,",
           "em qualquer lugar. sempre."
         ],
         "ru": [
-          "Все ваши документы,",
-          "везде. всегда."
+          "Все ваши документы —",
+          "везде и всегда."
         ],
         "sv": [
           "Alla dina dokument,",
@@ -100,16 +100,16 @@
           "read and searchable."
         ],
         "de-DE": [
-          "Textdokumente,",
+          "Textdokumente:",
           "lesen und durchsuchen."
         ],
         "es-ES": [
           "Documentos de texto,",
-          "leer y buscar."
+          "léelos y búscalos."
         ],
         "fr-FR": [
           "Documents texte,",
-          "lire et rechercher."
+          "lecture et recherche."
         ],
         "hi": [
           "टेक्स्ट दस्तावेज़,",
@@ -117,19 +117,19 @@
         ],
         "it": [
           "Documenti di testo,",
-          "leggi e cerca."
+          "da leggere e cercare."
         ],
         "pl": [
           "Dokumenty tekstowe,",
-          "czytaj i wyszukuj."
+          "czytaj i przeszukuj."
         ],
         "pt-BR": [
           "Documentos de texto,",
           "leia e pesquise."
         ],
         "ru": [
-          "Текстовые документы,",
-          "читайте и ищите."
+          "Текстовые документы —",
+          "чтение и поиск."
         ],
         "sv": [
           "Textdokument,",
@@ -137,7 +137,7 @@
         ],
         "tr": [
           "Metin belgeleri,",
-          "okuyun ve arayin."
+          "okuyun ve arayın."
         ]
       }
     },
@@ -153,7 +153,7 @@
           "sheet by sheet."
         ],
         "de-DE": [
-          "Tabellenkalkulationen,",
+          "Tabellen,",
           "Blatt für Blatt."
         ],
         "es-ES": [
@@ -178,7 +178,7 @@
         ],
         "pt-BR": [
           "Planilhas,",
-          "planilha por planilha."
+          "aba por aba."
         ],
         "ru": [
           "Электронные таблицы,",
@@ -207,7 +207,7 @@
         ],
         "de-DE": [
           "Ein Tippfehler?",
-          "Gleich hier ausbessern."
+          "Gleich hier korrigieren."
         ],
         "es-ES": [
           "¿Una errata?",
@@ -234,8 +234,8 @@
           "Corrija aqui mesmo."
         ],
         "ru": [
-          "Опечатка?",
-          "Исправьте здесь."
+          "Нашли опечатку?",
+          "Исправьте прямо здесь."
         ],
         "sv": [
           "Ett stavfel?",
@@ -264,11 +264,11 @@
         ],
         "es-ES": [
           "Abre cualquier PDF,",
-          "aquí mismo."
+          "sin salir de la app."
         ],
         "fr-FR": [
-          "Ouvrez tout PDF,",
-          "directement dans l'app."
+          "Tous vos PDF,",
+          "directement dans l'appli."
         ],
         "hi": [
           "कोई भी PDF खोलें,",
@@ -279,7 +279,7 @@
           "direttamente nell'app."
         ],
         "pl": [
-          "Otwórz każdy PDF,",
+          "Otwórz dowolny PDF,",
           "od razu w aplikacji."
         ],
         "pt-BR": [
@@ -322,7 +322,7 @@
           ".docx, .xlsx y .pptx."
         ],
         "fr-FR": [
-          "Aussi les fichiers Office :",
+          "Les fichiers Office aussi :",
           ".docx, .xlsx et .pptx."
         ],
         "hi": [
