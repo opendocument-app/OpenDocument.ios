@@ -129,7 +129,10 @@ final class ScreenshotTests: XCTestCase {
     private func dismissTheKeyboardTutorial(in app: XCUIApplication) {
         let continueButton = app.buttons["Continue"]
 
-        if continueButton.waitForExistence(timeout: 2) {
+        // Short, because this waits its whole timeout on every run that does not
+        // need it - which is all of them while the launch argument holds. The
+        // panel comes up with the keyboard, and the keyboard is already up here.
+        if continueButton.waitForExistence(timeout: 0.5) {
             continueButton.tap()
         }
     }
