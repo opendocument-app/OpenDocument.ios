@@ -30,14 +30,19 @@ MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").fre
 SCREENSHOT_DIR = File.expand_path("screenshots").freeze
 FRAMED_DIR = File.expand_path("framed").freeze
 
+# Named, where snapshot would pick a fresh temp directory each run. The app is
+# built once into it and then photographed eighteen times without building
+# again, and CI keeps it between runs.
+SCREENSHOT_BUILD_DIR = File.expand_path("../build/screenshots").freeze
+
 # The two sizes App Store Connect asks an app that runs on both for, named by
 # whatever the runner's Xcode calls them. Newest first, and the first one the
 # runner actually has wins - a simulator's name changes with every Xcode, the
 # number of pixels it has does not, and store_screenshots.py checks that.
-SCREENSHOT_DEVICES = [
-  ["iPhone 17 Pro Max", "iPhone 16 Pro Max", "iPhone 15 Pro Max"],
-  ["iPad Pro 13-inch (M5)", "iPad Pro 13-inch (M4)", "iPad Pro (12.9-inch) (6th generation)"],
-].freeze
+SCREENSHOT_DEVICES = {
+  "iphone" => ["iPhone 17 Pro Max", "iPhone 16 Pro Max", "iPhone 15 Pro Max"],
+  "ipad" => ["iPad Pro 13-inch (M5)", "iPad Pro 13-inch (M4)", "iPad Pro (12.9-inch) (6th generation)"],
+}.freeze
 
 def dry_run?
   ENV["ODR_DRY_RUN"].to_s.strip == "true"
@@ -94,7 +99,8 @@ def screenshot_devices(ios)
 
   available = simulators_by_ios.fetch(ios, [])
 
-  SCREENSHOT_DEVICES.map do |candidates|
+  screenshot_kinds.map do |kind|
+    candidates = SCREENSHOT_DEVICES.fetch(kind)
     candidates.find { |name| available.include?(name) } ||
       UI.user_error!(
         "none of #{candidates.join(', ')} runs iOS #{ios}. That runtime has: " \
@@ -102,6 +108,19 @@ def screenshot_devices(ios)
         "ODR_SCREENSHOT_IOS to pick by hand."
       )
   end
+end
+
+# Which of the two the run is for. Both unless one is named, so a run started by
+# hand is the whole set - only the release splits them, a device to a runner.
+def screenshot_kinds
+  given = ENV["ODR_SCREENSHOT_DEVICE"].to_s.strip.downcase
+  return SCREENSHOT_DEVICES.keys if given.empty?
+
+  unless SCREENSHOT_DEVICES.key?(given)
+    UI.user_error!("no such device: #{given}. One of #{SCREENSHOT_DEVICES.keys.join(', ')}.")
+  end
+
+  [given]
 end
 
 platform :ios do
@@ -149,6 +168,20 @@ platform :ios do
     # it starts - a file written later lands in the next build, not this one.
     sh(MAKE_DOCUMENTS)
 
+    # Built once, here. snapshot asks xcodebuild to build and then test on every
+    # run, and there are eighteen of them - two devices in nine languages. The
+    # build is the same every time, and checking it is still up to date costs
+    # about two minutes on a runner.
+    scan(
+      project: "OpenDocumentReader.xcodeproj",
+      scheme: "ODR Screenshots",
+      # not a device: this is the one build both simulators are photographed from
+      destination: "generic/platform=iOS Simulator",
+      derived_data_path: SCREENSHOT_BUILD_DIR,
+      build_for_testing: true,
+      skip_detect_devices: true
+    )
+
     # The Pro scheme, so no ad sdk is linked and no consent form can come up in
     # front of a picture. The two apps are the same app, and what differs - the
     # banner Lite carries - is not in a screenshot either way, so one set of
@@ -178,7 +211,18 @@ platform :ios do
       skip_helper_version_check: true,
       # the runner has no browser to open the summary in, and no one watching it
       skip_open_summary: true,
-      stop_after_first_error: true
+      stop_after_first_error: true,
+      # one device per xcodebuild rather than both at once: two simulators
+      # rendering on a three core runner took ten minutes over one, and ran the
+      # test out of the time XCTest allows it
+      concurrent_simulators: false,
+      # the build above, photographed as it stands
+      derived_data_path: SCREENSHOT_BUILD_DIR,
+      test_without_building: true,
+      # the language the app is given is not the language the status bar is
+      # drawn in, and an iPad's status bar carries the date. Without this it
+      # reads Mon Aug 17 over a Russian document.
+      localize_simulator: true
     )
 
     # A raw capture is not what the store shows. The framing is separate from the
@@ -189,12 +233,16 @@ platform :ios do
 
     # what came out is what the store would be given, so it is checked here
     # rather than at upload time on the other side of the run. A run narrowed to
-    # a few languages by hand has nothing to check against: half a set is what it
-    # was asked for.
-    if ENV["ODR_SCREENSHOT_LANGUAGES"].to_s.strip.empty?
-      sh(STORE_SCREENSHOTS, "--screenshots", FRAMED_DIR)
+    # some of the languages or to one of the devices has nothing to check
+    # against: half a set is what it was asked for, and the release checks the
+    # two halves together once both runners have handed theirs in.
+    narrowed = %w[ODR_SCREENSHOT_LANGUAGES ODR_SCREENSHOT_DEVICE ODR_SCREENSHOT_DEVICES]
+      .any? { |name| !ENV[name].to_s.strip.empty? }
+
+    if narrowed
+      UI.important("#{devices.join(', ')} in #{languages.join(', ')} is not a full set, so it is not checked")
     else
-      UI.important("only #{languages.join(', ')} were captured, so the set is not checked")
+      sh(STORE_SCREENSHOTS, "--screenshots", FRAMED_DIR)
     end
   end
 

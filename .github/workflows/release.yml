@@ -184,8 +184,19 @@ jobs:
   # Beside the build rather than behind it: it signs nothing and uploads nothing,
   # it just drives simulators, and it takes about as long. On a dry run too -
   # the artifact is the only way to look at the pictures before the store does.
+  # A runner per device rather than one doing both. Two simulators on the seven
+  # gigabytes a runner has spent their time swapping, and the runs took five
+  # times as long as they do alone; a device to a machine is that, structurally.
+  # It halves the wall clock as well, since the two halves photograph at once.
   screenshots:
     runs-on: macos-26
+    # long by nature, but the default is six hours for a wedged simulator to sit in
+    timeout-minutes: 180
+    strategy:
+      # one device failing should not throw away the other's hour of work
+      fail-fast: false
+      matrix:
+        device: [iphone, ipad]
     steps:
       - name: checkout
         uses: actions/checkout@v7
@@ -205,16 +216,28 @@ jobs:
           python-version: "3.13"
       - run: python3 -m pip install --quiet Pillow
 
-      # the lane checks the set it produced, so a language that came out short
-      # fails here rather than half way up to App Store Connect
-      - name: photograph both devices in every locale
+      # The lane builds once into build/screenshots and photographs eighteen
+      # times without building again. Keeping it means a rerun starts at the
+      # first simulator instead of at the compiler. Keyed on everything the
+      # build reads, so a stale one is never used - only ever missed.
+      - name: reuse the last build
+        uses: actions/cache@v4
+        with:
+          path: build/screenshots
+          key: screenshots-${{ matrix.device }}-${{ runner.os }}-${{ env.xcode_version }}-${{ hashFiles('OpenDocumentReader.xcodeproj/project.pbxproj', 'OpenDocumentReader.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'OpenDocumentReader/**', 'OpenDocumentReaderUITests/**', 'Ads/**', 'NoAds/**', 'configs/**', 'scripts/make-screenshot-documents.py') }}
+
+      # half a set, so the lane does not check it - the job below does, once
+      # both halves are in
+      - name: photograph the ${{ matrix.device }} in every locale
+        env:
+          ODR_SCREENSHOT_DEVICE: ${{ matrix.device }}
         run: bundle exec fastlane ios screenshots
 
       # what the store is given
       - name: archive the framed screenshots
         uses: actions/upload-artifact@v7
         with:
-          name: framed
+          name: framed-${{ matrix.device }}
           path: fastlane/framed
           if-no-files-found: error
           # png, so there is nothing left to squeeze out of them
@@ -223,19 +246,71 @@ jobs:
       # and what they were framed from, which is where to look when a picture
       # comes out wrong
       - name: archive the raw captures
+        # also when the lane failed: a half finished set is what says which
+        # language it got to
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: screenshots
+          name: screenshots-${{ matrix.device }}
           path: fastlane/screenshots
-          if-no-files-found: error
+          if-no-files-found: warn
           compression-level: 0
 
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: screenshot-log
+          name: screenshot-log-${{ matrix.device }}
           path: ~/Library/Logs/snapshot
           if-no-files-found: warn
+
+  # The two halves put back together, and only now checked: a set is both
+  # devices in every locale, and neither runner above can see the other's.
+  # Republished under the names the release reads.
+  screenshot-set:
+    needs: screenshots
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: fetch both halves
+        uses: actions/download-artifact@v8
+        with:
+          pattern: framed-*
+          merge-multiple: true
+          path: fastlane/framed
+
+      - name: fetch what they were framed from
+        uses: actions/download-artifact@v8
+        with:
+          pattern: screenshots-*
+          merge-multiple: true
+          path: fastlane/screenshots
+
+      # the check the lane cannot do on half a set: every locale, both devices,
+      # at a size App Store Connect takes
+      - name: check the set
+        run: scripts/store_screenshots.py --screenshots fastlane/framed
+
+      - name: archive the framed screenshots
+        uses: actions/upload-artifact@v7
+        with:
+          name: framed
+          path: fastlane/framed
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: archive the raw captures
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshots
+          path: fastlane/screenshots
+          if-no-files-found: warn
+          compression-level: 0
 
   # a job per app, fail-fast off, so "Re-run failed jobs" can retry one half
   upload:
@@ -275,7 +350,7 @@ jobs:
   # while a build cannot be uploaded twice. No macOS runner: this touches the
   # listing, not the app
   listing:
-    needs: [upload, screenshots]
+    needs: [upload, screenshot-set]
     if: ${{ !inputs.dry_run }}
     runs-on: ubuntu-24.04
     strategy:
