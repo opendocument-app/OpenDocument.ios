@@ -17,6 +17,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
     private var hasStartedAds = false
+    /// The navigation that is putting a document on screen, as opposed to the
+    /// "loading" or the error page. Nothing but a screenshot asks.
+    private var documentNavigation: WKNavigation?
     public var transitionController: UIDocumentBrowserTransitionController? {
         didSet {
             if let controller = transitionController {
@@ -250,6 +253,54 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateSearchButton()
+
+        // the document is drawn, which is what a screenshot of it waits for -
+        // and only the document: the "loading" page finishes first, and a
+        // picture of it is a picture of the word "loading"
+        if let documentNavigation, navigation === documentNavigation {
+            stageScreenshot()
+        }
+    }
+
+    /// Puts the document into the state its screenshot is of, and only then
+    /// says it is ready. A picture of a search is a picture of its hits.
+    private func stageScreenshot() {
+        switch ScreenshotMode.screen {
+        // The search is shown on the ODF document rather than on the pdf: as of
+        // odrcore 6.7.0 a hit in a pdf is drawn beside the word it found, not on
+        // it. Move this back to `.pdf` once a core lands that places it right.
+        case .text:
+            let query = ScreenshotMode.query
+            showSearchBar()
+            searchBar.text = query
+            // the hits are the picture, not a keyboard sitting over them
+            searchBar.resignFirstResponder()
+
+            // Ready once the hits are drawn, not once they are asked for: the
+            // call is asynchronous, and a picture taken in between is a picture
+            // of the page unsearched.
+            callSearch("odr.search", with: query) { [weak self] in
+                guard let self else { return }
+
+                ScreenshotMode.markReady(self.view)
+            }
+
+            return
+
+        case .edit:
+            // Entering an edit reloads the page as editable, so this comes back
+            // here a second time - and that pass is the one worth photographing.
+            guard document?.edit == true else {
+                editDocument()
+
+                return
+            }
+
+        default:
+            break
+        }
+
+        ScreenshotMode.markReady(view)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -521,7 +572,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         callSearch("odr.search", with: searchText)
     }
 
-    private func callSearch(_ function: String, with searchText: String) {
+    private func callSearch(
+        _ function: String, with searchText: String, then finish: (() -> Void)? = nil
+    ) {
         // an unescaped quote or backslash in the query would break the call
         // apart rather than search for itself
         let escaped =
@@ -529,10 +582,18 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             .replacingOccurrences(of: "\\", with: "\\\\")
             .replacingOccurrences(of: "\"", with: "\\\"")
 
-        webview?.evaluateJavaScript("\(function)(\"\(escaped)\")") { _, error in
+        guard let webview else {
+            finish?()
+
+            return
+        }
+
+        webview.evaluateJavaScript("\(function)(\"\(escaped)\")") { _, error in
             if let error {
                 CrashManager.shared.log(error)
             }
+
+            finish?()
         }
     }
 
@@ -701,6 +762,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     func documentUpdateContent(_ doc: Document) {
         guard let url = doc.result else {
+            documentNavigation = nil
             self.webview.loadHTMLString(
                 "<html><h1>\(NSLocalizedString("loading", comment: ""))</h1></html>", baseURL: nil)
 
@@ -712,9 +774,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // pages come off the loopback server; a file URL needs read access
         // granted along with it
         if url.isFileURL {
-            self.webview.loadFileURL(url, allowingReadAccessTo: url)
+            documentNavigation = self.webview.loadFileURL(url, allowingReadAccessTo: url)
         } else {
-            self.webview.load(URLRequest(url: url))
+            documentNavigation = self.webview.load(URLRequest(url: url))
         }
     }
 
@@ -760,7 +822,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         let fileName = doc.fileURL.absoluteString.lowercased()
         if systemRenderedExtensions.contains(where: fileName.hasSuffix) {
             // not odrcore's to render, but the web view knows the format
-            self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
+            documentNavigation = self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
 
             canEdit = false
             canSearch = false
@@ -775,6 +837,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
+        documentNavigation = nil
         self.webview.loadHTMLString(
             "<html><h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))</html>",
             baseURL: nil)

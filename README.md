@@ -120,13 +120,14 @@ in App Store Connect:
 gh workflow run release.yml -f version=1.38
 ```
 
-It runs as four jobs:
+It runs as five jobs:
 
 | job | what it does |
 | --- | --- |
 | `build` | one run producing both signed `.ipa`s, archived on the run |
+| `screenshots` | beside the build: photographs the app on two devices, in every locale |
 | `upload` | one job per app, uploading its `.ipa` |
-| `listing` | one job per app, writing what the store says about it |
+| `listing` | one job per app, writing what the store says and shows about it |
 | `record` | once both landed: tag the build, draft the GitHub release |
 
 Both apps always go out together, and nothing chooses one: Pro and Lite are the
@@ -168,6 +169,36 @@ and what one of them says instead is in `fastlane/metadata-pro/` or
 an app's name is unique in the store, and the one sentence about ads inside the
 description. `review_information` and the categories are left out. See
 `fastlane/metadata/README.md`.
+
+### The screenshots
+
+Taken during the release run rather than committed, because a screenshot is only
+worth what the build it was taken from is worth:
+
+```sh
+bundle exec fastlane ios screenshots
+```
+
+Six pictures per device - the folder, a text document, a spreadsheet, an edit
+under way, a pdf and a Word file - on a 6.9" iPhone and a 13" iPad, in the nine
+store locales the app is translated into. `hi` and `sv` are given the English
+set, which is what those storefronts would show anyway.
+
+The documents in them are localized too. They are not committed: the lane runs
+`scripts/make-screenshot-documents.py` before the build, because they are build
+output and nothing but a screenshot run opens them. Building the app needs
+none of it.
+
+Nothing is tapped to get there. The app takes `-ODRScreenshot <screen>` in Debug
+builds and puts itself on that screen, so the same picture comes out in every
+language without driving Apple's document browser in eleven of them - see
+`OpenDocumentReader/ScreenshotMode.swift` and the `ODR Screenshots` scheme.
+`scripts/store_screenshots.py` checks the set against the sizes App Store
+Connect takes, and the `listing` job hands it to `deliver` alongside the text.
+The same set goes to both apps.
+
+The run archives them as the `screenshots` artifact, on a dry run too - which is
+how to look at them before the store does. See `fastlane/screenshots/README.md`.
 
 Nothing has to be committed to cut a release, and a release leaves no commit
 behind either. Both halves of the version come from outside the tree:
@@ -231,6 +262,11 @@ ODR_DRY_RUN=true bundle exec fastlane deployPro   # build and sign only
 `deployPro` is `buildPro` followed by `uploadPro`, which the workflow runs as
 separate jobs. `uploadPro` takes the `.ipa` already in `build/` rather than making
 one, and `resolveBuildNumber` prints the number both apps would get.
+
+`uploadListingPro` writes the text and, if `fastlane/screenshots` holds a set,
+the pictures with it - so fixing a word in a description by hand does not cost a
+quarter of an hour of simulators, while a release run, which always captures
+first, sends both.
 
 ### Tags
 

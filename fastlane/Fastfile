@@ -18,9 +18,26 @@ APPS = {
 # Resolved at parse time, which fastlane also does from fastlane/.
 IPA_DIR = File.expand_path("../build").freeze
 
-# Absolute for the same reason. It resolves the repository from its own path, so
-# it does not care which of the two it is called from.
+# Absolute for the same reason. They resolve the repository from their own path,
+# so they do not care which of the two they are called from.
 STORE_LISTING = File.expand_path("../scripts/store-listing.py").freeze
+STORE_SCREENSHOTS = File.expand_path("../scripts/store_screenshots.py").freeze
+FRAME_SCREENSHOTS = File.expand_path("../scripts/frame-screenshots.py").freeze
+MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").freeze
+
+# Where snapshot writes, and where the framed set goes. Neither is committed:
+# a picture of the app is worth what the build it was taken from is.
+SCREENSHOT_DIR = File.expand_path("screenshots").freeze
+FRAMED_DIR = File.expand_path("framed").freeze
+
+# The two sizes App Store Connect asks an app that runs on both for, named by
+# whatever the runner's Xcode calls them. Newest first, and the first one the
+# runner actually has wins - a simulator's name changes with every Xcode, the
+# number of pixels it has does not, and store_screenshots.py checks that.
+SCREENSHOT_DEVICES = [
+  ["iPhone 17 Pro Max", "iPhone 16 Pro Max", "iPhone 15 Pro Max"],
+  ["iPad Pro 13-inch (M5)", "iPad Pro 13-inch (M4)", "iPad Pro (12.9-inch) (6th generation)"],
+].freeze
 
 def dry_run?
   ENV["ODR_DRY_RUN"].to_s.strip == "true"
@@ -29,6 +46,62 @@ end
 def github_output(name, value)
   output = ENV["GITHUB_OUTPUT"]
   File.open(output, "a") { |out| out.write("#{name}=#{value}\n") } if output
+end
+
+# The simulators this machine has, by the iOS they run: the same model name
+# usually exists on several, and which one a bare name resolves to is luck.
+def simulators_by_ios
+  runtime = nil
+
+  `xcrun simctl list devices available`.lines.each_with_object({}) do |line, found|
+    if (version = line[/^-- iOS ([0-9.]+) --/, 1])
+      runtime = version
+      found[runtime] ||= []
+    elsif runtime && (name = line[/^\s+(.+?) \([0-9A-F-]{36}\)/, 1])
+      found[runtime] << name
+    end
+  end
+end
+
+# The newest iOS installed. The store shows what the app looks like now, and a
+# picture taken on last year's iOS is last year's buttons.
+def screenshot_ios
+  given = ENV["ODR_SCREENSHOT_IOS"].to_s.strip
+  return given unless given.empty?
+
+  newest = simulators_by_ios.keys.max_by { |version| Gem::Version.new(version) }
+  UI.user_error!("this machine has no iOS simulator runtime installed") unless newest
+
+  newest
+end
+
+# The locales to photograph. Every one the app is translated into, unless
+# ODR_SCREENSHOT_LANGUAGES names fewer - which is how to look at one language's
+# pictures without waiting out the other eight.
+def screenshot_languages
+  given = ENV["ODR_SCREENSHOT_LANGUAGES"].to_s.strip
+  return given.split(",").map(&:strip) unless given.empty?
+
+  sh(STORE_SCREENSHOTS, "--languages", log: false).split("\n").map(&:strip).reject(&:empty?)
+end
+
+# One simulator per device the store wants, out of the ones that run the iOS
+# being photographed, or a failure naming what is there instead - which beats
+# xcodebuild spending twenty minutes not finding it.
+def screenshot_devices(ios)
+  given = ENV["ODR_SCREENSHOT_DEVICES"].to_s.strip
+  return given.split(",").map(&:strip) unless given.empty?
+
+  available = simulators_by_ios.fetch(ios, [])
+
+  SCREENSHOT_DEVICES.map do |candidates|
+    candidates.find { |name| available.include?(name) } ||
+      UI.user_error!(
+        "none of #{candidates.join(', ')} runs iOS #{ios}. That runtime has: " \
+        "#{available.uniq.sort.join(', ')}. Set ODR_SCREENSHOT_DEVICES or " \
+        "ODR_SCREENSHOT_IOS to pick by hand."
+      )
+  end
 end
 
 platform :ios do
@@ -60,6 +133,69 @@ platform :ios do
   desc "Write the ad supported app's listing, and ODR_VERSION's release notes, to the store"
   lane :uploadListingLite do
     upload_listing(APPS[:lite])
+  end
+
+  desc "Take the App Store screenshots of both devices, in every locale the app is translated into"
+  lane :screenshots do
+    languages = screenshot_languages
+    ios = screenshot_ios
+    devices = screenshot_devices(ios)
+
+    UI.message("photographing #{devices.join(' and ')} on iOS #{ios} in #{languages.join(', ')}")
+
+    # The documents in the pictures, written rather than committed: they are
+    # build output, and the only thing that opens them is the run below. Ahead
+    # of the build, because the target picks its resources up off the disk as
+    # it starts - a file written later lands in the next build, not this one.
+    sh(MAKE_DOCUMENTS)
+
+    # The Pro scheme, so no ad sdk is linked and no consent form can come up in
+    # front of a picture. The two apps are the same app, and what differs - the
+    # banner Lite carries - is not in a screenshot either way, so one set of
+    # pictures goes to both listings.
+    capture_ios_screenshots(
+      project: "OpenDocumentReader.xcodeproj",
+      scheme: "ODR Screenshots",
+      devices: devices,
+      # pinned, or the same model name on an older runtime answers instead and
+      # the store gets a picture of last year's iOS
+      ios_version: ios,
+      languages: languages,
+      output_directory: SCREENSHOT_DIR,
+      # 9:41 and a full battery, as Apple's own screenshots have. Spelled out
+      # because the default asks for "charged", which iOS 26 draws as a green
+      # charging battery - Apple's own pictures show a plain full one.
+      override_status_bar: true,
+      override_status_bar_arguments:
+        "--time 9:41 --dataNetwork wifi --wifiMode active --wifiBars 3 " \
+        "--cellularMode active --cellularBars 4 --batteryState discharging --batteryLevel 100",
+      # a rerun replaces the set rather than adding to it
+      clear_previous_screenshots: true,
+      # snapshot refuses to start without a file named SnapshotHelper.swift,
+      # and checks its version marker. We do not carry theirs - the hand-off is
+      # OpenDocumentReaderUITests/Snapshots.swift, which is ours - so there is
+      # nothing for it to find and nothing for it to check.
+      skip_helper_version_check: true,
+      # the runner has no browser to open the summary in, and no one watching it
+      skip_open_summary: true,
+      stop_after_first_error: true
+    )
+
+    # A raw capture is not what the store shows. The framing is separate from the
+    # photography so that changing a headline costs a second of Pillow rather
+    # than a quarter hour of simulators - rerun this script alone after an edit
+    # to fastlane/frames/frames.json.
+    sh(FRAME_SCREENSHOTS)
+
+    # what came out is what the store would be given, so it is checked here
+    # rather than at upload time on the other side of the run. A run narrowed to
+    # a few languages by hand has nothing to check against: half a set is what it
+    # was asked for.
+    if ENV["ODR_SCREENSHOT_LANGUAGES"].to_s.strip.empty?
+      sh(STORE_SCREENSHOTS, "--screenshots", FRAMED_DIR)
+    else
+      UI.important("only #{languages.join(', ')} were captured, so the set is not checked")
+    end
   end
 
   desc "Build and upload the paid app"
@@ -244,12 +380,22 @@ platform :ios do
     UI.user_error!("no version to write notes for: set ODR_VERSION (e.g. ODR_VERSION=1.41)") if version.empty?
 
     notes_dir = Dir.mktmpdir("release-notes")
+    shots_dir = Dir.mktmpdir("release-screenshots")
     key_path = nil
 
     begin
       # first, so a version some locale has no copy for fails before a key is
       # ever written to disk
       sh(STORE_LISTING, "--version", version, "--stage", notes_dir, "--app", options[:name])
+
+      # A run with nothing captured writes the text alone, so fixing a word in a
+      # description does not cost a quarter hour of simulators. A run with
+      # something captured has to have all of it: half a set is worse in the
+      # store than the set already up there.
+      captured = !Dir.glob(File.join(FRAMED_DIR, "*", "*.png")).empty?
+      sh(STORE_SCREENSHOTS, "--screenshots", FRAMED_DIR, "--stage", shots_dir) if captured
+      UI.important("no screenshots under #{FRAMED_DIR} - writing the text only") unless captured
+
       key_path = api_key_file
 
       upload_to_app_store(
@@ -259,9 +405,13 @@ platform :ios do
         # usual case: the build is still processing when this runs
         app_version: version,
         metadata_path: notes_dir,
+        screenshots_path: shots_dir,
         skip_binary_upload: true,
-        skip_screenshots: true,
+        skip_screenshots: !captured,
         skip_metadata: false,
+        # the set replaces what is up there rather than joining it, or a locale
+        # keeps whichever of last release's pictures this one has no answer to
+        overwrite_screenshots: captured,
         # deliver otherwise opens an HTML preview and waits to be told it is fine
         force: true,
         # same as the binary upload: precheck cannot read in-app purchases with
@@ -272,6 +422,7 @@ platform :ios do
     ensure
       FileUtils.remove_entry(File.dirname(key_path), true) if key_path
       FileUtils.remove_entry(notes_dir, true)
+      FileUtils.remove_entry(shots_dir, true)
     end
   end
 end

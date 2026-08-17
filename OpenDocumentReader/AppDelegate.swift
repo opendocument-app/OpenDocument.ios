@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        // does nothing unless this launch was asked for a screenshot, and has to
+        // be ahead of anything that reads the defaults it settles
+        ScreenshotMode.prepare()
+
         StoreReviewHelper.incrementAppOpenedCount()
 
         return true

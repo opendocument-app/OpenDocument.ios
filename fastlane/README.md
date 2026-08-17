@@ -63,6 +63,14 @@ Write the paid app's listing, and ODR_VERSION's release notes, to the store
 
 Write the ad supported app's listing, and ODR_VERSION's release notes, to the store
 
+### ios screenshots
+
+```sh
+[bundle exec] fastlane ios screenshots
+```
+
+Take the App Store screenshots of both devices, in every locale the app is translated into
+
 ### ios deployPro
 
 ```sh

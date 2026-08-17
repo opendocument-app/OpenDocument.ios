@@ -181,6 +181,62 @@ jobs:
             build/*.app.dSYM.zip
           if-no-files-found: warn
 
+  # Beside the build rather than behind it: it signs nothing and uploads nothing,
+  # it just drives simulators, and it takes about as long. On a dry run too -
+  # the artifact is the only way to look at the pictures before the store does.
+  screenshots:
+    runs-on: macos-26
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.xcode_version }}
+
+      # the framing draws with Pillow, which is the one thing the scripts here
+      # want that is not in the standard library
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: python3 -m pip install --quiet Pillow
+
+      # the lane checks the set it produced, so a language that came out short
+      # fails here rather than half way up to App Store Connect
+      - name: photograph both devices in every locale
+        run: bundle exec fastlane ios screenshots
+
+      # what the store is given
+      - name: archive the framed screenshots
+        uses: actions/upload-artifact@v7
+        with:
+          name: framed
+          path: fastlane/framed
+          if-no-files-found: error
+          # png, so there is nothing left to squeeze out of them
+          compression-level: 0
+
+      # and what they were framed from, which is where to look when a picture
+      # comes out wrong
+      - name: archive the raw captures
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshots
+          path: fastlane/screenshots
+          if-no-files-found: error
+          compression-level: 0
+
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: screenshot-log
+          path: ~/Library/Logs/snapshot
+          if-no-files-found: warn
+
   # a job per app, fail-fast off, so "Re-run failed jobs" can retry one half
   upload:
     needs: build
@@ -219,7 +275,7 @@ jobs:
   # while a build cannot be uploaded twice. No macOS runner: this touches the
   # listing, not the app
   listing:
-    needs: upload
+    needs: [upload, screenshots]
     if: ${{ !inputs.dry_run }}
     runs-on: ubuntu-24.04
     strategy:
@@ -243,6 +299,13 @@ jobs:
         env:
           given: ${{ inputs.version }}
         run: .github/scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
+
+      # where the lane looks for them, and the same set both apps are given
+      - name: fetch the screenshots
+        uses: actions/download-artifact@v8
+        with:
+          name: framed
+          path: fastlane/framed
 
       - name: write ${{ matrix.app }}'s listing
         env:

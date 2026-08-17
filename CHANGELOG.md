@@ -21,19 +21,20 @@ once the version tag exists.
 
 ### Changed
 
-- The engine is odrcore 6.7.1, up from 6.6.0. A pdf, a text file and an archive
-  listing can be searched, not only a document. A pdf's text also sits where the
-  file puts it: words no longer drift to the right of where they belong, bold
-  and italic are bold and italic, and a hit is highlighted in one piece.
+- The engine is odrcore 6.7.1, up from 6.6.0. Pdfs, text files and archive
+  listings can be searched too, and a pdf's text sits where the file puts it.
 - PDFs are rendered by odrcore instead of being handed to the web view, and a
   password protected one takes the prompt the other formats use. They can be
-  searched like a document, and a hit tints the text rather than covering it.
+  searched like a document.
 - The search button leaves the tool bar when the page cannot be searched,
   rather than greying out - the same as the edit button.
 - The pencil turns into a save button while editing, as on Android. Saving from
   the bar ends the edit and shows what was written; a save that failed stays in
   it. Saving has left the menu; discarding is still there and now leaves edit
   mode.
+- The App Store screenshots are taken by the release run, from the build going
+  out, instead of being made by hand: six per device on an iPhone and an iPad,
+  in every language the app speaks.
 
 ### Fixed
 
