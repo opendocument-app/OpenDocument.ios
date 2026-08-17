@@ -713,7 +713,7 @@
 			repositoryURL = "https://github.com/opendocument-app/OpenDocument.core.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.6.0;
+				minimumVersion = 6.7.1;
 			};
 		};
 		AD584FCD41577C8CDEE974AA /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {

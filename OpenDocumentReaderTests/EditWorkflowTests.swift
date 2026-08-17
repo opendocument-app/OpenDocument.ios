@@ -114,13 +114,7 @@ class EditWorkflowTests: XCTestCase {
                 })()
                 """) as? String
 
-        // odrcore 6.6.0 draws `.odr-page-outer` at `z-index:-1000`, which paints
-        // the page behind the column holding it; hit testing reads paint order,
-        // so every tap lands on that column. Delete this expectation - and it
-        // will insist on being deleted - once we ship a core without the rule.
-        XCTExpectFailure("the page is painted behind .odr-pages, which swallows the tap") {
-            XCTAssertEqual(tapped, "X-S")
-        }
+        XCTAssertEqual(tapped, "X-S")
     }
 
     /// Programmatic focus is not what the user does, but it proves the run is
