@@ -8,7 +8,7 @@
 #
 # `fastlane ios screenshots` takes the raw captures into fastlane/screenshots;
 # this reads them and writes the framed set to fastlane/framed, which is what
-# `scripts/store-screenshots.py` then checks and stages. The raw set is left
+# `scripts/store_screenshots.py` then checks and stages. The raw set is left
 # alone, so a framing change costs a rerun of this and not of the simulators.
 #
 # Nothing here is drawn from an image file. Every part of the design is a
@@ -24,12 +24,13 @@
 import argparse
 import bisect
 import functools
-import importlib.util
 import json
 import math
 import shutil
 import sys
 from pathlib import Path
+
+import store_screenshots as store
 
 try:
     from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
@@ -40,17 +41,6 @@ ROOT = Path(__file__).resolve().parent.parent
 FRAMES = ROOT / "fastlane" / "frames"
 CAPTURED = ROOT / "fastlane" / "screenshots"
 FRAMED = ROOT / "fastlane" / "framed"
-
-
-def load(path, name):
-    """Import a sibling script, whose file name is not an identifier."""
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-store = load(ROOT / "scripts" / "store-screenshots.py", "store_screenshots")
 
 # The design, as fractions of the canvas rather than pixels, because the canvas
 # is whatever the capture is - 1320x2868 today and something else after the next
@@ -669,7 +659,7 @@ def main(argv=None):
 
             with Image.open(path) as shot:
                 # a capture of a device the store does not ask for is left where
-                # it is; store-screenshots.py is what says the set is wrong
+                # it is; store_screenshots.py is what says the set is wrong
                 if store.device(*shot.size) is None:
                     print(f"{locale}: skipping {path.name}, {shot.width}x{shot.height} is no "
                           "size the store takes", file=sys.stderr)

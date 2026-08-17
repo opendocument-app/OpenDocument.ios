@@ -21,7 +21,7 @@ IPA_DIR = File.expand_path("../build").freeze
 # Absolute for the same reason. They resolve the repository from their own path,
 # so they do not care which of the two they are called from.
 STORE_LISTING = File.expand_path("../scripts/store-listing.py").freeze
-STORE_SCREENSHOTS = File.expand_path("../scripts/store-screenshots.py").freeze
+STORE_SCREENSHOTS = File.expand_path("../scripts/store_screenshots.py").freeze
 FRAME_SCREENSHOTS = File.expand_path("../scripts/frame-screenshots.py").freeze
 MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").freeze
 
@@ -33,7 +33,7 @@ FRAMED_DIR = File.expand_path("framed").freeze
 # The two sizes App Store Connect asks an app that runs on both for, named by
 # whatever the runner's Xcode calls them. Newest first, and the first one the
 # runner actually has wins - a simulator's name changes with every Xcode, the
-# number of pixels it has does not, and store-screenshots.py checks that.
+# number of pixels it has does not, and store_screenshots.py checks that.
 SCREENSHOT_DEVICES = [
   ["iPhone 17 Pro Max", "iPhone 16 Pro Max", "iPhone 15 Pro Max"],
   ["iPad Pro 13-inch (M5)", "iPad Pro 13-inch (M4)", "iPad Pro (12.9-inch) (6th generation)"],

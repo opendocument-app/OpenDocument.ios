@@ -193,7 +193,7 @@ Nothing is tapped to get there. The app takes `-ODRScreenshot <screen>` in Debug
 builds and puts itself on that screen, so the same picture comes out in every
 language without driving Apple's document browser in eleven of them - see
 `OpenDocumentReader/ScreenshotMode.swift` and the `ODR Screenshots` scheme.
-`scripts/store-screenshots.py` checks the set against the sizes App Store
+`scripts/store_screenshots.py` checks the set against the sizes App Store
 Connect takes, and the `listing` job hands it to `deliver` alongside the text.
 The same set goes to both apps.
 

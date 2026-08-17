@@ -8,9 +8,12 @@
 # release run, from the build going out, and handed to deliver from there.
 # `fastlane ios screenshots` takes them; this says what a full set is.
 #
-#   scripts/store-screenshots.py --languages          what to capture
-#   scripts/store-screenshots.py                      check what was captured
-#   scripts/store-screenshots.py --stage DIR          check it and stage it
+#   scripts/store_screenshots.py --languages          what to capture
+#   scripts/store_screenshots.py                      check what was captured
+#   scripts/store_screenshots.py --stage DIR          check it and stage it
+#
+# Named with an underscore, unlike its neighbours, because frame-screenshots.py
+# imports it and a hyphen is not an identifier.
 #
 # The store has eleven locales and the app is translated into nine of them.
 # The other two get the English pictures, which is what their storefront would

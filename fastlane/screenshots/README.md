@@ -33,7 +33,7 @@ shows them:
 | `04-slides` | a presentation |
 
 Two devices, because an app that runs on iPhone and iPad has to hand in both: a
-6.9" iPhone and a 13" iPad. `scripts/store-screenshots.py` holds the sizes App
+6.9" iPhone and a 13" iPad. `scripts/store_screenshots.py` holds the sizes App
 Store Connect accepts and checks the set against them; `Fastfile` holds the
 simulators to look for, newest first, because what a simulator is called
 changes with every Xcode and what it is worth does not.
