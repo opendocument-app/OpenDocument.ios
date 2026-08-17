@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "Dokument je chráněn heslem";
 
-/*  */
-"intro_title_open" = "Otevřete si a přečtěte soubory ODF, ať jste kdekoli!";
 
-/*  */
-"intro_title_edit" = "Našli jste v dokumentu překlep? Teď ho můžete opravit!";
 
-/*  */
-"intro_title_apps" = "Čtěte dokumenty přímo z jiných aplikací";
 
-/*  */
-"intro_description_open" = "OpenDocument Reader umožňuje prohlížet dokumenty uložené ve formátu OpenDocument (.odt, .ods, .odp a .odg). Tyto soubory obvykle vznikají v LibreOffice nebo OpenOffice. S touto aplikací je otevřete i v mobilu, takže si je přečtete, ať jste kdekoli.";
 
-/*  */
-"intro_description_edit" = "OpenDocument Reader dokumenty v mobilu nejen zobrazí, ale umí je i upravovat. Překlep tak opravíte během chvilky, klidně i ve vlaku.";
 
-/*  */
-"intro_description_apps" = "OpenDocument Reader umí otevřít dokumenty z celé řady dalších aplikací. Poslal vám kolega prezentaci přes Gmail? Klepněte na přílohu a aplikace se hned otevře.";
 
 /*  */
 "back_to_documents" = "Zpět na dokumenty";
@@ -74,9 +62,6 @@
 "error" = "Chyba";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "Další";
-"intro_skip" = "Přeskočit";
-"intro_start" = "Začít";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Soukromí";

@@ -41,11 +41,15 @@ once the version tag exists.
   `.xlm` can be picked in the document browser instead of being greyed out.
   odrcore rendered them already; the app claimed no type that reached them.
 - The app is translated again. Every language but English was showing English
-  for the onboarding buttons, the privacy screen and the banner, and Danish,
-  Catalan, Turkish and Czech showed it for most of the rest.
-- The Chinese introduction named a different app.
+  for the privacy screen and the banner, and Danish, Catalan, Turkish and Czech
+  showed it for most of the rest.
 - Tapping a document sets the cursor, so an edit can be typed. The keyboard
   never came up before.
+
+### Removed
+
+- The three onboarding pages on first launch. The app opens on the document
+  browser instead.
 
 ## [1.40]
 

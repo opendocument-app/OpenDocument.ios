@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "Tá an cháipéis seo cosanta le focal faire";
 
-/*  */
-"intro_title_open" = "Oscail agus léigh do chomhad ODF agus tú ar do bhealach!";
 
-/*  */
-"intro_title_edit" = "Botún cló i do cháipéis? Is féidir í a chur in eagar anois!";
 
-/*  */
-"intro_title_apps" = "Léigh do chuid cáipéisí ó fheidhmchláir eile";
 
-/*  */
-"intro_description_open" = "Ligeann OpenDocument Reader duit cáipéisí atá sábháilte i bhformáid OpenDocument (.odt, .ods, .odp agus .odg) a léamh. Is le LibreOffice nó OpenOffice a chruthaítear na comhaid seo de ghnáth. Leis an bhfeidhmchlár seo is féidir leat iad a oscailt ar do ghuthán freisin, le go mbeidh tú in ann iad a léamh agus tú ar do bhealach.";
 
-/*  */
-"intro_description_edit" = "Ní hamháin gur féidir leat cáipéisí a léamh ar do ghuthán le OpenDocument Reader, ach is féidir leat iad a chur in eagar chomh maith. Ceartaítear botúin chló gan stró, fiú amháin ar an traein!";
 
-/*  */
-"intro_description_apps" = "Tacaíonn OpenDocument Reader le raidhse mhór feidhmchlár eile as ar féidir cáipéisí a oscailt. Ar sheol comhghleacaí láithreoireacht chugat le Gmail? Cliceáil an ceangaltán agus osclóidh an feidhmchlár seo láithreach!";
 
 /*  */
 "back_to_documents" = "Ar ais go dtí na cáipéisí";
@@ -74,9 +62,6 @@
 "error" = "Earráid";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "Ar aghaidh";
-"intro_skip" = "Ná bac";
-"intro_start" = "Tosaigh";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Príobháideachas";

@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "このドキュメントはパスワードで保護されています";
 
-/*  */
-"intro_title_open" = "外出先でも ODF ファイルを開いて読めます";
 
-/*  */
-"intro_title_edit" = "誤字を見つけたら、その場で直せます";
 
-/*  */
-"intro_title_apps" = "ほかのアプリからドキュメントを開けます";
 
-/*  */
-"intro_description_open" = "OpenDocument Reader は、OpenDocument 形式（.odt、.ods、.odp、.odg）で保存されたドキュメントを表示できます。これらのファイルは通常 LibreOffice や OpenOffice で作成されます。このアプリならモバイルデバイスでも開けるので、外出先でも読むことができます。";
 
-/*  */
-"intro_description_edit" = "OpenDocument Reader は、モバイルデバイスでドキュメントを読むだけでなく、編集にも対応しています。誤字なら電車の中でもすぐに直せます。";
 
-/*  */
-"intro_description_apps" = "OpenDocument Reader は、ドキュメントを開く元となるアプリを幅広くサポートしています。同僚が Gmail でプレゼンテーションを送ってきたら、添付ファイルをタップするだけでこのアプリがすぐに開きます。";
 
 /*  */
 "back_to_documents" = "ドキュメントに戻る";
@@ -74,9 +62,6 @@
 "error" = "エラー";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "次へ";
-"intro_skip" = "スキップ";
-"intro_start" = "はじめる";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "プライバシー";

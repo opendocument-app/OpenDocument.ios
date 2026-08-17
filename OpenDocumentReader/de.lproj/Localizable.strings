@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "Dieses Dokument ist passwortgeschützt";
 
-/*  */
-"intro_title_open" = "Öffnen und lesen Sie Ihre ODF-Dateien unterwegs!";
 
-/*  */
-"intro_title_edit" = "Tippfehler im Dokument gefunden? Jetzt lässt es sich auch bearbeiten!";
 
-/*  */
-"intro_title_apps" = "Lesen Sie Ihre Dokumente aus anderen Apps heraus";
 
-/*  */
-"intro_description_open" = "OpenDocument Reader zeigt Dokumente an, die im OpenDocument-Format (.odt, .ods, .odp und .odg) gespeichert sind. Diese Dateien werden meist mit LibreOffice oder OpenOffice erstellt. Mit dieser App öffnen Sie solche Dateien auch auf Ihrem Gerät und lesen sie unterwegs.";
 
-/*  */
-"intro_description_edit" = "Mit OpenDocument Reader können Sie Dokumente auf Ihrem Gerät nicht nur lesen, sondern auch bearbeiten. Tippfehler sind im Nu behoben – sogar im Zug!";
 
-/*  */
-"intro_description_apps" = "OpenDocument Reader öffnet Dokumente aus einer Vielzahl anderer Apps. Ein Kollege hat eine Präsentation über Gmail geschickt? Tippen Sie auf den Anhang und die App öffnet sich sofort!";
 
 /*  */
 "back_to_documents" = "Zurück zu den Dokumenten";
@@ -74,9 +62,6 @@
 "error" = "Fehler";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "Weiter";
-"intro_skip" = "Überspringen";
-"intro_start" = "Starten";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Datenschutz";

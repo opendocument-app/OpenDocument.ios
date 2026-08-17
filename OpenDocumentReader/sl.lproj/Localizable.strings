@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "Dokument je zaščiten z geslom";
 
-/*  */
-"intro_title_open" = "Odprite in berite svoje datoteke ODF, kjer koli ste!";
 
-/*  */
-"intro_title_edit" = "Ste v dokumentu našli tipkarsko napako? Zdaj ga lahko tudi uredite!";
 
-/*  */
-"intro_title_apps" = "Berite dokumente kar iz drugih aplikacij";
 
-/*  */
-"intro_description_open" = "OpenDocument Reader omogoča ogled dokumentov v zapisu OpenDocument (.odt, .ods, .odp in .odg). Take datoteke običajno nastanejo v LibreOfficeu ali OpenOfficeu. S to aplikacijo jih odprete tudi na mobilni napravi in jih berete na poti.";
 
-/*  */
-"intro_description_edit" = "Z OpenDocument Readerjem dokumentov ne le berete na mobilni napravi, ampak jih lahko tudi urejate. Tipkarsko napako popravite v hipu, tudi na vlaku!";
 
-/*  */
-"intro_description_apps" = "OpenDocument Reader podpira odpiranje dokumentov iz številnih drugih aplikacij. Vam je sodelavec po Gmailu poslal predstavitev? Tapnite priponko in aplikacija se odpre takoj!";
 
 /*  */
 "back_to_documents" = "Nazaj na dokumente";
@@ -74,9 +62,6 @@
 "error" = "Napaka";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "Naprej";
-"intro_skip" = "Preskoči";
-"intro_start" = "Začni";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Zasebnost";

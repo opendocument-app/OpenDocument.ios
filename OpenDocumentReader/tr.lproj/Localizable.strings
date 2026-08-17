@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "Bu belge parola korumalı";
 
-/*  */
-"intro_title_open" = "ODF dosyalarınızı nerede olursanız olun açın ve okuyun!";
 
-/*  */
-"intro_title_edit" = "Belgenizde yazım hatası mı var? Artık düzenleme de yapabilirsiniz!";
 
-/*  */
-"intro_title_apps" = "Belgelerinizi diğer uygulamaların içinden okuyun";
 
-/*  */
-"intro_description_open" = "OpenDocument Reader, OpenDocument biçiminde (.odt, .ods, .odp ve .odg) saklanan belgeleri görüntülemenizi sağlar. Bu dosyalar genellikle LibreOffice veya OpenOffice ile oluşturulur. Bu uygulama sayesinde onları mobil cihazınızda da açabilir, hareket halindeyken okuyabilirsiniz.";
 
-/*  */
-"intro_description_edit" = "OpenDocument Reader belgeleri mobil cihazınızda okumakla kalmaz, düzenlemenize de olanak tanır. Yazım hatalarını trende bile kolayca düzeltirsiniz!";
 
-/*  */
-"intro_description_apps" = "OpenDocument Reader, belgeleri çok sayıda başka uygulamadan açmayı destekler. Bir iş arkadaşınız Gmail ile sunum mu gönderdi? Eke dokunmanız yeterli, uygulama hemen açılır!";
 
 /*  */
 "back_to_documents" = "Belgelere dön";
@@ -74,9 +62,6 @@
 "error" = "Hata";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "İleri";
-"intro_skip" = "Atla";
-"intro_start" = "Başla";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Gizlilik";

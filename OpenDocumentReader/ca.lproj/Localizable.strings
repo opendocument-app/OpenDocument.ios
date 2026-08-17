@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "El document està protegit amb contrasenya";
 
-/*  */
-"intro_title_open" = "Llegeix els teus fitxers ODF allà on siguis!";
 
-/*  */
-"intro_title_edit" = "Has trobat una errada al document? Ara també el pots modificar!";
 
-/*  */
-"intro_title_apps" = "Llegeix els documents des d'altres apps";
 
-/*  */
-"intro_description_open" = "L'OpenDocument Reader et permet veure documents desats en format OpenDocument (.odt, .ods, .odp i .odg). Aquests fitxers se solen crear amb el LibreOffice o l'OpenOffice. Amb aquesta app també els pots obrir al mòbil i llegir-los allà on siguis.";
 
-/*  */
-"intro_description_edit" = "L'OpenDocument Reader no només et deixa llegir documents al mòbil: també et permet modificar-los. Corregir una errada és qüestió de segons, fins i tot al tren!";
 
-/*  */
-"intro_description_apps" = "L'OpenDocument Reader es pot obrir des de moltes altres apps. Un company t'ha enviat una presentació per Gmail? Toca l'adjunt i l'app s'obrirà a l'instant!";
 
 /*  */
 "back_to_documents" = "Torna als documents";
@@ -74,9 +62,6 @@
 "error" = "Error";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "Següent";
-"intro_skip" = "Omet";
-"intro_start" = "Comença";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Privadesa";

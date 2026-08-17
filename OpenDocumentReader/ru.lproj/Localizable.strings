@@ -46,23 +46,11 @@
 /*  */
 "toast_error_password_protected" = "Документ защищен паролем";
 
-/*  */
-"intro_title_open" = "Открывайте и читайте файлы ODF прямо на ходу!";
 
-/*  */
-"intro_title_edit" = "Нашли опечатку в документе? Теперь его можно редактировать!";
 
-/*  */
-"intro_title_apps" = "Читайте документы прямо из других приложений";
 
-/*  */
-"intro_description_open" = "OpenDocument Reader позволяет просматривать документы, сохраненные в формате OpenDocument (.odt, .ods, .odp и .odg). Эти файлы обычно создаются в программах LibreOffice или OpenOffice. С помощью приложения вы также можете открывать такие файлы на мобильном устройстве и читать их прямо на ходу.";
 
-/*  */
-"intro_description_edit" = "OpenDocument Reader позволяет не только читать документы на мобильном устройстве, но и редактировать их. Исправить опечатку легко даже в поезде!";
 
-/*  */
-"intro_description_apps" = "OpenDocument Reader открывает документы из множества других приложений. Коллега прислал презентацию по Gmail? Нажмите на вложение, и приложение откроется сразу же!";
 
 /*  */
 "back_to_documents" = "Вернуться к документам";
@@ -74,9 +62,6 @@
 "error" = "Ошибка";
 
 /* Onboarding buttons. Were hardcoded English in Constants.swift before. */
-"intro_next" = "Далее";
-"intro_skip" = "Пропустить";
-"intro_start" = "Начать";
 
 /* Entry point in the document browser that reopens the advertising consent choices */
 "privacy" = "Конфиденциальность";
