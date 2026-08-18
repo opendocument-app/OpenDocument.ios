@@ -138,6 +138,10 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         // look like, and what makes odrcore call a text document paged: its
         // pages are then fitted to the screen rather than shown at full size
         config.textDocumentMargin = true
+        // the reader's own appearance: odrcore writes a dark sheet behind a
+        // `prefers-color-scheme: dark`, which the web view answers from the
+        // system setting. A pdf has no dark view and stays light.
+        config.colorScheme = .system
         // served with the pages rather than inlined as base64
         config.embedImages = false
         // odrcore's own css and js go into the page: there is no output

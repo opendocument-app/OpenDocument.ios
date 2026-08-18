@@ -1,4 +1,6 @@
+- Documents follow your light or dark appearance
 - PDFs can be searched, and password protected ones ask for the password like other documents
+- PDFs show what was filled into their forms, and scanned pages are no longer blank
 - Tapping a document while editing puts the cursor there, and saving is now on the bar rather than in the menu
 - LibreOffice's flat XML documents and Excel templates open from the document browser instead of being greyed out
 - The three welcome pages are gone, so the app opens straight on your documents
