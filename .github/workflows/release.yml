@@ -355,11 +355,6 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
-      # One app at a time. Both listings carry the same 132 pictures, and run
-      # together they were pushing 264 at App Store Connect at once - enough of
-      # them came back failed that deliver uploaded them again, which is how a
-      # locale ends up holding the same screenshot three times.
-      max-parallel: 1
       matrix:
         include:
           - app: pro
