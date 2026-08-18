@@ -215,6 +215,20 @@ class OpenDocumentReaderTests: XCTestCase {
         }
     }
 
+    /// The page carries both sheets and picks between them itself, so turning
+    /// the device dark needs no second translation.
+    func testAPageFollowsTheReadersAppearance() throws {
+        let wrapper = CoreWrapper()
+
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
+        let html = try XCTUnwrap(String(data: data, encoding: .utf8))
+
+        XCTAssertTrue(html.contains("(prefers-color-scheme: dark)"), html)
+    }
+
     /// The same URL would come back out of the web view's cache holding the
     /// pages the document had before the password or the edit.
     func testRetranslatingMovesThePagesToNewAddresses() throws {
@@ -380,7 +394,8 @@ class OpenDocumentReaderTests: XCTestCase {
 }
 
 /// Fulfills its expectation once, whichever way the navigation ends.
-private class NavigationRecorder: NSObject, WKNavigationDelegate {
+/// Also used by `PrintAppearanceTests`.
+class NavigationRecorder: NSObject, WKNavigationDelegate {
     let finished: XCTestExpectation
     private(set) var error: Error?
     private var isDone = false

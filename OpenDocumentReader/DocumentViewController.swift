@@ -760,11 +760,19 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         printController.present(animated: true, completionHandler: nil)
     }
 
+    /// A page of ours rather than a document: the word "loading", or the error.
+    /// The colour scheme is named because a web view paints a page that claims
+    /// none white, whatever the reader has the device set to.
+    private func loadMessage(_ body: String) {
+        webview.loadHTMLString(
+            "<html><head><meta name=\"color-scheme\" content=\"light dark\"></head><body>\(body)</body></html>",
+            baseURL: nil)
+    }
+
     func documentUpdateContent(_ doc: Document) {
         guard let url = doc.result else {
             documentNavigation = nil
-            self.webview.loadHTMLString(
-                "<html><h1>\(NSLocalizedString("loading", comment: ""))</h1></html>", baseURL: nil)
+            loadMessage("<h1>\(NSLocalizedString("loading", comment: ""))</h1>")
 
             return
         }
@@ -838,9 +846,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
 
         documentNavigation = nil
-        self.webview.loadHTMLString(
-            "<html><h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))</html>",
-            baseURL: nil)
+        loadMessage(
+            "<h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))"
+        )
 
         AnalyticsManager.shared.report(
             "load_error",
