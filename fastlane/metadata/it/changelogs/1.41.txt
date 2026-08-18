@@ -1,4 +1,6 @@
-- Ora puoi cercare nei PDF, e quelli protetti da password la chiedono come gli altri documenti
-- Tocca un punto del documento mentre lo modifichi e il cursore si sposta lì, e il salvataggio è passato dal menu alla barra
-- L'app è di nuovo nella tua lingua, invece di mostrare l'inglese qua e là
-- Le tre pagine di benvenuto non ci sono più: l'app si apre subito sui tuoi documenti
+- I documenti seguono l'aspetto chiaro o scuro del sistema
+- Nei PDF si può cercare, e quelli protetti da password la chiedono come gli altri documenti
+- I PDF mostrano quello che è stato compilato nei moduli, e le pagine scansionate non sono più vuote
+- Toccando il documento mentre lo modifichi il cursore si sposta lì, e il salvataggio ora è sulla barra invece che nel menu
+- I documenti XML piatti di LibreOffice e i modelli di Excel si aprono dall'esplora file invece di restare in grigio
+- Le tre pagine di benvenuto non ci sono più, così l'app si apre subito sui tuoi documenti

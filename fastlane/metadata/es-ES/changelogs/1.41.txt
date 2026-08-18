@@ -1,4 +1,6 @@
+- Los documentos siguen su aspecto claro u oscuro
 - Se puede buscar en los PDF, y los protegidos con contraseña la piden como los demás documentos
-- Al tocar un documento mientras lo edita, el cursor se coloca ahí, y guardar ya está en la barra y no en el menú
-- La aplicación vuelve a estar en su idioma, en vez de mostrar inglés en algunos sitios
-- Las tres páginas de bienvenida ya no están, así que la aplicación se abre directamente en sus documentos
+- Los PDF muestran lo que se rellenó en sus formularios, y las páginas escaneadas ya no salen en blanco
+- Al tocar el documento mientras edita, el cursor se coloca ahí, y guardar está ahora en la barra y no en el menú
+- Los documentos XML planos de LibreOffice y las plantillas de Excel se abren desde el explorador de archivos en vez de aparecer atenuados
+- Ya no están las tres páginas de bienvenida, así que la aplicación se abre directamente en sus documentos

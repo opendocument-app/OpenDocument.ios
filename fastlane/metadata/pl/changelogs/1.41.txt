@@ -1,4 +1,6 @@
+- Dokumenty dopasowują się do jasnego lub ciemnego wyglądu
 - Pliki PDF można przeszukiwać, a te chronione hasłem proszą o hasło jak inne dokumenty
-- Dotknięcie dokumentu podczas edycji ustawia w tym miejscu kursor, a zapisywanie jest teraz na pasku, nie w menu
-- Aplikacja znów jest w Twoim języku, zamiast miejscami pokazywać angielski
-- Trzy ekrany powitalne zniknęły, więc aplikacja od razu pokazuje Twoje dokumenty
+- Pliki PDF pokazują to, co wpisano w ich formularze, a zeskanowane strony nie są już puste
+- Dotknięcie dokumentu w trakcie edycji ustawia tam kursor, a zapisywanie jest teraz na pasku, nie w menu
+- Płaskie dokumenty XML z LibreOffice i szablony Excela otwierają się z przeglądarki dokumentów, zamiast być wyszarzone
+- Trzy strony powitalne zniknęły, więc aplikacja otwiera się od razu na dokumentach

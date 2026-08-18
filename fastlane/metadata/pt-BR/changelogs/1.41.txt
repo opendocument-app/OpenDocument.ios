@@ -1,4 +1,6 @@
-- Agora dá para pesquisar nos PDFs, e os protegidos por senha pedem a senha como os outros documentos
-- Ao editar, toque no documento para pôr o cursor ali, e salvar agora fica na barra, não no menu
-- O app voltou a ficar no seu idioma, em vez de mostrar inglês em alguns lugares
-- As três páginas de boas-vindas não existem mais, então o app abre direto nos seus documentos
+- Os documentos acompanham a aparência clara ou escura
+- Dá para pesquisar nos PDFs, e os protegidos por senha pedem a senha como os outros documentos
+- Os PDFs mostram o que foi preenchido nos formulários, e as páginas digitalizadas não ficam mais em branco
+- Ao editar, tocar no documento coloca o cursor ali, e salvar agora fica na barra, não no menu
+- Os documentos em XML plano do LibreOffice e os modelos do Excel abrem pelo explorador de arquivos em vez de ficarem esmaecidos
+- As três telas de boas-vindas não aparecem mais, e o app abre direto nos seus documentos
