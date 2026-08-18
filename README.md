@@ -133,6 +133,13 @@ It runs as five jobs:
 Both apps always go out together, and nothing chooses one: Pro and Lite are the
 same sources built as two targets, one of which links no ad sdk.
 
+**If a `listing` job fails saying the screenshots did not go up once each**, the
+set is up but a locale may hold a picture twice: deliver uploads what it thinks
+did not land, and a delete that does not take leaves both. Look at the app's
+screenshots in App Store Connect, and fix the set before submitting. Re-running
+the job is worth a try - it clears the set before it uploads - but it has come
+back doubled a second time, so check rather than assume.
+
 **If one app's upload fails, press "Re-run failed jobs".** Only that upload runs
 again, against the `.ipa` already built and signed - build number included, since
 it is baked in at archive time - and `record` runs behind it once it lands.
