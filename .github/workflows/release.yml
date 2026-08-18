@@ -355,6 +355,11 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
+      # One app at a time. Both listings carry the same 132 pictures, and run
+      # together they were pushing 264 at App Store Connect at once - enough of
+      # them came back failed that deliver uploaded them again, which is how a
+      # locale ends up holding the same screenshot three times.
+      max-parallel: 1
       matrix:
         include:
           - app: pro
@@ -382,13 +387,30 @@ jobs:
           name: framed
           path: fastlane/framed
 
+      # Kept, because the check below reads it. `tee` rather than a redirect so
+      # the step still shows what it is doing while it runs.
       - name: write ${{ matrix.app }}'s listing
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
           ODR_VERSION: ${{ steps.version.outputs.version }}
-        run: bundle exec fastlane ios ${{ matrix.lane }}
+        run: |
+          set -o pipefail
+          bundle exec fastlane ios ${{ matrix.lane }} 2>&1 | tee listing.log
+
+      # A picture that did not land is uploaded again, and if the delete of the
+      # failed one does not take, the store keeps both. That leaves a locale
+      # showing the same screenshot twice, which nothing else here would notice
+      # - deliver reports the run as a success. So the retry itself is the
+      # failure: the pictures are up either way, and this says to go and look.
+      - name: the screenshots went up once each
+        run: |
+          set -euo pipefail
+          if grep -q "Failed to upload all screenshots" listing.log; then
+            echo "::error::deliver retried the screenshot upload, which can leave duplicates in App Store Connect. Check ${{ matrix.app }}'s screenshots for every locale before submitting, and re-run this job to upload the set again."
+            exit 1
+          fi
 
   record:
     needs: upload
