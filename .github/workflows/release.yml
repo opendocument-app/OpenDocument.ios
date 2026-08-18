@@ -211,7 +211,7 @@ jobs:
 
       # the framing draws with Pillow, which is the one thing the scripts here
       # want that is not in the standard library
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
       - run: python3 -m pip install --quiet Pillow
@@ -221,7 +221,7 @@ jobs:
       # first simulator instead of at the compiler. Keyed on everything the
       # build reads, so a stale one is never used - only ever missed.
       - name: reuse the last build
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: build/screenshots
           key: screenshots-${{ matrix.device }}-${{ runner.os }}-${{ env.xcode_version }}-${{ hashFiles('OpenDocumentReader.xcodeproj/project.pbxproj', 'OpenDocumentReader.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'OpenDocumentReader/**', 'OpenDocumentReaderUITests/**', 'Ads/**', 'NoAds/**', 'configs/**', 'scripts/make-screenshot-documents.py') }}
@@ -273,7 +273,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
 
