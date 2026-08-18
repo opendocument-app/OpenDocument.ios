@@ -1,4 +1,6 @@
-- La recherche fonctionne dans les PDF, et ceux protégés par mot de passe le demandent comme les autres documents
-- Toucher le document pendant l'édition place le curseur à cet endroit, et l'enregistrement passe du menu à la barre
-- L'application est de nouveau dans votre langue, au lieu d'afficher l'anglais par endroits
+- Les documents suivent votre apparence claire ou sombre
+- Vous pouvez faire des recherches dans les PDF, et ceux qui sont protégés par mot de passe le demandent comme les autres documents
+- Les PDF affichent ce qui a été saisi dans leurs formulaires, et les pages scannées ne sont plus vides
+- Toucher un document pendant l'édition y place le curseur, et l'enregistrement passe du menu à la barre
+- Les documents XML plats de LibreOffice et les modèles Excel s'ouvrent depuis l'explorateur de fichiers au lieu d'être grisés
 - Les trois pages d'accueil ont disparu : l'application s'ouvre directement sur vos documents

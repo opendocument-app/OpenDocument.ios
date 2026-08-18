@@ -1,4 +1,6 @@
-- Nu kan du söka i PDF-filer, och de som är lösenordsskyddade frågar efter lösenordet som andra dokument
+- Dokumenten följer ditt ljusa eller mörka utseende
+- Du kan söka i PDF-filer, och de som är lösenordsskyddade frågar efter lösenordet som andra dokument
+- PDF-filer visar vad som fyllts i i formulären, och skannade sidor är inte längre tomma
 - Tryck i dokumentet när du redigerar så hamnar markören där, och Spara finns nu i verktygsfältet i stället för i menyn
-- LibreOffices platta XML-dokument och Excel-mallar går att öppna från filhanteraren i stället för att vara gråmarkerade
+- LibreOffices flata XML-dokument och Excel-mallar öppnas från filhanteraren i stället för att vara gråmarkerade
 - De tre välkomstsidorna är borta, så appen visar dina dokument direkt
