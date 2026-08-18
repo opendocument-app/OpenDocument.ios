@@ -17,7 +17,7 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## Unreleased
+## [1.41]
 
 ### Added
 
@@ -25,18 +25,11 @@ once the version tag exists.
 
 ### Changed
 
-- The engine is odrcore 6.9.0, up from 6.7.1. Pdfs show filled-in forms and
-  markup, scanned pages are no longer blank, and a rotated page is turned the
-  right way up. Word documents keep their paragraph spacing and row heights.
-  Prose that happens to hold commas is read as text rather than as a table, and
-  a large text file opens at once instead of after half a minute.
-
-## [1.41]
-
-### Changed
-
-- The engine is odrcore 6.7.1, up from 6.6.0. Pdfs, text files and archive
+- The engine is odrcore 6.9.0, up from 6.6.0. Pdfs, text files and archive
   listings can be searched too, and a pdf's text sits where the file puts it.
+  A pdf also shows what was filled into its forms and its scanned pages, Word
+  documents keep their paragraph spacing, text that merely holds commas is no
+  longer read as a table, and a large text file opens at once.
 - PDFs are rendered by odrcore instead of being handed to the web view, and a
   password protected one takes the prompt the other formats use. They can be
   searched like a document.
