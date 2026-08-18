@@ -21,18 +21,16 @@ once the version tag exists.
 
 ### Added
 
-- Documents follow the system light and dark appearance again. Pdfs stay light.
+- Documents follow your light or dark appearance. PDFs stay light.
 
 ### Changed
 
-- The engine is odrcore 6.9.0, up from 6.6.0. Pdfs, text files and archive
-  listings can be searched too, and a pdf's text sits where the file puts it.
-  A pdf also shows what was filled into its forms and its scanned pages, Word
-  documents keep their paragraph spacing, text that merely holds commas is no
-  longer read as a table, and a large text file opens at once.
-- PDFs are rendered by odrcore instead of being handed to the web view, and a
-  password protected one takes the prompt the other formats use. They can be
-  searched like a document.
+- PDFs, text files and archives can be searched, and a PDF's text sits where the
+  file puts it.
+- PDFs show what was filled into their forms, a scanned page is no longer blank,
+  Word documents keep the space between their paragraphs, and a large text file
+  opens at once.
+- A password protected PDF asks for its password the way the other formats do.
 - The search button leaves the tool bar when the page cannot be searched,
   rather than greying out - the same as the edit button.
 - The pencil turns into a save button while editing, as on Android. Saving from
@@ -47,7 +45,7 @@ once the version tag exists.
 
 - Flat XML documents (`.fodt`, `.fodp`, `.fods`, `.fodg`), `.otm`, `.xlt` and
   `.xlm` can be picked in the document browser instead of being greyed out.
-  odrcore rendered them already; the app claimed no type that reached them.
+  The app could read them already; it claimed no type that reached them.
 - The app is translated again. Every language but English was showing English
   for the privacy screen and the banner, and Danish, Catalan, Turkish and Czech
   showed it for most of the rest.
@@ -55,6 +53,7 @@ once the version tag exists.
   never came up before.
 - A document opens at the top of its first page. On a wide screen it opened far
   enough down to cut off the heading.
+- A text file with commas in it is shown as text, not as a table.
 
 ### Removed
 
