@@ -17,6 +17,13 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Fixed
+
+- A long document opens at the top of its first page on an iPad. It opened a
+  page or more in.
+
 ## [1.41]
 
 ### Added
@@ -52,8 +59,7 @@ once the version tag exists.
 - Tapping a document sets the cursor, so an edit can be typed. The keyboard
   never came up before.
 - A document opens at the top of its first page. On a wide screen it opened far
-  enough down to cut off the heading, and on an iPad a long one opened a page or
-  more in.
+  enough down to cut off the heading.
 - A text file with commas in it is shown as text, not as a table.
 
 ### Removed
