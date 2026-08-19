@@ -13,6 +13,9 @@ on:
         description: build and archive only, do not upload
         type: boolean
         default: false
+      screenshots_from_run:
+        description: "id of an earlier run: write the listing again from the pictures it took, building and photographing nothing"
+        type: string
 
 concurrency:
   # workflow wide, not per ref: the build number is a live query of what
@@ -29,6 +32,7 @@ env:
 
 jobs:
   build:
+    if: ${{ inputs.screenshots_from_run == '' }}
     runs-on: macos-26
     steps:
       # a dry run signs too, so it needs the same secrets
@@ -189,6 +193,7 @@ jobs:
   # times as long as they do alone; a device to a machine is that, structurally.
   # It halves the wall clock as well, since the two halves photograph at once.
   screenshots:
+    if: ${{ inputs.screenshots_from_run == '' }}
     runs-on: macos-26
     # long by nature, but the default is six hours for a wedged simulator to sit in
     timeout-minutes: 180
@@ -315,7 +320,7 @@ jobs:
   # a job per app, fail-fast off, so "Re-run failed jobs" can retry one half
   upload:
     needs: build
-    if: ${{ !inputs.dry_run }}
+    if: ${{ !inputs.dry_run && inputs.screenshots_from_run == '' }}
     runs-on: macos-26
     strategy:
       fail-fast: false
@@ -351,8 +356,17 @@ jobs:
   # listing, not the app
   listing:
     needs: [upload, screenshot-set]
-    if: ${{ !inputs.dry_run }}
+    # !cancelled() rather than success(), or naming a run to repair - which
+    # skips both of those jobs - would skip this one behind them
+    if: >-
+      ${{ !cancelled() && !inputs.dry_run
+      && (inputs.screenshots_from_run != ''
+      || (needs.upload.result == 'success' && needs['screenshot-set'].result == 'success')) }}
     runs-on: ubuntu-24.04
+    # to read the artifact off the run being repaired, which is not this one
+    permissions:
+      contents: read
+      actions: read
     strategy:
       fail-fast: false
       matrix:
@@ -375,12 +389,16 @@ jobs:
           given: ${{ inputs.version }}
         run: scripts/resolve-version.py --input "$given" --dry-run "$dry_run"
 
-      # where the lane looks for them, and the same set both apps are given
+      # where the lane looks for them, and the same set both apps are given.
+      # From the run being repaired when one was named, so the pictures are the
+      # ones already taken rather than a quarter hour of simulators again.
       - name: fetch the screenshots
         uses: actions/download-artifact@v8
         with:
           name: framed
           path: fastlane/framed
+          run-id: ${{ inputs.screenshots_from_run || github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Kept, because the check below reads it. `tee` rather than a redirect so
       # the step still shows what it is doing while it runs.
@@ -394,22 +412,26 @@ jobs:
           set -o pipefail
           bundle exec fastlane ios ${{ matrix.lane }} 2>&1 | tee listing.log
 
-      # A picture that did not land is uploaded again, and if the delete of the
-      # failed one does not take, the store keeps both. That leaves a locale
-      # showing the same screenshot twice, which nothing else here would notice
-      # - deliver reports the run as a success. So the retry itself is the
-      # failure: the pictures are up either way, and this says to go and look.
+      # The Fastfile stops deliver from sending a picture twice, so neither of
+      # these should ever print. They stay because both are silent in the store
+      # and in this log: deliver ends "Successfully uploaded all screenshots"
+      # and the job goes green either way. If a fastlane upgrade moves what the
+      # Fastfile patches, this is what still notices.
       - name: the screenshots went up once each
         run: |
           set -euo pipefail
           if grep -q "Failed to upload all screenshots" listing.log; then
-            echo "::error::deliver retried the screenshot upload, which can leave duplicates in App Store Connect. Check ${{ matrix.app }}'s screenshots for every locale before submitting, and re-run this job to upload the set again."
+            echo "::error::deliver uploaded ${{ matrix.app }}'s screenshots a second time, which leaves locales holding the same picture twice. Look at the set for every locale before submitting."
+            exit 1
+          fi
+          if grep -q "Too many screenshots found" listing.log; then
+            echo "::error::a locale of ${{ matrix.app }} was full at ten screenshots and the rest were dropped. The locales named above are short. Look at the set for every locale before submitting."
             exit 1
           fi
 
   record:
     needs: upload
-    if: ${{ !inputs.dry_run }}
+    if: ${{ !inputs.dry_run && inputs.screenshots_from_run == '' }}
     runs-on: ubuntu-24.04
     permissions:
       contents: write
