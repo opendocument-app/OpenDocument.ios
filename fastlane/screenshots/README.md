@@ -21,16 +21,18 @@ to the store, before it does on a dry run and after it on a real one.
 
 ## What is in a set
 
-Four pictures per device, taken by relaunching the app onto one screen at a
+Six pictures per device, taken by relaunching the app onto one screen at a
 time rather than by tapping through it. The screens, in the order the store
 shows them:
 
 | | |
 | --- | --- |
-| `01-intro` | the onboarding pages, which is the app's own words |
-| `02-text` | a text document open |
+| `01-browser` | the document browser, with one of each format sitting in it |
+| `02-text` | a text document open, with a search under way |
 | `03-sheet` | a spreadsheet, with the sheet tabs under the tool bar |
-| `04-slides` | a presentation |
+| `04-edit` | a document being edited, keyboard up |
+| `05-pdf` | a pdf |
+| `06-office` | the same reader on a Word file |
 
 Two devices, because an app that runs on iPhone and iPad has to hand in both: a
 6.9" iPhone and a 13" iPad. `scripts/store_screenshots.py` holds the sizes App

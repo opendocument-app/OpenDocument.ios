@@ -50,19 +50,23 @@ FRAMED = ROOT / "fastlane" / "framed"
 # how far across, is a fraction of the width. So a taller canvas gives
 # everything more room without stretching any of it.
 #
-# The proportions came off the 2020 artwork at 1242x2208. A phone is a good deal
-# taller than that now, so the phone is anchored by its top left corner and left
-# to run off the bottom and the right - which is what the original did too, only
-# by less.
+# The proportions came off the 2020 artwork at 1242x2208, where the phone was
+# anchored by its top left corner and left to run off the bottom and the right.
+# It stands whole now, as the Play listing's does: a device with its corners cut
+# off reads as a picture that did not fit rather than as a phone. The canvas
+# cannot grow to make room - App Store Connect takes the capture's own size and
+# no other - so the device is fitted into it instead, which costs it some size
+# and leaves ground under it.
 LAYOUT = {
     "iphone": {
         "headline_top": 0.068,
         "headline_size": 0.070,        # before it is shrunk to fit
         "headline_width": 0.86,        # what it is shrunk to fit inside
         "headline_leading": 1.06,
-        "screen_left": 0.280,
-        "screen_top": 0.235,
-        "screen_width": 0.780,
+        "screen_left": 0.278,
+        "screen_top": 0.265,
+        "screen_width": 0.650,         # as wide as it may be; `foot` is the other limit
+        "foot": 0.045,                 # ground left under the device, of the height
         # An iPhone 17 Pro Max, from its published dimensions: a 440pt screen
         # inside a 78.0mm body, which leaves 2.54mm - 15.3pt - of black border
         # and aluminium on every side, and a 62pt display corner.
@@ -76,9 +80,7 @@ LAYOUT = {
         # artwork, which is also where the bezel, the island and the corner
         # come from - so all of it is the device rather than a guess at it.
         "buttons": [(0.189, 0.0423), (0.262, 0.0686), (0.349, 0.0686)],
-        # the side button, on the right edge, off the canvas where the phone
-        # sits today. Kept so the device is described whole: what is drawn
-        # follows from where it is placed, not the other way round.
+        # the side button, on the right edge
         "buttons_right": [(0.286, 0.1082)],
         "chip_top": 0.440,
         "chip_size": (0.240, 0.147),
@@ -140,13 +142,10 @@ LAYOUT = {
         "headline_size": 0.050,
         "headline_width": 0.80,
         "headline_leading": 1.06,
-        # Off the right edge by a little, as the phone is, but only a little:
-        # an iPad's status icons sit within a fiftieth of its own edge, so any
-        # more of a bleed takes the battery with it. The phone can afford 6%
-        # because the Dynamic Island pushes its icons well inboard.
-        "screen_left": 0.188,
-        "screen_top": 0.245,
-        "screen_width": 0.825,
+        "screen_left": 0.215,
+        "screen_top": 0.250,
+        "screen_width": 0.720,
+        "foot": 0.055,
         # An iPad Pro 13-inch, likewise: a 1032pt screen in a 215.5mm body is
         # 8.44mm - 43.8pt - of border, near three times the phone's, and the
         # display corner is 18pt where the phone's is 62. Nothing on the left
@@ -423,13 +422,21 @@ def phone(canvas, shot, layout):
     against each other without the ground showing through the seams.
     """
     width, height = canvas.size
-    screen_width = layout["screen_width"] * width
-    screen_height = screen_width * shot.height / shot.width
-    left, top = layout["screen_left"] * width, layout["screen_top"] * height
-    screen = (left, top, left + screen_width, top + screen_height)
-
     bezel = layout["bezel"] * width          # screen edge to the outside of the body
     rim = bezel * layout["rim"]              # how much of that is metal
+
+    left, top = layout["screen_left"] * width, layout["screen_top"] * height
+
+    # Two limits rather than one fraction: `screen_width` is as wide as it may
+    # be, and `foot` is how much ground has to be left under it. Sized by the
+    # fraction alone, a device a little taller than the one the number was picked
+    # for runs its bottom rim off the canvas and a shorter one leaves a stripe of
+    # ground - neither of which is a decision anybody made.
+    standing = (height - layout["foot"] * height) - top - bezel
+    screen_width = min(layout["screen_width"] * width, standing * shot.width / shot.height)
+    screen_height = screen_width * shot.height / shot.width
+
+    screen = (left, top, left + screen_width, top + screen_height)
     corner = layout["corner"] * screen_width
 
     body = (screen[0] - bezel, screen[1] - bezel, screen[2] + bezel, screen[3] + bezel)

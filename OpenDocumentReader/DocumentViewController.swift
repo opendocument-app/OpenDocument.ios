@@ -128,11 +128,37 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                     natural > available() ? 'width=' + natural + ',user-scalable=yes' : served);
             }
 
+            // Across a resize the browser keeps the reader's place by holding on
+            // to whatever was against the top of the screen, and here it gets it
+            // wrong: the scale changes with the width, and the page comes back
+            // hundreds of pixels down - a page or more of a long document on an
+            // iPad, which is where the width really does change. It settles
+            // there some frames after the resize, so the place the reader was
+            // actually at is re-asserted until it has finished, and dropped the
+            // moment they take hold of the page themselves.
+            var holding = [];
+
+            function hold(place) {
+                holding.forEach(clearTimeout);
+                holding = [0, 16, 50, 150, 300, 500].map(function (ms) {
+                    return setTimeout(function () { window.scrollTo(window.scrollX, place); }, ms);
+                });
+            }
+
+            window.addEventListener('touchstart', function () {
+                holding.forEach(clearTimeout);
+                holding = [];
+            }, { passive: true });
+
             // On every resize, not just now: this first runs before the web view
             // has the width it will keep, and a page held at a width it no
             // longer needs is left scrolled off its own top.
             fit();
-            window.addEventListener('resize', fit);
+            window.addEventListener('resize', function () {
+                var was = window.scrollY;
+                fit();
+                hold(was);
+            });
         })();
         """
     }

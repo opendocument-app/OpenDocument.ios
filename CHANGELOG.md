@@ -17,6 +17,13 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Fixed
+
+- A long document opens at the top of its first page on an iPad. It opened a
+  page or more in.
+
 ## [1.41]
 
 ### Added
