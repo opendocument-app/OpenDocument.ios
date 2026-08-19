@@ -7,47 +7,62 @@ require "tmpdir"
 require "deliver"
 
 # deliver sends every picture, then reads the set back from App Store Connect
-# and sends again whatever it cannot find. But the store lists a picture some
+# and sends again whatever it cannot find. The store lists a picture some
 # seconds after it takes it, so what deliver cannot find is only the locales it
 # sent last - sv and tr, at the end of the alphabet. The second copy joins the
-# first, fills the set to the ten the store allows, and the pictures that no
+# first, fills the locale to the ten the store allows, and the pictures that no
 # longer fit are then dropped with a line nobody reads. The lane still ends
 # "Successfully uploaded all screenshots".
 #
 # Not one upload has failed here; only the reading back has. So wait and read
 # again, and if a picture really is missing, stop and say so - never send a
 # second copy.
-unless Deliver::UploadScreenshots.instance_method(:retry_upload_screenshots_if_needed).arity == 7
-  UI.important("deliver has moved the screenshot retry this patches - screenshots may go up twice again")
+#
+# class_eval on the class rather than `module Deliver ... end`: fastlane evals
+# this file against a binding scoped to Fastlane::FastFile, so reopening it by
+# name defines Fastlane::FastFile::Deliver and leaves the real deliver running.
+# Reading a constant still finds the real one, so nothing says a word - which
+# is how the first go at this shipped, patched nothing, and doubled 1.41's
+# screenshots a third time.
+LOOKS = 7
+LOOK_AGAIN_AFTER = 30
+WAITS_AT_MOST = (LOOKS - 1) * LOOK_AGAIN_AFTER
+
+unless ::Deliver::UploadScreenshots.instance_method(:retry_upload_screenshots_if_needed).arity == 7
+  FastlaneCore::UI.user_error!("deliver has moved the screenshot retry this patches - it would send every picture twice")
 end
 
-module Deliver
-  class UploadScreenshots
-    # thirty seconds apart, so the last look is three minutes after the first:
-    # the store has always listed them within about a minute, and the rest is
-    # cheap next to a set that has to be repaired by hand
-    LOOKS = 7
-    LOOK_AGAIN_AFTER = 30
-    WAITS_AT_MOST = (LOOKS - 1) * LOOK_AGAIN_AFTER
+# locals, captured by the block below: a constant written inside it would be
+# looked up in this file's scope, which is the trap described above
+looks = LOOKS
+look_again_after = LOOK_AGAIN_AFTER
+waits_at_most = WAITS_AT_MOST
 
-    def retry_upload_screenshots_if_needed(_iterator, states, _count, _tries, _timeout, localizations, screenshots_per_language)
-      failed = states.fetch("FAILED", 0)
-      UI.user_error!("App Store Connect could not process #{failed} screenshot(s)") if failed > 0
-      return if screenshots_per_language.empty?
+::Deliver::UploadScreenshots.class_eval do
+  define_method(:retry_upload_screenshots_if_needed) do |_iterator, states, _count, _tries, _timeout, localizations, screenshots_per_language|
+    failed = states.fetch("FAILED", 0)
+    FastlaneCore::UI.user_error!("App Store Connect could not process #{failed} screenshot(s)") if failed > 0
+    return if screenshots_per_language.empty?
 
-      LOOKS.times do |look|
-        # a new iterator every time: the one deliver counted with asked the
-        # store before the last pictures were listed, and holds that answer
-        return if verify_local_screenshots_are_uploaded(AppScreenshotIterator.new(localizations), screenshots_per_language)
-        break if look == LOOKS - 1
+    looks.times do |look|
+      # a new iterator every time: the one deliver counted with asked the store
+      # before the last pictures were listed, and holds on to that answer
+      return if verify_local_screenshots_are_uploaded(::Deliver::AppScreenshotIterator.new(localizations), screenshots_per_language)
+      break if look == looks - 1
 
-        UI.message("the store has not listed every screenshot yet - looking again in #{LOOK_AGAIN_AFTER}s")
-        sleep(LOOK_AGAIN_AFTER)
-      end
-
-      UI.user_error!("App Store Connect is still not listing every screenshot, #{WAITS_AT_MOST}s after all of them were sent without error. Nothing was sent twice, so the set is at worst short - look at it before submitting.")
+      FastlaneCore::UI.message("the store has not listed every screenshot yet - looking again in #{look_again_after}s")
+      sleep(look_again_after)
     end
+
+    FastlaneCore::UI.user_error!("App Store Connect is still not listing every screenshot, #{waits_at_most}s after all of them were sent without error. Nothing was sent twice, so the set is at worst short - look at it before submitting.")
   end
+end
+
+# The patch above is silent when it fails to apply, so prove it applied: the
+# method has to come from this file now, not from the gem.
+patched_from, = ::Deliver::UploadScreenshots.instance_method(:retry_upload_screenshots_if_needed).source_location
+unless patched_from.to_s.end_with?("Fastfile")
+  FastlaneCore::UI.user_error!("the deliver patch did not take (retry still comes from #{patched_from}) - screenshots would go up twice")
 end
 
 default_platform(:ios)
