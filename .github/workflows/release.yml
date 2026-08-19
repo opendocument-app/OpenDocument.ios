@@ -394,16 +394,20 @@ jobs:
           set -o pipefail
           bundle exec fastlane ios ${{ matrix.lane }} 2>&1 | tee listing.log
 
-      # A picture that did not land is uploaded again, and if the delete of the
-      # failed one does not take, the store keeps both. That leaves a locale
-      # showing the same screenshot twice, which nothing else here would notice
-      # - deliver reports the run as a success. So the retry itself is the
-      # failure: the pictures are up either way, and this says to go and look.
+      # The Fastfile stops deliver from sending a picture twice, so neither of
+      # these should ever print. They stay because both are silent in the store
+      # and in this log: deliver ends "Successfully uploaded all screenshots"
+      # and the job goes green either way. If a fastlane upgrade moves what the
+      # Fastfile patches, this is what still notices.
       - name: the screenshots went up once each
         run: |
           set -euo pipefail
           if grep -q "Failed to upload all screenshots" listing.log; then
-            echo "::error::deliver retried the screenshot upload, which can leave duplicates in App Store Connect. Check ${{ matrix.app }}'s screenshots for every locale before submitting, and re-run this job to upload the set again."
+            echo "::error::deliver uploaded ${{ matrix.app }}'s screenshots a second time, which leaves locales holding the same picture twice. Look at the set for every locale before submitting."
+            exit 1
+          fi
+          if grep -q "Too many screenshots found" listing.log; then
+            echo "::error::a locale of ${{ matrix.app }} was full at ten screenshots and the rest were dropped. The locales named above are short. Look at the set for every locale before submitting."
             exit 1
           fi
 

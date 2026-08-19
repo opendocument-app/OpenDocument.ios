@@ -133,12 +133,18 @@ It runs as five jobs:
 Both apps always go out together, and nothing chooses one: Pro and Lite are the
 same sources built as two targets, one of which links no ad sdk.
 
-**If a `listing` job fails saying the screenshots did not go up once each**, the
-set is up but a locale may hold a picture twice: deliver uploads what it thinks
-did not land, and a delete that does not take leaves both. Look at the app's
-screenshots in App Store Connect, and fix the set before submitting. Re-running
-the job is worth a try - it clears the set before it uploads - but it has come
-back doubled a second time, so check rather than assume.
+**If a `listing` job fails saying App Store Connect is not listing every
+screenshot**, the set is up: every picture was sent and none was refused. The
+store simply had not listed all of them three minutes later. Look at the app's
+screenshots before submitting, and re-run the job if a locale really is short.
+Nothing was sent twice, so re-running cannot make it worse.
+
+The Fastfile patches deliver to make that true. Left alone, deliver reads the
+set back and sends again whatever the store has not listed yet, which is only
+ever the locales it sent last. The second copy joins the first, fills the
+locale to the ten screenshots the store allows, and the rest are dropped - so
+the locale ends up both doubled and short, and the run still says it succeeded.
+Version 1.41 went out that way twice before this was understood.
 
 **If one app's upload fails, press "Re-run failed jobs".** Only that upload runs
 again, against the `.ipa` already built and signed - build number included, since
