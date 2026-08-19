@@ -146,6 +146,18 @@ locale to the ten screenshots the store allows, and the rest are dropped - so
 the locale ends up both doubled and short, and the run still says it succeeded.
 Version 1.41 went out that way twice before this was understood.
 
+**To write the listing again from pictures already taken**, start a release and
+fill in `screenshots_from_run` with the id of the run that took them - the
+number in its URL. Only the two `listing` jobs run: they fetch that run's
+`framed` artifact and write both listings from it. Nothing is built,
+photographed, uploaded or tagged, no build number is spent, and it takes about
+five minutes rather than forty. `version` is still required, and has to be the
+version those pictures belong to. Artifacts are kept 90 days, so this works
+until the run they are on ages out.
+
+Because the lane clears each locale before it uploads, this repairs a set
+whatever state it is in - doubled, short, or both.
+
 **If one app's upload fails, press "Re-run failed jobs".** Only that upload runs
 again, against the `.ipa` already built and signed - build number included, since
 it is baked in at archive time - and `record` runs behind it once it lands.
