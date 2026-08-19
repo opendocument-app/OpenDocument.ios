@@ -133,30 +133,14 @@ It runs as five jobs:
 Both apps always go out together, and nothing chooses one: Pro and Lite are the
 same sources built as two targets, one of which links no ad sdk.
 
-**If a `listing` job fails saying App Store Connect is not listing every
-screenshot**, the set is up: every picture was sent and none was refused. The
-store simply had not listed all of them three minutes later. Look at the app's
-screenshots before submitting, and re-run the job if a locale really is short.
-Nothing was sent twice, so re-running cannot make it worse.
+**If a `listing` job fails saying screenshots are not listed**, they are up:
+App Store Connect was slow to list them and nothing was sent twice. Look before
+submitting, and re-run the job if a locale really is short.
 
-The Fastfile patches deliver to make that true. Left alone, deliver reads the
-set back and sends again whatever the store has not listed yet, which is only
-ever the locales it sent last. The second copy joins the first, fills the
-locale to the ten screenshots the store allows, and the rest are dropped - so
-the locale ends up both doubled and short, and the run still says it succeeded.
-Version 1.41 went out that way twice before this was understood.
-
-**To write the listing again from pictures already taken**, start a release and
-fill in `screenshots_from_run` with the id of the run that took them - the
-number in its URL. Only the two `listing` jobs run: they fetch that run's
-`framed` artifact and write both listings from it. Nothing is built,
-photographed, uploaded or tagged, no build number is spent, and it takes about
-five minutes rather than forty. `version` is still required, and has to be the
-version those pictures belong to. Artifacts are kept 90 days, so this works
-until the run they are on ages out.
-
-Because the lane clears each locale before it uploads, this repairs a set
-whatever state it is in - doubled, short, or both.
+**To write a listing again from pictures already taken**, start a release with
+`screenshots_from_run` set to that run's id - the `listing` jobs alone, against
+its `framed` artifact, five minutes and no build number spent. Each locale is
+cleared first, so it repairs a set in any state.
 
 **If one app's upload fails, press "Re-run failed jobs".** Only that upload runs
 again, against the `.ipa` already built and signed - build number included, since

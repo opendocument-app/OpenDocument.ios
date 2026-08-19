@@ -23,11 +23,12 @@ end
 
 module Deliver
   class UploadScreenshots
-    # six looks thirty seconds apart: the store has always listed them within
-    # about a minute, and five more is cheap next to a set that has to be
-    # repaired by hand
-    LOOKS = 6
+    # thirty seconds apart, so the last look is three minutes after the first:
+    # the store has always listed them within about a minute, and the rest is
+    # cheap next to a set that has to be repaired by hand
+    LOOKS = 7
     LOOK_AGAIN_AFTER = 30
+    WAITS_AT_MOST = (LOOKS - 1) * LOOK_AGAIN_AFTER
 
     def retry_upload_screenshots_if_needed(_iterator, states, _count, _tries, _timeout, localizations, screenshots_per_language)
       failed = states.fetch("FAILED", 0)
@@ -44,7 +45,7 @@ module Deliver
         sleep(LOOK_AGAIN_AFTER)
       end
 
-      UI.user_error!("App Store Connect is still not listing every screenshot, #{LOOKS * LOOK_AGAIN_AFTER}s after all of them were sent without error. Nothing was sent twice, so the set is at worst short - look at it before submitting.")
+      UI.user_error!("App Store Connect is still not listing every screenshot, #{WAITS_AT_MOST}s after all of them were sent without error. Nothing was sent twice, so the set is at worst short - look at it before submitting.")
     end
   end
 end
