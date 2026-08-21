@@ -81,9 +81,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     @objc private(set) var pageNames: [String] = []
     @objc private(set) var pageURLs: [URL] = []
 
-    /// Whether odrcore saw only a container and the page is a listing of what is
-    /// inside it. The reader asks because the system may know the same file as a
-    /// document of its own — see `systemKnowsItAsADocument`.
+    /// Whether odrcore saw only a container, so the page is a listing of what is inside it.
     @objc private(set) var isArchive = false
 
     /// Whether `backTranslate` has a document to apply an edit to. Only a
@@ -128,20 +126,12 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             }
         }
 
-        // odrcore's own answer, rather than a list of formats kept here: a
-        // document, a pdf, a csv, a plain zip, a picture, a sound and a font
-        // all come back as a page it wrote. Whatever it learns to read next is
-        // read without a change on this side, and what it cannot read is the
-        // one message the reader shows.
         guard Odr.capabilities(fileType: file.fileType).translateHtml else {
             throw coreWrapperError(.unsupportedFileType, "odrcore does not render this file type")
         }
 
-        // A file odrcore recognises as nothing else it calls text, so a database
-        // or a program would otherwise be shown as a page of nonsense. Its own
-        // answer for that is the charset: unnamed means the bytes are not text.
-        // The same check OpenDocument.droid makes, and to be made once in
-        // odrcore instead - opendocument-app/OpenDocument.core#728.
+        // odrcore calls a file it recognises as nothing else text, so an unnamed
+        // charset means the bytes are not text at all
         if file.isTextFile, (try? file.asTextFile())?.charset == nil {
             throw coreWrapperError(.unsupportedFileType, "odrcore could not name a charset")
         }
@@ -183,11 +173,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             service = try HtmlTranslator.translate(
                 document: document, cachePath: cachePath, config: config)
         } else {
-            // everything that is not a document has no document behind it to
-            // open or to edit: a pdf, a csv, a zip, a picture, a sound, a font.
-            // `.unknown` keeps the one view each of them has; not
-            // `.spreadsheet`, though a csv is one, because that asks for a tab
-            // per sheet and a csv's single sheet is called "csv"
+            // nothing to edit, and `.unknown` keeps the single view each of
+            // these has - `.spreadsheet` would ask for a tab per sheet
             documentType = .unknown
             openedDocument = nil
             service = try HtmlTranslator.translate(

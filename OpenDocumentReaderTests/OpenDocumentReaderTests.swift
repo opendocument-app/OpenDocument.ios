@@ -158,9 +158,7 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertFalse(wrapper.isEditable)
     }
 
-    /// A png is one of the formats odrcore translates but we leave to the system.
-    /// odrcore renders a picture too, so the reader no longer keeps a list of
-    /// what to hand to the web view instead.
+    /// odrcore renders a picture too.
     func testImageIsTranslated() throws {
         let wrapper = CoreWrapper()
 
@@ -361,16 +359,13 @@ class OpenDocumentReaderTests: XCTestCase {
         }
     }
 
-    /// The one thing the reader still decides for itself: odrcore recognising
-    /// nothing at all is the message, not a page.
+    /// odrcore recognising nothing at all is the message, not a page.
     func testUnsupportedFileTypeReportsTypedError() throws {
         let wrapper = CoreWrapper()
 
         let notADocument = URL(fileURLWithPath: temporaryDirectory)
             .appendingPathComponent("not-a-document.odt")
-        // Every byte value, which is text in no encoding. Not random bytes: a
-        // short enough run of those is often taken for one, and odrcore reads
-        // anything it cannot name as text.
+        // every byte value: text in no encoding, so odrcore has nothing to read
         try Data((0..<2).flatMap { _ in (0...255).map(UInt8.init) }).write(to: notADocument)
 
         XCTAssertThrowsError(

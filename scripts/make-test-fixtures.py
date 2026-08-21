@@ -200,8 +200,7 @@ def main() -> None:
     print(f"wrote {encrypted}")
 
     archive(tests / "test.zip")
-    # zips the system knows as documents rather than as containers: it draws the
-    # first itself, and cannot draw the second, which falls back to the listing
+    # zips the system knows as documents: it draws a .pages, but not an .epub
     archive(tests / "test.pages")
     archive(tests / "test.epub")
 

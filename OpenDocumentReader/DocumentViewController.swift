@@ -207,9 +207,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         pageTabBar.addTarget(self, action: #selector(pageSelected(sender:)), for: .valueChanged)
         webview.navigationDelegate = self
         webview.uiDelegate = self
-        // the way back out of a file opened from a zip's listing. There is
-        // nothing to go back to until something has been opened, so it changes
-        // nothing for a document that is only read.
+        // the way back out of a file opened from a zip's listing
         webview.allowsBackForwardNavigationGestures = true
 
         searchBar.delegate = self
@@ -248,12 +246,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         ])
     }
 
-    /// odrcore writes every link with `target="_blank"`, so opening a file from
-    /// a zip's listing asks for a window this app has none of. It is shown in
-    /// the web view that asked instead, and the swipe back leads to the listing.
-    ///
-    /// Only what odrcore serves: a link out of a document leads to the web, and
-    /// this reader is not a browser.
+    /// odrcore writes every link with `target="_blank"`, and this app has no
+    /// second window: what odrcore serves opens in the web view that asked.
     func webView(
         _ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
         for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures
@@ -281,13 +275,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        // The web view's own answer about what it can draw, asked instead of
-        // guessed from the file's name.
         if !navigationResponse.canShowMIMEType {
             decisionHandler(.cancel)
 
-            // the system could not draw the document after all, so odrcore's
-            // listing of what is inside it is the better of the two
+            // the system could not draw it after all, so fall back to the listing
             if let listing = listingInReserve {
                 listingInReserve = nil
 
@@ -318,12 +309,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         giveUp(on: doc, with: .broken, code: response.statusCode)
     }
 
-    /// The page never arrived — the socket went away, or the web view could make
-    /// nothing of what it was given. Same end as a document that would not
-    /// translate.
-    ///
-    /// Only what odrcore serves: a link out of a document that fails is the
-    /// web's problem, not this document's.
+    /// The page never arrived. Only what odrcore serves counts: a link out of a
+    /// document that fails is the web's problem.
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         pageFailed(error)
     }
@@ -343,10 +330,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         giveUp(on: doc, with: .broken, code: (error as NSError).code)
     }
 
-    /// Whether the reader stopped this load itself. Turning a page cancels the
-    /// one before it, and answering a response with `.cancel` — which is how the
-    /// listing takes over from a document the system could not draw — is
-    /// reported here as a failure too.
+    /// Whether the reader stopped this load itself: turning a page cancels the
+    /// one before it, and a response answered with `.cancel` lands here too.
     private func isOurOwnDoing(_ error: Error) -> Bool {
         let error = error as NSError
 
@@ -890,13 +875,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        // odrcore saw only a container, but the system knows this file as a
-        // document of its own - an iWork one, which it draws properly and
-        // odrcore has no reader for. The listing of the parts inside is what
-        // the reader falls back to if the system cannot draw it after all.
-        //
-        // Nothing here names a format, and the day odrcore reads iWork the
-        // file stops being an archive to it and this stops firing.
+        // only a container to odrcore, but a document to the system: it gets
+        // the first go, with the listing kept in reserve
         if doc.isArchive, systemKnowsItAsADocument(doc.fileURL) {
             listingInReserve = url
 
@@ -912,17 +892,15 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         documentNavigation = self.webview.load(URLRequest(url: url))
     }
 
-    /// Whether the system has a type of its own for this file that says it is a
-    /// document rather than just a container. A `.pages` is composite content; a
-    /// `.zip` and a `.jar` are not.
+    /// Whether the system's type for this file says document rather than
+    /// container: a `.pages` is composite content, a `.zip` is not.
     private func systemKnowsItAsADocument(_ url: URL) -> Bool {
         guard let type = UTType(filenameExtension: url.pathExtension) else { return false }
 
         return !type.isDynamic && type.conforms(to: .compositeContent)
     }
 
-    /// odrcore's listing of an archive, held back while the system is given the
-    /// first go at the same file.
+    /// odrcore's listing, held back while the system has the first go.
     private var listingInReserve: URL?
 
     func documentEncrypted(_ doc: Document) {
@@ -962,8 +940,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         let code = (error as NSError).code
         let isFromCore = (error as NSError).domain == CoreWrapperErrorDomain
 
-        // The three ways a file does not open, and each has its own thing to
-        // say. Only the last is worth a mail to us.
         let outcome: FailedToOpen
         switch (isFromCore, code) {
         case (true, CoreWrapperError.unsupportedFileType.rawValue):
@@ -978,12 +954,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         giveUp(on: doc, with: outcome, code: code)
     }
 
-    /// Nothing left to try with this file, so stop showing it: the document
-    /// browser is a better answer than a page that will not appear, and the
-    /// message comes up over it — the same way OpenDocument.droid ends here.
-    ///
-    /// Runs once. A page that fails after the document was already given up on
-    /// would otherwise dismiss a reader that has gone.
+    /// Nothing left to try: close the reader and say why. Runs once, so a page
+    /// failing afterwards cannot dismiss a reader that has gone.
     private func giveUp(on doc: Document, with outcome: FailedToOpen, code: Int) {
         guard !hasGivenUp else { return }
         hasGivenUp = true
@@ -1003,10 +975,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         close(with: outcome)
     }
 
-    /// Takes the reader off the screen and says why. The document is opened
-    /// before this controller is presented, so a file that fails on the first
-    /// try has nothing to dismiss and nowhere to put the message yet — it waits
-    /// for the screen it is about to be given, the way the password prompt does.
+    /// Dismisses the reader and shows the message over the browser. A file that
+    /// fails before this controller is on screen waits for the screen.
     private func close(with outcome: FailedToOpen) {
         guard viewIfLoaded?.window != nil else {
             failureAwaitingTheScreen = outcome
@@ -1025,8 +995,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether this document has already ended in a message.
     private var hasGivenUp = false
 
-    /// A message raised before this controller was on screen. Shown as soon as
-    /// it is, rather than into a window hierarchy it is not part of.
+    /// A message raised before this controller was on screen.
     private var failureAwaitingTheScreen: FailedToOpen?
 
     func documentLoadingStarted(_ doc: Document) {
@@ -1079,7 +1048,7 @@ enum FailedToOpen {
     case unsupported
     /// A legacy Word, Excel or PowerPoint file no password opens.
     case locked
-    /// odrcore took it and it still did not appear. This one asks to hear about it.
+    /// odrcore took it and it still did not appear.
     case broken
 
     var message: String {
@@ -1096,9 +1065,7 @@ enum FailedToOpen {
 
 extension UIViewController {
 
-    /// Says why a file did not open, and for the one case that is ours offers
-    /// the way to tell us. Shown over the document browser rather than over the
-    /// reader, which is gone by now.
+    /// Says why a file did not open, and offers the way to tell us where that helps.
     func presentFailure(_ outcome: FailedToOpen) {
         let alert = UIAlertController(
             title: NSLocalizedString("dialog_broken_file_title", comment: ""),
@@ -1121,8 +1088,6 @@ extension UIViewController {
         }
     }
 
-    /// A mail to us. Nothing more to say where there is no mail app: the
-    /// address is in the message either way.
     private static func contactSupport() {
         AnalyticsManager.shared.report("contact_tapped")
 

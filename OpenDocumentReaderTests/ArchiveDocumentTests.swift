@@ -3,9 +3,8 @@ import XCTest
 
 @testable import OpenDocumentReader
 
-/// The app offers itself for a zip, because that is the type every ODF and
-/// Office file conforms to. One that is only a zip has to open too: odrcore
-/// lists what is inside it, and the listing's links have to lead somewhere.
+/// A zip that is only a zip: odrcore lists what is inside it, and the listing's
+/// links have to lead somewhere.
 class ArchiveDocumentTests: XCTestCase {
     private let temporaryDirectory = NSTemporaryDirectory()
     private var documentURL: URL!
@@ -24,8 +23,7 @@ class ArchiveDocumentTests: XCTestCase {
         document = nil
     }
 
-    /// Out of the read-only test bundle, and away from the temporary directory
-    /// translating uses for its cache and output.
+    /// Out of the read-only test bundle, and away from the cache directory.
     private func copyFixture(ofType pathExtension: String = "zip") throws -> URL {
         let documentsURL = try FileManager.default.url(
             for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -40,7 +38,7 @@ class ArchiveDocumentTests: XCTestCase {
         return url
     }
 
-    /// One page, the listing, rather than the error a zip used to be.
+    /// One page: the listing.
     func testAZipTranslatesIntoItsListing() throws {
         let wrapper = CoreWrapper()
 
@@ -84,8 +82,7 @@ class ArchiveDocumentTests: XCTestCase {
         }
     }
 
-    /// End to end: the reader shows the listing, not the message it shows for a
-    /// file it cannot open.
+    /// End to end: the reader shows the listing, not an error.
     func testAZipReachesTheReader() throws {
         try present(documentURL)
 
@@ -100,9 +97,8 @@ class ArchiveDocumentTests: XCTestCase {
         XCTAssertFalse(shown.contains(NSLocalizedString("toast_error_generic", comment: "")), shown)
     }
 
-    /// odrcore has no iWork reader, so a `.pages` is a zip to it — but the
-    /// system knows it as a document and draws it properly. It gets the first
-    /// go, and the listing is only what the reader falls back to.
+    /// A `.pages` is a zip to odrcore, but a document to the system, which gets
+    /// the first go.
     func testADocumentTheSystemKnowsIsLeftToTheSystem() throws {
         try present(try copyFixture(ofType: "pages"))
 
@@ -116,9 +112,8 @@ class ArchiveDocumentTests: XCTestCase {
         XCTAssertNil(controller.presentedViewController, "it said the file would not open")
     }
 
-    /// And when the system turns out not to be able to draw it after all, the
-    /// listing takes over rather than a message — an `.epub` is composite
-    /// content to the system, which has no reader for it either.
+    /// And when the system cannot draw it after all, the listing takes over
+    /// rather than a message.
     func testAnArchiveTheSystemCannotDrawFallsBackToTheListing() throws {
         try present(try copyFixture(ofType: "epub"))
 
@@ -144,8 +139,8 @@ class ArchiveDocumentTests: XCTestCase {
         return controller.webview.url
     }
 
-    /// odrcore writes the listing's links with `target="_blank"`, and a web view
-    /// with nobody to answer that drops the tap on the floor.
+    /// The listing's links carry `target="_blank"`, which a web view drops
+    /// unless someone answers it.
     func testFollowingALinkOpensTheFileInTheSameWebView() throws {
         try present(documentURL)
 
@@ -187,8 +182,7 @@ class ArchiveDocumentTests: XCTestCase {
             guard let end = tail.firstIndex(of: "\"") else { break }
 
             let href = String(tail[..<end])
-            // the download links carry the same targets, and a `data:` one is
-            // not the server's to answer
+            // a `data:` href is not the server's to answer
             if !href.hasPrefix("data:"), !found.contains(href) {
                 found.append(href)
             }

@@ -57,8 +57,7 @@ class LockedDocumentTests: XCTestCase {
         }
     }
 
-    /// Its own message rather than the one that asks to hear about a broken
-    /// file: nothing is wrong with it, and no password opens it.
+    /// Its own message rather than the broken-file one: no password opens it.
     func testALockedLegacyFileSaysWhyItDidNotOpen() throws {
         try present(documentURL)
 
@@ -74,8 +73,7 @@ class LockedDocumentTests: XCTestCase {
             "a locked file is not ours to hear about")
     }
 
-    /// The reader is taken off the screen first, the same way OpenDocument.droid
-    /// drops back to its landing screen.
+    /// The reader is taken off the screen before the message.
     func testTheReaderIsClosedBeforeTheMessage() throws {
         try present(documentURL)
 
