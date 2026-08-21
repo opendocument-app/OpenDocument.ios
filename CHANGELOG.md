@@ -17,7 +17,7 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.42]
 
 ### Added
 
@@ -29,14 +29,17 @@ once the version tag exists.
 - Text copied out of a PDF reads as words, marking it highlights the words, and
   a few more PDFs open at all.
 - Documents keep the rows of a repeating table header, which had gone missing.
+- A wide picture or scan fits the screen instead of running off its edge.
 
 ### Fixed
 
 - A long document opens at the top of its first page on an iPad. It opened a
   page or more in.
 - Pictures in a Word or Excel file show, rather than a broken image.
+- The store screenshots go up once each. A language could end up with the same
+  picture twice and a few of them missing.
 
-## [1.41]
+## [1.41] - 2026-08-18
 
 ### Added
 
@@ -226,7 +229,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.40...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.41...HEAD
+[1.41]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.40...v1.41
 [1.40]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.39...v1.40
 [1.39]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.38...v1.39
 [1.38]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.37...v1.38

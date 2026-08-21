@@ -1,0 +1,4 @@
+- Ahora los archivos de Word, Excel y PowerPoint protegidos con contraseña lo indican en vez de limitarse a no abrirse
+- El texto copiado de un PDF sale como palabras legibles, el resaltado funciona y se abren más PDF
+- Los encabezados que se repiten en las tablas se quedan en su sitio, las imágenes anchas caben en la pantalla y vuelven a verse las de los archivos de Word y Excel
+- Los documentos largos se abren al principio de la primera página en el iPad

@@ -1,0 +1,4 @@
+- Password protected Word, Excel and PowerPoint files now say so instead of just refusing to open
+- Text copied from a PDF comes out as readable words, highlighting works, and more PDFs open
+- Repeating table headers stay in place, wide pictures fit the screen, and images in Word and Excel files show again
+- Long documents open at the top of the first page on iPad

@@ -1,0 +1,4 @@
+- Passwortgeschützte Word-, Excel- und PowerPoint-Dateien sagen das jetzt, statt sich einfach nicht zu öffnen
+- Text aus einem PDF lässt sich als lesbare Wörter herauskopieren, das Hervorheben funktioniert, und mehr PDFs öffnen sich
+- Wiederkehrende Tabellenköpfe bleiben stehen, breite Bilder passen auf den Bildschirm, und Bilder in Word- und Excel-Dateien erscheinen wieder
+- Lange Dokumente öffnen sich auf dem iPad oben auf der ersten Seite

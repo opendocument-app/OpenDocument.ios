@@ -1,0 +1,4 @@
+- Les fichiers Word, Excel et PowerPoint protégés par mot de passe l'indiquent désormais, au lieu de simplement refuser de s'ouvrir
+- Le texte copié depuis un PDF donne des mots lisibles, la mise en évidence fonctionne, et davantage de PDF s'ouvrent
+- Les en-têtes de tableau répétés restent en place, les images larges tiennent dans l'écran, et celles des fichiers Word et Excel réapparaissent
+- Les longs documents s'ouvrent en haut de la première page sur iPad

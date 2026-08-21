@@ -1,0 +1,4 @@
+- Os arquivos do Word, Excel e PowerPoint protegidos por senha agora avisam, em vez de só não abrirem
+- O texto copiado de um PDF sai como palavras legíveis, o destaque funciona, e mais PDFs abrem
+- Os cabeçalhos que se repetem nas tabelas ficam no lugar, as imagens largas cabem na tela, e as imagens dos arquivos do Word e do Excel aparecem de novo
+- Os documentos longos abrem no topo da primeira página no iPad

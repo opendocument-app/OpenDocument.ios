@@ -1,0 +1,4 @@
+- I file Word, Excel e PowerPoint protetti da password ora lo dicono invece di non aprirsi e basta
+- Il testo copiato da un PDF esce come parole leggibili, l'evidenziazione funziona e si aprono più PDF di prima
+- Le intestazioni ripetute delle tabelle restano al loro posto, le immagini larghe entrano nello schermo e quelle nei file Word ed Excel si vedono di nuovo
+- Su iPad i documenti lunghi si aprono in cima alla prima pagina
