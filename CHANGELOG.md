@@ -19,6 +19,17 @@ once the version tag exists.
 
 ## [Unreleased]
 
+### Added
+
+- A password protected Word, Excel or PowerPoint file says so, instead of
+  failing to open for no stated reason.
+
+### Changed
+
+- Text copied out of a PDF reads as words, marking it highlights the words, and
+  a few more PDFs open at all.
+- Documents keep the rows of a repeating table header, which had gone missing.
+
 ### Fixed
 
 - A long document opens at the top of its first page on an iPad. It opened a

@@ -853,8 +853,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // attention: wrong for extensions like ".pages.zip"
         let fileType = doc.fileURL.pathExtension.lowercased()
 
+        // no password opens one of these, so asking for one would only ask
+        // again, and the web view makes nothing of a locked file either
+        let isLocked =
+            (error as NSError).domain == CoreWrapperErrorDomain
+            && (error as NSError).code == CoreWrapperError.undecryptable.rawValue
+
         let fileName = doc.fileURL.absoluteString.lowercased()
-        if systemRenderedExtensions.contains(where: fileName.hasSuffix) {
+        if !isLocked, systemRenderedExtensions.contains(where: fileName.hasSuffix) {
             // not odrcore's to render, but the web view knows the format
             documentNavigation = self.webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
 
@@ -873,7 +879,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         documentNavigation = nil
         loadMessage(
-            "<h1>\(NSLocalizedString("error", comment: ""))</h1>\(NSLocalizedString("toast_error_generic", comment: ""))"
+            "<h1>\(NSLocalizedString("error", comment: ""))</h1>"
+                + NSLocalizedString(
+                    isLocked ? "toast_error_password_protected" : "toast_error_generic", comment: "")
         )
 
         AnalyticsManager.shared.report(

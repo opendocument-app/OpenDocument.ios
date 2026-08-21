@@ -9,6 +9,9 @@ let CoreWrapperErrorDomain = "app.opendocument.CoreWrapperErrorDomain"
     case wrongPassword = 2
     /// Not something odrcore renders for us — see the guard in `translate`.
     case unsupportedFileType = 3
+    /// Locked, and odrcore has no way in whatever the password — a legacy Word,
+    /// Excel or PowerPoint file.
+    case undecryptable = 4
 }
 
 private func coreWrapperError(_ code: CoreWrapperError, _ description: String) -> NSError {
@@ -116,6 +119,10 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
                 where error.code == ODRError.wrongPassword.rawValue
             {
                 throw coreWrapperError(.wrongPassword, "wrong password")
+            } catch let error as NSError
+                where error.code == ODRError.unsupportedOperation.rawValue
+            {
+                throw coreWrapperError(.undecryptable, "odrcore cannot decrypt this format")
             }
         }
 
