@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/opendocument-app/OpenDocument.core.git",
       "state" : {
-        "revision" : "9edbc14c1844cd432820b268f18e9b58e5a8b28a",
-        "version" : "6.10.0"
+        "revision" : "d1573b0cb8c9fd172b59ce785d40ba9ddb745ba2",
+        "version" : "6.10.1"
       }
     },
     {
