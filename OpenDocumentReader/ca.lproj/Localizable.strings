@@ -94,3 +94,15 @@
 /* Buttons on the house ad */
 "house_ad_cta_go_pro" = "Passa a Pro";
 "house_ad_cta_get_pro" = "Obtén Pro";
+
+/* The title of the alert shown when a file will not open */
+"dialog_broken_file_title" = "No s'ha pogut obrir aquest fitxer";
+
+/* Its message. The address is the one users write to */
+"dialog_broken_file" = "És possible que el fitxer estigui malmès o que hi hagi hagut un problema per part nostra. Si creieu que el fitxer és correcte, escriviu-nos a support@opendocument.app";
+
+/* Opens a mail to support */
+"action_contact" = "Contacta";
+
+/* Shown for a format odrcore does not read */
+"toast_error_illegal_file_reopen" = "Format de fitxer no compatible. Proveu d'obrir-lo amb una altra aplicació.";

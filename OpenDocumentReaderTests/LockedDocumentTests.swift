@@ -57,8 +57,7 @@ class LockedDocumentTests: XCTestCase {
         }
     }
 
-    /// `.doc` is one of the formats the reader otherwise falls back to the web
-    /// view for, so the message has to beat the fallback.
+    /// Its own message rather than the broken-file one: no password opens it.
     func testALockedLegacyFileSaysWhyItDidNotOpen() throws {
         try present(documentURL)
 
@@ -66,12 +65,37 @@ class LockedDocumentTests: XCTestCase {
         document.open { _ in opened.fulfill() }
         wait(for: [opened], timeout: 60)
 
-        waitForPage(where: "document.body.innerText.length > 0")
+        let alert = try XCTUnwrap(waitForAlert())
 
-        let shown = try XCTUnwrap(evaluate("document.body.innerText") as? String)
-        XCTAssertTrue(
-            shown.contains(NSLocalizedString("toast_error_password_protected", comment: "")), shown)
-        XCTAssertFalse(controller.webview.url?.isFileURL ?? false, "the file was handed to the web view")
+        XCTAssertEqual(alert.message, NSLocalizedString("toast_error_password_protected", comment: ""))
+        XCTAssertEqual(
+            alert.actions.map(\.title), [NSLocalizedString("ok", comment: "")],
+            "a locked file is not ours to hear about")
+    }
+
+    /// The reader is taken off the screen before the message.
+    func testTheReaderIsClosedBeforeTheMessage() throws {
+        try present(documentURL)
+
+        let opened = expectation(description: "opened")
+        document.open { _ in opened.fulfill() }
+        wait(for: [opened], timeout: 60)
+
+        _ = waitForAlert()
+
+        XCTAssertNil(controller.document, "the reader is still holding the document")
+    }
+
+    private func waitForAlert() -> UIAlertController? {
+        let deadline = Date().addingTimeInterval(30)
+
+        while Date() < deadline {
+            if let alert = controller.presentedViewController as? UIAlertController { return alert }
+
+            _ = XCTWaiter.wait(for: [expectation(description: "a turn of the run loop")], timeout: 0.1)
+        }
+
+        return nil
     }
 
     // MARK: - helpers

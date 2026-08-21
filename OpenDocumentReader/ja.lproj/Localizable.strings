@@ -94,3 +94,15 @@
 /* Buttons on the house ad */
 "house_ad_cta_go_pro" = "Pro にする";
 "house_ad_cta_get_pro" = "Pro を入手";
+
+/* The title of the alert shown when a file will not open */
+"dialog_broken_file_title" = "このファイルを開けませんでした";
+
+/* Its message. The address is the one users write to */
+"dialog_broken_file" = "ファイルが破損しているか、こちら側で問題が起きた可能性があります。ファイルに問題がないと思われる場合は support@opendocument.app までお知らせください";
+
+/* Opens a mail to support */
+"action_contact" = "お問い合わせ";
+
+/* Shown for a format odrcore does not read */
+"toast_error_illegal_file_reopen" = "対応していないファイル形式です。別のアプリで開いてみてください。";

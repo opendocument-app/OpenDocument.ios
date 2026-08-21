@@ -77,13 +77,12 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     }
 }
 
-/// A csv is a *text* file to odrcore that also loads as a spreadsheet, so it
-/// answers `isDocumentFile` with false and `asDocumentFile()` fails on it.
-private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparatedValues }
-
 @objc final class CoreWrapper: NSObject {
     @objc private(set) var pageNames: [String] = []
     @objc private(set) var pageURLs: [URL] = []
+
+    /// Whether odrcore saw only a container, so the page is a listing of what is inside it.
+    @objc private(set) var isArchive = false
 
     /// Whether `backTranslate` has a document to apply an edit to. Only a
     /// document that said it takes one is kept, so having it *is* the answer.
@@ -105,6 +104,7 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         pageNames = []
         pageURLs = []
         document = nil
+        isArchive = false
 
         let fileTypes = (try? DecodedFile.listFileTypes(path: inputPath)) ?? []
         guard !fileTypes.isEmpty else {
@@ -126,11 +126,14 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             }
         }
 
-        // odrcore also translates images, media and fonts, but only into an
-        // `<img>` or a `<video>` the web view decodes anyway. Those go to the
-        // system instead, through the fallback in `DocumentViewController`.
-        guard file.isDocumentFile || file.isPdfFile || isCsv(file) else {
-            throw coreWrapperError(.unsupportedFileType, "not a document, a pdf or a csv")
+        guard Odr.capabilities(fileType: file.fileType).translateHtml else {
+            throw coreWrapperError(.unsupportedFileType, "odrcore does not render this file type")
+        }
+
+        // odrcore calls a file it recognises as nothing else text, so an unnamed
+        // charset means the bytes are not text at all
+        if file.isTextFile, (try? file.asTextFile())?.charset == nil {
+            throw coreWrapperError(.unsupportedFileType, "odrcore could not name a charset")
         }
 
         // the same answers OpenDocument.droid gives odrcore, so a document is
@@ -170,10 +173,8 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
             service = try HtmlTranslator.translate(
                 document: document, cachePath: cachePath, config: config)
         } else {
-            // a csv and a pdf have no document behind them to open or to edit.
-            // `.unknown` keeps the combined view for both; not `.spreadsheet`,
-            // though a csv is one, because that asks for a tab per sheet and a
-            // csv's single sheet is called "csv"
+            // nothing to edit, and `.unknown` keeps the single view each of
+            // these has - `.spreadsheet` would ask for a tab per sheet
             documentType = .unknown
             openedDocument = nil
             service = try HtmlTranslator.translate(
@@ -193,6 +194,7 @@ private func isCsv(_ file: DecodedFile) -> Bool { file.fileType == .commaSeparat
         // a document whose pages were never served
         self.document = openedDocument
 
+        isArchive = file.isArchiveFile
         pageNames = views.map(\.name)
         pageURLs = views.map { base.appendingPathComponent($0.path) }
     }

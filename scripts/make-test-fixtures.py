@@ -168,6 +168,15 @@ def write(path: Path, mimetype: str, content_xml: str) -> None:
     print(f"wrote {path}")
 
 
+def archive(path: Path) -> None:
+    """A zip that is only a zip: nothing inside it makes it a document."""
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as package:
+        package.writestr("notes.txt", "Alpha\nBeta\n")
+        package.writestr("holiday/photo.jpg", b"\xff\xd8\xff\xe0" + bytes(64))
+        package.writestr("holiday/second.jpg", b"\xff\xd8\xff\xe0" + bytes(64))
+    print(f"wrote {path}")
+
+
 def main() -> None:
     tests = Path(__file__).resolve().parent.parent / "OpenDocumentReaderTests"
 
@@ -189,6 +198,11 @@ def main() -> None:
     encrypted = tests / "test-encrypted.pdf"
     encrypt_pdf(path, encrypted)
     print(f"wrote {encrypted}")
+
+    archive(tests / "test.zip")
+    # zips the system knows as documents: it draws a .pages, but not an .epub
+    archive(tests / "test.pages")
+    archive(tests / "test.epub")
 
 
 if __name__ == "__main__":

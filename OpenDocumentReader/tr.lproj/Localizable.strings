@@ -94,3 +94,15 @@
 /* Buttons on the house ad */
 "house_ad_cta_go_pro" = "Pro'ya geç";
 "house_ad_cta_get_pro" = "Pro'yu al";
+
+/* The title of the alert shown when a file will not open */
+"dialog_broken_file_title" = "Bu dosya açılamadı";
+
+/* Its message. The address is the one users write to */
+"dialog_broken_file" = "Dosya bozuk olabilir veya bizim tarafımızda bir şeyler ters gitmiş olabilir. Dosyanın sorunsuz olduğunu düşünüyorsanız support@opendocument.app adresinden bize bildirin";
+
+/* Opens a mail to support */
+"action_contact" = "İletişim";
+
+/* Shown for a format odrcore does not read */
+"toast_error_illegal_file_reopen" = "Desteklenmeyen dosya biçimi. Başka bir uygulamada açmayı deneyin.";

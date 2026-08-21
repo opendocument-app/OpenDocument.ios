@@ -31,9 +31,11 @@
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array>
+				<!-- No audiovisual type: odrcore plays a sound or a film because
+				     OpenDocument.droid once did, and a document reader should not
+				     be offered as the handler for an mp3. -->
 				<string>public.text</string>
 				<string>public.image</string>
-				<string>public.audiovisual-content</string>
 				<string>public.composite-content</string>
 				<!-- The broad types above miss these: a system type that conforms
 				     to none of them, and the six below that iOS has no type for

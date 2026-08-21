@@ -94,3 +94,15 @@
 /* Buttons on the house ad */
 "house_ad_cta_go_pro" = "Faigh Pro";
 "house_ad_cta_get_pro" = "Ceannaigh Pro";
+
+/* The title of the alert shown when a file will not open */
+"dialog_broken_file_title" = "Níorbh fhéidir an comhad seo a oscailt";
+
+/* Its message. The address is the one users write to */
+"dialog_broken_file" = "B'fhéidir go bhfuil an comhad damáistithe, nó gur chlis rud éigin orainne. Má cheapann tú go bhfuil an comhad ceart go leor, cuir scéala chugainn ag support@opendocument.app";
+
+/* Opens a mail to support */
+"action_contact" = "Teagmháil";
+
+/* Shown for a format odrcore does not read */
+"toast_error_illegal_file_reopen" = "Ní thacaítear leis an bhformáid chomhaid seo. Bain triail as an gcomhad a oscailt in aip eile.";

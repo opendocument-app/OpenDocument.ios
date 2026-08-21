@@ -94,3 +94,15 @@
 /* Buttons on the house ad */
 "house_ad_cta_go_pro" = "Przejdź na Pro";
 "house_ad_cta_get_pro" = "Kup Pro";
+
+/* The title of the alert shown when a file will not open */
+"dialog_broken_file_title" = "Nie można otworzyć tego pliku";
+
+/* Its message. The address is the one users write to */
+"dialog_broken_file" = "Plik może być uszkodzony lub coś poszło nie tak po naszej stronie. Jeśli uważasz, że plik jest w porządku, napisz do nas na support@opendocument.app";
+
+/* Opens a mail to support */
+"action_contact" = "Kontakt";
+
+/* Shown for a format odrcore does not read */
+"toast_error_illegal_file_reopen" = "Nieobsługiwany format pliku. Spróbuj otworzyć go w innej aplikacji.";

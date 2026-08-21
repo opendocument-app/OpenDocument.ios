@@ -158,19 +158,17 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertFalse(wrapper.isEditable)
     }
 
-    /// A png is one of the formats odrcore translates but we leave to the system.
-    func testImageIsLeftToTheSystem() throws {
+    /// odrcore renders a picture too.
+    func testImageIsTranslated() throws {
         let wrapper = CoreWrapper()
 
         let image = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("test.png")
         try Data([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]).write(to: image)
 
-        XCTAssertThrowsError(
-            try wrapper.translate(
-                image.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
-        ) { error in
-            XCTAssertEqual((error as NSError).code, CoreWrapperError.unsupportedFileType.rawValue)
-        }
+        try wrapper.translate(
+            image.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["image"])
     }
 
     /// And it has no document behind it, so the menu must not offer to edit one.
@@ -361,12 +359,14 @@ class OpenDocumentReaderTests: XCTestCase {
         }
     }
 
+    /// odrcore recognising nothing at all is the message, not a page.
     func testUnsupportedFileTypeReportsTypedError() throws {
         let wrapper = CoreWrapper()
 
         let notADocument = URL(fileURLWithPath: temporaryDirectory)
             .appendingPathComponent("not-a-document.odt")
-        try "definitely not an office document".write(to: notADocument, atomically: true, encoding: .utf8)
+        // every byte value: text in no encoding, so odrcore has nothing to read
+        try Data((0..<2).flatMap { _ in (0...255).map(UInt8.init) }).write(to: notADocument)
 
         XCTAssertThrowsError(
             try wrapper.translate(
@@ -376,6 +376,19 @@ class OpenDocumentReaderTests: XCTestCase {
             XCTAssertEqual(error.domain, CoreWrapperErrorDomain)
             XCTAssertEqual(error.code, CoreWrapperError.unsupportedFileType.rawValue)
         }
+    }
+
+    /// The other side of it: real text has a charset, and must still open.
+    func testTextFileIsTranslated() throws {
+        let wrapper = CoreWrapper()
+
+        let notes = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("notes.txt")
+        try "Alpha\nBeta\n".write(to: notes, atomically: true, encoding: .utf8)
+
+        try wrapper.translate(
+            notes.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["text"])
     }
 
     func testTranslatePerformance() throws {
