@@ -1,0 +1,4 @@
+- Lösenordsskyddade Word-, Excel- och PowerPoint-filer talar nu om det i stället för att bara vägra öppnas
+- Text som kopieras ur en PDF blir läsbara ord, markeringen fungerar, och fler PDF-filer öppnas
+- Återkommande tabellrubriker stannar kvar, breda bilder får plats på skärmen, och bilder i Word- och Excel-filer visas igen
+- Långa dokument öppnas högst upp på första sidan på iPad

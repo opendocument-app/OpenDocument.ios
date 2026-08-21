@@ -1,0 +1,4 @@
+- Pliki Word, Excel i PowerPoint chronione hasłem informują o tym, zamiast po prostu się nie otwierać
+- Tekst skopiowany z pliku PDF to czytelne słowa, działa podświetlanie, a otwiera się więcej plików PDF
+- Powtarzające się nagłówki tabel zostają na miejscu, szerokie zdjęcia mieszczą się na ekranie, a obrazy w plikach Word i Excel znów się pokazują
+- Na iPadzie długie dokumenty otwierają się na górze pierwszej strony

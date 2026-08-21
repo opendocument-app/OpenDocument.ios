@@ -1,0 +1,4 @@
+- Parola korumalı Word, Excel ve PowerPoint dosyaları artık öylece açılmamak yerine parolalı olduklarını söylüyor
+- PDF'den kopyalanan metin okunabilir kelimeler olarak çıkıyor, vurgulama çalışıyor ve daha fazla PDF açılıyor
+- Yinelenen tablo başlıkları yerinde kalıyor, geniş resimler ekrana sığıyor, Word ve Excel dosyalarındaki resimler yeniden görünüyor
+- Uzun belgeler iPad'de ilk sayfanın başında açılıyor
