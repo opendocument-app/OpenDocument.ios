@@ -433,6 +433,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        if let outcome = failureAwaitingTheScreen {
+            failureAwaitingTheScreen = nil
+
+            close(with: outcome)
+
+            return
+        }
+
         // the consent form is modal, so it has to wait for the window hierarchy - viewWillAppear
         // is too early. This runs again on every reappearance, hence the flag.
         guard Features.withAds, !hasStartedAds else {
@@ -992,6 +1000,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 AnalyticsConstants.paramContentType: doc.fileURL.pathExtension.lowercased(),
             ])
 
+        close(with: outcome)
+    }
+
+    /// Takes the reader off the screen and says why. The document is opened
+    /// before this controller is presented, so a file that fails on the first
+    /// try has nothing to dismiss and nowhere to put the message yet — it waits
+    /// for the screen it is about to be given, the way the password prompt does.
+    private func close(with outcome: FailedToOpen) {
+        guard viewIfLoaded?.window != nil else {
+            failureAwaitingTheScreen = outcome
+
+            return
+        }
+
         // taken before the dismiss, which is what takes this controller off it
         let host = presentingViewController
 
@@ -1002,6 +1024,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     /// Whether this document has already ended in a message.
     private var hasGivenUp = false
+
+    /// A message raised before this controller was on screen. Shown as soon as
+    /// it is, rather than into a window hierarchy it is not part of.
+    private var failureAwaitingTheScreen: FailedToOpen?
 
     func documentLoadingStarted(_ doc: Document) {
         progressBar.isHidden = false
@@ -1090,7 +1116,9 @@ extension UIViewController {
 
         present(alert, animated: true)
 
-        AnalyticsManager.shared.report("contact_offer")
+        if outcome.offersContact {
+            AnalyticsManager.shared.report("contact_offer")
+        }
     }
 
     /// A mail to us. Nothing more to say where there is no mail app: the
