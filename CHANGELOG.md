@@ -34,6 +34,7 @@ once the version tag exists.
 
 - A long document opens at the top of its first page on an iPad. It opened a
   page or more in.
+- Pictures in a Word or Excel file show, rather than a broken image.
 
 ## [1.41]
 
