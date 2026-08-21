@@ -94,3 +94,15 @@
 /* Buttons on the house ad */
 "house_ad_cta_go_pro" = "Přejít na Pro";
 "house_ad_cta_get_pro" = "Pořídit Pro";
+
+/* The title of the alert shown when a file will not open */
+"dialog_broken_file_title" = "Soubor se nepodařilo otevřít";
+
+/* Its message. The address is the one users write to */
+"dialog_broken_file" = "Soubor může být poškozený, nebo se něco pokazilo na naší straně. Pokud si myslíte, že je soubor v pořádku, napište nám na support@opendocument.app";
+
+/* Opens a mail to support */
+"action_contact" = "Kontakt";
+
+/* Shown for a format odrcore does not read */
+"toast_error_illegal_file_reopen" = "Nepodporovaný formát souboru. Zkuste jej otevřít v jiné aplikaci.";

@@ -17,6 +17,19 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Added
+
+- A zip file opens and lists what is inside. Tapping an entry shows it.
+- Photos and text files the reader used to refuse now open.
+
+### Changed
+
+- A file that will not open says so, and offers to write to us when something
+  went wrong on our side.
+- The app no longer offers itself for music and films.
+
 ## [1.42]
 
 ### Added

@@ -48,6 +48,8 @@ class Document: UIDocument {
     public var webview: WKWebView?
 
     public var isOdf = false
+    /// Whether the page is a listing of an archive - see `CoreWrapper.isArchive`.
+    public var isArchive = false
     /// Whether the menu should offer to edit this one - see `CoreWrapper.isEditable`.
     public var isEditable = false
     private var wasPageCountAnnounced = false
@@ -62,6 +64,7 @@ class Document: UIDocument {
         loadProgress.completedUnitCount = 2
 
         isOdf = false
+        isArchive = false
         isEditable = false
         result = nil
         pageURLs = nil
@@ -91,6 +94,7 @@ class Document: UIDocument {
         }
 
         isOdf = true
+        isArchive = coreWrapper.isArchive
         isEditable = coreWrapper.isEditable
 
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
