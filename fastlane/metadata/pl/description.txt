@@ -24,7 +24,7 @@ Poza tym przeglądarka dokumentów stara się jak najlepiej obsługiwać równie
 - Obrazy: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG i inne
 - Filmy: MP4, WEBM i inne
 - Dźwięk: MP3, OGG i inne
-- Pliki tekstowe: CSV, TXT, RTF
+- Pliki tekstowe: CSV, TXT, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
 - Libre Office i Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)

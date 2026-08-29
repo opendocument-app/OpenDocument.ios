@@ -24,7 +24,7 @@ Além disso, o leitor de documentos procura abrir da melhor forma possível vár
 - Imagens: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG etc
 - Vídeos: MP4, WEBM etc
 - Áudio: MP3, OGG etc
-- Arquivos de texto: CSV, TXT, RTF
+- Arquivos de texto: CSV, TXT, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
 - Libre Office e Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)

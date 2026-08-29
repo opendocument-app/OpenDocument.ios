@@ -24,7 +24,7 @@ Oltre a questo, il lettore di documenti punta a supportare al meglio anche molti
 - Immagini: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG, ecc.
 - Video: MP4, WEBM, ecc.
 - Audio: MP3, OGG, ecc.
-- File di testo: CSV, TXT, RTF
+- File di testo: CSV, TXT, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
 - Libre Office e Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)

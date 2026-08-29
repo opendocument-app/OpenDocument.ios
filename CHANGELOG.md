@@ -24,6 +24,8 @@ once the version tag exists.
 - A zip file opens and lists what is inside. Tapping an entry shows it.
 - Photos and text files the reader used to refuse now open.
 - Rich text files open.
+- Markdown files are shown as prose: a heading is a heading, and the hashes and
+  stars are gone.
 
 ### Changed
 
