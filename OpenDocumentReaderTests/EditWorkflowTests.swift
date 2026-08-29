@@ -107,9 +107,7 @@ class EditWorkflowTests: XCTestCase {
                 """
                 (function () {
                     var run = document.querySelector('[contenteditable]');
-                    // not getBoundingClientRect: the view applies a zoom to fit,
-                    // which webkit leaves out of it but elementFromPoint expects
-                    var box = odr.getViewportRect(run);
+                    var box = run.getBoundingClientRect();
                     var hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
 
                     return hit ? hit.tagName : 'none';
