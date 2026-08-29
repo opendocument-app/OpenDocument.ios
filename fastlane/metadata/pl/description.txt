@@ -24,13 +24,10 @@ Poza tym przeglądarka dokumentów stara się jak najlepiej obsługiwać równie
 - Obrazy: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG i inne
 - Filmy: MP4, WEBM i inne
 - Dźwięk: MP3, OGG i inne
-- Pliki tekstowe: CSV, TXT, HTML, RTF
+- Pliki tekstowe: CSV, TXT, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
-- Libre Office i Open Office ODF (ODT, ODS, ODP, ODG)
-- PostScript (EPS)
-- AutoCAD (DXF)
-- Photoshop (PSD)
+- Libre Office i Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
 
 Ta aplikacja jest oprogramowaniem open source. Nie jesteśmy powiązani z OpenOffice, LibreOffice ani podobnymi projektami. Made in Austria. ${ads} Bardzo cenimy sobie każdą opinię przesłaną e-mailem.
 

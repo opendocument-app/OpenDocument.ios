@@ -24,13 +24,10 @@ Dessutom stöder dokumentläsaren så många andra filformat som möjligt:
 - Bilder: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG med flera
 - Video: MP4, WEBM med flera
 - Ljud: MP3, OGG med flera
-- Textfiler: CSV, TXT, HTML, RTF
+- Textfiler: CSV, TXT, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
-- Libre Office och Open Office ODF (ODT, ODS, ODP, ODG)
-- PostScript (EPS)
-- AutoCAD (DXF)
-- Photoshop (PSD)
+- Libre Office och Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
 
 Appen är öppen källkod. Vi har ingen koppling till OpenOffice, LibreOffice eller liknande. Tillverkad i Österrike. ${ads} Vi uppskattar all form av återkoppling via e-post.
 
