@@ -24,13 +24,10 @@
 - Изображения: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG и др.
 - Видео: MP4, WEBM и др.
 - Аудио: MP3, OGG и др.
-- Текстовые файлы: CSV, TXT, HTML, RTF
+- Текстовые файлы: CSV, TXT, HTML, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
-- Libre Office и Open Office ODF (ODT, ODS, ODP, ODG)
-- PostScript (EPS)
-- AutoCAD (DXF)
-- Photoshop (PSD)
+- Libre Office и Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
 
 Это приложение с открытым исходным кодом. Мы никак не связаны с OpenOffice, LibreOffice или подобными проектами. Сделано в Австрии. ${ads} Будем рады любым отзывам по электронной почте.
 

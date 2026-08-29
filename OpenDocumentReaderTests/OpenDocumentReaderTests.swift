@@ -391,6 +391,41 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["text"])
     }
 
+    /// A text file comes back as `text`; a markdown one as a document, with the
+    /// hashes and stars turned into a heading and a bold run.
+    func testMarkdownIsReadAsProse() throws {
+        let wrapper = CoreWrapper()
+
+        let notes = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("notes.md")
+        try "# Heading\n\nSome **bold** prose.\n".write(to: notes, atomically: true, encoding: .utf8)
+
+        try wrapper.translate(
+            notes.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        XCTAssertEqual(wrapper.pageNames, ["document"])
+
+        let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
+        let html = try XCTUnwrap(String(data: data, encoding: .utf8))
+
+        XCTAssertTrue(html.contains("font-size:2em"), "the heading is not one")
+        XCTAssertTrue(html.contains("font-weight:bold"), "the bold run is not bold")
+        XCTAssertFalse(html.contains("# Heading"), "the hashes are still in it")
+        XCTAssertFalse(html.contains("**bold**"), "the stars are still in it")
+    }
+
+    /// A `.csv` is odrcore's decision from the text; the name must not take it.
+    func testCsvIsStillOdrcoresDecision() throws {
+        let wrapper = CoreWrapper()
+
+        let rows = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("rows.csv")
+        try "a,b\n1,2\n".write(to: rows, atomically: true, encoding: .utf8)
+
+        try wrapper.translate(
+            rows.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        XCTAssertFalse(wrapper.pageNames.isEmpty)
+    }
+
     func testTranslatePerformance() throws {
         let wrapper = CoreWrapper()
         let path = documentURL.path

@@ -24,13 +24,10 @@ Bunlara ek olarak belge okuyucu, diğer birçok dosya biçimini de elinden geldi
 - Resimler: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG vb.
 - Videolar: MP4, WEBM vb.
 - Ses: MP3, OGG vb.
-- Metin dosyaları: CSV, TXT, HTML, RTF
+- Metin dosyaları: CSV, TXT, HTML, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
-- Libre Office ve Open Office ODF (ODT, ODS, ODP, ODG)
-- PostScript (EPS)
-- AutoCAD (DXF)
-- Photoshop (PSD)
+- Libre Office ve Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
 
 Bu uygulama açık kaynaklıdır. OpenOffice, LibreOffice veya benzeri programlarla herhangi bir bağlantımız yoktur. Avusturya'da üretilmiştir. ${ads} Her türlü geri bildiriminizi e-posta ile bize iletmenizden memnuniyet duyarız.
 

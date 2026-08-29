@@ -246,17 +246,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         ])
     }
 
-    /// odrcore writes every link with `target="_blank"`, and this app has no
-    /// second window: what odrcore serves opens in the web view that asked.
+    /// Only a link that leaves the page carries `target="_blank"`, and this app
+    /// has no second window: the web goes to the browser, and what odrcore
+    /// serves — should any of it arrive here — to the web view that asked.
     func webView(
         _ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
         for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
-        guard let url = navigationAction.request.url, CoreWrapper.isServedURL(url) else {
-            return nil
-        }
+        guard let url = navigationAction.request.url else { return nil }
 
-        webView.load(navigationAction.request)
+        if CoreWrapper.isServedURL(url) {
+            webView.load(navigationAction.request)
+        } else if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
 
         return nil
     }
@@ -278,12 +281,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         if !navigationResponse.canShowMIMEType {
             decisionHandler(.cancel)
 
-            // the system could not draw it after all, so fall back to the listing
-            if let listing = listingInReserve {
-                listingInReserve = nil
+            // the system could not draw it after all, so fall back to odrcore's
+            if let page = corePageInReserve {
+                corePageInReserve = nil
 
-                installFitToWidth(for: listing)
-                documentNavigation = webview.load(URLRequest(url: listing))
+                installFitToWidth(for: page)
+                documentNavigation = webview.load(URLRequest(url: page))
 
                 return
             }
@@ -293,7 +296,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        listingInReserve = nil
+        corePageInReserve = nil
 
         guard let response = navigationResponse.response as? HTTPURLResponse,
             response.statusCode >= 400,
@@ -875,10 +878,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        // only a container to odrcore, but a document to the system: it gets
-        // the first go, with the listing kept in reserve
-        if doc.isArchive, systemKnowsItAsADocument(doc.fileURL) {
-            listingInReserve = url
+        // the system gets the first go, with odrcore's page kept in reserve
+        if systemDrawsItBetter(doc) {
+            corePageInReserve = url
 
             canEdit = false
             canSearch = false
@@ -892,16 +894,28 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         documentNavigation = self.webview.load(URLRequest(url: url))
     }
 
-    /// Whether the system's type for this file says document rather than
-    /// container: a `.pages` is composite content, a `.zip` is not.
-    private func systemKnowsItAsADocument(_ url: URL) -> Bool {
-        guard let type = UTType(filenameExtension: url.pathExtension) else { return false }
+    /// Three the system draws better, all falling back to `corePageInReserve`:
+    /// html, which odrcore has no type for and reads as its own source, iWork,
+    /// whose styles and pictures it does not read, and a container it knows as a
+    /// document (`.epub` is composite content, `.zip` is not).
+    private func systemDrawsItBetter(_ doc: Document) -> Bool {
+        let ext = doc.fileURL.pathExtension.lowercased()
 
-        return !type.isDynamic && type.conforms(to: .compositeContent)
+        guard let type = UTType(filenameExtension: ext), !type.isDynamic else { return false }
+
+        return Self.webPageTypes.contains(where: type.conforms(to:))
+            || Self.iWorkExtensions.contains(ext)
+            || (doc.isArchive && type.conforms(to: .compositeContent))
     }
 
-    /// odrcore's listing, held back while the system has the first go.
-    private var listingInReserve: URL?
+    /// Both, because `public.xhtml` conforms to xml rather than to html — and
+    /// xml is what a flat ODF is, which odrcore does render.
+    private static let webPageTypes: [UTType] = [.html, UTType("public.xhtml")].compactMap { $0 }
+
+    private static let iWorkExtensions: Set<String> = ["pages", "numbers", "key"]
+
+    /// odrcore's page, held back while the system has the first go.
+    private var corePageInReserve: URL?
 
     func documentEncrypted(_ doc: Document) {
         // the document is opened before this controller is presented, so the

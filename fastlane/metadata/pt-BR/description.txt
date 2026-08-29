@@ -24,13 +24,10 @@ Além disso, o leitor de documentos procura abrir da melhor forma possível vár
 - Imagens: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG etc
 - Vídeos: MP4, WEBM etc
 - Áudio: MP3, OGG etc
-- Arquivos de texto: CSV, TXT, HTML, RTF
+- Arquivos de texto: CSV, TXT, HTML, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
-- Libre Office e Open Office ODF (ODT, ODS, ODP, ODG)
-- PostScript (EPS)
-- AutoCAD (DXF)
-- Photoshop (PSD)
+- Libre Office e Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
 
 Este app é de código aberto. Não temos vínculo com o OpenOffice, o LibreOffice ou similares. Feito na Áustria. ${ads} Adoramos receber todo tipo de feedback por e-mail.
 

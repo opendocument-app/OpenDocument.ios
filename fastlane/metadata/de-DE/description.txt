@@ -24,13 +24,10 @@ Darüber hinaus unterstützt der Dokumentenbetrachter viele weitere Dateiformate
 - Bilder: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG, etc
 - Videos: MP4, WEBM, etc
 - Audio: MP3, OGG, etc
-- Textdateien: CSV, TXT, HTML, RTF
+- Textdateien: CSV, TXT, HTML, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
-- Libre Office und Open Office ODF (ODT, ODS, ODP, ODG)
-- PostScript (EPS)
-- AutoCAD (DXF)
-- Photoshop (PSD)
+- Libre Office und Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
 
 Diese App ist Open Source. Wir stehen in keiner Verbindung zu OpenOffice, LibreOffice oder ähnlichen Projekten. Made in Austria. ${ads} Über Rückmeldungen jeder Art per E-Mail freuen wir uns sehr.
 

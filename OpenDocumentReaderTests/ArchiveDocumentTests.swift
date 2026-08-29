@@ -97,8 +97,7 @@ class ArchiveDocumentTests: XCTestCase {
         XCTAssertFalse(shown.contains(NSLocalizedString("toast_error_generic", comment: "")), shown)
     }
 
-    /// A `.pages` is a zip to odrcore, but a document to the system, which gets
-    /// the first go.
+    /// odrcore reads a `.pages`, but only its text: the system gets the first go.
     func testADocumentTheSystemKnowsIsLeftToTheSystem() throws {
         try present(try copyFixture(ofType: "pages"))
 
@@ -110,6 +109,34 @@ class ArchiveDocumentTests: XCTestCase {
 
         XCTAssertEqual(shown.lastPathComponent, "test.pages")
         XCTAssertNil(controller.presentedViewController, "it said the file would not open")
+    }
+
+    /// odrcore has no html type, so it reads the page's own source as text. The
+    /// system draws the page, as it did before the reader asked the core.
+    func testHtmlIsLeftToTheSystem() throws {
+        for pathExtension in ["html", "htm", "xhtml"] {
+            try present(try writeHtml(ofType: pathExtension))
+
+            let opened = expectation(description: "opened " + pathExtension)
+            document.open { _ in opened.fulfill() }
+            wait(for: [opened], timeout: 60)
+
+            let shown = try XCTUnwrap(waitForURL { $0.isFileURL }, pathExtension)
+
+            XCTAssertEqual(shown.lastPathComponent, "test." + pathExtension, shown.absoluteString)
+            XCTAssertNil(controller.presentedViewController, "it said the file would not open")
+        }
+    }
+
+    private func writeHtml(ofType pathExtension: String) throws -> URL {
+        let documentsURL = try FileManager.default.url(
+            for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+
+        let url = documentsURL.appendingPathComponent("test." + pathExtension)
+        try? FileManager.default.removeItem(at: url)
+        try "<html><body><h1>Heading</h1></body></html>".write(to: url, atomically: true, encoding: .utf8)
+
+        return url
     }
 
     /// And when the system cannot draw it after all, the listing takes over

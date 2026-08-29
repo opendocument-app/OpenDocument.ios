@@ -24,13 +24,10 @@ In addition to that, the document reader aims to support various other file form
 - Images: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG, etc
 - Videos: MP4, WEBM, etc
 - Audio: MP3, OGG, etc
-- Text files: CSV, TXT, HTML, RTF
+- Text files: CSV, TXT, HTML, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
-- Libre Office and Open Office ODF (ODT, ODS, ODP, ODG)
-- PostScript (EPS)
-- AutoCAD (DXF)
-- Photoshop (PSD)
+- Libre Office and Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
 
 This app is open source. We are not affiliated with OpenOffice, LibreOffice or similar. Made in Austria. ${ads} We highly appreciate all kinds of feedback via email.
 
