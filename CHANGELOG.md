@@ -23,12 +23,29 @@ once the version tag exists.
 
 - A zip file opens and lists what is inside. Tapping an entry shows it.
 - Photos and text files the reader used to refuse now open.
+- Rich text files open.
 
 ### Changed
 
+- The engine is odrcore 7.0.0, up from 6.10.1.
 - A file that will not open says so, and offers to write to us when something
   went wrong on our side.
 - The app no longer offers itself for music and films.
+- A link out of a document opens in the browser, rather than leading nowhere.
+- Slides show their colours: text, highlights and the fill behind a shape.
+- Text in a PDF no longer runs over the page in giant type, and can be selected,
+  searched and copied where it came out as Chinese, Japanese or Korean.
+- A PDF opens faster and zooms without stalling.
+- A tall spreadsheet keeps many more rows before it stops; a very wide one keeps
+  fewer.
+- A single-file OpenDocument shows the document, not its source.
+
+### Fixed
+
+- A file saved by the reader opens in LibreOffice again.
+- A presentation exported from Google Slides opens.
+- A Photoshop or JPEG 2000 file says it will not open, instead of showing a
+  blank page.
 
 ## [1.42]
 

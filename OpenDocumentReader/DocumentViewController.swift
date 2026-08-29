@@ -75,105 +75,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// What OpenDocument.droid gets from `loadWithOverviewMode`, which iOS has
-    /// no setting for: a page wider than the screen is zoomed out until it fits
-    /// instead of running off the edge.
-    ///
-    /// odrcore asks for that by leaving the initial scale out of the viewport
-    /// meta - `width=device-width` alone, which every browser but a web view in
-    /// overview mode reads as "lay out at screen width and let the rest
-    /// overflow". A page that names its scale (a spreadsheet, a csv) means it,
-    /// and is left alone.
-    ///
-    /// Only for what odrcore served, which is why `origin` is checked here as
-    /// well as before the script is installed: the same web view shows the
-    /// formats odrcore does not handle, and follows links out of a document.
-    /// Their viewport is their author's to write, and rewriting it would throw
-    /// away what it says - `user-scalable=no`, a maximum scale, a `viewport-fit`.
-    private static func fitToWidthScript(servedFrom origin: String) -> String {
-        """
-        (function () {
-            if (location.origin !== '\(origin)') {
-                return;
-            }
-
-            var meta = document.querySelector('meta[name="viewport"]');
-            if (!meta || (meta.content || '').indexOf('initial-scale') !== -1) {
-                return;
-            }
-
-            var served = meta.content;
-            var natural = document.documentElement.scrollWidth;
-
-            // The web view's own width, which the viewport named below does not
-            // change: the visual viewport is that many CSS pixels at that scale.
-            function available() {
-                var seen = window.visualViewport;
-
-                return seen ? Math.round(seen.width * seen.scale) : window.innerWidth;
-            }
-
-            function fit() {
-                meta.setAttribute(
-                    'content',
-                    natural > available() ? 'width=' + natural + ',user-scalable=yes' : served);
-            }
-
-            // Across a resize the browser keeps the reader's place by holding on
-            // to whatever was against the top of the screen, and here it gets it
-            // wrong: the scale changes with the width, and the page comes back
-            // hundreds of pixels down - a page or more of a long document on an
-            // iPad, which is where the width really does change. It settles
-            // there some frames after the resize, so the place the reader was
-            // actually at is re-asserted until it has finished, and dropped the
-            // moment they take hold of the page themselves.
-            var holding = [];
-
-            function hold(place) {
-                holding.forEach(clearTimeout);
-                holding = [0, 16, 50, 150, 300, 500].map(function (ms) {
-                    return setTimeout(function () { window.scrollTo(window.scrollX, place); }, ms);
-                });
-            }
-
-            window.addEventListener('touchstart', function () {
-                holding.forEach(clearTimeout);
-                holding = [];
-            }, { passive: true });
-
-            // On every resize, not just now: this first runs before the web view
-            // has the width it will keep, and a page held at a width it no
-            // longer needs is left scrolled off its own top.
-            fit();
-            window.addEventListener('resize', function () {
-                var was = window.scrollY;
-                fit();
-                hold(was);
-            });
-        })();
-        """
-    }
-
-    /// Arms ``fitToWidthScript(servedFrom:)`` for a page that came off our own
-    /// server, and disarms it for anything else. At document end rather than on
-    /// `didFinish`, so the page is fitted before it is first drawn instead of
-    /// jumping once the images are in.
-    private func installFitToWidth(for url: URL) {
-        let scripts = webview.configuration.userContentController
-        scripts.removeAllUserScripts()
-
-        guard CoreWrapper.isServedURL(url),
-            let scheme = url.scheme, let host = url.host, let port = url.port
-        else {
-            return
-        }
-
-        scripts.addUserScript(
-            WKUserScript(
-                source: Self.fitToWidthScript(servedFrom: "\(scheme)://\(host):\(port)"),
-                injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-    }
-
     /// Fills the banner slot when no ad does. Sits on top of `bannerSlot` rather than in the
     /// layout chain, so the slot keeps its height and nothing below it moves.
     private let houseAdView = HouseAdView()
@@ -246,17 +147,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         ])
     }
 
-    /// odrcore writes every link with `target="_blank"`, and this app has no
-    /// second window: what odrcore serves opens in the web view that asked.
+    /// Only a link that leaves the page carries `target="_blank"`, and this app
+    /// has no second window: the web goes to the browser, and what odrcore
+    /// serves — should any of it arrive here — to the web view that asked.
     func webView(
         _ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
         for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
-        guard let url = navigationAction.request.url, CoreWrapper.isServedURL(url) else {
-            return nil
-        }
+        guard let url = navigationAction.request.url else { return nil }
 
-        webView.load(navigationAction.request)
+        if CoreWrapper.isServedURL(url) {
+            webView.load(navigationAction.request)
+        } else if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
 
         return nil
     }
@@ -278,12 +182,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         if !navigationResponse.canShowMIMEType {
             decisionHandler(.cancel)
 
-            // the system could not draw it after all, so fall back to the listing
-            if let listing = listingInReserve {
-                listingInReserve = nil
+            // the system could not draw it after all, so fall back to odrcore's
+            if let page = corePageInReserve {
+                corePageInReserve = nil
 
-                installFitToWidth(for: listing)
-                documentNavigation = webview.load(URLRequest(url: listing))
+                documentNavigation = webview.load(URLRequest(url: page))
 
                 return
             }
@@ -293,7 +196,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        listingInReserve = nil
+        corePageInReserve = nil
 
         guard let response = navigationResponse.response as? HTTPURLResponse,
             response.statusCode >= 400,
@@ -875,10 +778,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        // only a container to odrcore, but a document to the system: it gets
-        // the first go, with the listing kept in reserve
-        if doc.isArchive, systemKnowsItAsADocument(doc.fileURL) {
-            listingInReserve = url
+        // the system gets the first go, with odrcore's page kept in reserve
+        if systemDrawsItBetter(doc) {
+            corePageInReserve = url
 
             canEdit = false
             canSearch = false
@@ -887,21 +789,26 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        installFitToWidth(for: url)
-
         documentNavigation = self.webview.load(URLRequest(url: url))
     }
 
-    /// Whether the system's type for this file says document rather than
-    /// container: a `.pages` is composite content, a `.zip` is not.
-    private func systemKnowsItAsADocument(_ url: URL) -> Bool {
-        guard let type = UTType(filenameExtension: url.pathExtension) else { return false }
+    /// Two files the system draws better, both falling back to `corePageInReserve`
+    /// when it turns out it cannot: a container the system knows as a document —
+    /// an `.epub` is composite content, a `.zip` is not — and iWork, whose text
+    /// odrcore reads but whose styles and pictures it does not.
+    private func systemDrawsItBetter(_ doc: Document) -> Bool {
+        let ext = doc.fileURL.pathExtension.lowercased()
 
-        return !type.isDynamic && type.conforms(to: .compositeContent)
+        guard let type = UTType(filenameExtension: ext), !type.isDynamic else { return false }
+
+        return Self.iWorkExtensions.contains(ext)
+            || (doc.isArchive && type.conforms(to: .compositeContent))
     }
 
-    /// odrcore's listing, held back while the system has the first go.
-    private var listingInReserve: URL?
+    private static let iWorkExtensions: Set<String> = ["pages", "numbers", "key"]
+
+    /// odrcore's page, held back while the system has the first go.
+    private var corePageInReserve: URL?
 
     func documentEncrypted(_ doc: Document) {
         // the document is opened before this controller is presented, so the

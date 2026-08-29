@@ -97,8 +97,7 @@ class ArchiveDocumentTests: XCTestCase {
         XCTAssertFalse(shown.contains(NSLocalizedString("toast_error_generic", comment: "")), shown)
     }
 
-    /// A `.pages` is a zip to odrcore, but a document to the system, which gets
-    /// the first go.
+    /// odrcore reads a `.pages`, but only its text: the system gets the first go.
     func testADocumentTheSystemKnowsIsLeftToTheSystem() throws {
         try present(try copyFixture(ofType: "pages"))
 

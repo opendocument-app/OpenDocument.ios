@@ -91,6 +91,15 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     private var document: OdrCoreObjC.Document?
     private let lock = NSRecursiveLock()
 
+    /// The largest sheet region translated, as on OpenDocument.droid. The
+    /// encoding is written out because Swift has no `@encode`.
+    private static let spreadsheetLimit: NSValue = withUnsafeBytes(
+        of: TableDimensions(rows: 100_000, columns: 500)
+    ) { NSValue(bytes: $0.baseAddress!, objCType: "{ODRTableDimensions=II}") }
+
+    /// Bounds the rows by the sheet's width: the wider, the fewer it keeps.
+    private static let spreadsheetCellLimit: UInt64 = 500_000
+
     @objc func translate(
         _ inputPath: String,
         cache cachePath: String,
@@ -130,12 +139,6 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             throw coreWrapperError(.unsupportedFileType, "odrcore does not render this file type")
         }
 
-        // odrcore calls a file it recognises as nothing else text, so an unnamed
-        // charset means the bytes are not text at all
-        if file.isTextFile, (try? file.asTextFile())?.charset == nil {
-            throw coreWrapperError(.unsupportedFileType, "odrcore could not name a charset")
-        }
-
         // the same answers OpenDocument.droid gives odrcore, so a document is
         // the same document on both — the viewport meta each page carries is
         // decided from these
@@ -157,6 +160,12 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         // odrcore's own css and js go into the page: there is no output
         // directory to put them beside
         config.embedShippedResources = true
+        // a WKWebView fits no top-level document, so the view fits itself
+        config.viewportMode = .fitWidthByView
+        // stated rather than inherited: a sheet past the limit is cut off silently
+        config.spreadsheetLimit = Self.spreadsheetLimit
+        config.spreadsheetCellLimit = NSNumber(value: Self.spreadsheetCellLimit)
+        config.spreadsheetLimitByContent = true
 
         let documentType: DocumentType
         let openedDocument: OdrCoreObjC.Document?
