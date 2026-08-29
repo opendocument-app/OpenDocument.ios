@@ -1,0 +1,6 @@
+- Zip-Dateien öffnen sich und zeigen ihren Inhalt, ebenso Fotos, Text-, Rich-Text- und Markdown-Dateien
+- Lässt sich eine Datei nicht öffnen, erfahren Sie jetzt den Grund, statt eine leere Seite zu sehen
+- Dokumente, die Sie bearbeiten und speichern, lassen sich wieder in LibreOffice öffnen
+- Folien behalten ihre Farben, und Links in einem Dokument öffnen sich im Browser
+- PDFs öffnen sich schneller, lassen sich flüssig zoomen, und Text lässt sich jetzt auch dort markieren und durchsuchen, wo das bisher nicht ging
+- Lange Tabellen zeigen deutlich mehr Zeilen, bevor Schluss ist

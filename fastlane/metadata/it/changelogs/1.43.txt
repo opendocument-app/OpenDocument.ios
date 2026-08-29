@@ -1,0 +1,6 @@
+- I file Zip si aprono e mostrano cosa contengono, e si aprono anche foto, testo, testo formattato e file Markdown
+- Ora i file che non si aprono dicono perché, invece di mostrare una pagina bianca
+- I documenti che modifichi e salvi si riaprono in LibreOffice
+- Le diapositive mantengono i colori e i link in un documento si aprono nel browser
+- I PDF si aprono più in fretta, lo zoom è fluido e il testo che non si poteva selezionare o cercare ora funziona
+- I fogli di calcolo lunghi reggono molte più righe prima di fermarsi

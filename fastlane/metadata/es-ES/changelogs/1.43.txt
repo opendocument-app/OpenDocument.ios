@@ -1,0 +1,6 @@
+- Los archivos ZIP se abren y muestran lo que contienen, y también se abren fotos, archivos de texto, texto enriquecido y Markdown
+- Ahora los archivos que no se abren dicen por qué, en vez de mostrar una página en blanco
+- Los documentos que edita y guarda vuelven a abrirse en LibreOffice
+- Las diapositivas mantienen sus colores y los enlaces de un documento se abren en el navegador
+- Los PDF se abren más rápido, el zoom va suave y ya se puede seleccionar y buscar el texto que antes no se podía
+- Las hojas de cálculo largas muestran muchas más filas antes de cortarse

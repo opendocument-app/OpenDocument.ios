@@ -1,0 +1,6 @@
+- Les fichiers ZIP s'ouvrent et montrent leur contenu, tout comme les photos et les fichiers texte, RTF et Markdown
+- Les fichiers qui ne s'ouvrent pas en donnent désormais la raison, au lieu d'afficher une page blanche
+- Les documents que vous modifiez et enregistrez s'ouvrent de nouveau dans LibreOffice
+- Les diapositives gardent leurs couleurs, et les liens d'un document s'ouvrent dans le navigateur
+- Les PDF s'ouvrent plus vite, le zoom est fluide, et le texte qui résistait à la sélection et à la recherche fonctionne
+- Les grandes feuilles de calcul affichent bien plus de lignes avant de s'arrêter

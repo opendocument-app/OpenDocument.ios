@@ -1,0 +1,6 @@
+- Pliki ZIP otwierają się i pokazują zawartość, a otworzysz też zdjęcia, pliki tekstowe, RTF i Markdown
+- Pliki, których nie da się otworzyć, pokazują teraz powód zamiast pustej strony
+- Dokumenty, które edytujesz i zapisujesz, znów otwierają się w LibreOffice
+- Slajdy zachowują kolory, a linki w dokumencie otwierają się w przeglądarce internetowej
+- Pliki PDF otwierają się szybciej, płynnie je powiększysz, a tekst, którego nie dało się zaznaczyć ani wyszukać, już się da
+- Długie arkusze kalkulacyjne mieszczą teraz znacznie więcej wierszy

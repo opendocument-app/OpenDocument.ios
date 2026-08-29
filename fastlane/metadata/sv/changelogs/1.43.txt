@@ -1,0 +1,6 @@
+- Zip-filer öppnas och visar vad som finns inuti, och även bilder, text-, RTF- och Markdown-filer öppnas
+- Filer som inte går att öppna talar nu om varför, i stället för att visa en tom sida
+- Dokument som du redigerar och sparar öppnas i LibreOffice igen
+- Presentationer behåller sina färger, och länkar i ett dokument öppnas i webbläsaren
+- PDF-filer öppnas snabbare, zoomar mjukt, och text som inte gick att markera eller söka i fungerar nu
+- Långa kalkylblad rymmer många fler rader innan det tar stopp

@@ -1,0 +1,6 @@
+- Os arquivos ZIP abrem e mostram o que há dentro, e as fotos e os arquivos de texto, RTF e Markdown também abrem
+- Agora os arquivos que não abrem dizem por quê, em vez de mostrar uma página em branco
+- Os documentos que você edita e salva abrem de novo no LibreOffice
+- Os slides mantêm suas cores, e os links de um documento abrem no navegador
+- Os PDFs abrem mais rápido, o zoom fica suave, e o texto que não dava para selecionar nem pesquisar agora funciona
+- As planilhas grandes aguentam muito mais linhas antes de parar

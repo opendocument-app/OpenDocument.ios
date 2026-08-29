@@ -1,0 +1,6 @@
+- Zip files open and show what's inside, and photos, text, rich text and Markdown files open too
+- Files that won't open now say why, instead of showing a blank page
+- Documents you edit and save open in LibreOffice again
+- Slides keep their colours, and links in a document open in the browser
+- PDFs open faster, zoom smoothly, and text you couldn't select or search now works
+- Tall spreadsheets keep many more rows before they stop

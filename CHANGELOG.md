@@ -17,7 +17,7 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.43]
 
 ### Added
 
@@ -49,7 +49,7 @@ once the version tag exists.
 - A Photoshop or JPEG 2000 file says it will not open, instead of showing a
   blank page.
 
-## [1.42]
+## [1.42] - 2026-08-21
 
 ### Added
 
@@ -261,7 +261,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.41...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.42...HEAD
+[1.42]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.41...v1.42
 [1.41]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.40...v1.41
 [1.40]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.39...v1.40
 [1.39]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.38...v1.39
