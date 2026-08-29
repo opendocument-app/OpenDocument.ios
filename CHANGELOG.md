@@ -27,7 +27,7 @@ once the version tag exists.
 
 ### Changed
 
-- The engine is odrcore 7.0.0, up from 6.10.1.
+- The engine is odrcore 6.11.0, up from 6.10.1.
 - A file that will not open says so, and offers to write to us when something
   went wrong on our side.
 - The app no longer offers itself for music and films.
