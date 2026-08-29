@@ -894,17 +894,23 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         documentNavigation = self.webview.load(URLRequest(url: url))
     }
 
-    /// Two the system draws better, both falling back to `corePageInReserve`:
-    /// a container it knows as a document (`.epub` is composite content, `.zip`
-    /// is not), and iWork, whose styles and pictures odrcore does not read.
+    /// Three the system draws better, all falling back to `corePageInReserve`:
+    /// html, which odrcore has no type for and reads as its own source, iWork,
+    /// whose styles and pictures it does not read, and a container it knows as a
+    /// document (`.epub` is composite content, `.zip` is not).
     private func systemDrawsItBetter(_ doc: Document) -> Bool {
         let ext = doc.fileURL.pathExtension.lowercased()
 
         guard let type = UTType(filenameExtension: ext), !type.isDynamic else { return false }
 
-        return Self.iWorkExtensions.contains(ext)
+        return Self.webPageTypes.contains(where: type.conforms(to:))
+            || Self.iWorkExtensions.contains(ext)
             || (doc.isArchive && type.conforms(to: .compositeContent))
     }
+
+    /// Both, because `public.xhtml` conforms to xml rather than to html — and
+    /// xml is what a flat ODF is, which odrcore does render.
+    private static let webPageTypes: [UTType] = [.html, UTType("public.xhtml")].compactMap { $0 }
 
     private static let iWorkExtensions: Set<String> = ["pages", "numbers", "key"]
 

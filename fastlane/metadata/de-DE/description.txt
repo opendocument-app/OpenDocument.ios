@@ -24,7 +24,7 @@ Darüber hinaus unterstützt der Dokumentenbetrachter viele weitere Dateiformate
 - Bilder: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG, etc
 - Videos: MP4, WEBM, etc
 - Audio: MP3, OGG, etc
-- Textdateien: CSV, TXT, MD, RTF
+- Textdateien: CSV, TXT, HTML, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
 - Libre Office und Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)

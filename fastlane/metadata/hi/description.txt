@@ -24,7 +24,7 @@ LibreOffice या OpenOffice में बनी ODF फाइलें (ODT, O
 - इमेज: JPG, JPEG, GIF, PNG, WEBP, TIFF, BMP, SVG आदि
 - वीडियो: MP4, WEBM आदि
 - ऑडियो: MP3, OGG आदि
-- टेक्स्ट फाइलें: CSV, TXT, MD, RTF
+- टेक्स्ट फाइलें: CSV, TXT, HTML, MD, RTF
 - Microsoft Office (OOXML): Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX)
 - Apple iWork: Pages, Numbers, Keynote
 - Libre Office और Open Office ODF (ODT, ODS, ODP, ODG, FODT, FODS, FODP, FODG)
