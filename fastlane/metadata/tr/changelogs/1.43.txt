@@ -1,0 +1,6 @@
+- Zip dosyaları açılıp içindekileri gösteriyor; fotoğraf, metin, zengin metin ve Markdown dosyaları da açılıyor
+- Açılmayan dosyalar artık boş sayfa yerine nedenini söylüyor
+- Düzenleyip kaydettiğiniz belgeler artık yine LibreOffice'te açılıyor
+- Sunum slaytları renklerini koruyor, belgedeki bağlantılar tarayıcıda açılıyor
+- PDF'ler daha hızlı açılıyor, akıcı şekilde yakınlaştırılıyor; daha önce seçilemeyen ve aranamayan metinler artık seçilip aranabiliyor
+- Uzun elektronik tablolar kesilmeden önce çok daha fazla satır gösteriyor
