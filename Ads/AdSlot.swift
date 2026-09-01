@@ -19,6 +19,23 @@ final class AdSlot: NSObject, BannerViewDelegate {
     /// makes the first request.
     private var requestedWidth: CGFloat?
 
+    /// Whether a banner has ever filled.
+    private var hasAd = false
+
+    /// The pending ask for a slot that did not fill.
+    private var retry: DispatchWorkItem?
+
+    private var retryDelay = AdSlot.firstRetryDelay
+
+    /// 10s, 20s, 40s, then the 60s the unit refreshes at. Not shorter: the sdk throttles a burst
+    /// of failed requests itself.
+    private static let firstRetryDelay: TimeInterval = 10
+    private static let maxRetryDelay: TimeInterval = 60
+
+    deinit {
+        retry?.cancel()
+    }
+
     /// Puts the banner in `slot` and gathers consent. Once per controller: the form is modal, so a
     /// second call on reappearance would bring it back.
     func start(in slot: UIView, from viewController: UIViewController) {
@@ -84,7 +101,31 @@ final class AdSlot: NSObject, BannerViewDelegate {
         requestedWidth = width
 
         bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: width)
+
+        retry?.cancel()
+        retryDelay = AdSlot.firstRetryDelay
+
         bannerView.load(Request())
+    }
+
+    /// Asks again for a hidden banner, which the unit will not refresh. Reschedules itself before
+    /// it asks: a request that never comes back must not end the chain. A suspended app cannot
+    /// fire the work item, so backgrounding needs no guard.
+    private func scheduleRetry() {
+        retry?.cancel()
+
+        let work = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+
+            self.retryDelay = min(self.retryDelay * 2, AdSlot.maxRetryDelay)
+            self.scheduleRetry()
+
+            self.bannerView.load(Request())
+        }
+
+        retry = work
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + retryDelay, execute: work)
     }
 
     private func reportNoAd() {
@@ -94,10 +135,20 @@ final class AdSlot: NSObject, BannerViewDelegate {
     }
 
     func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
+        CrashManager.shared.log("ad failed to load: \(error.localizedDescription)")
+
+        // the sdk keeps refreshing an ad that is up; only an empty slot needs asking
+        guard !hasAd else { return }
+
         reportNoAd()
+        scheduleRetry()
     }
 
     func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+        retry?.cancel()
+        retryDelay = AdSlot.firstRetryDelay
+        hasAd = true
+
         bannerView.isHidden = false
 
         onAd?()
