@@ -91,36 +91,11 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     private var document: OdrCoreObjC.Document?
     private let lock = NSRecursiveLock()
 
-    /// The largest sheet region translated, as on OpenDocument.droid. The
-    /// encoding is written out because Swift has no `@encode`.
-    private static let spreadsheetLimit: NSValue = withUnsafeBytes(
-        of: TableDimensions(rows: 100_000, columns: 500)
-    ) { NSValue(bytes: $0.baseAddress!, objCType: "{ODRTableDimensions=II}") }
+    /// The largest sheet region translated, as on OpenDocument.droid.
+    private static let spreadsheetLimit = TableDimensions(rows: 100_000, columns: 500)
 
     /// Bounds the rows by the sheet's width: the wider, the fewer it keeps.
     private static let spreadsheetCellLimit: UInt64 = 500_000
-
-    /// As odrcore reads the bytes, or as the name says where that reading is
-    /// text. Markdown has no signature, so only the name can name it.
-    private func openFile(_ inputPath: String) throws -> DecodedFile {
-        let detected = try DecodedFile.decode(path: inputPath)
-        let declared = Odr.fileType(extension: URL(fileURLWithPath: inputPath).pathExtension)
-
-        guard declared != .unknown, declared != detected.fileType, detected.isTextFile,
-            nameOutranksText(declared)
-        else {
-            return detected
-        }
-
-        return (try? DecodedFile.decode(path: inputPath, as: declared)) ?? detected
-    }
-
-    /// A document, or a format odrcore cannot detect from its bytes. Csv is
-    /// neither: odrcore reads that out of the text itself.
-    private func nameOutranksText(_ declared: FileType) -> Bool {
-        Odr.fileCategory(fileType: declared) == .document
-            || !Odr.capabilities(fileType: declared).detectByContent
-    }
 
     @objc func translate(
         _ inputPath: String,
@@ -142,7 +117,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             throw coreWrapperError(.unsupportedFileType, "odrcore does not recognise this file type")
         }
 
-        var file = try openFile(inputPath)
+        var file = try DecodedFile.decode(path: inputPath)
         if file.isPasswordEncrypted {
             do {
                 file = try file.decrypt(withPassword: password ?? "")
@@ -182,9 +157,12 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         // odrcore's own css and js go into the page: there is no output
         // directory to put them beside
         config.embedShippedResources = true
+        // the page measures the view and fits itself to it: a web view does not
+        // fit a page to the screen the way a browser does
+        config.viewportMode = .fitWidthByView
         // stated rather than inherited: a sheet past the limit is cut off silently
         config.spreadsheetLimit = Self.spreadsheetLimit
-        config.spreadsheetCellLimit = NSNumber(value: Self.spreadsheetCellLimit)
+        config.spreadsheetCellLimit = Self.spreadsheetCellLimit
         config.spreadsheetLimitByContent = true
 
         let documentType: DocumentType
