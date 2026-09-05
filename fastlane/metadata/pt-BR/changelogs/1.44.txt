@@ -1,0 +1,4 @@
+- Os documentos do Word mostram as bordas das tabelas, mantêm as imagens onde você as colocou e mudam de página onde devem
+- Gráficos, formas e desenhos antigos agora aparecem nos documentos, e as linhas dos PDFs saem com a espessura com que foram desenhadas
+- Os documentos cabem na tela quando você os abre, e o texto fica no tamanho que o documento define
+- As planilhas muito grandes abrem em vez de parar, e os arquivos protegidos por senha abrem somente para leitura

@@ -1,0 +1,4 @@
+- Word-dokument visar tabellramar, behåller bilderna där du placerat dem och börjar på en ny sida där de ska
+- Diagram, former och äldre teckningar syns nu i dokumenten, och linjer i PDF-filer får den bredd de ritades med
+- Dokument anpassas till skärmen när du öppnar dem, och texten behåller den storlek dokumentet ger den
+- Mycket stora kalkylblad öppnas i stället för att det tar stopp, och lösenordsskyddade filer öppnas bara för läsning

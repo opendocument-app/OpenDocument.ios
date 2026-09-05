@@ -1,0 +1,4 @@
+- Word documents show table borders, keep pictures where you placed them, and break to a new page where they should
+- Charts, shapes and older drawings now show up in documents, and lines in PDFs come out the width they were drawn
+- Documents fit the screen when you open them, and text stays the size the document gives it
+- Very large spreadsheets open instead of stopping, and password protected files open for reading only

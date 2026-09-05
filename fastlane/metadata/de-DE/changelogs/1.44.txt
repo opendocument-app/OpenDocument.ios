@@ -1,0 +1,4 @@
+- Word-Dokumente zeigen Tabellenrahmen, behalten Bilder an ihrem Platz und beginnen eine neue Seite, wo es sein soll
+- Diagramme, Formen und ältere Zeichnungen erscheinen jetzt in Dokumenten, und Linien in PDFs sind so dick, wie sie gezeichnet wurden
+- Dokumente passen beim Öffnen auf den Bildschirm, und Text behält die Größe, die das Dokument vorgibt
+- Sehr große Tabellenkalkulationen öffnen sich, statt abzubrechen, und passwortgeschützte Dateien lassen sich nur zum Lesen öffnen

@@ -17,7 +17,7 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.44]
 
 ### Changed
 
@@ -32,12 +32,14 @@ once the version tag exists.
 - Lines in a PDF written by Canva come out at the width they were drawn at.
 - A password protected document can no longer be edited: saving it wrote the
   content out without its password.
+- The Lite app asks for a banner again after one does not fill, instead of
+  leaving the slot empty until the next document is opened.
 
 ### Fixed
 
 - A very wide or repetitive spreadsheet opens instead of running out of memory.
 
-## [1.43]
+## [1.43] - 2026-08-29
 
 ### Added
 
@@ -281,7 +283,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.42...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.43...HEAD
+[1.43]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.42...v1.43
 [1.42]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.41...v1.42
 [1.41]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.40...v1.41
 [1.40]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.39...v1.40

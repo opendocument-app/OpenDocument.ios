@@ -1,0 +1,4 @@
+- Dokumenty Word pokazują obramowania tabel, zachowują obrazy tam, gdzie je wstawiłeś, i łamią stronę tam, gdzie trzeba
+- Wykresy, kształty i starsze rysunki pokazują się już w dokumentach, a linie w plikach PDF mają grubość, z jaką je narysowano
+- Dokumenty mieszczą się na ekranie po otwarciu, a tekst zachowuje rozmiar zapisany w dokumencie
+- Bardzo duże arkusze kalkulacyjne otwierają się zamiast utknąć, a pliki chronione hasłem otworzysz tylko do czytania
