@@ -17,6 +17,26 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Changed
+
+- The engine is odrcore 6.13.0, up from 6.11.0.
+- A document is fitted to the screen by the engine, and its text keeps the size
+  the document gives it instead of being enlarged.
+- In a Word file a table draws its own borders, a floating picture sits where it
+  was placed, and a page break starts a new page.
+- In an OpenDocument file a chart is drawn from the chart rather than the picture
+  saved beside it, a shape as the shape rather than as its box, and the older
+  drawings a document carries are drawn at all.
+- Lines in a PDF written by Canva come out at the width they were drawn at.
+- A password protected document can no longer be edited: saving it wrote the
+  content out without its password.
+
+### Fixed
+
+- A very wide or repetitive spreadsheet opens instead of running out of memory.
+
 ## [1.43]
 
 ### Added

@@ -227,6 +227,21 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertTrue(html.contains("(prefers-color-scheme: dark)"), html)
     }
 
+    /// The page measures the view and fits itself to it. A web view does not fit
+    /// a page to the screen the way a browser does, and the app used to carry a
+    /// script of its own for this.
+    func testAPageFitsItselfToTheView() throws {
+        let wrapper = CoreWrapper()
+
+        try wrapper.translate(
+            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+
+        let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
+        let html = try XCTUnwrap(String(data: data, encoding: .utf8))
+
+        XCTAssertTrue(html.contains("--odr-fit:view"), html)
+    }
+
     /// The same URL would come back out of the web view's cache holding the
     /// pages the document had before the password or the edit.
     func testRetranslatingMovesThePagesToNewAddresses() throws {
