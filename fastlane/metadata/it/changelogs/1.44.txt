@@ -1,0 +1,4 @@
+- I documenti Word mostrano i bordi delle tabelle, tengono le immagini dove le hai messe e vanno a pagina nuova dove devono
+- Ora nei documenti si vedono grafici, forme e disegni più vecchi, e nei PDF le linee hanno lo spessore con cui sono state disegnate
+- I documenti si adattano allo schermo appena li apri e il testo mantiene la dimensione che gli dà il documento
+- I fogli di calcolo molto grandi si aprono invece di bloccarsi, e i file protetti da password si aprono in sola lettura

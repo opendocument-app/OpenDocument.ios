@@ -1,0 +1,4 @@
+- Word belgelerinde tablo kenarlıkları görünüyor, resimler koyduğunuz yerde kalıyor, sayfa sonları olması gereken yerde oluşuyor
+- Grafikler, şekiller ve eski çizimler artık belgelerde görünüyor, PDF'lerdeki çizgiler çizildikleri kalınlıkta çıkıyor
+- Belgeler açıldığında ekrana sığıyor, metin belgedeki boyutunda kalıyor
+- Çok büyük elektronik tablolar artık takılmadan açılıyor, parola korumalı dosyalar salt okunur olarak açılıyor

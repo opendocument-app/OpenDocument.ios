@@ -1,0 +1,4 @@
+- Los documentos de Word muestran los bordes de las tablas, mantienen las imágenes donde las puso y saltan de página donde toca
+- Ahora las gráficas, las formas y los dibujos antiguos se ven en los documentos, y las líneas de los PDF salen con el grosor con que se trazaron
+- Los documentos se ajustan a la pantalla al abrirlos y el texto conserva el tamaño que le da el documento
+- Las hojas de cálculo muy grandes se abren en vez de pararse, y los archivos protegidos con contraseña se abren solo para lectura

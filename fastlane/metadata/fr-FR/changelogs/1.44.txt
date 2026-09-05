@@ -1,0 +1,4 @@
+- Les documents Word affichent les bordures des tableaux, gardent les images où vous les avez placées et passent à la page suivante là où il faut
+- Les graphiques, les formes et les dessins plus anciens s'affichent désormais dans les documents, et les traits des PDF ont l'épaisseur voulue
+- Les documents s'adaptent à l'écran à l'ouverture, et le texte garde la taille que lui donne le document
+- Les très grandes feuilles de calcul s'ouvrent au lieu de rester bloquées, et les fichiers protégés par mot de passe s'ouvrent en lecture seule
