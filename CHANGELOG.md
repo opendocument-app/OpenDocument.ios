@@ -19,6 +19,10 @@ once the version tag exists.
 
 ## [Unreleased]
 
+### Added
+
+- The name of the open document is shown at the top, between the buttons.
+
 ### Fixed
 
 - An email address or a date in a PDF no longer has a link drawn over it,

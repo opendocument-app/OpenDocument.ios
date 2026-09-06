@@ -54,6 +54,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     @IBOutlet weak var editButtonSpacer: UIBarButtonItem!
     @IBOutlet weak var searchButtonSpacer: UIBarButtonItem!
 
+    /// The document's name, sitting in the bar's empty middle.
+    let documentTitleLabel = DocumentTitleLabel()
+    private lazy var documentTitleItem = UIBarButtonItem(customView: documentTitleLabel)
+
     /// The bar as the storyboard has it, taken before anything is removed, since
     /// that is the only moment every button is there to be read.
     private lazy var toolBarItems: [UIBarButtonItem] = toolBar.items ?? []
@@ -96,6 +100,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     public var document: Document? {
         didSet {
             document?.delegate = self
+
+            if isViewLoaded {
+                updateDocumentTitle()
+            }
         }
     }
 
@@ -123,6 +131,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         // the one reader a glyph is no shorter for
         barButtonItem.accessibilityLabel = NSLocalizedString("back_to_documents", comment: "")
         updateEditButtonRole()
+
+        setUpDocumentTitle()
 
         // nothing is editable or searchable until a page says so
         updateToolBar()
@@ -503,6 +513,57 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             editDocument()
         }
     }
+
+    /// A gap either side of the name, which is what puts it in the middle.
+    private func setUpDocumentTitle() {
+        // a glass capsule is what a button looks like, and this is not one
+        if #available(iOS 26.0, *) {
+            documentTitleItem.hidesSharedBackground = true
+        }
+
+        guard let back = toolBarItems.firstIndex(where: { $0 === barButtonItem }) else { return }
+
+        toolBarItems.insert(
+            contentsOf: [
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                documentTitleItem,
+            ],
+            at: back + 1)
+
+        updateDocumentTitle()
+    }
+
+    /// The name without its extension, as the document browser lists it.
+    private func updateDocumentTitle() {
+        documentTitleLabel.text = document?.fileURL.deletingPathExtension().lastPathComponent
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        updateDocumentTitleWidth()
+    }
+
+    /// What the bar has left once its buttons have taken theirs.
+    private func updateDocumentTitleWidth() {
+        let buttons = (toolBar.items ?? []).filter { $0.customView == nil && $0.image != nil }
+
+        documentTitleLabel.maximumWidth =
+            toolBar.bounds.width - CGFloat(buttons.count) * Self.toolBarButtonWidth - Self.toolBarTitleGap
+    }
+
+    /// What one button takes of the bar. From iOS 26 a glass capsule with air
+    /// around it, which is wider than the glyph older bars draw.
+    private static var toolBarButtonWidth: CGFloat {
+        if #available(iOS 26.0, *) {
+            return 64
+        }
+
+        return 48
+    }
+
+    /// Kept clear either side of the name, so it never sits against a button.
+    private static let toolBarTitleGap: CGFloat = 16
 
     private func updateToolBar() {
         toolBar.items = toolBarItems.filter { item in
