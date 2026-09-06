@@ -545,11 +545,15 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     /// What the bar has left once its buttons have taken theirs.
+    ///
+    /// Measured against the view rather than the bar itself: on the first pass
+    /// the bar still carries the width the storyboard drew it at, and the name
+    /// keeps whatever width it is first measured at.
     private func updateDocumentTitleWidth() {
         let buttons = (toolBar.items ?? []).filter { $0.customView == nil && $0.image != nil }
 
         documentTitleLabel.maximumWidth =
-            toolBar.bounds.width - CGFloat(buttons.count) * Self.toolBarButtonWidth - Self.toolBarTitleGap
+            view.bounds.width - CGFloat(buttons.count) * Self.toolBarButtonWidth - Self.toolBarTitleGap
     }
 
     /// What one button takes of the bar. From iOS 26 a glass capsule with air
