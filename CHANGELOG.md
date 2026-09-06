@@ -17,6 +17,13 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Fixed
+
+- An email address or a date in a PDF no longer has a link drawn over it,
+  which showed the text twice.
+
 ## [1.44]
 
 ### Changed
@@ -283,7 +290,7 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.43...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.44...HEAD
 [1.43]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.42...v1.43
 [1.42]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.41...v1.42
 [1.41]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.40...v1.41

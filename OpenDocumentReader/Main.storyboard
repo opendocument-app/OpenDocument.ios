@@ -69,7 +69,7 @@
                                     </progressView>
                                 </subviews>
                             </stackView>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9">
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-Do-xh9" customClass="DocumentWebView" customModule="OpenDocumentReader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="190" width="414" height="706"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
