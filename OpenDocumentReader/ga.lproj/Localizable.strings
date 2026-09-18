@@ -106,3 +106,45 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Ní thacaítear leis an bhformáid chomhaid seo. Bain triail as an gcomhad a oscailt in aip eile.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Trom";
+"edit_italic" = "Iodálach";
+"edit_underline" = "Líne faoi";
+"edit_strikethrough" = "Líne tríd";
+"edit_text_color" = "Dath an téacs";
+"edit_highlight" = "Aibhsigh";
+"edit_font_size" = "Méid an téacs";
+"edit_undo" = "Cealaigh";
+"edit_redo" = "Athdhéan";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Marcáil an PDF seo";
+"mark_highlight" = "Aibhsigh";
+"mark_underline" = "Cuir líne faoi";
+"mark_strike_out" = "Cuir líne tríd";
+"mark_squiggly" = "Líne thonnach faoi";
+"mark_draw" = "Tarraing";
+"mark_color" = "Dath na marcála";
+
+/* The colors the menus offer */
+"color_black" = "Dubh";
+"color_red" = "Dearg";
+"color_blue" = "Gorm";
+"color_green" = "Glas";
+"color_yellow" = "Buí";
+"color_pink" = "Bándearg";
+"color_none" = "Gan aibhsiú";
+"color_custom" = "Dath eile…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Tá foirmle sa chill sin agus fanann sí mar atá.";
+"edit_refused_formula_input" = "Ní thacaítear le foirmlí a chlóscríobh go fóill.";
+"edit_refused_rich" = "Tá níos mó ná gnáth-théacs sa chill sin agus fanann sí mar atá.";
+"edit_refused_generic" = "Ní féidir an t-athrú sin a dhéanamh anseo.";
+
+/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
+"pro_feature_title" = "Cuid de Pro";
+"pro_feature_formatting" = "Is cuid de OpenDocument Reader Pro é téacs a fhormáidiú agus ailt a chur leis nó a nascadh.";
+"pro_feature_pdf" = "Is cuid de OpenDocument Reader Pro é PDF a mharcáil.";
+"not_now" = "Ní anois";

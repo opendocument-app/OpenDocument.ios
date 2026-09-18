@@ -106,3 +106,45 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Dateiformat wird nicht unterstützt. Versuchen Sie, die Datei in einer anderen App zu öffnen.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Fett";
+"edit_italic" = "Kursiv";
+"edit_underline" = "Unterstrichen";
+"edit_strikethrough" = "Durchgestrichen";
+"edit_text_color" = "Textfarbe";
+"edit_highlight" = "Hervorheben";
+"edit_font_size" = "Textgröße";
+"edit_undo" = "Rückgängig";
+"edit_redo" = "Wiederholen";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Dieses PDF markieren";
+"mark_highlight" = "Hervorheben";
+"mark_underline" = "Unterstreichen";
+"mark_strike_out" = "Durchstreichen";
+"mark_squiggly" = "Wellenlinie";
+"mark_draw" = "Zeichnen";
+"mark_color" = "Markierungsfarbe";
+
+/* The colors the menus offer */
+"color_black" = "Schwarz";
+"color_red" = "Rot";
+"color_blue" = "Blau";
+"color_green" = "Grün";
+"color_yellow" = "Gelb";
+"color_pink" = "Rosa";
+"color_none" = "Keine Hervorhebung";
+"color_custom" = "Andere Farbe…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Diese Zelle enthält eine Formel und bleibt, wie sie ist.";
+"edit_refused_formula_input" = "Formeln eingeben wird noch nicht unterstützt.";
+"edit_refused_rich" = "Diese Zelle enthält mehr als reinen Text und bleibt, wie sie ist.";
+"edit_refused_generic" = "Diese Änderung ist hier nicht möglich.";
+
+/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
+"pro_feature_title" = "Teil von Pro";
+"pro_feature_formatting" = "Text formatieren sowie Absätze einfügen oder zusammenführen ist Teil von OpenDocument Reader Pro.";
+"pro_feature_pdf" = "PDFs markieren ist Teil von OpenDocument Reader Pro.";
+"not_now" = "Nicht jetzt";

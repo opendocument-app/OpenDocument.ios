@@ -106,3 +106,45 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Desteklenmeyen dosya biçimi. Başka bir uygulamada açmayı deneyin.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Kalın";
+"edit_italic" = "İtalik";
+"edit_underline" = "Altı çizili";
+"edit_strikethrough" = "Üstü çizili";
+"edit_text_color" = "Metin rengi";
+"edit_highlight" = "Vurgula";
+"edit_font_size" = "Metin boyutu";
+"edit_undo" = "Geri al";
+"edit_redo" = "Yinele";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Bu PDF’i işaretle";
+"mark_highlight" = "Vurgula";
+"mark_underline" = "Altını çiz";
+"mark_strike_out" = "Üstünü çiz";
+"mark_squiggly" = "Dalgalı alt çizgi";
+"mark_draw" = "Çiz";
+"mark_color" = "İşaret rengi";
+
+/* The colors the menus offer */
+"color_black" = "Siyah";
+"color_red" = "Kırmızı";
+"color_blue" = "Mavi";
+"color_green" = "Yeşil";
+"color_yellow" = "Sarı";
+"color_pink" = "Pembe";
+"color_none" = "Vurgu yok";
+"color_custom" = "Başka renk…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Bu hücrede bir formül var ve olduğu gibi kalır.";
+"edit_refused_formula_input" = "Formül yazma henüz desteklenmiyor.";
+"edit_refused_rich" = "Bu hücrede düz metinden fazlası var ve olduğu gibi kalır.";
+"edit_refused_generic" = "Bu düzenleme burada yapılamaz.";
+
+/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
+"pro_feature_title" = "Pro’nun parçası";
+"pro_feature_formatting" = "Metni biçimlendirmek ve paragraf eklemek ya da birleştirmek OpenDocument Reader Pro’nun bir parçasıdır.";
+"pro_feature_pdf" = "PDF işaretlemek OpenDocument Reader Pro’nun bir parçasıdır.";
+"not_now" = "Şimdi değil";

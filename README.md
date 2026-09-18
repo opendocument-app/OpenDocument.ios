@@ -57,6 +57,13 @@ flag cannot end up in a build whose code says otherwise. `AnalyticsManager` and
 `CrashManager` take no switch at all - both write to `os.Logger` and nowhere
 else, so there is nothing to withhold.
 
+The one thing Pro does that Lite does not is `Features.advancedEditing`, which
+is the same flag the other way round. Lite edits inside a paragraph: odrcore is
+told the editing scope is `paragraph`, and refuses a line break or a format
+with `outOfScope`, which the reader hears as the offer of Pro. Marks on a pdf
+are gated the same way, in front of the highlighter rather than behind it. The
+tools row still shows every button in Lite, so what Pro adds is in view.
+
 `configs/full` and `configs/lite` hold each bundle's `Info.plist` and privacy
 manifest, out of the synchronized folder, since anything left in there would be
 copied into both apps. For the same reason `scripts/make-test-fixtures.py`, which
@@ -92,6 +99,23 @@ App Transport Security exception, since ATS blocks plain HTTP:
 `NSAllowsLocalNetworking` in both `Info.plist`s, which is the narrow one for
 local addresses and — unlike `NSAllowsArbitraryLoads` — needs no justification
 in App Store review.
+
+## Editing
+
+The pencil re-renders the document with odrcore's editing scaffolding and, once
+the page is up, turns the mode on with `odr.editing.enable()`. A row of tools
+(`EditToolBar`) grows under the bar with what the page is: formatting for a
+text document, undo and redo alone for a spreadsheet or a plain text file, the
+five markers for a pdf - the same shape as the website's viewer. The page talks
+back through one `WKScriptMessageHandler`: the state of its log for the undo
+and redo buttons, the style under the caret for the format buttons, and every
+refusal, which is shown in a word.
+
+Saving asks the page for its log (`odr.editing.getOperations()`, or
+`odr.annotation.getAnnotations()` for a pdf), hands it to odrcore, and writes
+the file beside the open one before moving it into place. The save button is
+the way out of the edit, as before: the file holds the edit once it is written,
+so leaving edit mode reads back what was saved.
 
 ## Formatting
 

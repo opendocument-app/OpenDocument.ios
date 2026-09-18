@@ -106,3 +106,45 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Nepodprta oblika datoteke. Poskusite jo odpreti v drugi aplikaciji.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Krepko";
+"edit_italic" = "Ležeče";
+"edit_underline" = "Podčrtano";
+"edit_strikethrough" = "Prečrtano";
+"edit_text_color" = "Barva besedila";
+"edit_highlight" = "Poudari";
+"edit_font_size" = "Velikost besedila";
+"edit_undo" = "Razveljavi";
+"edit_redo" = "Ponovi";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Označi ta PDF";
+"mark_highlight" = "Poudari";
+"mark_underline" = "Podčrtaj";
+"mark_strike_out" = "Prečrtaj";
+"mark_squiggly" = "Valovito podčrtanje";
+"mark_draw" = "Riši";
+"mark_color" = "Barva oznake";
+
+/* The colors the menus offer */
+"color_black" = "Črna";
+"color_red" = "Rdeča";
+"color_blue" = "Modra";
+"color_green" = "Zelena";
+"color_yellow" = "Rumena";
+"color_pink" = "Rožnata";
+"color_none" = "Brez poudarka";
+"color_custom" = "Druga barva…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Ta celica vsebuje formulo in ostane, kot je.";
+"edit_refused_formula_input" = "Vnos formul še ni podprt.";
+"edit_refused_rich" = "Ta celica vsebuje več kot navadno besedilo in ostane, kot je.";
+"edit_refused_generic" = "To urejanje tu ni mogoče.";
+
+/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
+"pro_feature_title" = "Del različice Pro";
+"pro_feature_formatting" = "Oblikovanje besedila ter dodajanje ali združevanje odstavkov je del OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Označevanje PDF je del OpenDocument Reader Pro.";
+"not_now" = "Ne zdaj";

@@ -106,3 +106,45 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "不支持的文件格式。请尝试用其他应用打开。";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "粗体";
+"edit_italic" = "斜体";
+"edit_underline" = "下划线";
+"edit_strikethrough" = "删除线";
+"edit_text_color" = "文字颜色";
+"edit_highlight" = "高亮";
+"edit_font_size" = "文字大小";
+"edit_undo" = "撤销";
+"edit_redo" = "重做";
+
+/* The marks a PDF takes */
+"mark_pdf" = "标注此 PDF";
+"mark_highlight" = "高亮";
+"mark_underline" = "下划线";
+"mark_strike_out" = "删除线";
+"mark_squiggly" = "波浪线";
+"mark_draw" = "绘制";
+"mark_color" = "标注颜色";
+
+/* The colors the menus offer */
+"color_black" = "黑色";
+"color_red" = "红色";
+"color_blue" = "蓝色";
+"color_green" = "绿色";
+"color_yellow" = "黄色";
+"color_pink" = "粉色";
+"color_none" = "无高亮";
+"color_custom" = "其他颜色…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "该单元格包含公式，保持不变。";
+"edit_refused_formula_input" = "暂不支持输入公式。";
+"edit_refused_rich" = "该单元格包含的不只是纯文本，保持不变。";
+"edit_refused_generic" = "此处无法进行该编辑。";
+
+/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
+"pro_feature_title" = "Pro 功能";
+"pro_feature_formatting" = "设置文字格式以及添加或合并段落是 OpenDocument Reader Pro 的功能。";
+"pro_feature_pdf" = "标注 PDF 是 OpenDocument Reader Pro 的功能。";
+"not_now" = "暂不";

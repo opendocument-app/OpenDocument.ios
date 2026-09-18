@@ -13,7 +13,8 @@ import WebKit
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDelegate,
-    SKStoreProductViewControllerDelegate, WKNavigationDelegate, WKUIDelegate
+    SKStoreProductViewControllerDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler,
+    UIColorPickerViewControllerDelegate
 {
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
@@ -37,6 +38,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     @IBOutlet weak var toolBar: UIToolbar!
+    /// The bar and what hangs under it: the editing tools, the progress line.
+    @IBOutlet weak var barStack: UIStackView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var pageTabBar: PageTabBar!
 
@@ -65,10 +68,34 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether the document on screen can be edited and searched. Neither button
     /// stays in the bar when it cannot be used.
     private var canEdit = false { didSet { updateToolBar() } }
+    /// Whether the document is a pdf that takes marks. The same button as the
+    /// pencil, with the highlighter for a glyph.
+    private var canMark = false { didSet { updateEditButtonRole() } }
     /// The same slot the pencil sits in, showing the way out of the edit it
     /// started — as on OpenDocument.droid, where edit mode replaces the bar
     /// rather than emptying it.
-    private var isEditingDocument = false { didSet { updateEditButtonRole() } }
+    private var isEditingDocument = false {
+        didSet {
+            updateEditButtonRole()
+
+            if !isEditingDocument {
+                editToolBar.layout = nil
+            }
+        }
+    }
+
+    /// The row of tools under the bar while a document is edited.
+    let editToolBar = EditToolBar()
+
+    /// The colour the marks on a pdf take, until the reader picks another.
+    private var markColor = UIColor(hex: EditToolBar.markColors[0].hex)
+
+    /// Which menu the system colour picker was opened from.
+    private var colorPickerTool: EditToolBar.Tool?
+
+    /// Whether the Pro offer was shown during this edit, so a page full of
+    /// refused line breaks raises it once.
+    private var hasOfferedProForThisEdit = false
     private var canSearch = false {
         didSet {
             updateToolBar()
@@ -123,6 +150,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         searchBar.showsCancelButton = true
         searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
         searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
+
+        setUpEditToolBar()
+        setUpPageMessages()
 
         setVCconstraints()
         hideSearchBar()
@@ -257,6 +287,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateSearchButton()
 
+        if let documentNavigation, navigation === documentNavigation, document?.edit == true {
+            beginEditSession()
+        }
+
         // the document is drawn, which is what a screenshot of it waits for -
         // and only the document: the "loading" page finishes first, and a
         // picture of it is a picture of the word "loading"
@@ -382,7 +416,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor, constant: Self.toolBarBottomMargin).isActive =
+        searchBar.topAnchor.constraint(equalTo: barStack.bottomAnchor, constant: Self.toolBarBottomMargin).isActive =
             true
 
         bannerSlot.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -509,8 +543,261 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
                 self.document?.edit = false
             }
+        } else if canMark, !Features.advancedEditing {
+            offerPro(.pdf)
         } else {
             editDocument()
+        }
+    }
+
+    // MARK: - the editing tools
+
+    /// Under the bar and above the progress line, so it reads as part of the bar.
+    private func setUpEditToolBar() {
+        editToolBar.layout = nil
+        editToolBar.menusEnabled = Features.advancedEditing
+        editToolBar.onTap = { [weak self] tool in self?.editToolTapped(tool) }
+        editToolBar.onChoice = { [weak self] tool, choice in self?.editToolChose(tool, choice) }
+
+        barStack.insertArrangedSubview(editToolBar, at: 1)
+    }
+
+    /// Hears from the page: the log, a refusal, the style under the caret.
+    private func setUpPageMessages() {
+        let controller = webview.configuration.userContentController
+
+        controller.add(WeakScriptMessageHandler(self), name: Self.pageMessageName)
+        controller.addUserScript(
+            WKUserScript(source: Self.pageMessageBridge, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+    }
+
+    private static let pageMessageName = "odr"
+
+    /// Points the page's callbacks at this controller. The page's own scripts
+    /// have run by document end, so `odr` is there to be pointed.
+    private static let pageMessageBridge = """
+        (function () {
+            if (typeof odr !== 'object' || !window.webkit || !webkit.messageHandlers.odr) { return; }
+            var post = function (message) { webkit.messageHandlers.odr.postMessage(message); };
+            odr.onEditChange = function (e) {
+                post({ type: 'editChange', canUndo: !!e.canUndo, canRedo: !!e.canRedo });
+            };
+            odr.onEditRefused = function (e) {
+                post({ type: 'editRefused', reason: String(e.reason || ''), message: String(e.message || '') });
+            };
+            odr.onSelectionChange = function (style) {
+                post({ type: 'selection', style: style || {} });
+            };
+        })();
+        """
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let body = message.body as? [String: Any], let type = body["type"] as? String else { return }
+
+        switch type {
+        case "editChange":
+            editToolBar.setEnabled(.undo, body["canUndo"] as? Bool ?? false)
+            editToolBar.setEnabled(.redo, body["canRedo"] as? Bool ?? false)
+
+        case "editRefused":
+            editRefused(reason: body["reason"] as? String ?? "")
+
+        case "selection":
+            let style = body["style"] as? [String: Any] ?? [:]
+            editToolBar.setPressed(.bold, style["bold"] as? Bool ?? false)
+            editToolBar.setPressed(.italic, style["italic"] as? Bool ?? false)
+            editToolBar.setPressed(.underline, style["underline"] as? Bool ?? false)
+            editToolBar.setPressed(.strikethrough, style["strikethrough"] as? Bool ?? false)
+
+        default:
+            break
+        }
+    }
+
+    /// The editable page is on screen: turn the mode on and show its tools.
+    /// A pdf needs no mode, only a marker that acts on a selection.
+    private func beginEditSession() {
+        hasOfferedProForThisEdit = false
+
+        if document?.isAnnotatable == true {
+            editToolBar.layout = .pdf
+            editToolBar.setEnabled(.undo, true)
+            run("odr.annotation.setOptions({ markOnSelection: true }); odr.annotation.setColor(\(markColor.deviceRGB))")
+
+            return
+        }
+
+        editToolBar.setEnabled(.undo, false)
+        editToolBar.setEnabled(.redo, false)
+
+        let isPlainText = document?.isPlainText == true
+
+        webview.evaluateJavaScript("odr.editing.enable(); typeof odr.sheet === 'object'") { [weak self] isSheet, _ in
+            guard let self, self.isEditingDocument else { return }
+
+            self.editToolBar.layout = isPlainText || isSheet as? Bool == true ? .plain : .text
+        }
+    }
+
+    private func editToolTapped(_ tool: EditToolBar.Tool) {
+        if tool.isAdvanced, !Features.advancedEditing {
+            offerPro(canMark ? .pdf : .formatting)
+
+            return
+        }
+
+        switch tool {
+        case .undo:
+            run(canMark ? "odr.annotation.undo()" : "odr.editing.undo()")
+        case .redo:
+            run("odr.editing.redo()")
+        case .bold, .italic, .underline, .strikethrough:
+            run("odr.editing.toggle('\(tool.pageName ?? "")')")
+        case .markHighlight, .markUnderline, .markStrikeOut, .markSquiggly, .markDraw:
+            armMarker(tool)
+        default:
+            break
+        }
+    }
+
+    /// As on the website: a selection is marked once and the tool stays down,
+    /// the armed tool disarms, anything else arms.
+    private func armMarker(_ tool: EditToolBar.Tool) {
+        guard let name = tool.pageName else { return }
+
+        let script = """
+            (function () {
+                var a = odr.annotation;
+                var selection = window.getSelection();
+                var selected = '\(name)' !== 'ink' && selection && !selection.isCollapsed;
+                if (selected) {
+                    var armed = a.getTool();
+                    a.setTool('\(name)');
+                    a.mark();
+                    a.setTool(armed);
+                    selection.removeAllRanges();
+                    return armed;
+                }
+                if (a.getTool() === '\(name)') {
+                    a.setTool(null);
+                    return null;
+                }
+                a.setWidth(2);
+                a.setTool('\(name)');
+                return '\(name)';
+            })()
+            """
+
+        webview.evaluateJavaScript(script) { [weak self] armed, error in
+            if let error {
+                CrashManager.shared.log(error)
+            }
+
+            self?.showArmedMarker(armed as? String)
+        }
+    }
+
+    private func showArmedMarker(_ armed: String?) {
+        for tool in EditToolBar.Layout.pdf.tools {
+            editToolBar.setPressed(tool, tool.pageName != nil && tool.pageName == armed)
+        }
+    }
+
+    private func editToolChose(_ tool: EditToolBar.Tool, _ choice: EditToolBar.Choice) {
+        switch (tool, choice) {
+        case (.fontSize, .size(let size)):
+            run("odr.editing.format({ size: '\(size)pt' })")
+        case (.textColor, .color(let hex)):
+            run("odr.editing.format({ color: '\(hex ?? "")' })")
+        case (.highlight, .color(let hex)):
+            run("odr.editing.format({ highlight: \(hex.map { "'\($0)'" } ?? "null") })")
+        case (.markColor, .color(let hex)):
+            markColor = UIColor(hex: hex ?? EditToolBar.markColors[0].hex)
+            run("odr.annotation.setColor(\(markColor.deviceRGB))")
+        case (_, .customColor):
+            colorPickerTool = tool
+
+            let picker = UIColorPickerViewController()
+            picker.delegate = self
+            picker.supportsAlpha = false
+            picker.selectedColor = tool == .markColor ? markColor : .label
+            present(picker, animated: true)
+        default:
+            break
+        }
+    }
+
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        guard let tool = colorPickerTool else { return }
+        colorPickerTool = nil
+
+        editToolChose(tool, .color(viewController.selectedColor.hexString))
+    }
+
+    /// The page said no. A line break or a format outside the paragraph is
+    /// what Pro is for; the rest is said in a word.
+    private func editRefused(reason: String) {
+        if reason == "outOfScope", !Features.advancedEditing {
+            guard !hasOfferedProForThisEdit else { return }
+            hasOfferedProForThisEdit = true
+
+            offerPro(.formatting)
+
+            return
+        }
+
+        let key: String
+        switch reason {
+        case "formula": key = "edit_refused_formula"
+        case "formulaInput": key = "edit_refused_formula_input"
+        case "rich", "shapes": key = "edit_refused_rich"
+        default: key = "edit_refused_generic"
+        }
+
+        AnalyticsManager.shared.report("edit_refused", parameters: ["reason": reason])
+
+        showToast(controller: self, message: NSLocalizedString(key, comment: ""), seconds: 1.5)
+    }
+
+    /// What Pro adds, as the reader runs into it.
+    enum ProFeature {
+        case formatting
+        case pdf
+
+        var message: String {
+            switch self {
+            case .formatting: return NSLocalizedString("pro_feature_formatting", comment: "")
+            case .pdf: return NSLocalizedString("pro_feature_pdf", comment: "")
+            }
+        }
+    }
+
+    /// Says what Pro is for, and leads to it. The Lite app's one gate.
+    func offerPro(_ feature: ProFeature) {
+        AnalyticsManager.shared.report("pro_gate_shown", parameters: ["feature": "\(feature)"])
+
+        let alert = UIAlertController(
+            title: NSLocalizedString("pro_feature_title", comment: ""),
+            message: feature.message,
+            preferredStyle: .alert)
+        alert.addAction(
+            UIAlertAction(title: NSLocalizedString("not_now", comment: ""), style: .cancel))
+        alert.addAction(
+            UIAlertAction(title: NSLocalizedString("house_ad_cta_get_pro", comment: ""), style: .default) { _ in
+                AnalyticsManager.shared.report("pro_gate_tapped", parameters: ["feature": "\(feature)"])
+
+                self.openProOnAppStore()
+            })
+
+        present(alert, animated: true)
+    }
+
+    /// A script whose answer nobody needs.
+    private func run(_ script: String) {
+        webview.evaluateJavaScript(script) { _, error in
+            if let error {
+                CrashManager.shared.log(error)
+            }
         }
     }
 
@@ -585,16 +872,30 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Offered for the documents that can be edited, whether or not one is being
     /// edited right now — the button is the way both into an edit and out of it.
     private func updateEditButton() {
-        canEdit = document?.isEditable ?? false
+        canMark = document?.isAnnotatable ?? false
+        canEdit = (document?.isEditable ?? false) || canMark
         isEditingDocument = document?.edit ?? false
     }
 
-    /// A pencil to start an edit, and the save glyph to write one. The label goes
-    /// with it: VoiceOver reads that, not the glyph.
+    /// A pencil to start an edit, a highlighter to mark a pdf, and the save
+    /// glyph to write either. The label goes with it: VoiceOver reads that,
+    /// not the glyph.
     private func updateEditButtonRole() {
-        editButton.image = UIImage(systemName: isEditingDocument ? "square.and.arrow.down" : "pencil")
-        editButton.accessibilityLabel = NSLocalizedString(
-            isEditingDocument ? "action_edit_save" : "menu_edit", comment: "")
+        let symbol: String
+        let label: String
+        if isEditingDocument {
+            symbol = "square.and.arrow.down"
+            label = "action_edit_save"
+        } else if canMark {
+            symbol = "highlighter"
+            label = "mark_pdf"
+        } else {
+            symbol = "pencil"
+            label = "menu_edit"
+        }
+
+        editButton.image = UIImage(systemName: symbol)
+        editButton.accessibilityLabel = NSLocalizedString(label, comment: "")
     }
 
     /// Asked of the page rather than guessed from the format: odrcore writes the
@@ -848,6 +1149,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             corePageInReserve = url
 
             canEdit = false
+            canMark = false
             canSearch = false
             documentNavigation = webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
 
@@ -981,6 +1283,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         // neither is known until the page it produces is loaded
         canEdit = false
+        canMark = false
         canSearch = false
     }
 
@@ -1076,5 +1379,19 @@ extension UIViewController {
         guard let url = mail.url else { return }
 
         UIApplication.shared.open(url)
+    }
+}
+
+/// The web view's content controller holds its handlers strongly, and this
+/// controller holds the web view: a weak step in between breaks the cycle.
+private final class WeakScriptMessageHandler: NSObject, WKScriptMessageHandler {
+    private weak var handler: WKScriptMessageHandler?
+
+    init(_ handler: WKScriptMessageHandler) {
+        self.handler = handler
+    }
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        handler?.userContentController(userContentController, didReceive: message)
     }
 }

@@ -84,11 +84,20 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     /// Whether odrcore saw only a container, so the page is a listing of what is inside it.
     @objc private(set) var isArchive = false
 
-    /// Whether `backTranslate` has a document to apply an edit to. Only a
-    /// document that said it takes one is kept, so having it *is* the answer.
-    @objc var isEditable: Bool { lock.withLock { document != nil } }
+    /// Whether `save` has something to apply an edit to. Only a file that said
+    /// it takes one is kept, so having it *is* the answer.
+    @objc var isEditable: Bool { lock.withLock { document != nil || textFile != nil } }
+
+    /// Whether the file is a pdf that takes marks - the pdf's own answer, not
+    /// the app's: whether to offer them is decided elsewhere.
+    @objc var isAnnotatable: Bool { lock.withLock { pdfFile != nil } }
+
+    /// Whether the file is plain text, which takes typing but no formatting.
+    @objc var isPlainText: Bool { lock.withLock { textFile != nil } }
 
     private var document: OdrCoreObjC.Document?
+    private var textFile: TextFile?
+    private var pdfFile: PdfFile?
     private let lock = NSRecursiveLock()
 
     /// The largest sheet region translated, as on OpenDocument.droid.
@@ -99,10 +108,10 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
     @objc func translate(
         _ inputPath: String,
-        cache cachePath: String,
         into outputPath: String,
         with password: String?,
-        editable: Bool
+        editable: Bool,
+        scope: HtmlEditingScope
     ) throws {
         lock.lock()
         defer { lock.unlock() }
@@ -110,6 +119,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         pageNames = []
         pageURLs = []
         document = nil
+        textFile = nil
+        pdfFile = nil
         isArchive = false
 
         let fileTypes = (try? DecodedFile.listFileTypes(path: inputPath)) ?? []
@@ -141,6 +152,9 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         // decided from these
         let config = HtmlConfig()
         config.editable = editable
+        // how far an edit may reach: inside one paragraph, or across the
+        // document with formatting
+        config.editingScope = scope
         // resource paths are resolved relative to an output directory, and in
         // server mode there is none — odrcore rejects the combination
         config.relativeResourcePaths = false
@@ -167,6 +181,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
         let documentType: DocumentType
         let openedDocument: OdrCoreObjC.Document?
+        var openedTextFile: TextFile?
+        var openedPdfFile: PdfFile?
         let service: HtmlService
 
         if file.isDocumentFile {
@@ -177,15 +193,23 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             // the document's own answer: a format odrcore renders but cannot write
             // back would otherwise offer Edit and fail at the save
             openedDocument = document.isEditable && document.isSavable ? document : nil
-            service = try HtmlTranslator.translate(
-                document: document, cachePath: cachePath, config: config)
+            service = try HtmlTranslator.translate(document: document, config: config)
         } else {
-            // nothing to edit, and `.unknown` keeps the single view each of
-            // these has - `.spreadsheet` would ask for a tab per sheet
+            // `.unknown` keeps the single view each of these has -
+            // `.spreadsheet` would ask for a tab per sheet
             documentType = .unknown
             openedDocument = nil
-            service = try HtmlTranslator.translate(
-                file: file, cachePath: cachePath, config: config)
+
+            if file.isTextFile, let text = try? file.asTextFile(), text.isSavable {
+                openedTextFile = text
+            }
+            if file.isPdfFile, file.capabilities.annotate, let pdf = try? file.asPdfFile(),
+                pdf.isAnnotatable
+            {
+                openedPdfFile = pdf
+            }
+
+            service = try HtmlTranslator.translate(file: file, config: config)
         }
 
         let views = selectViews(service.views, documentType)
@@ -197,27 +221,31 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             throw coreWrapperError(.unknown, "could not serve the translated document")
         }
 
-        // only once nothing can throw any more: backTranslate must not be handed
-        // a document whose pages were never served
+        // only once nothing can throw any more: a save must not be handed a
+        // file whose pages were never served
         self.document = openedDocument
+        self.textFile = openedTextFile
+        self.pdfFile = openedPdfFile
 
         isArchive = file.isArchiveFile
         pageNames = views.map(\.name)
         pageURLs = views.map { base.appendingPathComponent($0.path) }
     }
 
-    @objc func backTranslate(_ diff: String, into outputPath: String) throws {
+    /// The script the page hands its edits back through: the editor's log for
+    /// a document or a text file, the marks for a pdf.
+    @objc var editPayloadScript: String {
+        isAnnotatable ? "odr.annotation.getAnnotations()" : "odr.editing.getOperations()"
+    }
+
+    /// Writes the file with `payload` applied - the page's operations, or its
+    /// marks for a pdf.
+    @objc func save(_ payload: String, into outputPath: String) throws {
         lock.lock()
         defer { lock.unlock() }
 
-        guard let document else {
-            throw coreWrapperError(.unknown, "no document has been translated yet")
-        }
-
-        try HtmlTranslator.edit(document: document, diff: diff)
-
-        // odrcore streams the parts the edit did not touch out of the file it opened, and
-        // truncates the destination first - so saving onto the open document empties it
+        // odrcore streams the parts an edit did not touch out of the file it opened, and
+        // truncates the destination first - so saving onto the open file empties it
         let output = URL(fileURLWithPath: outputPath)
 
         let staging = try stagingDirectory(for: output)
@@ -225,9 +253,33 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
         let temporary = stagedFile(in: staging, for: output)
 
-        try document.save(to: temporary.path)
+        if let document {
+            if Self.holdsOperations(payload) {
+                try document.edit(operations: payload)
+            }
+            try document.save(to: temporary.path)
+        } else if let textFile {
+            try textFile.writeEdited(operations: payload).write(to: temporary)
+        } else if let pdfFile {
+            try pdfFile.annotate(payload).write(to: temporary)
+        } else {
+            throw coreWrapperError(.unknown, "no editable file has been translated yet")
+        }
 
         try moveIntoPlace(from: temporary, to: output)
+    }
+
+    /// Whether the envelope carries any operation: an empty one is a save of
+    /// the file as it is.
+    private static func holdsOperations(_ payload: String) -> Bool {
+        guard let data = payload.data(using: .utf8),
+            let envelope = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            let ops = envelope["ops"] as? [Any]
+        else {
+            return true
+        }
+
+        return !ops.isEmpty
     }
 
     /// A directory on `output`'s own volume, because `replaceItemAt` cannot swap across one.

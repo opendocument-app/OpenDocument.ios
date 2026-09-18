@@ -106,3 +106,45 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Формат файла не поддерживается. Попробуйте открыть его в другом приложении.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Жирный";
+"edit_italic" = "Курсив";
+"edit_underline" = "Подчёркнутый";
+"edit_strikethrough" = "Зачёркнутый";
+"edit_text_color" = "Цвет текста";
+"edit_highlight" = "Выделение";
+"edit_font_size" = "Размер текста";
+"edit_undo" = "Отменить";
+"edit_redo" = "Повторить";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Разметить этот PDF";
+"mark_highlight" = "Выделить";
+"mark_underline" = "Подчеркнуть";
+"mark_strike_out" = "Зачеркнуть";
+"mark_squiggly" = "Волнистое подчёркивание";
+"mark_draw" = "Рисовать";
+"mark_color" = "Цвет пометки";
+
+/* The colors the menus offer */
+"color_black" = "Чёрный";
+"color_red" = "Красный";
+"color_blue" = "Синий";
+"color_green" = "Зелёный";
+"color_yellow" = "Жёлтый";
+"color_pink" = "Розовый";
+"color_none" = "Без выделения";
+"color_custom" = "Другой цвет…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "В этой ячейке формула, она остаётся как есть.";
+"edit_refused_formula_input" = "Ввод формул пока не поддерживается.";
+"edit_refused_rich" = "В этой ячейке не только простой текст, она остаётся как есть.";
+"edit_refused_generic" = "Такое изменение здесь невозможно.";
+
+/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
+"pro_feature_title" = "Часть Pro";
+"pro_feature_formatting" = "Форматирование текста, а также добавление и объединение абзацев — часть OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Разметка PDF — часть OpenDocument Reader Pro.";
+"not_now" = "Не сейчас";

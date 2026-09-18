@@ -84,8 +84,9 @@ class EditWorkflowTests: XCTestCase {
 
     /// A document nothing can be written back to keeps the room for itself.
     func testACsvOffersNoEditButton() throws {
-        try present(try copyFixture(ofType: "csv"))
-        openDocument()
+        documentURL = try copyFixture(ofType: "csv")
+        try present(documentURL)
+        openDocument(where: "typeof odr === 'object'")
 
         XCTAssertFalse(controller.document?.isEditable ?? true)
         XCTAssertFalse(barContains(controller.editButton))
@@ -93,9 +94,9 @@ class EditWorkflowTests: XCTestCase {
 
     // MARK: - the page
 
-    /// The one thing edit mode is for. odrcore marks the text runs
-    /// `contenteditable`, but a tap has to reach one for the caret to be set and
-    /// the keyboard to unfold.
+    /// The one thing edit mode is for. odrcore makes the flow `contenteditable`,
+    /// but a tap has to reach a run for the caret to be set and the keyboard to
+    /// unfold.
     func testTappingTheTextReachesTheEditableRun() throws {
         openDocument()
 
@@ -106,7 +107,7 @@ class EditWorkflowTests: XCTestCase {
             evaluate(
                 """
                 (function () {
-                    var run = document.querySelector('[contenteditable]');
+                    var run = document.querySelector('x-s[data-odr-id]');
                     // not getBoundingClientRect: the view applies a zoom to fit,
                     // which webkit leaves out of it but elementFromPoint expects
                     var box = odr.getViewportRect(run);
@@ -129,7 +130,110 @@ class EditWorkflowTests: XCTestCase {
 
         typeIntoTheFirstRun()
 
-        XCTAssertEqual(evaluate("document.querySelector('[contenteditable]').innerText") as? String, Self.editedText)
+        let text = evaluate("document.querySelector('x-s[data-odr-id]').textContent") as? String ?? ""
+        XCTAssertTrue(text.contains(Self.editedText), text)
+    }
+
+    // MARK: - the tools
+
+    /// The row under the bar: formatting for a text document, once the page
+    /// says it is editable, and gone again with the edit.
+    func testATextDocumentShowsTheFormattingToolsWhileEditing() throws {
+        openDocument()
+
+        XCTAssertNil(controller.editToolBar.layout)
+
+        controller.editOrSave(controller.editButton)
+        waitForEditablePage()
+        waitForTools()
+
+        XCTAssertEqual(controller.editToolBar.layout, .text)
+        XCTAssertTrue(controller.editToolBar.shows(.bold))
+        XCTAssertTrue(controller.editToolBar.shows(.undo))
+
+        controller.discardChanges()
+        waitForPage(where: "document.querySelectorAll('x-s').length > 0")
+
+        XCTAssertNil(controller.editToolBar.layout)
+    }
+
+    /// The cells are the editor, so a spreadsheet gets only the way back.
+    func testASpreadsheetShowsOnlyUndoAndRedo() throws {
+        documentURL = try copyFixture(ofType: "ods")
+        try present(documentURL)
+        openDocument(where: "document.querySelectorAll('td').length > 0")
+
+        controller.editOrSave(controller.editButton)
+        waitForTools()
+
+        XCTAssertEqual(controller.editToolBar.layout, .plain)
+        XCTAssertFalse(controller.editToolBar.shows(.bold))
+        XCTAssertTrue(controller.editToolBar.shows(.undo))
+    }
+
+    /// A style the caret sits in is shown pressed, the way the page reports it.
+    func testTheSelectionStyleReachesTheButtons() throws {
+        openDocument()
+
+        controller.editOrSave(controller.editButton)
+        waitForEditablePage()
+        waitForTools()
+
+        _ = evaluate("odr.onSelectionChange({ bold: true, italic: false })")
+        waitUntil { self.controller.editToolBar.isPressed(.bold) }
+
+        XCTAssertFalse(controller.editToolBar.isPressed(.italic))
+    }
+
+    // MARK: - a pdf
+
+    /// The pencil is a highlighter on a pdf, and the edit is a set of marks.
+    func testAPdfOffersMarksAndSavesThem() throws {
+        documentURL = try copyFixture(ofType: "pdf")
+        try present(documentURL)
+        openDocument(where: "document.querySelectorAll('[data-odr-space]').length > 0")
+
+        XCTAssertTrue(document.isAnnotatable)
+        XCTAssertTrue(barContains(controller.editButton))
+        XCTAssertEqual(controller.editButton.image, UIImage(systemName: "highlighter"))
+
+        let sizeBefore = try fileSize()
+
+        controller.editOrSave(controller.editButton)
+        waitForPage(where: "document.querySelectorAll('[data-odr-space]').length > 0")
+        waitForTools()
+
+        XCTAssertEqual(controller.editToolBar.layout, .pdf)
+        XCTAssertTrue(controller.editToolBar.shows(.markHighlight))
+        XCTAssertFalse(controller.editToolBar.shows(.redo))
+
+        let marks =
+            evaluate(
+                """
+                (function () {
+                    var page = document.querySelector('[data-odr-space]');
+                    var range = document.createRange();
+                    range.selectNodeContents(page);
+                    var selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    odr.annotation.setTool('highlight');
+                    odr.annotation.mark();
+                    return odr.annotation.list().length;
+                })()
+                """) as? Int ?? 0
+        XCTAssertGreaterThan(marks, 0)
+
+        let saved = expectation(description: "saved")
+        controller.saveContent { success in
+            XCTAssertTrue(success)
+            saved.fulfill()
+        }
+        wait(for: [saved], timeout: 60)
+
+        // an incremental update: the marks are written after the file as it was
+        XCTAssertGreaterThan(try fileSize(), sizeBefore)
+        XCTAssertNoThrow(try reopenedText())
     }
 
     // MARK: - the save
@@ -192,7 +296,7 @@ class EditWorkflowTests: XCTestCase {
         (controller.toolBar.items ?? []).contains { $0 === item }
     }
 
-    private func openDocument() {
+    private func openDocument(where condition: String = "document.querySelectorAll('x-s').length > 0") {
         let opened = expectation(description: "opened")
         document.open { success in
             XCTAssertTrue(success)
@@ -200,7 +304,33 @@ class EditWorkflowTests: XCTestCase {
         }
         wait(for: [opened], timeout: 60)
 
-        waitForPage(where: "document.querySelectorAll('x-s').length > 0")
+        waitForPage(where: condition)
+    }
+
+    /// The tools appear once the editable page has answered what it is.
+    private func waitForTools(file: StaticString = #filePath, line: UInt = #line) {
+        waitUntil(file: file, line: line) { self.controller.editToolBar.layout != nil }
+    }
+
+    /// A message from the page lands on a later turn of the run loop.
+    private func waitUntil(
+        file: StaticString = #filePath, line: UInt = #line, _ condition: () -> Bool
+    ) {
+        let deadline = Date().addingTimeInterval(60)
+
+        while Date() < deadline {
+            if condition() { return }
+
+            _ = XCTWaiter.wait(for: [expectation(description: "a turn of the run loop")], timeout: 0.1)
+        }
+
+        XCTFail("timed out waiting for the controller", file: file, line: line)
+    }
+
+    private func fileSize() throws -> Int {
+        let attributes = try FileManager.default.attributesOfItem(atPath: documentURL.path)
+
+        return attributes[.size] as? Int ?? 0
     }
 
     private func waitForEditablePage() {
@@ -224,21 +354,30 @@ class EditWorkflowTests: XCTestCase {
         XCTFail("timed out waiting for \(condition)", file: file, line: line)
     }
 
-    /// A change to the text node, which is what typing amounts to: odrcore's
-    /// script watches for `characterData` and notes the run it belongs to.
+    /// What typing amounts to: the caret in a run, and a `beforeinput` the
+    /// editor takes and applies itself - the same way odrcore's own tests type.
     private func typeIntoTheFirstRun() {
         _ = evaluate(
             """
             (function () {
-                var run = document.querySelector('[contenteditable]');
-                run.focus();
-                run.firstChild.data = '\(Self.editedText)';
+                var run = document.querySelector('x-s[data-odr-id]');
+                var range = document.createRange();
+                range.setStart(run.firstChild, 0);
+                range.collapse(true);
+                var selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                run.dispatchEvent(new InputEvent('beforeinput', {
+                    inputType: 'insertText',
+                    data: '\(Self.editedText) ',
+                    bubbles: true,
+                    cancelable: true
+                }));
             })()
             """)
 
-        // the mutation is reported in a microtask, so the diff is only complete
-        // on the next turn
-        _ = XCTWaiter.wait(for: [expectation(description: "the observer to run")], timeout: 0.5)
+        // the log is reported on the next turn
+        _ = XCTWaiter.wait(for: [expectation(description: "the editor to log it")], timeout: 0.5)
     }
 
     /// Errors are swallowed: a page that is not there yet is what the polling
@@ -263,7 +402,7 @@ class EditWorkflowTests: XCTestCase {
         let temporaryDirectory = NSTemporaryDirectory()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         let url = try XCTUnwrap(wrapper.pageURLs.first)
 

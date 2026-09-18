@@ -106,6 +106,7 @@
                         <outlet property="bannerSlot" destination="yut-lR-gq5" id="28Z-1b-NAN"/>
                         <outlet property="bannerSlotHeight" destination="eXE-Ks-sQc" id="yQ1-l7-wiV"/>
                         <outlet property="barButtonItem" destination="yhO-7V-lbn" id="ach-z7-H9P"/>
+                        <outlet property="barStack" destination="9mi-yf-jXf" id="bS1-tP-enc"/>
                         <outlet property="editButton" destination="Ed1-tP-enc" id="Ed3-tP-enc"/>
                         <outlet property="editButtonSpacer" destination="Ed4-tP-enc" id="Ed5-tP-enc"/>
                         <outlet property="menuButton" destination="Vsd-IL-ujz" id="GoN-tp-egn"/>
