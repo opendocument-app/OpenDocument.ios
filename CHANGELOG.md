@@ -26,7 +26,7 @@ once the version tag exists.
   italic, underline, strikethrough, text colour, highlight, text size, undo
   and redo.
 - A PDF can be marked up: highlight, underline, strike out, squiggly underline
-  and drawing, saved into the file.
+  and drawing, each in a colour of its own, saved into the file.
 - Presentations, Excel files and plain text files can be edited and saved.
 - Undo and redo while editing.
 
@@ -35,6 +35,8 @@ once the version tag exists.
 - The engine is odrcore 7.0.0, up from 6.13.0.
 - Entering an edit no longer reloads the document, so the page stays where it
   was. Leaving one without changes no longer asks about saving them.
+- The pencil turns the edit on and off, and a save button beside it writes the
+  file. A save no longer ends the edit.
 - The Lite app edits inside a paragraph. Formatting, new or joined paragraphs
   and marks on a PDF are part of Pro, and the Lite app says so when they are
   reached for.

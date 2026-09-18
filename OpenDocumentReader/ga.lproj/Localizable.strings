@@ -125,7 +125,6 @@
 "mark_strike_out" = "Cuir líne tríd";
 "mark_squiggly" = "Líne thonnach faoi";
 "mark_draw" = "Tarraing";
-"mark_color" = "Dath na marcála";
 
 /* The colors the menus offer */
 "color_black" = "Dubh";
@@ -154,11 +153,15 @@
 "edit_refused_read_only" = "Ní féidir an doiciméad seo a chur in eagar.";
 "edit_refused_range" = "Ní féidir le hathrú dul thar phictiúr ná thar thábla.";
 
-/* Said once an edit leaves formula cells with an old result */
-"edit_cells_stale" = "Tá cealla foirmle a léann d’athrú as dáta. Coinníonn an comhad sábháilte na foirmlí, agus ríomhann scarbhileog arís iad.";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Roghnaigh téacs, ansin uirlis, chun é a mharcáil.";
 
 /* The badge in front of the tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Dath: %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

@@ -69,17 +69,42 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
     }
 
-    /// What used to happen instead: the button left the bar, and saving was only
-    /// reachable through the menu.
-    func testThePencilBecomesASaveButtonWhileEditing() throws {
+    /// The website's two controls: the pen, drawn selected while the mode is on,
+    /// and the disc beside it, there only while editing and live only once the
+    /// page holds a change.
+    func testThePenStaysAndTheSaveButtonJoinsItWhileEditing() throws {
         openDocument()
 
-        controller.editOrSave(controller.editButton)
+        XCTAssertFalse(barContains(controller.saveButton))
+
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
 
         XCTAssertTrue(document.edit)
         XCTAssertTrue(barContains(controller.editButton))
-        XCTAssertEqual(controller.editButton.image, UIImage(systemName: "square.and.arrow.down"))
+        XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
+        XCTAssertTrue(controller.editButton.isSelected)
+        XCTAssertTrue(barContains(controller.saveButton))
+        XCTAssertFalse(controller.saveButton.isEnabled)
+
+        typeIntoTheFirstRun()
+        waitUntil { self.controller.saveButton.isEnabled }
+    }
+
+    /// With nothing to lose the pen only turns the mode off, and the page stays.
+    func testThePenLeavesAnUnchangedEditAtOnce() throws {
+        openDocument()
+
+        controller.toggleEdit(controller.editButton)
+        waitForEditablePage()
+
+        controller.toggleEdit(controller.editButton)
+        waitForPage(where: "document.querySelectorAll('[contenteditable]').length === 0")
+
+        XCTAssertFalse(document.edit)
+        XCTAssertFalse(controller.editButton.isSelected)
+        XCTAssertFalse(barContains(controller.saveButton))
+        XCTAssertNil(controller.editToolBar.layout)
     }
 
     /// A document nothing can be written back to keeps the room for itself.
@@ -100,7 +125,7 @@ class EditWorkflowTests: XCTestCase {
     func testTappingTheTextReachesTheEditableRun() throws {
         openDocument()
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
 
         let tapped =
@@ -125,7 +150,7 @@ class EditWorkflowTests: XCTestCase {
     func testAFocusedRunTakesTheEdit() throws {
         openDocument()
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
 
         typeIntoTheFirstRun()
@@ -143,7 +168,7 @@ class EditWorkflowTests: XCTestCase {
 
         XCTAssertNil(controller.editToolBar.layout)
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
         waitForTools()
 
@@ -163,7 +188,7 @@ class EditWorkflowTests: XCTestCase {
         try present(documentURL)
         openDocument(where: "document.querySelectorAll('td').length > 0")
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForTools()
 
         XCTAssertEqual(controller.editToolBar.layout, .plain)
@@ -175,7 +200,7 @@ class EditWorkflowTests: XCTestCase {
     func testTheSelectionStyleReachesTheButtons() throws {
         openDocument()
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
         waitForTools()
 
@@ -183,6 +208,45 @@ class EditWorkflowTests: XCTestCase {
         waitUntil { self.controller.editToolBar.isPressed(.bold) }
 
         XCTAssertFalse(controller.editToolBar.isPressed(.italic))
+    }
+
+    /// As on the website: the colour bars and the size follow the selection,
+    /// and the highlight shows pressed where the selection has one.
+    func testTheSelectionColorsAndSizeReachTheTools() throws {
+        openDocument()
+
+        controller.toggleEdit(controller.editButton)
+        waitForEditablePage()
+        waitForTools()
+
+        XCTAssertNil(controller.editToolBar.fontSizeTitle)
+
+        _ = evaluate("odr.onSelectionChange({ color: '#e53935', highlight: '#c5e1a5', size: '12pt' })")
+        waitUntil { self.controller.editToolBar.isPressed(.highlight) }
+
+        XCTAssertEqual(controller.editToolBar.color(of: .textColor)?.hexString, "#e53935")
+        XCTAssertEqual(controller.editToolBar.color(of: .highlight)?.hexString, "#c5e1a5")
+        XCTAssertEqual(controller.editToolBar.fontSizeTitle, "12 pt")
+    }
+
+    /// The highlight button turns a highlight on in its colour, and off again.
+    func testTheHighlightButtonTogglesTheHighlight() throws {
+        openDocument()
+
+        controller.toggleEdit(controller.editButton)
+        waitForEditablePage()
+        waitForTools()
+        selectTheFirstRun()
+
+        controller.editToolBar.onTap?(.highlight)
+        waitForPage(where: "document.querySelector('x-s[data-odr-id]').style.backgroundColor !== ''")
+
+        _ = evaluate("odr.onSelectionChange({ highlight: '#fff59d' })")
+        waitUntil { self.controller.editToolBar.isPressed(.highlight) }
+        selectTheFirstRun()
+
+        controller.editToolBar.onTap?(.highlight)
+        waitForPage(where: "document.querySelector('x-s[data-odr-id]').style.backgroundColor === ''")
     }
 
     // MARK: - a pdf
@@ -199,13 +263,17 @@ class EditWorkflowTests: XCTestCase {
 
         let sizeBefore = try fileSize()
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForPage(where: "document.querySelectorAll('[data-odr-space]').length > 0")
         waitForTools()
 
         XCTAssertEqual(controller.editToolBar.layout, .pdf)
         XCTAssertTrue(controller.editToolBar.shows(.markHighlight))
         XCTAssertFalse(controller.editToolBar.shows(.redo))
+
+        // each marker has a colour of its own, as on the website
+        XCTAssertEqual(controller.editToolBar.color(of: .markHighlight)?.hexString, "#ffe633")
+        XCTAssertEqual(controller.editToolBar.color(of: .markDraw)?.hexString, "#1e88e5")
 
         let marks =
             evaluate(
@@ -241,7 +309,7 @@ class EditWorkflowTests: XCTestCase {
     func testSavingWritesTheEditToTheFile() throws {
         openDocument()
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
         typeIntoTheFirstRun()
 
@@ -255,22 +323,59 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(try reopenedText().contains(Self.editedText))
     }
 
-    /// The save button is the way out of the edit as well as the way to write
-    /// it: a page left editable after a successful save has no button left to
-    /// end it.
-    func testSavingFromTheBarLeavesEditMode() throws {
+    /// As on the website, a save writes the edit and stays in it: the file is
+    /// rendered again, and the new page is back in the mode with a clean log.
+    func testSavingStaysInEditMode() throws {
         openDocument()
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
         typeIntoTheFirstRun()
 
-        controller.editOrSave(controller.editButton)
-        waitForPage(where: "document.querySelectorAll('[contenteditable]').length === 0")
+        let saved = expectation(description: "saved")
+        controller.saveAndStay { success in
+            XCTAssertTrue(success)
+            saved.fulfill()
+        }
+        wait(for: [saved], timeout: 60)
 
-        XCTAssertFalse(document.edit)
-        XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
+        waitForPage(
+            where:
+                "document.querySelectorAll('[contenteditable]').length > 0 && document.body.textContent.indexOf('\(Self.editedText)') >= 0"
+        )
+
+        XCTAssertTrue(document.edit)
+        XCTAssertTrue(controller.editButton.isSelected)
+        XCTAssertTrue(barContains(controller.saveButton))
         XCTAssertTrue(try reopenedText().contains(Self.editedText))
+    }
+
+    /// A marker pressed with text selected marks it once and leaves no tool
+    /// armed, the website's `markOnce`.
+    func testAMarkerMarksASelectionOnceAndArmsNothing() throws {
+        documentURL = try copyFixture(ofType: "pdf")
+        try present(documentURL)
+        openDocument(where: "document.querySelectorAll('[data-odr-space]').length > 0")
+
+        controller.toggleEdit(controller.editButton)
+        waitForTools()
+
+        _ = evaluate(
+            """
+            (function () {
+                var range = document.createRange();
+                range.selectNodeContents(document.querySelector('[data-odr-space]'));
+                var selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            })()
+            """)
+
+        controller.editToolBar.onTap?(.markUnderline)
+        waitForPage(where: "odr.annotation.list().length > 0")
+
+        XCTAssertEqual(evaluate("odr.annotation.getTool() === null") as? Bool, true)
+        XCTAssertFalse(controller.editToolBar.isPressed(.markUnderline))
     }
 
     /// The way back to reading without saving, and the only one besides leaving
@@ -278,7 +383,7 @@ class EditWorkflowTests: XCTestCase {
     func testDiscardingChangesLeavesEditModeAndTheFileAlone() throws {
         openDocument()
 
-        controller.editOrSave(controller.editButton)
+        controller.toggleEdit(controller.editButton)
         waitForEditablePage()
         typeIntoTheFirstRun()
 
@@ -352,6 +457,20 @@ class EditWorkflowTests: XCTestCase {
         }
 
         XCTFail("timed out waiting for \(condition)", file: file, line: line)
+    }
+
+    private func selectTheFirstRun() {
+        _ = evaluate(
+            """
+            (function () {
+                var run = document.querySelector('x-s[data-odr-id]');
+                var range = document.createRange();
+                range.selectNodeContents(run);
+                var selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            })()
+            """)
     }
 
     /// What typing amounts to: the caret in a run, and a `beforeinput` the

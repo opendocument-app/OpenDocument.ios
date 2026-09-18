@@ -125,7 +125,6 @@
 "mark_strike_out" = "Strike out";
 "mark_squiggly" = "Squiggly underline";
 "mark_draw" = "Draw";
-"mark_color" = "Mark color";
 
 /* The colors the menus offer */
 "color_black" = "Black";
@@ -154,11 +153,15 @@
 "edit_refused_read_only" = "This document cannot be edited.";
 "edit_refused_range" = "An edit cannot reach over a picture or a table.";
 
-/* Said once an edit leaves formula cells with an old result */
-"edit_cells_stale" = "Formula cells that read your edit are out of date. The saved file keeps the formulas, and a spreadsheet app computes them again.";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Select text, then a tool, to mark it.";
 
 /* The badge in front of the tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "%@ color";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

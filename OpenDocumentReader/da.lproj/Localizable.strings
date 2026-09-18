@@ -125,7 +125,6 @@
 "mark_strike_out" = "Gennemstreg";
 "mark_squiggly" = "Bølget understregning";
 "mark_draw" = "Tegn";
-"mark_color" = "Markeringsfarve";
 
 /* The colors the menus offer */
 "color_black" = "Sort";
@@ -154,11 +153,15 @@
 "edit_refused_read_only" = "Dette dokument kan ikke redigeres.";
 "edit_refused_range" = "En redigering kan ikke række hen over et billede eller en tabel.";
 
-/* Said once an edit leaves formula cells with an old result */
-"edit_cells_stale" = "Formelceller, der læser din redigering, er forældede. Den gemte fil beholder formlerne, og et regnearksprogram beregner dem igen.";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Vælg tekst og derefter et værktøj for at markere den.";
 
 /* The badge in front of the tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Farve til %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

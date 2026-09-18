@@ -125,7 +125,6 @@
 "mark_strike_out" = "取り消し線";
 "mark_squiggly" = "波線";
 "mark_draw" = "描画";
-"mark_color" = "マークの色";
 
 /* The colors the menus offer */
 "color_black" = "黒";
@@ -154,11 +153,15 @@
 "edit_refused_read_only" = "この書類は編集できません。";
 "edit_refused_range" = "画像や表をまたぐ編集はできません。";
 
-/* Said once an edit leaves formula cells with an old result */
-"edit_cells_stale" = "編集した内容を参照する数式セルが古くなっています。保存したファイルには数式が残り、表計算アプリが再計算します。";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "テキストを選択してから、ツールを選ぶとマークを付けられます。";
 
 /* The badge in front of the tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "%@の色";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

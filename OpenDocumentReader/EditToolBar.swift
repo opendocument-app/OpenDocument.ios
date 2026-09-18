@@ -2,14 +2,15 @@ import UIKit
 
 /// The row of editing tools under the bar, shown while a document is edited.
 /// As on the website: the bar keeps the way in and out of an edit, and this
-/// row grows beneath it with what the open document takes.
+/// row grows beneath it with what the open document takes. OpenDocument.droid's
+/// `EditingTools` is the same row, with the same tools, colours and behaviour.
 final class EditToolBar: UIView {
 
     /// One button of the row.
     enum Tool: CaseIterable {
         case bold, italic, underline, strikethrough
         case textColor, highlight, fontSize
-        case markHighlight, markUnderline, markStrikeOut, markSquiggly, markDraw, markColor
+        case markHighlight, markUnderline, markStrikeOut, markSquiggly, markDraw
         case undo, redo
 
         var symbol: String {
@@ -25,7 +26,6 @@ final class EditToolBar: UIView {
             case .markStrikeOut: return "strikethrough"
             case .markSquiggly: return "scribble.variable"
             case .markDraw: return "pencil.tip"
-            case .markColor: return "paintpalette"
             case .undo: return "arrow.uturn.backward"
             case .redo: return "arrow.uturn.forward"
             }
@@ -45,7 +45,6 @@ final class EditToolBar: UIView {
             case .markStrikeOut: return NSLocalizedString("mark_strike_out", comment: "")
             case .markSquiggly: return NSLocalizedString("mark_squiggly", comment: "")
             case .markDraw: return NSLocalizedString("mark_draw", comment: "")
-            case .markColor: return NSLocalizedString("mark_color", comment: "")
             case .undo: return NSLocalizedString("edit_undo", comment: "")
             case .redo: return NSLocalizedString("edit_redo", comment: "")
             }
@@ -80,8 +79,46 @@ final class EditToolBar: UIView {
         /// Whether the button opens a menu rather than acting at once.
         var opensMenu: Bool {
             switch self {
-            case .textColor, .highlight, .fontSize, .markColor: return true
+            case .textColor, .fontSize: return true
             default: return false
+            }
+        }
+
+        /// Whether a bar under the icon shows the colour the tool applies.
+        var showsColor: Bool {
+            switch self {
+            case .textColor, .highlight, .markHighlight, .markUnderline, .markStrikeOut, .markSquiggly,
+                .markDraw:
+                return true
+            default: return false
+            }
+        }
+
+        /// A split button: the tool acts, and the chevron beside it picks the
+        /// colour it acts with.
+        var hasColorChevron: Bool {
+            showsColor && self != .textColor
+        }
+
+        /// The colours the tool's menu offers.
+        var swatches: [Swatch] {
+            switch self {
+            case .textColor: return EditToolBar.textColors
+            case .highlight: return EditToolBar.highlightColors
+            default: return EditToolBar.markColors
+            }
+        }
+
+        /// The colour a marker starts with: a wash for the highlighter, red for
+        /// the three lines, blue ink for the pen - as on the website.
+        var defaultColor: String? {
+            switch self {
+            case .textColor: return EditToolBar.textColors[0].hex
+            case .highlight: return EditToolBar.highlightColors[0].hex
+            case .markHighlight: return "#ffe633"
+            case .markUnderline, .markStrikeOut, .markSquiggly: return "#e53935"
+            case .markDraw: return "#1e88e5"
+            default: return nil
             }
         }
     }
@@ -106,7 +143,7 @@ final class EditToolBar: UIView {
             case .plain:
                 return [.undo, .redo]
             case .pdf:
-                return [.markHighlight, .markUnderline, .markStrikeOut, .markSquiggly, .markDraw, .markColor, .undo]
+                return [.markHighlight, .markUnderline, .markStrikeOut, .markSquiggly, .markDraw, .undo]
             }
         }
     }
@@ -127,6 +164,8 @@ final class EditToolBar: UIView {
         let hex: String
     }
 
+    // the colours both apps offer, OpenDocument.droid's EditingTools being the
+    // other copy. The first of each is the website's own default
     static let textColors = [
         Swatch(name: "color_black", hex: "#191c1e"),
         Swatch(name: "color_red", hex: "#e53935"),
@@ -173,6 +212,7 @@ final class EditToolBar: UIView {
     private let scrollView = UIScrollView()
     private let stack = UIStackView()
     private var buttons: [Tool: UIButton] = [:]
+    private var bars: [Tool: UIView] = [:]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -221,6 +261,7 @@ final class EditToolBar: UIView {
             view.removeFromSuperview()
         }
         buttons = [:]
+        bars = [:]
 
         guard let layout else {
             isHidden = true
@@ -237,7 +278,18 @@ final class EditToolBar: UIView {
         for tool in layout.tools {
             let button = makeButton(for: tool)
             buttons[tool] = button
-            stack.addArrangedSubview(button)
+
+            guard tool.hasColorChevron else {
+                stack.addArrangedSubview(button)
+
+                continue
+            }
+
+            let pair = UIStackView(arrangedSubviews: [button, makeChevron(for: tool)])
+            pair.axis = .horizontal
+            pair.spacing = 0
+            pair.alignment = .center
+            stack.addArrangedSubview(pair)
         }
     }
 
@@ -283,7 +335,11 @@ final class EditToolBar: UIView {
             button.configuration = configuration
         }
 
-        if tool.opensMenu, advancedEditing {
+        if tool.showsColor {
+            addBar(to: button, for: tool)
+        }
+
+        if tool.opensMenu, advancedEditing || !tool.isAdvanced {
             button.menu = makeMenu(for: tool)
             button.showsMenuAsPrimaryAction = true
         } else {
@@ -294,6 +350,52 @@ final class EditToolBar: UIView {
         }
 
         return button
+    }
+
+    /// The half of a split button that picks the tool's colour.
+    private func makeChevron(for tool: Tool) -> UIButton {
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(
+            systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 6)
+
+        let chevron = UIButton(configuration: configuration)
+        chevron.accessibilityLabel = String(
+            format: NSLocalizedString("edit_color_of", comment: ""), tool.label)
+        chevron.accessibilityIdentifier = "edit-tool-\(tool.symbol)-color"
+
+        if advancedEditing || !tool.isAdvanced {
+            chevron.menu = colorMenu(for: tool, swatches: tool.swatches, offersNone: tool == .highlight)
+            chevron.showsMenuAsPrimaryAction = true
+        } else {
+            chevron.addAction(
+                UIAction { [weak self] _ in
+                    self?.onTap?(tool)
+                }, for: .touchUpInside)
+        }
+
+        return chevron
+    }
+
+    /// A bar under the icon in the colour the tool applies.
+    private func addBar(to button: UIButton, for tool: Tool) {
+        let bar = UIView()
+        bar.isUserInteractionEnabled = false
+        bar.layer.cornerRadius = 1
+        bar.layer.borderWidth = 0.5
+        bar.layer.borderColor = UIColor.separator.cgColor
+        bar.backgroundColor = UIColor(hex: tool.defaultColor ?? "#000000")
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        button.addSubview(bar)
+
+        NSLayoutConstraint.activate([
+            bar.widthAnchor.constraint(equalToConstant: 16),
+            bar.heightAnchor.constraint(equalToConstant: 3),
+            bar.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+            bar.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: -3),
+        ])
+
+        bars[tool] = bar
     }
 
     private func makeMenu(for tool: Tool) -> UIMenu {
@@ -309,10 +411,6 @@ final class EditToolBar: UIView {
 
         case .textColor:
             return colorMenu(for: tool, swatches: Self.textColors, offersNone: false)
-        case .highlight:
-            return colorMenu(for: tool, swatches: Self.highlightColors, offersNone: true)
-        case .markColor:
-            return colorMenu(for: tool, swatches: Self.markColors, offersNone: false)
 
         default:
             return UIMenu()
@@ -365,6 +463,38 @@ final class EditToolBar: UIView {
 
     func setEnabled(_ tool: Tool, _ enabled: Bool) {
         buttons[tool]?.isEnabled = enabled
+    }
+
+    /// Paints the bar under `tool` in the colour it now applies.
+    func setColor(_ tool: Tool, _ color: UIColor) {
+        bars[tool]?.backgroundColor = color
+    }
+
+    /// Shows the selection's size as "12 pt", or the symbol where the
+    /// selection states none - as the website's size select does.
+    func setFontSize(_ points: String?) {
+        guard let button = buttons[.fontSize] else { return }
+
+        var configuration = button.configuration
+        if let points {
+            configuration?.image = nil
+            configuration?.title = String(
+                format: NSLocalizedString("edit_font_size_points", comment: ""), points)
+        } else {
+            configuration?.image = UIImage(systemName: Tool.fontSize.symbol)
+            configuration?.title = nil
+        }
+        button.configuration = configuration
+    }
+
+    /// For the tests: the colour the bar under `tool` shows.
+    func color(of tool: Tool) -> UIColor? {
+        bars[tool]?.backgroundColor
+    }
+
+    /// For the tests: what the size tool says.
+    var fontSizeTitle: String? {
+        buttons[.fontSize]?.configuration?.title
     }
 
     /// For the tests: whether the row starts with the Pro badge.

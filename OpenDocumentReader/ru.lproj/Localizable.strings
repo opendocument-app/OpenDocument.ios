@@ -125,7 +125,6 @@
 "mark_strike_out" = "Зачеркнуть";
 "mark_squiggly" = "Волнистое подчёркивание";
 "mark_draw" = "Рисовать";
-"mark_color" = "Цвет пометки";
 
 /* The colors the menus offer */
 "color_black" = "Чёрный";
@@ -154,11 +153,15 @@
 "edit_refused_read_only" = "Этот документ нельзя редактировать.";
 "edit_refused_range" = "Изменение не может проходить через картинку или таблицу.";
 
-/* Said once an edit leaves formula cells with an old result */
-"edit_cells_stale" = "Ячейки с формулами, которые читают ваше изменение, устарели. В сохранённом файле формулы остаются, и табличный редактор пересчитает их.";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Выделите текст, затем инструмент, чтобы пометить его.";
 
 /* The badge in front of the tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Цвет: %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ пт";

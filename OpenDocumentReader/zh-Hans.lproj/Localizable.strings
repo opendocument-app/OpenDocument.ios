@@ -125,7 +125,6 @@
 "mark_strike_out" = "删除线";
 "mark_squiggly" = "波浪线";
 "mark_draw" = "绘制";
-"mark_color" = "标注颜色";
 
 /* The colors the menus offer */
 "color_black" = "黑色";
@@ -154,11 +153,15 @@
 "edit_refused_read_only" = "此文档无法编辑。";
 "edit_refused_range" = "编辑不能跨越图片或表格。";
 
-/* Said once an edit leaves formula cells with an old result */
-"edit_cells_stale" = "引用你所编辑内容的公式单元格已过期。保存的文件会保留公式，电子表格应用会重新计算。";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "先选择文本，再选择工具即可标注。";
 
 /* The badge in front of the tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "%@颜色";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ 磅";

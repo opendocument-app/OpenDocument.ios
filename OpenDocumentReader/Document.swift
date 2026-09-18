@@ -10,6 +10,9 @@ protocol DocumentDelegate: AnyObject {
     func documentPagesChanged(_ doc: Document)
     /// The edit mode was turned on. The page is the one already on screen.
     func documentEditingStarted(_ doc: Document)
+    /// The edit mode was turned off, and the page on screen stays: it holds
+    /// nothing the file does not.
+    func documentEditingEnded(_ doc: Document)
 }
 
 enum DocumentError: Error {
@@ -43,15 +46,32 @@ class Document: UIDocument {
     }
     /// The page carries its editor from the first render, so entering an edit
     /// turns it on in place. Leaving one renders the file again, which is what
-    /// drops the edits or shows the saved ones.
+    /// drops the edits or shows the saved ones - unless ``endEdit(renderingAgain:)``
+    /// says the page already is the file.
     public var edit = false {
         didSet {
             if edit {
                 notify { $0.documentEditingStarted(self) }
-            } else {
+            } else if rendersAgainOnLeave {
                 parse()
+            } else {
+                notify { $0.documentEditingEnded(self) }
             }
         }
+    }
+
+    private var rendersAgainOnLeave = true
+
+    /// Leaves the edit. Without `renderingAgain` only the mode goes off.
+    func endEdit(renderingAgain: Bool) {
+        rendersAgainOnLeave = renderingAgain
+        edit = false
+        rendersAgainOnLeave = true
+    }
+
+    /// Renders the file again and keeps the mode: what a save stays in.
+    func reload() {
+        parse()
     }
 
     public var webview: WKWebView?

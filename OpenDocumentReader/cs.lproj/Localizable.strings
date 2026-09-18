@@ -125,7 +125,6 @@
 "mark_strike_out" = "Přeškrtnout";
 "mark_squiggly" = "Vlnité podtržení";
 "mark_draw" = "Kreslit";
-"mark_color" = "Barva značky";
 
 /* The colors the menus offer */
 "color_black" = "Černá";
@@ -154,11 +153,15 @@
 "edit_refused_read_only" = "Tento dokument nelze upravovat.";
 "edit_refused_range" = "Úprava nemůže sahat přes obrázek nebo tabulku.";
 
-/* Said once an edit leaves formula cells with an old result */
-"edit_cells_stale" = "Buňky se vzorci, které čtou vaši úpravu, jsou zastaralé. Uložený soubor vzorce zachová a tabulkový procesor je přepočítá.";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Vyberte text a pak nástroj, kterým ho označíte.";
 
 /* The badge in front of the tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Barva: %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d ячейка с формулой показывает результат, который ваша правка сделала устаревшим. Сохранённый файл сохраняет формулу, и табличный редактор пересчитает её.</string>
+			<key>few</key>
+			<string>%d ячейки с формулами показывают результаты, которые ваша правка сделала устаревшими. Сохранённый файл сохраняет формулы, и табличный редактор пересчитает их.</string>
+			<key>many</key>
+			<string>%d ячеек с формулами показывают результаты, которые ваша правка сделала устаревшими. Сохранённый файл сохраняет формулы, и табличный редактор пересчитает их.</string>
+			<key>other</key>
+			<string>%d ячейки с формулами показывают результаты, которые ваша правка сделала устаревшими. Сохранённый файл сохраняет формулы, и табличный редактор пересчитает их.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

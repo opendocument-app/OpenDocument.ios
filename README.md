@@ -108,8 +108,12 @@ Every document is rendered with odrcore's editing scaffolding, so the pencil
 only turns the mode on with `odr.editing.enable()` and the reader stays where
 they were. A row of tools (`EditToolBar`) grows under the bar with what the
 page is: formatting for a text document, undo and redo alone for a spreadsheet
-or a plain text file, the five markers for a pdf - the same shape as the
-website's viewer and the Android app. The page talks back through one
+or a plain text file, the five markers for a pdf. The website's viewer is the
+reference, and OpenDocument.droid's `EditingTools` matches it: the same tools,
+the same colours, a split button for the highlight and each marker, colour bars
+and a size that follow the selection, and a marker that marks a selection once
+and leaves nothing armed. The one difference is "Other color…", the system
+colour picker, which Android does not have. The page talks back through one
 `WKScriptMessageHandler`: the state of its log for the undo and redo buttons
 and for the prompt on leaving, the style under the caret for the format
 buttons, the formula cells an edit left out of date, and every refusal, which
@@ -117,9 +121,11 @@ is shown in a word.
 
 Saving asks the page for its log (`odr.editing.getOperations()`, or
 `odr.annotation.getAnnotations()` for a pdf), hands it to odrcore, and writes
-the file beside the open one before moving it into place. The save button is
-the way out of the edit, as before: the file holds the edit once it is written,
-so leaving edit mode reads back what was saved.
+the file beside the open one before moving it into place. As on the website,
+the pencil (the pen) turns the mode on and off and the save button (the disc)
+beside it writes: a save stays in the edit, renders the file again and turns
+the mode back on in the new page. Leaving with changes the page alone holds
+asks first; leaving without any only turns the mode off.
 
 ## Formatting
 
