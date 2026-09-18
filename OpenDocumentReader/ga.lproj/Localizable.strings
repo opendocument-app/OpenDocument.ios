@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "Is cuid de OpenDocument Reader Pro é téacs a fhormáidiú agus ailt a chur leis nó a nascadh.";
 "pro_feature_pdf" = "Is cuid de OpenDocument Reader Pro é PDF a mharcáil.";
 "not_now" = "Ní anois";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "Ní féidir briseadh líne laistigh d’alt a shábháil. Brúigh Iontráil le haghaidh alt nua.";
+"edit_refused_read_only" = "Ní féidir an doiciméad seo a chur in eagar.";
+"edit_refused_range" = "Ní féidir le hathrú dul thar phictiúr ná thar thábla.";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "Tá cealla foirmle a léann d’athrú as dáta. Coinníonn an comhad sábháilte na foirmlí, agus ríomhann scarbhileog arís iad.";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Roghnaigh téacs, ansin uirlis, chun é a mharcáil.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";

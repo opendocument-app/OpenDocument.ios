@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "设置文字格式以及添加或合并段落是 OpenDocument Reader Pro 的功能。";
 "pro_feature_pdf" = "标注 PDF 是 OpenDocument Reader Pro 的功能。";
 "not_now" = "暂不";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "段落内的换行无法保存。请按回车键开始新段落。";
+"edit_refused_read_only" = "此文档无法编辑。";
+"edit_refused_range" = "编辑不能跨越图片或表格。";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "引用你所编辑内容的公式单元格已过期。保存的文件会保留公式，电子表格应用会重新计算。";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "先选择文本，再选择工具即可标注。";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";

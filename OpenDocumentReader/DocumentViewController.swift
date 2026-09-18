@@ -96,6 +96,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether the Pro offer was shown during this edit, so a page full of
     /// refused line breaks raises it once.
     private var hasOfferedProForThisEdit = false
+
+    /// How many formula cells the edits so far left out of date; said once
+    /// each time the number grows.
+    private var staleCells = 0
     private var canSearch = false {
         didSet {
             updateToolBar()
@@ -287,10 +291,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateSearchButton()
 
-        if let documentNavigation, navigation === documentNavigation, document?.edit == true {
-            beginEditSession()
-        }
-
         // the document is drawn, which is what a screenshot of it waits for -
         // and only the document: the "loading" page finishes first, and a
         // picture of it is a picture of the word "loading"
@@ -325,13 +325,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
 
         case .edit:
-            // Entering an edit reloads the page as editable, so this comes back
-            // here a second time - and that pass is the one worth photographing.
-            guard document?.edit == true else {
-                editDocument()
+            // ready once the tools are up, which `beginEditSession` says
+            editDocument()
 
-                return
-            }
+            return
 
         default:
             break
@@ -555,7 +552,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Under the bar and above the progress line, so it reads as part of the bar.
     private func setUpEditToolBar() {
         editToolBar.layout = nil
-        editToolBar.menusEnabled = Features.advancedEditing
+        editToolBar.advancedEditing = Features.advancedEditing
         editToolBar.onTap = { [weak self] tool in self?.editToolTapped(tool) }
         editToolBar.onChoice = { [weak self] tool, choice in self?.editToolChose(tool, choice) }
 
@@ -580,7 +577,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             if (typeof odr !== 'object' || !window.webkit || !webkit.messageHandlers.odr) { return; }
             var post = function (message) { webkit.messageHandlers.odr.postMessage(message); };
             odr.onEditChange = function (e) {
-                post({ type: 'editChange', canUndo: !!e.canUndo, canRedo: !!e.canRedo });
+                post({ type: 'editChange', dirty: !!e.dirty, canUndo: !!e.canUndo, canRedo: !!e.canRedo });
             };
             odr.onEditRefused = function (e) {
                 post({ type: 'editRefused', reason: String(e.reason || ''), message: String(e.message || '') });
@@ -588,6 +585,27 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             odr.onSelectionChange = function (style) {
                 post({ type: 'selection', style: style || {} });
             };
+            odr.onCellsStale = function (detail) {
+                post({ type: 'cellsStale', count: detail && detail.cells ? detail.cells.length : 0 });
+            };
+            if (!odr.annotation) { return; }
+            // an armed tool marks a selection as it is made, which is what a
+            // touch screen needs. The annotator has no callback of its own, so
+            // the count of marks is reported after every gesture that can
+            // change it; a mark settles 50ms after the pointer lifts
+            odr.annotation.setOptions({ markOnSelection: true });
+            var reported = -1;
+            var reportMarks = function () {
+                var count = odr.annotation.list().length;
+                if (count === reported) { return; }
+                reported = count;
+                post({ type: 'marks', count: count });
+            };
+            var reportMarksSoon = function () { window.setTimeout(reportMarks, 120); };
+            document.addEventListener('pointerup', reportMarksSoon);
+            document.addEventListener('pointercancel', reportMarksSoon);
+            document.addEventListener('selectionchange', reportMarksSoon);
+            odr.reportMarks = reportMarks;
         })();
         """
 
@@ -596,8 +614,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         switch type {
         case "editChange":
+            hasUnsavedEdits = body["dirty"] as? Bool ?? false
             editToolBar.setEnabled(.undo, body["canUndo"] as? Bool ?? false)
             editToolBar.setEnabled(.redo, body["canRedo"] as? Bool ?? false)
+
+        case "marks":
+            let count = body["count"] as? Int ?? 0
+            hasUnsavedEdits = count > 0
+            editToolBar.setEnabled(.undo, count > 0)
+
+        case "cellsStale":
+            if body["count"] as? Int ?? 0 > staleCells {
+                showToast(controller: self, message: NSLocalizedString("edit_cells_stale", comment: ""), seconds: 3)
+            }
+            staleCells = body["count"] as? Int ?? 0
 
         case "editRefused":
             editRefused(reason: body["reason"] as? String ?? "")
@@ -614,15 +644,18 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// The editable page is on screen: turn the mode on and show its tools.
+    /// Turns the mode on in the page already on screen and shows its tools.
     /// A pdf needs no mode, only a marker that acts on a selection.
     private func beginEditSession() {
         hasOfferedProForThisEdit = false
+        hasUnsavedEdits = false
 
         if document?.isAnnotatable == true {
             editToolBar.layout = .pdf
-            editToolBar.setEnabled(.undo, true)
-            run("odr.annotation.setOptions({ markOnSelection: true }); odr.annotation.setColor(\(markColor.deviceRGB))")
+            editToolBar.setEnabled(.undo, false)
+            run("odr.annotation.setColor(\(markColor.deviceRGB))")
+            showToast(controller: self, message: NSLocalizedString("mark_hint", comment: ""), seconds: 2)
+            editSessionReady()
 
             return
         }
@@ -636,8 +669,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             guard let self, self.isEditingDocument else { return }
 
             self.editToolBar.layout = isPlainText || isSheet as? Bool == true ? .plain : .text
+            self.editSessionReady()
         }
     }
+
+    /// The tools are up, which is what a screenshot of an edit waits for.
+    private func editSessionReady() {
+        if ScreenshotMode.screen == .edit {
+            ScreenshotMode.markReady(view)
+        }
+    }
+
+    /// Whether the page holds edits or marks that only it has, which leaving
+    /// would lose.
+    private var hasUnsavedEdits = false
 
     private func editToolTapped(_ tool: EditToolBar.Tool) {
         if tool.isAdvanced, !Features.advancedEditing {
@@ -648,7 +693,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         switch tool {
         case .undo:
-            run(canMark ? "odr.annotation.undo()" : "odr.editing.undo()")
+            run(canMark ? "odr.annotation.undo(); odr.reportMarks()" : "odr.editing.undo()")
         case .redo:
             run("odr.editing.redo()")
         case .bold, .italic, .underline, .strikethrough:
@@ -676,6 +721,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                     a.mark();
                     a.setTool(armed);
                     selection.removeAllRanges();
+                    odr.reportMarks();
                     return armed;
                 }
                 if (a.getTool() === '\(name)') {
@@ -748,9 +794,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         let key: String
         switch reason {
+        case "newLine": key = "edit_refused_new_line"
         case "formula": key = "edit_refused_formula"
         case "formulaInput": key = "edit_refused_formula_input"
         case "rich", "shapes": key = "edit_refused_rich"
+        case "readOnly": key = "edit_refused_read_only"
+        case "range": key = "edit_refused_range"
         default: key = "edit_refused_generic"
         }
 
@@ -971,7 +1020,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        if doc.edit {
+        if doc.edit, hasUnsavedEdits {
             let alert = UIAlertController(
                 title: NSLocalizedString("alert_unsaved_changes", comment: ""),
                 message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
@@ -1302,6 +1351,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl,
                 AnalyticsConstants.paramContentType: fileType,
             ])
+    }
+
+    func documentEditingStarted(_ doc: Document) {
+        isEditingDocument = true
+        beginEditSession()
     }
 
     func documentPagesChanged(_ doc: Document) {

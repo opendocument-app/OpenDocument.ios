@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "Formattare il testo e aggiungere o unire paragrafi fa parte di OpenDocument Reader Pro.";
 "pro_feature_pdf" = "Annotare un PDF fa parte di OpenDocument Reader Pro.";
 "not_now" = "Non ora";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "Un’interruzione di riga dentro un paragrafo non può essere salvata. Premi Invio per un nuovo paragrafo.";
+"edit_refused_read_only" = "Questo documento non può essere modificato.";
+"edit_refused_range" = "Una modifica non può passare sopra un’immagine o una tabella.";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "Le celle con formule che leggono la tua modifica non sono aggiornate. Il file salvato conserva le formule e un foglio di calcolo le ricalcola.";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Seleziona del testo, poi uno strumento, per annotarlo.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";

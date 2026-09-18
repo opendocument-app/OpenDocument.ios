@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "Formatar el text i afegir o unir paràgrafs forma part d’OpenDocument Reader Pro.";
 "pro_feature_pdf" = "Marcar un PDF forma part d’OpenDocument Reader Pro.";
 "not_now" = "Ara no";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "Un salt de línia dins d’un paràgraf no es pot desar. Prem Retorn per a un paràgraf nou.";
+"edit_refused_read_only" = "Aquest document no es pot editar.";
+"edit_refused_range" = "Una edició no pot passar per sobre d’una imatge o d’una taula.";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "Les cel·les amb fórmules que llegeixen la teva edició estan desactualitzades. El fitxer desat conserva les fórmules i un full de càlcul les torna a calcular.";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Selecciona text i després una eina per marcar-lo.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";

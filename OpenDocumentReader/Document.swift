@@ -8,6 +8,8 @@ protocol DocumentDelegate: AnyObject {
     func documentLoadingStarted(_ doc: Document)
     func documentLoadingCompleted(_ doc: Document)
     func documentPagesChanged(_ doc: Document)
+    /// The edit mode was turned on. The page is the one already on screen.
+    func documentEditingStarted(_ doc: Document)
 }
 
 enum DocumentError: Error {
@@ -39,9 +41,16 @@ class Document: UIDocument {
             parse()
         }
     }
+    /// The page carries its editor from the first render, so entering an edit
+    /// turns it on in place. Leaving one renders the file again, which is what
+    /// drops the edits or shows the saved ones.
     public var edit = false {
         didSet {
-            parse()
+            if edit {
+                notify { $0.documentEditingStarted(self) }
+            } else {
+                parse()
+            }
         }
     }
 
@@ -81,7 +90,7 @@ class Document: UIDocument {
                 fileURL.path,
                 into: NSTemporaryDirectory(),
                 with: password,
-                editable: edit,
+                editable: true,
                 scope: Features.advancedEditing ? .document : .paragraph
             )
         } catch let error as NSError

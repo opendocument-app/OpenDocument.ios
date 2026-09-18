@@ -57,12 +57,14 @@ flag cannot end up in a build whose code says otherwise. `AnalyticsManager` and
 `CrashManager` take no switch at all - both write to `os.Logger` and nowhere
 else, so there is nothing to withhold.
 
-The one thing Pro does that Lite does not is `Features.advancedEditing`, which
-is the same flag the other way round. Lite edits inside a paragraph: odrcore is
-told the editing scope is `paragraph`, and refuses a line break or a format
-with `outOfScope`, which the reader hears as the offer of Pro. Marks on a pdf
-are gated the same way, in front of the highlighter rather than behind it. The
-tools row still shows every button in Lite, so what Pro adds is in view.
+The one thing Pro does that Lite does not is `Features.advancedEditing`, from
+`ADVANCED_EDITING` beside `LINKS_ADS` in the same two files. Lite edits inside a
+paragraph: odrcore is told the editing scope is `paragraph`, and refuses a line
+break or a format with `outOfScope`, which the reader hears as the offer of
+Pro. Marks on a pdf are gated the same way, in front of the highlighter rather
+than behind it. The tools row still shows every button in Lite, behind a "Pro"
+badge, so what Pro adds is in view. Every other edit the core takes - a sheet
+cell, a plain text file - is in both.
 
 `configs/full` and `configs/lite` hold each bundle's `Info.plist` and privacy
 manifest, out of the synchronized folder, since anything left in there would be
@@ -102,14 +104,16 @@ in App Store review.
 
 ## Editing
 
-The pencil re-renders the document with odrcore's editing scaffolding and, once
-the page is up, turns the mode on with `odr.editing.enable()`. A row of tools
-(`EditToolBar`) grows under the bar with what the page is: formatting for a
-text document, undo and redo alone for a spreadsheet or a plain text file, the
-five markers for a pdf - the same shape as the website's viewer. The page talks
-back through one `WKScriptMessageHandler`: the state of its log for the undo
-and redo buttons, the style under the caret for the format buttons, and every
-refusal, which is shown in a word.
+Every document is rendered with odrcore's editing scaffolding, so the pencil
+only turns the mode on with `odr.editing.enable()` and the reader stays where
+they were. A row of tools (`EditToolBar`) grows under the bar with what the
+page is: formatting for a text document, undo and redo alone for a spreadsheet
+or a plain text file, the five markers for a pdf - the same shape as the
+website's viewer and the Android app. The page talks back through one
+`WKScriptMessageHandler`: the state of its log for the undo and redo buttons
+and for the prompt on leaving, the style under the caret for the format
+buttons, the formula cells an edit left out of date, and every refusal, which
+is shown in a word.
 
 Saving asks the page for its log (`odr.editing.getOperations()`, or
 `odr.annotation.getAnnotations()` for a pdf), hands it to odrcore, and writes

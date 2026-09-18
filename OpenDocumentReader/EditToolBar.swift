@@ -159,9 +159,9 @@ final class EditToolBar: UIView {
         }
     }
 
-    /// Whether the menus open: in a build without the advanced editing a tap
-    /// goes to `onTap` instead, which says what Pro is.
-    var menusEnabled = true {
+    /// Whether the advanced tools act. Without it they are shown behind a
+    /// "Pro" badge, and a tap goes to `onTap`, which says what Pro is.
+    var advancedEditing = true {
         didSet {
             rebuild()
         }
@@ -230,11 +230,35 @@ final class EditToolBar: UIView {
 
         isHidden = false
 
+        if !advancedEditing, layout.tools.contains(where: \.isAdvanced) {
+            stack.addArrangedSubview(makeBadge())
+        }
+
         for tool in layout.tools {
             let button = makeButton(for: tool)
             buttons[tool] = button
             stack.addArrangedSubview(button)
         }
+    }
+
+    /// Says the tools behind it are Pro's.
+    private func makeBadge() -> UIView {
+        let label = UILabel()
+        label.text = NSLocalizedString("tool_pro_badge", comment: "")
+        label.font = UIFont.preferredFont(forTextStyle: .caption1).withWeight(.semibold)
+        label.textColor = .white
+        label.backgroundColor = tintColor
+        label.textAlignment = .center
+        label.layer.cornerRadius = 8
+        label.clipsToBounds = true
+        label.accessibilityIdentifier = "edit-tool-pro"
+
+        NSLayoutConstraint.activate([
+            label.heightAnchor.constraint(equalToConstant: 20),
+            label.widthAnchor.constraint(greaterThanOrEqualToConstant: 36),
+        ])
+
+        return label
     }
 
     private func makeButton(for tool: Tool) -> UIButton {
@@ -259,7 +283,7 @@ final class EditToolBar: UIView {
             button.configuration = configuration
         }
 
-        if tool.opensMenu, menusEnabled {
+        if tool.opensMenu, advancedEditing {
             button.menu = makeMenu(for: tool)
             button.showsMenuAsPrimaryAction = true
         } else {
@@ -343,6 +367,11 @@ final class EditToolBar: UIView {
         buttons[tool]?.isEnabled = enabled
     }
 
+    /// For the tests: whether the row starts with the Pro badge.
+    var showsProBadge: Bool {
+        stack.arrangedSubviews.first?.accessibilityIdentifier == "edit-tool-pro"
+    }
+
     /// For the tests: whether the row shows `tool`.
     func shows(_ tool: Tool) -> Bool {
         buttons[tool] != nil
@@ -385,5 +414,12 @@ extension UIColor {
         getRed(&red, green: &green, blue: &blue, alpha: nil)
 
         return [Double(red), Double(green), Double(blue)]
+    }
+}
+
+extension UIFont {
+
+    fileprivate func withWeight(_ weight: UIFont.Weight) -> UIFont {
+        UIFont.systemFont(ofSize: pointSize, weight: weight)
     }
 }

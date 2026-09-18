@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "文字の書式設定と、段落の追加や結合はOpenDocument Reader Proの機能です。";
 "pro_feature_pdf" = "PDFへのマーク付けはOpenDocument Reader Proの機能です。";
 "not_now" = "あとで";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "段落内の改行は保存できません。新しい段落にはReturnキーを押してください。";
+"edit_refused_read_only" = "この書類は編集できません。";
+"edit_refused_range" = "画像や表をまたぐ編集はできません。";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "編集した内容を参照する数式セルが古くなっています。保存したファイルには数式が残り、表計算アプリが再計算します。";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "テキストを選択してから、ツールを選ぶとマークを付けられます。";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";

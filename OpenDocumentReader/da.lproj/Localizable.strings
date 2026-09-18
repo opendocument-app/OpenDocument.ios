@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "Formatering af tekst samt tilføjelse eller sammenføjning af afsnit er en del af OpenDocument Reader Pro.";
 "pro_feature_pdf" = "Markering af PDF er en del af OpenDocument Reader Pro.";
 "not_now" = "Ikke nu";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "Et linjeskift inde i et afsnit kan ikke gemmes. Tryk på Enter for et nyt afsnit.";
+"edit_refused_read_only" = "Dette dokument kan ikke redigeres.";
+"edit_refused_range" = "En redigering kan ikke række hen over et billede eller en tabel.";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "Formelceller, der læser din redigering, er forældede. Den gemte fil beholder formlerne, og et regnearksprogram beregner dem igen.";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Vælg tekst og derefter et værktøj for at markere den.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";

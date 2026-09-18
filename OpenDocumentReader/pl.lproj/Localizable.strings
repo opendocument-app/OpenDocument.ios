@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "Formatowanie tekstu oraz dodawanie i łączenie akapitów to część OpenDocument Reader Pro.";
 "pro_feature_pdf" = "Oznaczanie PDF to część OpenDocument Reader Pro.";
 "not_now" = "Nie teraz";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "Podziału wiersza wewnątrz akapitu nie można zapisać. Naciśnij Enter, aby zacząć nowy akapit.";
+"edit_refused_read_only" = "Tego dokumentu nie można edytować.";
+"edit_refused_range" = "Zmiana nie może sięgać przez obraz ani tabelę.";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "Komórki z formułami, które odczytują twoją zmianę, są nieaktualne. Zapisany plik zachowuje formuły, a arkusz kalkulacyjny przeliczy je ponownie.";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Zaznacz tekst, a potem narzędzie, aby go oznaczyć.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";

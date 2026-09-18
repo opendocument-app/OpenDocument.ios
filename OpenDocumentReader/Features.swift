@@ -7,6 +7,7 @@ enum Features {
     static var withAds: Bool { LINKS_ADS }
 
     /// The editing that goes past typing inside a paragraph: formatting, new
-    /// and joined paragraphs, and marks on a pdf. Pro is the build without ads.
-    static var advancedEditing: Bool { !LINKS_ADS }
+    /// and joined paragraphs, and marks on a pdf. What Pro is sold on; every
+    /// other edit the core takes is in both builds.
+    static var advancedEditing: Bool { ADVANCED_EDITING }
 }

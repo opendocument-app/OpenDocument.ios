@@ -33,6 +33,8 @@ once the version tag exists.
 ### Changed
 
 - The engine is odrcore 7.0.0, up from 6.13.0.
+- Entering an edit no longer reloads the document, so the page stays where it
+  was. Leaving one without changes no longer asks about saving them.
 - The Lite app edits inside a paragraph. Formatting, new or joined paragraphs
   and marks on a PDF are part of Pro, and the Lite app says so when they are
   reached for.

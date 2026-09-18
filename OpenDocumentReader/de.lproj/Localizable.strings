@@ -148,3 +148,17 @@
 "pro_feature_formatting" = "Text formatieren sowie Absätze einfügen oder zusammenführen ist Teil von OpenDocument Reader Pro.";
 "pro_feature_pdf" = "PDFs markieren ist Teil von OpenDocument Reader Pro.";
 "not_now" = "Nicht jetzt";
+
+/* Said when the page refuses an edit */
+"edit_refused_new_line" = "Ein Zeilenumbruch innerhalb eines Absatzes kann nicht gespeichert werden. Drücke die Eingabetaste für einen neuen Absatz.";
+"edit_refused_read_only" = "Dieses Dokument kann nicht bearbeitet werden.";
+"edit_refused_range" = "Eine Änderung kann nicht über ein Bild oder eine Tabelle hinausreichen.";
+
+/* Said once an edit leaves formula cells with an old result */
+"edit_cells_stale" = "Formelzellen, die deine Änderung lesen, sind veraltet. Die gespeicherte Datei behält die Formeln, eine Tabellenkalkulation berechnet sie neu.";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Text auswählen, dann ein Werkzeug, um ihn zu markieren.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
