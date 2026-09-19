@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d cella con formula mostra un risultato reso obsoleto dalla tua modifica. Il file salvato mantiene la formula e un'app per fogli di calcolo la ricalcola.</string>
+			<key>other</key>
+			<string>%d celle con formula mostrano risultati resi obsoleti dalla tua modifica. Il file salvato mantiene le formule e un'app per fogli di calcolo le ricalcola.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

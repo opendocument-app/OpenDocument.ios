@@ -57,6 +57,11 @@ flag cannot end up in a build whose code says otherwise. `AnalyticsManager` and
 `CrashManager` take no switch at all - both write to `os.Logger` and nowhere
 else, so there is nothing to withhold.
 
+Pro also has `Features.advancedEditing`, from `ADVANCED_EDITING` in the same
+two files. Lite renders with the editing scope `paragraph`, so odrcore refuses
+formatting and paragraph changes with `outOfScope`, and the app offers Pro.
+PDF marks and the tools behind the "Pro" badge offer Pro as well.
+
 `configs/full` and `configs/lite` hold each bundle's `Info.plist` and privacy
 manifest, out of the synchronized folder, since anything left in there would be
 copied into both apps. For the same reason `scripts/make-test-fixtures.py`, which
@@ -92,6 +97,20 @@ App Transport Security exception, since ATS blocks plain HTTP:
 `NSAllowsLocalNetworking` in both `Info.plist`s, which is the narrow one for
 local addresses and — unlike `NSAllowsArbitraryLoads` — needs no justification
 in App Store review.
+
+## Editing
+
+Every document is rendered editable, so the pencil only calls
+`odr.editing.enable()` and the page stays where it is. `EditToolBar` shows the
+tools for the page: formatting for a text document, undo and redo for a sheet or
+plain text, markers for a PDF. The tools match the website and
+OpenDocument.droid. The page reports to the app through one
+`WKScriptMessageHandler`.
+
+A save reads the page's log (`odr.editing.getOperations()`, or
+`odr.annotation.getAnnotations()` for a PDF), and odrcore writes the file next
+to the open one before it moves into place. The page then renders again and
+stays in the edit.
 
 ## Formatting
 

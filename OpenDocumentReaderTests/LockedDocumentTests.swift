@@ -49,8 +49,8 @@ class LockedDocumentTests: XCTestCase {
         for password in [nil, "secret"] {
             XCTAssertThrowsError(
                 try wrapper.translate(
-                    documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: password,
-                    editable: false)
+                    documentURL.path, into: temporaryDirectory, with: password,
+                    editable: false, scope: .document)
             ) { error in
                 XCTAssertEqual((error as NSError).code, CoreWrapperError.undecryptable.rawValue)
             }

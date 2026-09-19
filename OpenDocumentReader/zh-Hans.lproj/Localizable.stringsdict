@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%d 个公式单元格显示的结果因您的编辑而过时。保存的文件会保留公式，电子表格应用会重新计算。</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

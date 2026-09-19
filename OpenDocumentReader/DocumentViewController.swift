@@ -13,7 +13,8 @@ import WebKit
 
 // taken from: https://developer.apple.com/documentation/uikit/view_controllers/building_a_document_browser-based_app
 class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDelegate,
-    SKStoreProductViewControllerDelegate, WKNavigationDelegate, WKUIDelegate
+    SKStoreProductViewControllerDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler,
+    UIColorPickerViewControllerDelegate
 {
 
     private var browserTransition: DocumentBrowserTransitioningDelegate?
@@ -37,6 +38,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     @IBOutlet weak var toolBar: UIToolbar!
+    /// The bar and what hangs under it: the editing tools, the progress line.
+    @IBOutlet weak var barStack: UIStackView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var pageTabBar: PageTabBar!
 
@@ -65,10 +68,62 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether the document on screen can be edited and searched. Neither button
     /// stays in the bar when it cannot be used.
     private var canEdit = false { didSet { updateToolBar() } }
-    /// The same slot the pencil sits in, showing the way out of the edit it
-    /// started — as on OpenDocument.droid, where edit mode replaces the bar
-    /// rather than emptying it.
-    private var isEditingDocument = false { didSet { updateEditButtonRole() } }
+    /// Whether the document is a pdf that takes marks.
+    private var canMark = false { didSet { updateEditButtonRole() } }
+    private var isEditingDocument = false {
+        didSet {
+            updateEditButtonRole()
+            updateToolBar()
+
+            if !isEditingDocument {
+                editToolBar.layout = nil
+            }
+        }
+    }
+
+    /// Saves the edit, and stays in it. Only in the bar while editing.
+    lazy var saveButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(
+            image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self,
+            action: #selector(saveTapped(_:)))
+        item.accessibilityLabel = NSLocalizedString("action_edit_save", comment: "")
+        item.isEnabled = false
+
+        return item
+    }()
+
+    private lazy var saveButtonSpacer: UIBarButtonItem = {
+        let item = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        item.width = 10
+
+        return item
+    }()
+
+    /// The row of tools under the bar while a document is edited.
+    let editToolBar = EditToolBar()
+
+    /// The colour each marker on a pdf takes, until the reader picks another.
+    private var markColors: [EditToolBar.Tool: UIColor] = [:]
+
+    /// The colour the highlight button turns on; the selection's own where it
+    /// has one.
+    private var highlightColor = UIColor(hex: EditToolBar.highlightColors[0].hex)
+
+    /// Whether the selection shows a highlight, as the page last said.
+    private var selectionHasHighlight = false
+
+    /// Which menu the system colour picker was opened from.
+    private var colorPickerTool: EditToolBar.Tool?
+
+    /// Whether the Pro offer was shown during this edit, so it shows once.
+    private var hasOfferedProForThisEdit = false
+
+    /// How many formula cells the edits so far left out of date; said each
+    /// time the number grows.
+    private var staleCells = 0
+
+    /// Set by a save, so the page that loads next is put back into the mode.
+    private var resumesEditAfterLoad = false
     private var canSearch = false {
         didSet {
             updateToolBar()
@@ -124,6 +179,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
         searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
 
+        setUpEditToolBar()
+        setUpPageMessages()
+
         setVCconstraints()
         hideSearchBar()
 
@@ -132,6 +190,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         barButtonItem.accessibilityLabel = NSLocalizedString("back_to_documents", comment: "")
         updateEditButtonRole()
 
+        setUpSaveButton()
         setUpDocumentTitle()
 
         // nothing is editable or searchable until a page says so
@@ -257,6 +316,15 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateSearchButton()
 
+        // a save renders the file again, and the edit goes on in the new page
+        if let documentNavigation, navigation === documentNavigation, resumesEditAfterLoad {
+            resumesEditAfterLoad = false
+
+            if document?.edit == true {
+                beginEditSession()
+            }
+        }
+
         // the document is drawn, which is what a screenshot of it waits for -
         // and only the document: the "loading" page finishes first, and a
         // picture of it is a picture of the word "loading"
@@ -291,13 +359,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
 
         case .edit:
-            // Entering an edit reloads the page as editable, so this comes back
-            // here a second time - and that pass is the one worth photographing.
-            guard document?.edit == true else {
-                editDocument()
+            // ready once the tools are up, which `beginEditSession` says
+            editDocument()
 
-                return
-            }
+            return
 
         default:
             break
@@ -382,7 +447,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        searchBar.topAnchor.constraint(equalTo: toolBar.bottomAnchor, constant: Self.toolBarBottomMargin).isActive =
+        searchBar.topAnchor.constraint(equalTo: barStack.bottomAnchor, constant: Self.toolBarBottomMargin).isActive =
             true
 
         bannerSlot.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -497,21 +562,396 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         findAll(searchText: searchText)
     }
 
-    /// One button, both ways: the pencil starts an edit and the save glyph ends
-    /// it. See ``updateEditButtonRole()``.
-    @IBAction func editOrSave(_ sender: UIBarButtonItem) {
+    /// The pen: turns the mode on, and off again. Leaving with changes the page
+    /// alone holds asks first. See ``updateEditButtonRole()``.
+    @IBAction func toggleEdit(_ sender: UIBarButtonItem) {
         if isEditingDocument {
-            // the file holds the edit once it is written, so leaving edit mode
-            // reads back what was saved. A save that failed stays in the edit,
-            // which is the only place that text still exists.
-            saveContent { success in
-                guard success else { return }
-
-                self.document?.edit = false
-            }
+            leaveEdit()
+        } else if canMark, !Features.advancedEditing {
+            offerPro(.pdf)
         } else {
             editDocument()
         }
+    }
+
+    /// Without changes the page on screen is the file, so the mode only goes
+    /// off. With them: save, discard, or stay.
+    func leaveEdit() {
+        guard hasUnsavedEdits else {
+            document?.endEdit(renderingAgain: false)
+
+            return
+        }
+
+        AnalyticsManager.shared.report("show_alert_unsaved_changes")
+
+        let alert = UIAlertController(
+            title: NSLocalizedString("alert_unsaved_changes", comment: ""),
+            message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
+        alert.addAction(
+            UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel))
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("no", comment: ""), style: .destructive,
+                handler: { _ in
+                    AnalyticsManager.shared.report("alert_unsaved_changes_no")
+
+                    self.discardChanges()
+                }))
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("yes", comment: ""), style: .default,
+                handler: { _ in
+                    AnalyticsManager.shared.report("alert_unsaved_changes_yes")
+
+                    // the file holds the edit once it is written, so leaving
+                    // reads back what was saved
+                    self.saveContent { success in
+                        guard success else { return }
+
+                        self.document?.endEdit(renderingAgain: true)
+                    }
+                }))
+
+        present(alert, animated: true)
+    }
+
+    /// Saves, and stays in the edit.
+    @objc func saveTapped(_ sender: UIBarButtonItem) {
+        saveAndStay()
+    }
+
+    func saveAndStay(completion: ((Bool) -> Void)? = nil) {
+        saveContent { success in
+            if success {
+                self.resumesEditAfterLoad = true
+                self.document?.reload()
+            }
+
+            completion?(success)
+        }
+    }
+
+    // MARK: - the editing tools
+
+    /// Under the bar and above the progress line, so it reads as part of the bar.
+    private func setUpEditToolBar() {
+        editToolBar.layout = nil
+        editToolBar.advancedEditing = Features.advancedEditing
+        editToolBar.onTap = { [weak self] tool in self?.editToolTapped(tool) }
+        editToolBar.onChoice = { [weak self] tool, choice in self?.editToolChose(tool, choice) }
+
+        barStack.insertArrangedSubview(editToolBar, at: 1)
+    }
+
+    /// Hears from the page: the log, a refusal, the style under the caret.
+    private func setUpPageMessages() {
+        let controller = webview.configuration.userContentController
+
+        controller.add(WeakScriptMessageHandler(self), name: Self.pageMessageName)
+        controller.addUserScript(
+            WKUserScript(source: Self.pageMessageBridge, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+    }
+
+    private static let pageMessageName = "odr"
+
+    /// Points the page's callbacks at this controller. It runs at document
+    /// end, after the page's own scripts.
+    private static let pageMessageBridge = """
+        (function () {
+            if (typeof odr !== 'object' || !window.webkit || !webkit.messageHandlers.odr) { return; }
+            var post = function (message) { webkit.messageHandlers.odr.postMessage(message); };
+            odr.onEditChange = function (e) {
+                post({ type: 'editChange', dirty: !!e.dirty, canUndo: !!e.canUndo, canRedo: !!e.canRedo });
+            };
+            odr.onEditRefused = function (e) {
+                post({ type: 'editRefused', reason: String(e.reason || ''), message: String(e.message || '') });
+            };
+            odr.onSelectionChange = function (style) {
+                post({ type: 'selection', style: style || {} });
+            };
+            odr.onCellsStale = function (detail) {
+                post({ type: 'cellsStale', count: detail && detail.cells ? detail.cells.length : 0 });
+            };
+            if (!odr.annotation) { return; }
+            // an armed tool marks a selection as it is made, which is what a
+            // touch screen needs
+            odr.annotation.setOptions({ markOnSelection: true });
+            odr.onAnnotationChange = function (e) {
+                post({ type: 'marks', count: e && e.count ? e.count : 0 });
+            };
+        })();
+        """
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let body = message.body as? [String: Any], let type = body["type"] as? String else { return }
+
+        switch type {
+        case "editChange":
+            hasUnsavedEdits = body["dirty"] as? Bool ?? false
+            editToolBar.setEnabled(.undo, body["canUndo"] as? Bool ?? false)
+            editToolBar.setEnabled(.redo, body["canRedo"] as? Bool ?? false)
+
+        case "marks":
+            let count = body["count"] as? Int ?? 0
+            hasUnsavedEdits = count > 0
+            editToolBar.setEnabled(.undo, count > 0)
+
+        case "cellsStale":
+            let count = body["count"] as? Int ?? 0
+            if count > staleCells {
+                let message = String.localizedStringWithFormat(
+                    NSLocalizedString("edit_cells_stale", comment: ""), count)
+                showToast(controller: self, message: message, seconds: 3)
+            }
+            staleCells = count
+
+        case "editRefused":
+            editRefused(reason: body["reason"] as? String ?? "")
+
+        case "selection":
+            let style = body["style"] as? [String: Any] ?? [:]
+            editToolBar.setPressed(.bold, style["bold"] as? Bool ?? false)
+            editToolBar.setPressed(.italic, style["italic"] as? Bool ?? false)
+            editToolBar.setPressed(.underline, style["underline"] as? Bool ?? false)
+            editToolBar.setPressed(.strikethrough, style["strikethrough"] as? Bool ?? false)
+
+            // the bars and the size follow the selection, as the website's do
+            if let color = style["color"] as? String {
+                editToolBar.setColor(.textColor, UIColor(hex: color))
+            }
+            let highlight = style["highlight"] as? String
+            selectionHasHighlight = highlight != nil
+            editToolBar.setPressed(.highlight, selectionHasHighlight)
+            if let highlight {
+                highlightColor = UIColor(hex: highlight)
+                editToolBar.setColor(.highlight, highlightColor)
+            }
+            editToolBar.setFontSize(
+                (style["size"] as? String).map { $0.hasSuffix("pt") ? String($0.dropLast(2)) : $0 })
+
+        default:
+            break
+        }
+    }
+
+    /// Turns the mode on in the page already on screen and shows its tools.
+    /// A pdf needs no mode, only a marker that acts on a selection.
+    private func beginEditSession() {
+        hasOfferedProForThisEdit = false
+        hasUnsavedEdits = false
+        staleCells = 0
+        selectionHasHighlight = false
+
+        if document?.isAnnotatable == true {
+            editToolBar.layout = .pdf
+            editToolBar.setEnabled(.undo, false)
+            for tool in EditToolBar.Layout.pdf.tools where tool.showsColor {
+                editToolBar.setColor(tool, markColor(of: tool))
+            }
+            showToast(controller: self, message: NSLocalizedString("mark_hint", comment: ""), seconds: 2)
+            editSessionReady()
+
+            return
+        }
+
+        editToolBar.setEnabled(.undo, false)
+        editToolBar.setEnabled(.redo, false)
+
+        let isPlainText = document?.isPlainText == true
+
+        webview.evaluateJavaScript("odr.editing.enable(); typeof odr.sheet === 'object'") { [weak self] isSheet, _ in
+            guard let self, self.isEditingDocument else { return }
+
+            self.editToolBar.layout = isPlainText || isSheet as? Bool == true ? .plain : .text
+            self.editToolBar.setColor(.highlight, self.highlightColor)
+            self.editSessionReady()
+        }
+    }
+
+    /// The tools are up, which is what a screenshot of an edit waits for.
+    private func editSessionReady() {
+        if ScreenshotMode.screen == .edit {
+            ScreenshotMode.markReady(view)
+        }
+    }
+
+    /// Whether the page holds edits or marks that only it has, which leaving
+    /// would lose.
+    private var hasUnsavedEdits = false {
+        didSet {
+            saveButton.isEnabled = hasUnsavedEdits
+        }
+    }
+
+    private func editToolTapped(_ tool: EditToolBar.Tool) {
+        if tool.isAdvanced, !Features.advancedEditing {
+            offerPro(canMark ? .pdf : .formatting)
+
+            return
+        }
+
+        switch tool {
+        case .undo:
+            run(canMark ? "odr.annotation.undo()" : "odr.editing.undo()")
+        case .redo:
+            run("odr.editing.redo()")
+        case .bold, .italic, .underline, .strikethrough:
+            run("odr.editing.toggle('\(tool.pageName ?? "")')")
+        case .highlight:
+            // off where the selection shows one, else on in the current colour
+            run(
+                "odr.editing.format({ highlight: \(selectionHasHighlight ? "null" : "'\(highlightColor.hexString)'") })"
+            )
+        case .markHighlight, .markUnderline, .markStrikeOut, .markSquiggly, .markDraw:
+            pressMarker(tool, recolor: false)
+        default:
+            break
+        }
+    }
+
+    private func markColor(of tool: EditToolBar.Tool) -> UIColor {
+        markColors[tool] ?? UIColor(hex: tool.defaultColor ?? EditToolBar.markColors[0].hex)
+    }
+
+    /// A tap on a marker, or a new colour for it (`recolor`).
+    private func pressMarker(_ tool: EditToolBar.Tool, recolor: Bool) {
+        guard let name = tool.pageName else { return }
+
+        let script =
+            "odr.annotation.\(recolor ? "recolor" : "press")('\(name)', { color: \(markColor(of: tool).deviceRGB), width: 2 })"
+
+        webview.evaluateJavaScript(script) { [weak self] armed, error in
+            if let error {
+                CrashManager.shared.log(error)
+            }
+
+            self?.showArmedMarker(armed as? String)
+        }
+    }
+
+    private func showArmedMarker(_ armed: String?) {
+        for tool in EditToolBar.Layout.pdf.tools {
+            editToolBar.setPressed(tool, tool.pageName != nil && tool.pageName == armed)
+        }
+    }
+
+    private func editToolChose(_ tool: EditToolBar.Tool, _ choice: EditToolBar.Choice) {
+        switch (tool, choice) {
+        case (.fontSize, .size(let size)):
+            run("odr.editing.format({ size: '\(size)pt' })")
+        case (.textColor, .color(let hex)):
+            run("odr.editing.format({ color: '\(hex ?? "")' })")
+        case (.highlight, .color(let hex)):
+            // a colour becomes the one the button turns on; none takes it off
+            if let hex {
+                highlightColor = UIColor(hex: hex)
+                editToolBar.setColor(.highlight, highlightColor)
+            }
+            run("odr.editing.format({ highlight: \(hex.map { "'\($0)'" } ?? "null") })")
+        case (.markHighlight, .color(let hex)), (.markUnderline, .color(let hex)),
+            (.markStrikeOut, .color(let hex)), (.markSquiggly, .color(let hex)), (.markDraw, .color(let hex)):
+            markColors[tool] = UIColor(hex: hex ?? tool.defaultColor ?? EditToolBar.markColors[0].hex)
+            editToolBar.setColor(tool, markColor(of: tool))
+            pressMarker(tool, recolor: true)
+        case (_, .customColor):
+            colorPickerTool = tool
+
+            let picker = UIColorPickerViewController()
+            picker.delegate = self
+            picker.supportsAlpha = false
+            switch tool {
+            case .highlight: picker.selectedColor = highlightColor
+            case .textColor: picker.selectedColor = .label
+            default: picker.selectedColor = markColor(of: tool)
+            }
+            present(picker, animated: true)
+        default:
+            break
+        }
+    }
+
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        guard let tool = colorPickerTool else { return }
+        colorPickerTool = nil
+
+        editToolChose(tool, .color(viewController.selectedColor.hexString))
+    }
+
+    /// The page refused an edit. In Lite, an edit out of scope offers Pro.
+    private func editRefused(reason: String) {
+        if reason == "outOfScope", !Features.advancedEditing {
+            guard !hasOfferedProForThisEdit else { return }
+            hasOfferedProForThisEdit = true
+
+            offerPro(.formatting)
+
+            return
+        }
+
+        let key: String
+        switch reason {
+        case "newLine": key = "edit_refused_new_line"
+        case "formula": key = "edit_refused_formula"
+        case "formulaInput": key = "edit_refused_formula_input"
+        case "rich", "shapes": key = "edit_refused_rich"
+        case "readOnly": key = "edit_refused_read_only"
+        case "range": key = "edit_refused_range"
+        default: key = "edit_refused_generic"
+        }
+
+        AnalyticsManager.shared.report("edit_refused", parameters: ["reason": reason])
+
+        showToast(controller: self, message: NSLocalizedString(key, comment: ""), seconds: 1.5)
+    }
+
+    /// What Pro adds, as the reader runs into it.
+    enum ProFeature {
+        case formatting
+        case pdf
+
+        var message: String {
+            switch self {
+            case .formatting: return NSLocalizedString("pro_feature_formatting", comment: "")
+            case .pdf: return NSLocalizedString("pro_feature_pdf", comment: "")
+            }
+        }
+    }
+
+    /// Says what Pro is for, and leads to it. The Lite app's one gate.
+    func offerPro(_ feature: ProFeature) {
+        AnalyticsManager.shared.report("pro_gate_shown", parameters: ["feature": "\(feature)"])
+
+        let alert = UIAlertController(
+            title: NSLocalizedString("pro_feature_title", comment: ""),
+            message: feature.message,
+            preferredStyle: .alert)
+        alert.addAction(
+            UIAlertAction(title: NSLocalizedString("not_now", comment: ""), style: .cancel))
+        alert.addAction(
+            UIAlertAction(title: NSLocalizedString("house_ad_cta_get_pro", comment: ""), style: .default) { _ in
+                AnalyticsManager.shared.report("pro_gate_tapped", parameters: ["feature": "\(feature)"])
+
+                self.openProOnAppStore()
+            })
+
+        present(alert, animated: true)
+    }
+
+    /// A script whose answer nobody needs.
+    private func run(_ script: String) {
+        webview.evaluateJavaScript(script) { _, error in
+            if let error {
+                CrashManager.shared.log(error)
+            }
+        }
+    }
+
+    /// The disc goes after the pen, as on the website.
+    private func setUpSaveButton() {
+        guard let pen = toolBarItems.firstIndex(where: { $0 === editButtonSpacer }) else { return }
+
+        toolBarItems.insert(contentsOf: [saveButton, saveButtonSpacer], at: pen + 1)
     }
 
     /// A gap either side of the name, which is what puts it in the middle.
@@ -574,6 +1014,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             if item === editButton || item === editButtonSpacer {
                 return canEdit
             }
+            if item === saveButton || item === saveButtonSpacer {
+                return canEdit && isEditingDocument
+            }
             if item === searchButton || item === searchButtonSpacer {
                 return canSearch
             }
@@ -585,16 +1028,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Offered for the documents that can be edited, whether or not one is being
     /// edited right now — the button is the way both into an edit and out of it.
     private func updateEditButton() {
-        canEdit = document?.isEditable ?? false
+        canMark = document?.isAnnotatable ?? false
+        canEdit = (document?.isEditable ?? false) || canMark
         isEditingDocument = document?.edit ?? false
     }
 
-    /// A pencil to start an edit, and the save glyph to write one. The label goes
-    /// with it: VoiceOver reads that, not the glyph.
+    /// A pencil to edit, a highlighter to mark a pdf, selected while editing.
+    /// VoiceOver reads the label, not the glyph.
     private func updateEditButtonRole() {
-        editButton.image = UIImage(systemName: isEditingDocument ? "square.and.arrow.down" : "pencil")
-        editButton.accessibilityLabel = NSLocalizedString(
-            isEditingDocument ? "action_edit_save" : "menu_edit", comment: "")
+        editButton.image = UIImage(systemName: canMark ? "highlighter" : "pencil")
+        editButton.accessibilityLabel = NSLocalizedString(canMark ? "mark_pdf" : "menu_edit", comment: "")
+        editButton.isSelected = isEditingDocument
     }
 
     /// Asked of the page rather than guessed from the format: odrcore writes the
@@ -670,7 +1114,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
-        if doc.edit {
+        if doc.edit, hasUnsavedEdits {
             let alert = UIAlertController(
                 title: NSLocalizedString("alert_unsaved_changes", comment: ""),
                 message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
@@ -848,6 +1292,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             corePageInReserve = url
 
             canEdit = false
+            canMark = false
             canSearch = false
             documentNavigation = webview.loadFileURL(doc.fileURL, allowingReadAccessTo: doc.fileURL)
 
@@ -981,6 +1426,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         // neither is known until the page it produces is loaded
         canEdit = false
+        canMark = false
         canSearch = false
     }
 
@@ -999,6 +1445,19 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 AnalyticsConstants.paramItemName: doc.shortenedDocumentUrl,
                 AnalyticsConstants.paramContentType: fileType,
             ])
+    }
+
+    func documentEditingStarted(_ doc: Document) {
+        isEditingDocument = true
+        beginEditSession()
+    }
+
+    func documentEditingEnded(_ doc: Document) {
+        run(
+            "if (window.odr) { if (odr.editing) { odr.editing.disable(); } if (odr.annotation) { odr.annotation.setTool(null); } }"
+        )
+        view.endEditing(true)
+        isEditingDocument = false
     }
 
     func documentPagesChanged(_ doc: Document) {
@@ -1076,5 +1535,19 @@ extension UIViewController {
         guard let url = mail.url else { return }
 
         UIApplication.shared.open(url)
+    }
+}
+
+/// The web view's content controller holds its handlers strongly, and this
+/// controller holds the web view: a weak step in between breaks the cycle.
+private final class WeakScriptMessageHandler: NSObject, WKScriptMessageHandler {
+    private weak var handler: WKScriptMessageHandler?
+
+    init(_ handler: WKScriptMessageHandler) {
+        self.handler = handler
+    }
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        handler?.userContentController(userContentController, didReceive: message)
     }
 }

@@ -22,6 +22,19 @@ once the version tag exists.
 ### Added
 
 - The name of the open document is shown at the top, between the buttons.
+- Editing tools under the bar: bold, italic, underline, strikethrough, text
+  colour, highlight, text size, undo and redo.
+- A PDF can be marked up with highlights, lines and drawings.
+- Presentations, Excel files and plain text files can be edited and saved.
+
+### Changed
+
+- The engine is odrcore 7.1.0, up from 6.13.0.
+- Entering an edit keeps your place in the document.
+- The pencil turns editing on and off, and a new save button saves without
+  leaving the edit.
+- Lite edits text inside a paragraph. Formatting, paragraphs and PDF marks are
+  part of Pro.
 
 ### Fixed
 

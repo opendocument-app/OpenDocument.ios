@@ -106,3 +106,59 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "対応していないファイル形式です。別のアプリで開いてみてください。";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "太字";
+"edit_italic" = "斜体";
+"edit_underline" = "下線";
+"edit_strikethrough" = "取り消し線";
+"edit_text_color" = "文字の色";
+"edit_highlight" = "ハイライト";
+"edit_font_size" = "文字サイズ";
+"edit_undo" = "元に戻す";
+"edit_redo" = "やり直す";
+
+/* The marks a PDF takes */
+"mark_pdf" = "このPDFにマークを付ける";
+"mark_highlight" = "ハイライト";
+"mark_underline" = "下線";
+"mark_strike_out" = "取り消し線";
+"mark_squiggly" = "波線";
+"mark_draw" = "描画";
+
+/* The colors the menus offer */
+"color_black" = "黒";
+"color_red" = "赤";
+"color_blue" = "青";
+"color_green" = "緑";
+"color_yellow" = "黄";
+"color_pink" = "ピンク";
+"color_none" = "ハイライトなし";
+"color_custom" = "その他の色…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "そのセルには数式が入っているため、そのままになります。";
+"edit_refused_formula_input" = "数式の入力はまだ対応していません。";
+"edit_refused_rich" = "そのセルには書式付きの内容が入っているため、そのままになります。";
+"edit_refused_generic" = "この編集はここではできません。";
+"edit_refused_new_line" = "段落内の改行は保存できません。新しい段落にはReturnキーを押してください。";
+"edit_refused_read_only" = "この書類は編集できません。";
+"edit_refused_range" = "画像や表をまたぐ編集はできません。";
+
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Proの機能";
+"pro_feature_formatting" = "文字の書式設定と、段落の追加や結合はOpenDocument Reader Proの機能です。";
+"pro_feature_pdf" = "PDFへのマーク付けはOpenDocument Reader Proの機能です。";
+"not_now" = "あとで";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "テキストを選択してから、ツールを選ぶとマークを付けられます。";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "%@の色";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

@@ -8,6 +8,11 @@ protocol DocumentDelegate: AnyObject {
     func documentLoadingStarted(_ doc: Document)
     func documentLoadingCompleted(_ doc: Document)
     func documentPagesChanged(_ doc: Document)
+    /// The edit mode was turned on. The page is the one already on screen.
+    func documentEditingStarted(_ doc: Document)
+    /// The edit mode was turned off, and the page on screen stays: it holds
+    /// nothing the file does not.
+    func documentEditingEnded(_ doc: Document)
 }
 
 enum DocumentError: Error {
@@ -39,10 +44,32 @@ class Document: UIDocument {
             parse()
         }
     }
+    /// Entering an edit turns it on in the page. Leaving renders the file
+    /// again, unless ``endEdit(renderingAgain:)`` says not to.
     public var edit = false {
         didSet {
-            parse()
+            if edit {
+                notify { $0.documentEditingStarted(self) }
+            } else if rendersAgainOnLeave {
+                parse()
+            } else {
+                notify { $0.documentEditingEnded(self) }
+            }
         }
+    }
+
+    private var rendersAgainOnLeave = true
+
+    /// Leaves the edit. Without `renderingAgain` only the mode goes off.
+    func endEdit(renderingAgain: Bool) {
+        rendersAgainOnLeave = renderingAgain
+        edit = false
+        rendersAgainOnLeave = true
+    }
+
+    /// Renders the file again and keeps the mode: what a save stays in.
+    func reload() {
+        parse()
     }
 
     public var webview: WKWebView?
@@ -52,6 +79,10 @@ class Document: UIDocument {
     public var isArchive = false
     /// Whether the menu should offer to edit this one - see `CoreWrapper.isEditable`.
     public var isEditable = false
+    /// Whether this is a pdf that takes marks - see `CoreWrapper.isAnnotatable`.
+    public var isAnnotatable = false
+    /// Whether this is plain text - see `CoreWrapper.isPlainText`.
+    public var isPlainText = false
     private var wasPageCountAnnounced = false
 
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
@@ -66,19 +97,19 @@ class Document: UIDocument {
         isOdf = false
         isArchive = false
         isEditable = false
+        isAnnotatable = false
+        isPlainText = false
         result = nil
         pageURLs = nil
         notify { $0.documentUpdateContent(self) }
 
-        let temporaryDirectory = NSTemporaryDirectory()
-
         do {
             try coreWrapper.translate(
                 fileURL.path,
-                cache: temporaryDirectory,
-                into: temporaryDirectory,
+                into: NSTemporaryDirectory(),
                 with: password,
-                editable: edit
+                editable: true,
+                scope: Features.advancedEditing ? .document : .paragraph
             )
         } catch let error as NSError
             where error.domain == CoreWrapperErrorDomain
@@ -96,6 +127,8 @@ class Document: UIDocument {
         isOdf = true
         isArchive = coreWrapper.isArchive
         isEditable = coreWrapper.isEditable
+        isAnnotatable = coreWrapper.isAnnotatable
+        isPlainText = coreWrapper.isPlainText
 
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
 
@@ -152,12 +185,12 @@ class Document: UIDocument {
     override func writeContents(
         _ contents: Any, to url: URL, for saveOperation: UIDocument.SaveOperation, originalContentsURL: URL?
     ) throws {
-        let diff = try generateDiff()
+        let payload = try collectEdits()
 
         // the document handle CoreWrapper holds is only valid together with the
-        // web view that produced the diff, so the edit stays on the main thread
+        // web view that produced the edits, so the save stays on the main thread
         try onMainThread {
-            try coreWrapper.backTranslate(diff, into: url.path)
+            try coreWrapper.save(payload, into: url.path)
         }
     }
 
@@ -173,9 +206,10 @@ class Document: UIDocument {
 
     /// Blocks the calling save thread until the web view has handed back the
     /// edits the user made.
-    private func generateDiff() throws -> String {
+    private func collectEdits() throws -> String {
         let semaphore = DispatchSemaphore(value: 0)
         var result: Result<String, Error> = .failure(DocumentError.getHtml)
+        let script = coreWrapper.editPayloadScript
 
         DispatchQueue.main.async {
             guard let webview = self.webview else {
@@ -185,7 +219,7 @@ class Document: UIDocument {
                 return
             }
 
-            webview.evaluateJavaScript("odr.generateDiff()") { value, error in
+            webview.evaluateJavaScript(script) { value, error in
                 defer { semaphore.signal() }
 
                 if let error {

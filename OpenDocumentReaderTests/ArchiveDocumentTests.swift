@@ -43,7 +43,7 @@ class ArchiveDocumentTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["files"])
     }
@@ -53,7 +53,7 @@ class ArchiveDocumentTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         XCTAssertFalse(wrapper.isEditable)
     }
@@ -63,7 +63,7 @@ class ArchiveDocumentTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         let listingURL = try XCTUnwrap(wrapper.pageURLs.first)
         let (data, _) = try fetch(listingURL)

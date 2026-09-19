@@ -106,3 +106,59 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Nepodporovaný formát souboru. Zkuste jej otevřít v jiné aplikaci.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Tučné";
+"edit_italic" = "Kurzíva";
+"edit_underline" = "Podtržené";
+"edit_strikethrough" = "Přeškrtnuté";
+"edit_text_color" = "Barva textu";
+"edit_highlight" = "Zvýraznit";
+"edit_font_size" = "Velikost textu";
+"edit_undo" = "Zpět";
+"edit_redo" = "Znovu";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Označit tento PDF";
+"mark_highlight" = "Zvýraznit";
+"mark_underline" = "Podtrhnout";
+"mark_strike_out" = "Přeškrtnout";
+"mark_squiggly" = "Vlnité podtržení";
+"mark_draw" = "Kreslit";
+
+/* The colors the menus offer */
+"color_black" = "Černá";
+"color_red" = "Červená";
+"color_blue" = "Modrá";
+"color_green" = "Zelená";
+"color_yellow" = "Žlutá";
+"color_pink" = "Růžová";
+"color_none" = "Bez zvýraznění";
+"color_custom" = "Jiná barva…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Tato buňka obsahuje vzorec a zůstává beze změny.";
+"edit_refused_formula_input" = "Zadávání vzorců zatím není podporováno.";
+"edit_refused_rich" = "Tato buňka obsahuje víc než prostý text a zůstává beze změny.";
+"edit_refused_generic" = "Tato úprava tu není možná.";
+"edit_refused_new_line" = "Zalomení řádku uvnitř odstavce nelze uložit. Stiskněte Enter pro nový odstavec.";
+"edit_refused_read_only" = "Tento dokument nelze upravovat.";
+"edit_refused_range" = "Úprava nemůže sahat přes obrázek nebo tabulku.";
+
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Součást Pro";
+"pro_feature_formatting" = "Formátování textu a přidávání nebo spojování odstavců je součástí OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Označování PDF je součástí OpenDocument Reader Pro.";
+"not_now" = "Teď ne";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Vyberte text a pak nástroj, kterým ho označíte.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Barva: %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

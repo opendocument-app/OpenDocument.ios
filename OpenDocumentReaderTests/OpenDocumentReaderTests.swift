@@ -42,7 +42,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         XCTAssertFalse(wrapper.pageURLs.isEmpty)
         XCTAssertEqual(wrapper.pageURLs.count, wrapper.pageNames.count)
@@ -53,7 +53,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
@@ -65,7 +65,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "ods")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["Alpha", "Beta", "Gamma"])
     }
@@ -77,7 +77,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "odp")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
@@ -88,7 +88,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "csv")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
@@ -99,7 +99,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "pdf")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
@@ -110,7 +110,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "pdf")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
         let html = try XCTUnwrap(String(data: data, encoding: .utf8))
@@ -128,7 +128,7 @@ class OpenDocumentReaderTests: XCTestCase {
         for password in [nil, "wrong"] {
             XCTAssertThrowsError(
                 try wrapper.translate(
-                    url.path, cache: temporaryDirectory, into: temporaryDirectory, with: password, editable: false)
+                    url.path, into: temporaryDirectory, with: password, editable: false, scope: .document)
             ) { error in
                 XCTAssertEqual((error as NSError).code, CoreWrapperError.wrongPassword.rawValue)
             }
@@ -140,7 +140,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "pdf", named: "test-encrypted")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: "secret", editable: false)
+            url.path, into: temporaryDirectory, with: "secret", editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
 
@@ -153,7 +153,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "pdf")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            url.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         XCTAssertFalse(wrapper.isEditable)
     }
@@ -166,7 +166,7 @@ class OpenDocumentReaderTests: XCTestCase {
         try Data([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]).write(to: image)
 
         try wrapper.translate(
-            image.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            image.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["image"])
     }
@@ -177,7 +177,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "csv")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            url.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         XCTAssertFalse(wrapper.isEditable)
     }
@@ -187,7 +187,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         XCTAssertTrue(wrapper.isEditable)
     }
@@ -199,7 +199,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let url = try copyFixture(ofType: "ods")
 
         try wrapper.translate(
-            url.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertFalse(wrapper.pageURLs.isEmpty)
 
@@ -219,7 +219,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
         let html = try XCTUnwrap(String(data: data, encoding: .utf8))
@@ -234,7 +234,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
         let html = try XCTUnwrap(String(data: data, encoding: .utf8))
@@ -248,11 +248,11 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
         let before = wrapper.pageURLs
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         XCTAssertNotEqual(before, wrapper.pageURLs)
     }
@@ -264,7 +264,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         let url = try XCTUnwrap(wrapper.pageURLs.first)
         let recorder = NavigationRecorder(finished: expectation(description: "loaded \(url)"))
@@ -283,7 +283,7 @@ class OpenDocumentReaderTests: XCTestCase {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         let page = try XCTUnwrap(wrapper.pageURLs.first)
         XCTAssertTrue(CoreWrapper.isServedURL(page))
@@ -320,58 +320,118 @@ class OpenDocumentReaderTests: XCTestCase {
         return try result.get()
     }
 
-    func testBackTranslateWritesEditedDocument() throws {
+    /// The first run of the page, by the address an edit names it with.
+    private func firstRunId(of wrapper: CoreWrapper) throws -> Int {
+        let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
+        let html = String(decoding: data, as: UTF8.self)
+
+        let match = try XCTUnwrap(html.range(of: #"<x-s[^>]*data-odr-id="\d+""#, options: .regularExpression))
+        let digits = html[match].split(separator: "\"").last ?? ""
+
+        return try XCTUnwrap(Int(digits))
+    }
+
+    private func setText(_ id: Int, _ text: String) -> String {
+        #"{"version": 2, "ops": [{"op": "setText", "id": \#(id), "text": "\#(text)"}]}"#
+    }
+
+    func testSaveWritesEditedDocument() throws {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         let editedURL = URL(fileURLWithPath: temporaryDirectory)
             .appendingPathComponent("test-edited.odt")
         try? FileManager.default.removeItem(at: editedURL)
 
-        let diff = """
-            {"modifiedText":{"/child:3/child:0":"This is a simple test document to demonstrate the DocumentLoaderwwww example!"}}
-            """
-
-        try wrapper.backTranslate(diff, into: editedURL.path)
+        try wrapper.save(setText(try firstRunId(of: wrapper), "Edited by the test"), into: editedURL.path)
 
         XCTAssertTrue(FileManager.default.fileExists(atPath: editedURL.path))
     }
 
     /// Where every real save lands: on the document odrcore still has open.
-    func testBackTranslateOverTheOpenDocumentLeavesItReadable() throws {
+    func testSaveOverTheOpenDocumentLeavesItReadable() throws {
         let wrapper = CoreWrapper()
 
         try wrapper.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
-        let diff = """
-            {"modifiedText":{"/child:3/child:0":"Saved over itself."}}
-            """
-
-        try wrapper.backTranslate(diff, into: documentURL.path)
+        try wrapper.save(setText(try firstRunId(of: wrapper), "Saved over itself."), into: documentURL.path)
 
         // the whole document has to survive, not only the part the edit rewrote
         let reopened = CoreWrapper()
         try reopened.translate(
-            documentURL.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: true)
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
         XCTAssertFalse(reopened.pageURLs.isEmpty)
         XCTAssertTrue(reopened.isEditable)
     }
 
-    /// backTranslate used to dereference an empty std::optional when nothing had
+    /// Nothing typed is a save of the file as it is.
+    func testSaveWithNoOperationsWritesTheDocument() throws {
+        let wrapper = CoreWrapper()
+
+        try wrapper.translate(
+            documentURL.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
+
+        let editedURL = URL(fileURLWithPath: temporaryDirectory)
+            .appendingPathComponent("test-unedited.odt")
+        try? FileManager.default.removeItem(at: editedURL)
+
+        try wrapper.save(#"{"version": 2, "ops": []}"#, into: editedURL.path)
+
+        XCTAssertTrue(FileManager.default.fileExists(atPath: editedURL.path))
+    }
+
+    /// Saving used to dereference an empty std::optional when nothing had
     /// been translated yet.
-    func testBackTranslateWithoutTranslateFails() {
+    func testSaveWithoutTranslateFails() {
         let wrapper = CoreWrapper()
 
         let editedURL = URL(fileURLWithPath: temporaryDirectory)
             .appendingPathComponent("never-translated.odt")
 
-        XCTAssertThrowsError(try wrapper.backTranslate("{}", into: editedURL.path)) { error in
+        XCTAssertThrowsError(try wrapper.save("{}", into: editedURL.path)) { error in
             XCTAssertEqual((error as NSError).domain, CoreWrapperErrorDomain)
         }
+    }
+
+    /// A pdf is not edited but marked, and says so; a text document does not.
+    func testAPdfTakesMarks() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "pdf")
+
+        try wrapper.translate(url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
+
+        XCTAssertTrue(wrapper.isAnnotatable)
+        XCTAssertFalse(wrapper.isEditable)
+        XCTAssertEqual(wrapper.editPayloadScript, "odr.annotation.getAnnotations()")
+
+        let text = CoreWrapper()
+        try text.translate(documentURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
+
+        XCTAssertFalse(text.isAnnotatable)
+        XCTAssertEqual(text.editPayloadScript, "odr.editing.getOperations()")
+    }
+
+    /// The marks go in as an update behind the file, so the file is still there.
+    func testSavingMarksWritesThePdf() throws {
+        let wrapper = CoreWrapper()
+        let url = try copyFixture(ofType: "pdf")
+
+        try wrapper.translate(url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
+
+        let markedURL = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("test-marked.pdf")
+        try? FileManager.default.removeItem(at: markedURL)
+
+        try wrapper.save(#"{"version": 1, "annotations": []}"#, into: markedURL.path)
+
+        let reopened = CoreWrapper()
+        try reopened.translate(
+            markedURL.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
+
+        XCTAssertFalse(reopened.pageURLs.isEmpty)
     }
 
     /// odrcore recognising nothing at all is the message, not a page.
@@ -385,7 +445,7 @@ class OpenDocumentReaderTests: XCTestCase {
 
         XCTAssertThrowsError(
             try wrapper.translate(
-                notADocument.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+                notADocument.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
         ) { error in
             let error = error as NSError
             XCTAssertEqual(error.domain, CoreWrapperErrorDomain)
@@ -401,9 +461,23 @@ class OpenDocumentReaderTests: XCTestCase {
         try "Alpha\nBeta\n".write(to: notes, atomically: true, encoding: .utf8)
 
         try wrapper.translate(
-            notes.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            notes.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["text"])
+    }
+
+    func testSavingATextFileWritesTheText() throws {
+        let wrapper = CoreWrapper()
+
+        let notes = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("notes-edited.txt")
+        try "Alpha\nBeta\n".write(to: notes, atomically: true, encoding: .utf8)
+
+        try wrapper.translate(notes.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
+        XCTAssertTrue(wrapper.isPlainText)
+
+        try wrapper.save(#"{"version": 2, "ops": [{"op": "setContent", "text": "Gamma"}]}"#, into: notes.path)
+
+        XCTAssertEqual(try String(contentsOf: notes, encoding: .utf8), "Gamma")
     }
 
     /// A text file comes back as `text`; a markdown one as a document, with the
@@ -415,7 +489,7 @@ class OpenDocumentReaderTests: XCTestCase {
         try "# Heading\n\nSome **bold** prose.\n".write(to: notes, atomically: true, encoding: .utf8)
 
         try wrapper.translate(
-            notes.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            notes.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertEqual(wrapper.pageNames, ["document"])
 
@@ -436,7 +510,7 @@ class OpenDocumentReaderTests: XCTestCase {
         try "a,b\n1,2\n".write(to: rows, atomically: true, encoding: .utf8)
 
         try wrapper.translate(
-            rows.path, cache: temporaryDirectory, into: temporaryDirectory, with: nil, editable: false)
+            rows.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
         XCTAssertFalse(wrapper.pageNames.isEmpty)
     }
@@ -448,7 +522,7 @@ class OpenDocumentReaderTests: XCTestCase {
 
         measure {
             do {
-                try wrapper.translate(path, cache: directory, into: directory, with: nil, editable: true)
+                try wrapper.translate(path, into: directory, with: nil, editable: true, scope: .document)
             } catch {
                 XCTFail("translate threw \(error)")
             }

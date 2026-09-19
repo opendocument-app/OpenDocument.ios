@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d cel·la amb fórmula mostra un resultat que la vostra edició ha deixat desactualitzat. El fitxer desat conserva la fórmula, i una aplicació de fulls de càlcul la torna a calcular.</string>
+			<key>other</key>
+			<string>%d cel·les amb fórmula mostren resultats que la vostra edició ha deixat desactualitzats. El fitxer desat conserva les fórmules, i una aplicació de fulls de càlcul les torna a calcular.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

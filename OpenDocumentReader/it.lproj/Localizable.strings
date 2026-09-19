@@ -106,3 +106,59 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Formato di file non supportato. Prova ad aprirlo in un'altra app.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Grassetto";
+"edit_italic" = "Corsivo";
+"edit_underline" = "Sottolineato";
+"edit_strikethrough" = "Barrato";
+"edit_text_color" = "Colore del testo";
+"edit_highlight" = "Evidenzia";
+"edit_font_size" = "Dimensione del testo";
+"edit_undo" = "Annulla";
+"edit_redo" = "Ripeti";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Annota questo PDF";
+"mark_highlight" = "Evidenzia";
+"mark_underline" = "Sottolinea";
+"mark_strike_out" = "Barra";
+"mark_squiggly" = "Sottolineatura ondulata";
+"mark_draw" = "Disegna";
+
+/* The colors the menus offer */
+"color_black" = "Nero";
+"color_red" = "Rosso";
+"color_blue" = "Blu";
+"color_green" = "Verde";
+"color_yellow" = "Giallo";
+"color_pink" = "Rosa";
+"color_none" = "Nessuna evidenziazione";
+"color_custom" = "Altro colore…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Quella cella contiene una formula e resta com’è.";
+"edit_refused_formula_input" = "Digitare una formula non è ancora supportato.";
+"edit_refused_rich" = "Quella cella contiene più di testo semplice e resta com’è.";
+"edit_refused_generic" = "Questa modifica non è possibile qui.";
+"edit_refused_new_line" = "Un’interruzione di riga dentro un paragrafo non può essere salvata. Premi Invio per un nuovo paragrafo.";
+"edit_refused_read_only" = "Questo documento non può essere modificato.";
+"edit_refused_range" = "Una modifica non può passare sopra un’immagine o una tabella.";
+
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Parte di Pro";
+"pro_feature_formatting" = "Formattare il testo e aggiungere o unire paragrafi fa parte di OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Annotare un PDF fa parte di OpenDocument Reader Pro.";
+"not_now" = "Non ora";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Seleziona del testo, poi uno strumento, per annotarlo.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Colore di %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";
