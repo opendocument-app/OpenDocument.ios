@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "Vnos formul še ni podprt.";
 "edit_refused_rich" = "Ta celica vsebuje več kot navadno besedilo in ostane, kot je.";
 "edit_refused_generic" = "To urejanje tu ni mogoče.";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Del različice Pro";
-"pro_feature_formatting" = "Oblikovanje besedila ter dodajanje ali združevanje odstavkov je del OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Označevanje PDF je del OpenDocument Reader Pro.";
-"not_now" = "Ne zdaj";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "Preloma vrstice znotraj odstavka ni mogoče shraniti. Pritisnite Enter za nov odstavek.";
 "edit_refused_read_only" = "Tega dokumenta ni mogoče urejati.";
 "edit_refused_range" = "Urejanje ne more segati čez sliko ali tabelo.";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Del različice Pro";
+"pro_feature_formatting" = "Oblikovanje besedila ter dodajanje ali združevanje odstavkov je del OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Označevanje PDF je del OpenDocument Reader Pro.";
+"not_now" = "Ne zdaj";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Izberite besedilo, nato orodje, da ga označite.";

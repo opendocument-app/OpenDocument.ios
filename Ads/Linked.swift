@@ -1,4 +1,4 @@
 /// Read through ``Features``.
 let LINKS_ADS = true
-/// Read through ``Features``. Lite edits inside a paragraph and sells the rest.
+/// Read through ``Features``.
 let ADVANCED_EDITING = false

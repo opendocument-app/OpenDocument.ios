@@ -466,6 +466,20 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["text"])
     }
 
+    func testSavingATextFileWritesTheText() throws {
+        let wrapper = CoreWrapper()
+
+        let notes = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent("notes-edited.txt")
+        try "Alpha\nBeta\n".write(to: notes, atomically: true, encoding: .utf8)
+
+        try wrapper.translate(notes.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
+        XCTAssertTrue(wrapper.isPlainText)
+
+        try wrapper.save(#"{"version": 2, "ops": [{"op": "setContent", "text": "Gamma"}]}"#, into: notes.path)
+
+        XCTAssertEqual(try String(contentsOf: notes, encoding: .utf8), "Gamma")
+    }
+
     /// A text file comes back as `text`; a markdown one as a document, with the
     /// hashes and stars turned into a heading and a bold run.
     func testMarkdownIsReadAsProse() throws {

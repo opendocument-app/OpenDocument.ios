@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "La saisie d’une formule n’est pas encore prise en charge.";
 "edit_refused_rich" = "Cette cellule contient plus que du texte brut et reste telle quelle.";
 "edit_refused_generic" = "Cette modification n’est pas possible ici.";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Réservé à Pro";
-"pro_feature_formatting" = "La mise en forme du texte, ainsi que l’ajout ou la fusion de paragraphes, fait partie d’OpenDocument Reader Pro.";
-"pro_feature_pdf" = "L’annotation de PDF fait partie d’OpenDocument Reader Pro.";
-"not_now" = "Pas maintenant";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "Un saut de ligne à l’intérieur d’un paragraphe ne peut pas être enregistré. Appuyez sur Entrée pour un nouveau paragraphe.";
 "edit_refused_read_only" = "Ce document ne peut pas être modifié.";
 "edit_refused_range" = "Une modification ne peut pas passer par-dessus une image ou un tableau.";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Réservé à Pro";
+"pro_feature_formatting" = "La mise en forme du texte, ainsi que l’ajout ou la fusion de paragraphes, fait partie d’OpenDocument Reader Pro.";
+"pro_feature_pdf" = "L’annotation de PDF fait partie d’OpenDocument Reader Pro.";
+"not_now" = "Pas maintenant";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Sélectionnez du texte, puis un outil, pour l’annoter.";

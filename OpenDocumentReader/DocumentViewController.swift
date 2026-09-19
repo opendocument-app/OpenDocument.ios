@@ -68,11 +68,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether the document on screen can be edited and searched. Neither button
     /// stays in the bar when it cannot be used.
     private var canEdit = false { didSet { updateToolBar() } }
-    /// Whether the document is a pdf that takes marks. The same button as the
-    /// pencil, with the highlighter for a glyph.
+    /// Whether the document is a pdf that takes marks.
     private var canMark = false { didSet { updateEditButtonRole() } }
-    /// The pen turns the mode on and off and is drawn filled while it is on;
-    /// the disc beside it saves - the two controls of the website's viewer.
     private var isEditingDocument = false {
         didSet {
             updateEditButtonRole()
@@ -118,8 +115,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Which menu the system colour picker was opened from.
     private var colorPickerTool: EditToolBar.Tool?
 
-    /// Whether the Pro offer was shown during this edit, so a page full of
-    /// refused line breaks raises it once.
+    /// Whether the Pro offer was shown during this edit, so it shows once.
     private var hasOfferedProForThisEdit = false
 
     /// How many formula cells the edits so far left out of date; said each
@@ -620,8 +616,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         present(alert, animated: true)
     }
 
-    /// The disc: writes the edit and stays in it, as the website does. The page
-    /// is rendered again from the file, and the mode turned back on in it.
+    /// Saves, and stays in the edit.
     @objc func saveTapped(_ sender: UIBarButtonItem) {
         saveAndStay()
     }
@@ -660,8 +655,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     private static let pageMessageName = "odr"
 
-    /// Points the page's callbacks at this controller. The page's own scripts
-    /// have run by document end, so `odr` is there to be pointed.
+    /// Points the page's callbacks at this controller. It runs at document
+    /// end, after the page's own scripts.
     private static let pageMessageBridge = """
         (function () {
             if (typeof odr !== 'object' || !window.webkit || !webkit.messageHandlers.odr) { return; }
@@ -819,10 +814,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         markColors[tool] ?? UIColor(hex: tool.defaultColor ?? EditToolBar.markColors[0].hex)
     }
 
-    /// As on the website. A press with text selected marks it once and leaves
-    /// no tool armed; a press on the armed tool disarms it; any other press
-    /// arms it. A new colour (`recolor`) marks a selection once, recolours the
-    /// tool if it is armed, and is otherwise only kept.
+    /// A tap on a marker, or a new colour for it (`recolor`).
     private func pressMarker(_ tool: EditToolBar.Tool, recolor: Bool) {
         guard let name = tool.pageName else { return }
 
@@ -886,8 +878,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         editToolChose(tool, .color(viewController.selectedColor.hexString))
     }
 
-    /// The page said no. A line break or a format outside the paragraph is
-    /// what Pro is for; the rest is said in a word.
+    /// The page refused an edit. In Lite, an edit out of scope offers Pro.
     private func editRefused(reason: String) {
         if reason == "outOfScope", !Features.advancedEditing {
             guard !hasOfferedProForThisEdit else { return }
@@ -1042,9 +1033,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         isEditingDocument = document?.edit ?? false
     }
 
-    /// A pencil to edit, a highlighter to mark a pdf, drawn selected while the
-    /// mode is on - the website's pen. The label goes with it: VoiceOver reads
-    /// that, not the glyph.
+    /// A pencil to edit, a highlighter to mark a pdf, selected while editing.
+    /// VoiceOver reads the label, not the glyph.
     private func updateEditButtonRole() {
         editButton.image = UIImage(systemName: canMark ? "highlighter" : "pencil")
         editButton.accessibilityLabel = NSLocalizedString(canMark ? "mark_pdf" : "menu_edit", comment: "")

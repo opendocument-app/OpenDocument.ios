@@ -69,9 +69,8 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
     }
 
-    /// The website's two controls: the pen, drawn selected while the mode is on,
-    /// and the disc beside it, there only while editing and live only once the
-    /// page holds a change.
+    /// The pencil is selected while editing. The save button shows only while
+    /// editing, and is enabled only after a change.
     func testThePenStaysAndTheSaveButtonJoinsItWhileEditing() throws {
         openDocument()
 
@@ -210,8 +209,7 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertFalse(controller.editToolBar.isPressed(.italic))
     }
 
-    /// As on the website: the colour bars and the size follow the selection,
-    /// and the highlight shows pressed where the selection has one.
+    /// The colour bars, the size and the highlight follow the selection.
     func testTheSelectionColorsAndSizeReachTheTools() throws {
         openDocument()
 
@@ -271,7 +269,7 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(controller.editToolBar.shows(.markHighlight))
         XCTAssertFalse(controller.editToolBar.shows(.redo))
 
-        // each marker has a colour of its own, as on the website
+        // each marker has a colour of its own
         XCTAssertEqual(controller.editToolBar.color(of: .markHighlight)?.hexString, "#ffe633")
         XCTAssertEqual(controller.editToolBar.color(of: .markDraw)?.hexString, "#1e88e5")
 
@@ -323,8 +321,7 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(try reopenedText().contains(Self.editedText))
     }
 
-    /// As on the website, a save writes the edit and stays in it: the file is
-    /// rendered again, and the new page is back in the mode with a clean log.
+    /// A save writes the edit and stays in it, in the page rendered again.
     func testSavingStaysInEditMode() throws {
         openDocument()
 
@@ -350,8 +347,8 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(try reopenedText().contains(Self.editedText))
     }
 
-    /// A marker pressed with text selected marks it once and leaves no tool
-    /// armed, the website's `markOnce`.
+    /// A marker tapped with text selected marks it once and leaves no tool
+    /// armed.
     func testAMarkerMarksASelectionOnceAndArmsNothing() throws {
         documentURL = try copyFixture(ofType: "pdf")
         try present(documentURL)

@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "Ввод формул пока не поддерживается.";
 "edit_refused_rich" = "В этой ячейке не только простой текст, она остаётся как есть.";
 "edit_refused_generic" = "Такое изменение здесь невозможно.";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Часть Pro";
-"pro_feature_formatting" = "Форматирование текста, а также добавление и объединение абзацев — часть OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Разметка PDF — часть OpenDocument Reader Pro.";
-"not_now" = "Не сейчас";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "Перенос строки внутри абзаца нельзя сохранить. Нажмите Ввод, чтобы начать новый абзац.";
 "edit_refused_read_only" = "Этот документ нельзя редактировать.";
 "edit_refused_range" = "Изменение не может проходить через картинку или таблицу.";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Часть Pro";
+"pro_feature_formatting" = "Форматирование текста, а также добавление и объединение абзацев — часть OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Разметка PDF — часть OpenDocument Reader Pro.";
+"not_now" = "Не сейчас";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Выделите текст, затем инструмент, чтобы пометить его.";

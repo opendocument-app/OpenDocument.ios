@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "Escriure una fórmula encara no és compatible.";
 "edit_refused_rich" = "Aquesta cel·la conté més que text simple i es queda com està.";
 "edit_refused_generic" = "Aquesta edició no és possible aquí.";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Part de Pro";
-"pro_feature_formatting" = "Formatar el text i afegir o unir paràgrafs forma part d’OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Marcar un PDF forma part d’OpenDocument Reader Pro.";
-"not_now" = "Ara no";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "Un salt de línia dins d’un paràgraf no es pot desar. Prem Retorn per a un paràgraf nou.";
 "edit_refused_read_only" = "Aquest document no es pot editar.";
 "edit_refused_range" = "Una edició no pot passar per sobre d’una imatge o d’una taula.";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Part de Pro";
+"pro_feature_formatting" = "Formatar el text i afegir o unir paràgrafs forma part d’OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Marcar un PDF forma part d’OpenDocument Reader Pro.";
+"not_now" = "Ara no";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Selecciona text i després una eina per marcar-lo.";

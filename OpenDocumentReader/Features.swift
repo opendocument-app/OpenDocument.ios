@@ -6,8 +6,6 @@ enum Features {
     /// The ad banner and the consent form in front of it: Lite only.
     static var withAds: Bool { LINKS_ADS }
 
-    /// The editing that goes past typing inside a paragraph: formatting, new
-    /// and joined paragraphs, and marks on a pdf. What Pro is sold on; every
-    /// other edit the core takes is in both builds.
+    /// Formatting, paragraph changes and pdf marks: Pro only.
     static var advancedEditing: Bool { ADVANCED_EDITING }
 }

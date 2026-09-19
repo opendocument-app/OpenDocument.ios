@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "Escribir una fórmula aún no es compatible.";
 "edit_refused_rich" = "Esa celda contiene más que texto sin formato y se queda como está.";
 "edit_refused_generic" = "Esa edición no es posible aquí.";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Parte de Pro";
-"pro_feature_formatting" = "Dar formato al texto y añadir o unir párrafos forma parte de OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Marcar un PDF forma parte de OpenDocument Reader Pro.";
-"not_now" = "Ahora no";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "Un salto de línea dentro de un párrafo no se puede guardar. Pulsa Intro para un párrafo nuevo.";
 "edit_refused_read_only" = "Este documento no se puede editar.";
 "edit_refused_range" = "Una edición no puede pasar por encima de una imagen o una tabla.";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Parte de Pro";
+"pro_feature_formatting" = "Dar formato al texto y añadir o unir párrafos forma parte de OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Marcar un PDF forma parte de OpenDocument Reader Pro.";
+"not_now" = "Ahora no";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Selecciona texto y luego una herramienta para marcarlo.";

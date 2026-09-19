@@ -44,10 +44,8 @@ class Document: UIDocument {
             parse()
         }
     }
-    /// The page carries its editor from the first render, so entering an edit
-    /// turns it on in place. Leaving one renders the file again, which is what
-    /// drops the edits or shows the saved ones - unless ``endEdit(renderingAgain:)``
-    /// says the page already is the file.
+    /// Entering an edit turns it on in the page. Leaving renders the file
+    /// again, unless ``endEdit(renderingAgain:)`` says not to.
     public var edit = false {
         didSet {
             if edit {

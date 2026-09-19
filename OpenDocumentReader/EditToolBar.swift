@@ -1,9 +1,6 @@
 import UIKit
 
 /// The row of editing tools under the bar, shown while a document is edited.
-/// As on the website: the bar keeps the way in and out of an edit, and this
-/// row grows beneath it with what the open document takes. OpenDocument.droid's
-/// `EditingTools` is the same row, with the same tools, colours and behaviour.
 final class EditToolBar: UIView {
 
     /// One button of the row.
@@ -109,8 +106,7 @@ final class EditToolBar: UIView {
             }
         }
 
-        /// The colour a marker starts with: a wash for the highlighter, red for
-        /// the three lines, blue ink for the pen - as on the website.
+        /// The colour the tool starts with.
         var defaultColor: String? {
             switch self {
             case .textColor: return EditToolBar.textColors[0].hex
@@ -125,10 +121,9 @@ final class EditToolBar: UIView {
 
     /// What the row holds, by what the page is.
     enum Layout {
-        /// a text document, a presentation or a plain text file
+        /// a text document or a presentation
         case text
-        /// a spreadsheet or a plain text file: nothing to format, so only the
-        /// way back
+        /// a spreadsheet or a plain text file: nothing to format
         case plain
         /// a pdf, which takes marks
         case pdf
@@ -164,8 +159,7 @@ final class EditToolBar: UIView {
         let hex: String
     }
 
-    // the colours both apps offer, OpenDocument.droid's EditingTools being the
-    // other copy. The first of each is the website's own default
+    // the same colours as the website and OpenDocument.droid
     static let textColors = [
         Swatch(name: "color_black", hex: "#191c1e"),
         Swatch(name: "color_red", hex: "#e53935"),
@@ -322,7 +316,7 @@ final class EditToolBar: UIView {
         let button = UIButton(configuration: configuration)
         button.accessibilityLabel = tool.label
         button.accessibilityIdentifier = "edit-tool-\(tool.symbol)"
-        // filled while it is the mode, as the pen on the website is
+        // filled while pressed
         button.configurationUpdateHandler = { button in
             var configuration = button.configuration
             if button.isSelected {
@@ -470,8 +464,7 @@ final class EditToolBar: UIView {
         bars[tool]?.backgroundColor = color
     }
 
-    /// Shows the selection's size as "12 pt", or the symbol where the
-    /// selection states none - as the website's size select does.
+    /// Shows the selection's size as "12 pt", or the symbol if it has none.
     func setFontSize(_ points: String?) {
         guard let button = buttons[.fontSize] else { return }
 
@@ -528,22 +521,20 @@ extension UIColor {
 
     /// As `#rrggbb`, which is what the page takes.
     var hexString: String {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        getRed(&red, green: &green, blue: &blue, alpha: nil)
+        let rgb = deviceRGB.map { Int(($0 * 255).rounded()) }
 
-        return String(format: "#%02x%02x%02x", Int(red * 255), Int(green * 255), Int(blue * 255))
+        return String(format: "#%02x%02x%02x", rgb[0], rgb[1], rgb[2])
     }
 
-    /// As the `[r, g, b]` in 0...1 that `odr.annotation.setColor` takes.
+    /// As the `[r, g, b]` in 0...1 that the pdf markers take. A wide-gamut
+    /// colour from the picker is clamped into sRGB.
     var deviceRGB: [Double] {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
         getRed(&red, green: &green, blue: &blue, alpha: nil)
 
-        return [Double(red), Double(green), Double(blue)]
+        return [red, green, blue].map { Double(min(max($0, 0), 1)) }
     }
 }
 

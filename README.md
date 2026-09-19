@@ -57,14 +57,10 @@ flag cannot end up in a build whose code says otherwise. `AnalyticsManager` and
 `CrashManager` take no switch at all - both write to `os.Logger` and nowhere
 else, so there is nothing to withhold.
 
-The one thing Pro does that Lite does not is `Features.advancedEditing`, from
-`ADVANCED_EDITING` beside `LINKS_ADS` in the same two files. Lite edits inside a
-paragraph: odrcore is told the editing scope is `paragraph`, and refuses a line
-break or a format with `outOfScope`, which the reader hears as the offer of
-Pro. Marks on a pdf are gated the same way, in front of the highlighter rather
-than behind it. The tools row still shows every button in Lite, behind a "Pro"
-badge, so what Pro adds is in view. Every other edit the core takes - a sheet
-cell, a plain text file - is in both.
+Pro also has `Features.advancedEditing`, from `ADVANCED_EDITING` in the same
+two files. Lite renders with the editing scope `paragraph`, so odrcore refuses
+formatting and paragraph changes with `outOfScope`, and the app offers Pro.
+PDF marks and the tools behind the "Pro" badge offer Pro as well.
 
 `configs/full` and `configs/lite` hold each bundle's `Info.plist` and privacy
 manifest, out of the synchronized folder, since anything left in there would be
@@ -104,28 +100,17 @@ in App Store review.
 
 ## Editing
 
-Every document is rendered with odrcore's editing scaffolding, so the pencil
-only turns the mode on with `odr.editing.enable()` and the reader stays where
-they were. A row of tools (`EditToolBar`) grows under the bar with what the
-page is: formatting for a text document, undo and redo alone for a spreadsheet
-or a plain text file, the five markers for a pdf. The website's viewer is the
-reference, and OpenDocument.droid's `EditingTools` matches it: the same tools,
-the same colours, a split button for the highlight and each marker, colour bars
-and a size that follow the selection, and a marker that marks a selection once
-and leaves nothing armed. The one difference is "Other color…", the system
-colour picker, which Android does not have. The page talks back through one
-`WKScriptMessageHandler`: the state of its log for the undo and redo buttons
-and for the prompt on leaving, the style under the caret for the format
-buttons, the formula cells an edit left out of date, and every refusal, which
-is shown in a word.
+Every document is rendered editable, so the pencil only calls
+`odr.editing.enable()` and the page stays where it is. `EditToolBar` shows the
+tools for the page: formatting for a text document, undo and redo for a sheet or
+plain text, markers for a PDF. The tools match the website and
+OpenDocument.droid. The page reports to the app through one
+`WKScriptMessageHandler`.
 
-Saving asks the page for its log (`odr.editing.getOperations()`, or
-`odr.annotation.getAnnotations()` for a pdf), hands it to odrcore, and writes
-the file beside the open one before moving it into place. As on the website,
-the pencil (the pen) turns the mode on and off and the save button (the disc)
-beside it writes: a save stays in the edit, renders the file again and turns
-the mode back on in the new page. Leaving with changes the page alone holds
-asks first; leaving without any only turns the mode off.
+A save reads the page's log (`odr.editing.getOperations()`, or
+`odr.annotation.getAnnotations()` for a PDF), and odrcore writes the file next
+to the open one before it moves into place. The page then renders again and
+stays in the edit.
 
 ## Formatting
 

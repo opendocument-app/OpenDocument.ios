@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "数式の入力はまだ対応していません。";
 "edit_refused_rich" = "そのセルには書式付きの内容が入っているため、そのままになります。";
 "edit_refused_generic" = "この編集はここではできません。";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Proの機能";
-"pro_feature_formatting" = "文字の書式設定と、段落の追加や結合はOpenDocument Reader Proの機能です。";
-"pro_feature_pdf" = "PDFへのマーク付けはOpenDocument Reader Proの機能です。";
-"not_now" = "あとで";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "段落内の改行は保存できません。新しい段落にはReturnキーを押してください。";
 "edit_refused_read_only" = "この書類は編集できません。";
 "edit_refused_range" = "画像や表をまたぐ編集はできません。";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Proの機能";
+"pro_feature_formatting" = "文字の書式設定と、段落の追加や結合はOpenDocument Reader Proの機能です。";
+"pro_feature_pdf" = "PDFへのマーク付けはOpenDocument Reader Proの機能です。";
+"not_now" = "あとで";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "テキストを選択してから、ツールを選ぶとマークを付けられます。";

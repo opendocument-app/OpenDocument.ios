@@ -88,8 +88,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     /// it takes one is kept, so having it *is* the answer.
     @objc var isEditable: Bool { lock.withLock { document != nil || textFile != nil } }
 
-    /// Whether the file is a pdf that takes marks - the pdf's own answer, not
-    /// the app's: whether to offer them is decided elsewhere.
+    /// Whether the file is a pdf that takes marks.
     @objc var isAnnotatable: Bool { lock.withLock { pdfFile != nil } }
 
     /// Whether the file is plain text, which takes typing but no formatting.

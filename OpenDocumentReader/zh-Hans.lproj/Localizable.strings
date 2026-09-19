@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "暂不支持输入公式。";
 "edit_refused_rich" = "该单元格包含的不只是纯文本，保持不变。";
 "edit_refused_generic" = "此处无法进行该编辑。";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Pro 功能";
-"pro_feature_formatting" = "设置文字格式以及添加或合并段落是 OpenDocument Reader Pro 的功能。";
-"pro_feature_pdf" = "标注 PDF 是 OpenDocument Reader Pro 的功能。";
-"not_now" = "暂不";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "段落内的换行无法保存。请按回车键开始新段落。";
 "edit_refused_read_only" = "此文档无法编辑。";
 "edit_refused_range" = "编辑不能跨越图片或表格。";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Pro 功能";
+"pro_feature_formatting" = "设置文字格式以及添加或合并段落是 OpenDocument Reader Pro 的功能。";
+"pro_feature_pdf" = "标注 PDF 是 OpenDocument Reader Pro 的功能。";
+"not_now" = "暂不";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "先选择文本，再选择工具即可标注。";

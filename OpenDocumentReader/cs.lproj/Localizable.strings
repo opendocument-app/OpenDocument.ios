@@ -141,18 +141,15 @@
 "edit_refused_formula_input" = "Zadávání vzorců zatím není podporováno.";
 "edit_refused_rich" = "Tato buňka obsahuje víc než prostý text a zůstává beze změny.";
 "edit_refused_generic" = "Tato úprava tu není možná.";
-
-/* The one gate of the Lite app: what Pro adds, as the reader runs into it */
-"pro_feature_title" = "Součást Pro";
-"pro_feature_formatting" = "Formátování textu a přidávání nebo spojování odstavců je součástí OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Označování PDF je součástí OpenDocument Reader Pro.";
-"not_now" = "Teď ne";
-
-/* Said when the page refuses an edit */
 "edit_refused_new_line" = "Zalomení řádku uvnitř odstavce nelze uložit. Stiskněte Enter pro nový odstavec.";
 "edit_refused_read_only" = "Tento dokument nelze upravovat.";
 "edit_refused_range" = "Úprava nemůže sahat přes obrázek nebo tabulku.";
 
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Součást Pro";
+"pro_feature_formatting" = "Formátování textu a přidávání nebo spojování odstavců je součástí OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Označování PDF je součástí OpenDocument Reader Pro.";
+"not_now" = "Teď ne";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Vyberte text a pak nástroj, kterým ho označíte.";
