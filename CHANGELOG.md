@@ -32,7 +32,7 @@ once the version tag exists.
 
 ### Changed
 
-- The engine is odrcore 7.0.0, up from 6.13.0.
+- The engine is odrcore 7.1.0, up from 6.13.0.
 - Entering an edit no longer reloads the document, so the page stays where it
   was. Leaving one without changes no longer asks about saving them.
 - The pencil turns the edit on and off, and a save button beside it writes the

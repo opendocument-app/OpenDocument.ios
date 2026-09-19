@@ -680,22 +680,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             };
             if (!odr.annotation) { return; }
             // an armed tool marks a selection as it is made, which is what a
-            // touch screen needs. The annotator has no callback of its own, so
-            // the count of marks is reported after every gesture that can
-            // change it; a mark settles 50ms after the pointer lifts
+            // touch screen needs
             odr.annotation.setOptions({ markOnSelection: true });
-            var reported = -1;
-            var reportMarks = function () {
-                var count = odr.annotation.list().length;
-                if (count === reported) { return; }
-                reported = count;
-                post({ type: 'marks', count: count });
+            odr.onAnnotationChange = function (e) {
+                post({ type: 'marks', count: e && e.count ? e.count : 0 });
             };
-            var reportMarksSoon = function () { window.setTimeout(reportMarks, 120); };
-            document.addEventListener('pointerup', reportMarksSoon);
-            document.addEventListener('pointercancel', reportMarksSoon);
-            document.addEventListener('selectionchange', reportMarksSoon);
-            odr.reportMarks = reportMarks;
         })();
         """
 
@@ -809,7 +798,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         switch tool {
         case .undo:
-            run(canMark ? "odr.annotation.undo(); odr.reportMarks()" : "odr.editing.undo()")
+            run(canMark ? "odr.annotation.undo()" : "odr.editing.undo()")
         case .redo:
             run("odr.editing.redo()")
         case .bold, .italic, .underline, .strikethrough:
@@ -837,33 +826,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     private func pressMarker(_ tool: EditToolBar.Tool, recolor: Bool) {
         guard let name = tool.pageName else { return }
 
-        let script = """
-            (function () {
-                var a = odr.annotation;
-                var rgb = \(markColor(of: tool).deviceRGB);
-                var selection = window.getSelection();
-                var selected = '\(name)' !== 'ink' && selection && !selection.isCollapsed
-                    && selection.toString().length > 0;
-                if (selected) {
-                    a.setColor(rgb);
-                    a.setWidth(2);
-                    a.setTool('\(name)');
-                    a.mark();
-                    a.setTool(null);
-                    selection.removeAllRanges();
-                    odr.reportMarks();
-                } else if (\(recolor)) {
-                    if (a.getTool() === '\(name)') { a.setColor(rgb); }
-                } else if (a.getTool() === '\(name)') {
-                    a.setTool(null);
-                } else {
-                    a.setColor(rgb);
-                    a.setWidth(2);
-                    a.setTool('\(name)');
-                }
-                return a.getTool();
-            })()
-            """
+        let script =
+            "odr.annotation.\(recolor ? "recolor" : "press")('\(name)', { color: \(markColor(of: tool).deviceRGB), width: 2 })"
 
         webview.evaluateJavaScript(script) { [weak self] armed, error in
             if let error {

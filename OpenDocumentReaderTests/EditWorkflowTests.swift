@@ -376,6 +376,7 @@ class EditWorkflowTests: XCTestCase {
 
         XCTAssertEqual(evaluate("odr.annotation.getTool() === null") as? Bool, true)
         XCTAssertFalse(controller.editToolBar.isPressed(.markUnderline))
+        waitUntil { self.controller.saveButton.isEnabled }
     }
 
     /// The way back to reading without saving, and the only one besides leaving

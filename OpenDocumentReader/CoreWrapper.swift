@@ -259,7 +259,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             }
             try document.save(to: temporary.path)
         } else if let textFile {
-            try textFile.writeEdited(operations: payload).write(to: temporary)
+            try textFile.edit(operations: payload)
+            try textFile.save(to: temporary.path)
         } else if let pdfFile {
             try pdfFile.annotate(payload).write(to: temporary)
         } else {
