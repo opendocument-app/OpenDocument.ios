@@ -130,7 +130,11 @@ long press, so the colours are the button's `accessibilityCustomActions` as
 well. Every tool is an icon over a slot, and the slot is there whether it holds
 anything or not, so the icons sit on one line and no colour bar runs into the
 glyph above it. The row is centred where the tools leave room, and scrolls where
-they do not. The tools match the website and OpenDocument.droid, and the page reports
+they do not.
+
+The glyphs are the system set's, bar one: it holds no wavy underline, so the
+squiggly mark's wave is drawn at the weight of the symbols beside it. `scribble`
+is the Draw tool's, which is what it reads as. The tools match the website and OpenDocument.droid, and the page reports
 to the app through one `WKScriptMessageHandler`.
 
 **A PDF's tools are the page's to arm.** `odr.annotation.press` marks a standing

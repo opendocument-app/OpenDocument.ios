@@ -31,9 +31,16 @@ final class EditToolBar: UIView {
             case .fontSize: return "textformat.size"
             case .markUnderline: return "underline"
             case .markStrikeOut: return "strikethrough"
-            case .markSquiggly: return "scribble.variable"
-            case .markDraw: return "pencil.tip"
+            // no wavy underline in the system set, so the wave is drawn - see
+            // ``EditToolBar/squigglyImage``
+            case .markSquiggly: return "squiggly"
+            case .markDraw: return "scribble.variable"
             }
+        }
+
+        /// The glyph itself.
+        var image: UIImage? {
+            self == .markSquiggly ? EditToolBar.squigglyImage : UIImage(systemName: symbol)
         }
 
         var label: String {
@@ -172,16 +179,21 @@ final class EditToolBar: UIView {
 
     static let fontSizes = [8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48]
 
-    static let height: CGFloat = 46
+    static let height: CGFloat = 42
 
     /// One tool. The slot under the icon is there on every tool, holding
     /// something or not, so the icons sit on one line, and it is just deep
     /// enough for the caption - a tool carrying nothing reads as empty for
     /// every point over that.
     private static let toolWidth: CGFloat = 44
-    private static let toolHeight: CGFloat = 40
+    private static let toolHeight: CGFloat = 36
     private static let iconSize: CGFloat = 22
-    private static let slotHeight: CGFloat = 12
+    private static let slotHeight: CGFloat = 10
+
+    /// What the colour bar keeps clear of the icon. Close enough that the bar
+    /// belongs to the tool, and far enough that it is not read as part of the
+    /// glyph - `underline` draws a line of its own along its foot.
+    private static let barGap: CGFloat = 3
 
     /// What a tool that only offers Pro is drawn at, against the free one
     /// beside it.
@@ -354,7 +366,7 @@ final class EditToolBar: UIView {
         button.accessibilityLabel = tool.label
         button.accessibilityIdentifier = "edit-tool-\(tool.symbol)"
 
-        let icon = UIImageView(image: UIImage(systemName: tool.symbol))
+        let icon = UIImageView(image: tool.image)
         icon.contentMode = .scaleAspectFit
         icon.tintColor = button.tintColor
         icon.translatesAutoresizingMaskIntoConstraints = false
@@ -482,7 +494,7 @@ final class EditToolBar: UIView {
             bar.widthAnchor.constraint(equalToConstant: 20),
             bar.heightAnchor.constraint(equalToConstant: 4),
             bar.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-            bar.bottomAnchor.constraint(equalTo: slot.bottomAnchor, constant: -1),
+            bar.topAnchor.constraint(equalTo: slot.topAnchor, constant: Self.barGap),
         ])
 
         bars[tool] = bar
@@ -557,6 +569,35 @@ final class EditToolBar: UIView {
 
         return UIMenu(title: tool.label, children: children)
     }
+
+    /// A wave standing for an underline, at the weight of the system glyphs
+    /// beside it. The system set has no wavy underline, and `scribble` is the
+    /// Draw tool's.
+    private static let squigglyImage: UIImage = {
+        let size = CGSize(width: iconSize, height: iconSize)
+        let humps = 4
+        let width: CGFloat = 16
+        let step = width / CGFloat(humps)
+        let baseline: CGFloat = 14
+        // a quadratic curve reaches half of what its control point offers
+        let reach: CGFloat = 5
+
+        let wave = UIBezierPath()
+        wave.move(to: CGPoint(x: 3, y: baseline))
+        for hump in 0..<humps {
+            let start = 3 + step * CGFloat(hump)
+            wave.addQuadCurve(
+                to: CGPoint(x: start + step, y: baseline),
+                controlPoint: CGPoint(x: start + step / 2, y: baseline + (hump.isMultiple(of: 2) ? -reach : reach)))
+        }
+        wave.lineWidth = 1.7
+        wave.lineCapStyle = .round
+
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            UIColor.black.setStroke()
+            wave.stroke()
+        }.withRenderingMode(.alwaysTemplate)
+    }()
 
     /// A filled circle, so the menu shows the colour it names.
     private static func swatchImage(_ color: UIColor) -> UIImage {
