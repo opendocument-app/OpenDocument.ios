@@ -133,8 +133,10 @@ glyph above it. The row is centred where the tools leave room, and scrolls where
 they do not.
 
 The glyphs are the system set's, bar one: it holds no wavy underline, so the
-squiggly mark's wave is drawn at the weight of the symbols beside it. `scribble`
-is the Draw tool's, which is what it reads as. The tools match the website and OpenDocument.droid, and the page reports
+squiggly mark is drawn - a letter over a wave, shaped like the `underline` and
+`strikethrough` beside it. Its letter is the English one and does not follow the
+language, which the system glyph does. `scribble` is the Draw tool's, which is
+what it reads as. The tools match the website and OpenDocument.droid, and the page reports
 to the app through one `WKScriptMessageHandler`.
 
 **A PDF's tools are the page's to arm.** `odr.annotation.press` marks a standing

@@ -570,17 +570,26 @@ final class EditToolBar: UIView {
         return UIMenu(title: tool.label, children: children)
     }
 
-    /// A wave standing for an underline, at the weight of the system glyphs
-    /// beside it. The system set has no wavy underline, and `scribble` is the
-    /// Draw tool's.
+    /// A letter over a wave, in the shape of the `underline` and
+    /// `strikethrough` glyphs beside it: the system set holds no wavy
+    /// underline, and `scribble` is the Draw tool's.
+    ///
+    /// The letter is the one Apple's own `underline` draws in English. It does
+    /// not follow the language, which the system glyph does.
     private static let squigglyImage: UIImage = {
         let size = CGSize(width: iconSize, height: iconSize)
+
+        let font = UIFont.systemFont(ofSize: 16)
+        let letter = NSAttributedString(
+            string: "U", attributes: [.font: font, .foregroundColor: UIColor.black])
+        let measured = letter.size()
+
         let humps = 4
         let width: CGFloat = 16
         let step = width / CGFloat(humps)
-        let baseline: CGFloat = 14
+        let baseline: CGFloat = 19.5
         // a quadratic curve reaches half of what its control point offers
-        let reach: CGFloat = 5
+        let reach: CGFloat = 3.5
 
         let wave = UIBezierPath()
         wave.move(to: CGPoint(x: 3, y: baseline))
@@ -594,6 +603,12 @@ final class EditToolBar: UIView {
         wave.lineCapStyle = .round
 
         return UIGraphicsImageRenderer(size: size).image { _ in
+            // drawn from the letter's own baseline, which sits clear of the wave
+            // draw takes the top of the line box, and the baseline sits an
+            // ascent below that
+            letter.draw(
+                at: CGPoint(x: (iconSize - measured.width) / 2, y: 15.5 - measured.height - font.descender))
+
             UIColor.black.setStroke()
             wave.stroke()
         }.withRenderingMode(.alwaysTemplate)
