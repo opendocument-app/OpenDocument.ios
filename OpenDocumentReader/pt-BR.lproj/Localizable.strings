@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Parte do Pro";
-"pro_feature_formatting" = "Formatar texto e adicionar ou juntar parágrafos faz parte do OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Marcar um PDF faz parte do OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Negrito, itálico, cores e tamanho do texto, e adicionar ou juntar parágrafos, fazem parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
+"pro_feature_pdf" = "Sublinhar, riscar e desenhar em um PDF fazem parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
 "not_now" = "Agora não";
 
 /* Shown when the marking tools come up on a PDF */

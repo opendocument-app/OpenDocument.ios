@@ -98,7 +98,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="leading" secondItem="HAk-oU-gAF" secondAttribute="leading" id="5Hh-GZ-aPw"/>
-                            <constraint firstItem="9mi-yf-jXf" firstAttribute="top" secondItem="HAk-oU-gAF" secondAttribute="top" id="rED-wA-6gv"/>
                             <constraint firstItem="9mi-yf-jXf" firstAttribute="trailing" secondItem="HAk-oU-gAF" secondAttribute="trailing" id="tPc-vX-Egd"/>
                         </constraints>
                     </view>

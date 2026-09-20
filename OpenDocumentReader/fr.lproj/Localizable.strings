@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Réservé à Pro";
-"pro_feature_formatting" = "La mise en forme du texte, ainsi que l’ajout ou la fusion de paragraphes, fait partie d’OpenDocument Reader Pro.";
-"pro_feature_pdf" = "L’annotation de PDF fait partie d’OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Le gras, l’italique, les couleurs et la taille du texte, ainsi que l’ajout ou la fusion de paragraphes, font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
+"pro_feature_pdf" = "Souligner, barrer et dessiner sur un PDF font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
 "not_now" = "Pas maintenant";
 
 /* Shown when the marking tools come up on a PDF */

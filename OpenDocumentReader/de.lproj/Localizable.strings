@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Teil von Pro";
-"pro_feature_formatting" = "Text formatieren sowie Absätze einfügen oder zusammenführen ist Teil von OpenDocument Reader Pro.";
-"pro_feature_pdf" = "PDFs markieren ist Teil von OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Fett, kursiv, Farben und Schriftgröße sowie Absätze einfügen oder zusammenführen sind Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
+"pro_feature_pdf" = "Unterstreichen, Durchstreichen und Zeichnen in einem PDF sind Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
 "not_now" = "Nicht jetzt";
 
 /* Shown when the marking tools come up on a PDF */

@@ -107,7 +107,7 @@
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Unsupported file format. Try opening it in another app.";
 
-/* The editing tools under the bar, read by VoiceOver */
+/* The editing tools, read by VoiceOver. Undo and redo are the bar's, the rest the strip under it */
 "edit_bold" = "Bold";
 "edit_italic" = "Italic";
 "edit_underline" = "Underline";
@@ -145,19 +145,20 @@
 "edit_refused_read_only" = "This document cannot be edited.";
 "edit_refused_range" = "An edit cannot reach over a picture or a table.";
 
-/* What Pro adds, shown in the Lite app */
+/* What Pro adds, shown in the Lite app as the reader runs into it. The highlighter
+   is free of it in both kinds of document, so that the mode is worth opening */
 "pro_feature_title" = "Part of Pro";
-"pro_feature_formatting" = "Formatting text, and adding or joining paragraphs, is part of OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Marking up a PDF is part of OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Bold, italic, colors and text size, and adding or joining paragraphs, are part of OpenDocument Reader Pro. The highlighter is in every edition.";
+"pro_feature_pdf" = "Underlining, striking out and drawing on a PDF are part of OpenDocument Reader Pro. The highlighter is in every edition.";
 "not_now" = "Not now";
 
 /* Shown when the marking tools come up on a PDF */
 "mark_hint" = "Select text, then a tool, to mark it.";
 
-/* The badge in front of the tools that are Pro's, in the Lite app */
+/* The badge in front of the dimmed tools that are Pro's, in the Lite app */
 "tool_pro_badge" = "Pro";
 
-/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+/* What a long press on a tool opens, which picks the color it uses: "Highlight color" */
 "edit_color_of" = "%@ color";
 
 /* The size of the selected text, on the size tool: "12 pt" */

@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Parte di Pro";
-"pro_feature_formatting" = "Formattare il testo e aggiungere o unire paragrafi fa parte di OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Annotare un PDF fa parte di OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Il grassetto, il corsivo, i colori e la dimensione del testo, e aggiungere o unire paragrafi, fanno parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
+"pro_feature_pdf" = "Sottolineare, barrare e disegnare su un PDF fanno parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
 "not_now" = "Non ora";
 
 /* Shown when the marking tools come up on a PDF */

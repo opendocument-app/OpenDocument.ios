@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Część wersji Pro";
-"pro_feature_formatting" = "Formatowanie tekstu oraz dodawanie i łączenie akapitów to część OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Oznaczanie PDF to część OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Pogrubienie, kursywa, kolory i rozmiar tekstu oraz dodawanie i łączenie akapitów to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
+"pro_feature_pdf" = "Podkreślanie, przekreślanie i rysowanie w PDF to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
 "not_now" = "Nie teraz";
 
 /* Shown when the marking tools come up on a PDF */

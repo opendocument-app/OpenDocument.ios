@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "En del af Pro";
-"pro_feature_formatting" = "Formatering af tekst samt tilføjelse eller sammenføjning af afsnit er en del af OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Markering af PDF er en del af OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Fed, kursiv, farver og tekststørrelse samt tilføjelse eller sammenføjning af afsnit er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
+"pro_feature_pdf" = "Understregning, gennemstregning og tegning i en PDF er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
 "not_now" = "Ikke nu";
 
 /* Shown when the marking tools come up on a PDF */

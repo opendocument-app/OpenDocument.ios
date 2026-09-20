@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Proの機能";
-"pro_feature_formatting" = "文字の書式設定と、段落の追加や結合はOpenDocument Reader Proの機能です。";
-"pro_feature_pdf" = "PDFへのマーク付けはOpenDocument Reader Proの機能です。";
+"pro_feature_formatting" = "太字、斜体、色、文字サイズと、段落の追加や結合はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
+"pro_feature_pdf" = "PDFへの下線、取り消し線、手書きはOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
 "not_now" = "あとで";
 
 /* Shown when the marking tools come up on a PDF */

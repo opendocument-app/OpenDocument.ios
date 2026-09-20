@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Часть Pro";
-"pro_feature_formatting" = "Форматирование текста, а также добавление и объединение абзацев — часть OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Разметка PDF — часть OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Полужирный, курсив, цвета и размер текста, а также добавление и объединение абзацев — часть OpenDocument Reader Pro. Маркер есть в любом издании.";
+"pro_feature_pdf" = "Подчёркивание, зачёркивание и рисование в PDF — часть OpenDocument Reader Pro. Маркер есть в любом издании.";
 "not_now" = "Не сейчас";
 
 /* Shown when the marking tools come up on a PDF */

@@ -59,8 +59,17 @@ else, so there is nothing to withhold.
 
 Pro also has `Features.advancedEditing`, from `ADVANCED_EDITING` in the same
 two files. Lite renders with the editing scope `paragraph`, so odrcore refuses
-formatting and paragraph changes with `outOfScope`, and the app offers Pro.
-PDF marks and the tools behind the "Pro" badge offer Pro as well.
+a change that reaches past one paragraph with `outOfScope`, and the app offers
+Pro.
+
+**The gate is on the tool, not on the mode.** Both editions open every kind the
+core calls editable, a PDF included. A locked `EditToolBar` dims what only
+offers Pro, puts the "Pro" badge in front of the row, and leaves the
+**highlighter** working under both the names it has - `highlight` is the
+formatting style and the PDF's marking tool alike. A mode nobody can do
+anything in is not worth opening, and a reader who has highlighted a paragraph
+knows what the rest would do. Do not put the whole-mode gate back.
+`OpenDocument.droid` draws the same line with the same flag.
 
 `configs/full` and `configs/lite` hold each bundle's `Info.plist` and privacy
 manifest, out of the synchronized folder, since anything left in there would be
@@ -101,11 +110,34 @@ in App Store review.
 ## Editing
 
 Every document is rendered editable, so the pencil only calls
-`odr.editing.enable()` and the page stays where it is. `EditToolBar` shows the
-tools for the page: formatting for a text document, undo and redo for a sheet or
-plain text, markers for a PDF. The tools match the website and
-OpenDocument.droid. The page reports to the app through one
-`WKScriptMessageHandler`.
+`odr.editing.enable()` and the page stays where it is. The same pencil edits a
+document and marks up a PDF: the two never stand in the bar together, so the
+label is what separates them.
+
+**The bar holds what is done to the document, the strip what is done to the
+text.** Undo, redo and save are bar buttons, so they do not scroll away, and the
+page's own report enables them. Redo stays out over a PDF, where a mark is taken
+back one at a time and never put back. The magnifier stands down while an edit is
+on, to leave the three their width.
+
+`EditToolBar` under the bar is the formatting alone, which is why a sheet or a
+plain text file shows no strip at all. A tap does the tool's one job, and a
+**long press** opens the colours it applies - there is no second button beside a
+tool, and the bar under its icon is what the next tap uses, not what the
+selection is. The text colour and the text size are the exception and open on a
+tap, having no state to turn off. Do not put the chevrons back. VoiceOver has no
+long press, so the colours are the button's `accessibilityCustomActions` as
+well. Every tool is an icon over a slot, and the slot is there whether it holds
+anything or not, so the icons sit on one line and no colour bar runs into the
+glyph above it. The row is centred where the tools leave room, and scrolls where
+they do not. The tools match the website and OpenDocument.droid, and the page reports
+to the app through one `WKScriptMessageHandler`.
+
+**A PDF's tools are the page's to arm.** `odr.annotation.press` marks a standing
+selection, and arms where there is none - so a tap is one mark where the reader
+has chosen the text already, and a mode where they have not. `markOnSelection`
+then marks each selection as it is made. Do not disarm on the app's side: a tool
+the reader turned on is theirs to turn off.
 
 A save reads the page's log (`odr.editing.getOperations()`, or
 `odr.annotation.getAnnotations()` for a PDF), and odrcore writes the file next
