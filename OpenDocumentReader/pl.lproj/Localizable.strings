@@ -106,3 +106,59 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Nieobsługiwany format pliku. Spróbuj otworzyć go w innej aplikacji.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Pogrubienie";
+"edit_italic" = "Kursywa";
+"edit_underline" = "Podkreślenie";
+"edit_strikethrough" = "Przekreślenie";
+"edit_text_color" = "Kolor tekstu";
+"edit_highlight" = "Wyróżnienie";
+"edit_font_size" = "Rozmiar tekstu";
+"edit_undo" = "Cofnij";
+"edit_redo" = "Ponów";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Oznacz ten PDF";
+"mark_highlight" = "Wyróżnij";
+"mark_underline" = "Podkreśl";
+"mark_strike_out" = "Przekreśl";
+"mark_squiggly" = "Podkreślenie faliste";
+"mark_draw" = "Rysuj";
+
+/* The colors the menus offer */
+"color_black" = "Czarny";
+"color_red" = "Czerwony";
+"color_blue" = "Niebieski";
+"color_green" = "Zielony";
+"color_yellow" = "Żółty";
+"color_pink" = "Różowy";
+"color_none" = "Bez wyróżnienia";
+"color_custom" = "Inny kolor…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Ta komórka zawiera formułę i pozostaje bez zmian.";
+"edit_refused_formula_input" = "Wpisywanie formuł nie jest jeszcze obsługiwane.";
+"edit_refused_rich" = "Ta komórka zawiera więcej niż zwykły tekst i pozostaje bez zmian.";
+"edit_refused_generic" = "Ta zmiana nie jest tu możliwa.";
+"edit_refused_new_line" = "Podziału wiersza wewnątrz akapitu nie można zapisać. Naciśnij Enter, aby zacząć nowy akapit.";
+"edit_refused_read_only" = "Tego dokumentu nie można edytować.";
+"edit_refused_range" = "Zmiana nie może sięgać przez obraz ani tabelę.";
+
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Część wersji Pro";
+"pro_feature_formatting" = "Formatowanie tekstu oraz dodawanie i łączenie akapitów to część OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Oznaczanie PDF to część OpenDocument Reader Pro.";
+"not_now" = "Nie teraz";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Zaznacz tekst, a potem narzędzie, aby go oznaczyć.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Kolor: %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

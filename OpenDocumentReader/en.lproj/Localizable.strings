@@ -106,3 +106,59 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Unsupported file format. Try opening it in another app.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Bold";
+"edit_italic" = "Italic";
+"edit_underline" = "Underline";
+"edit_strikethrough" = "Strikethrough";
+"edit_text_color" = "Text color";
+"edit_highlight" = "Highlight";
+"edit_font_size" = "Text size";
+"edit_undo" = "Undo";
+"edit_redo" = "Redo";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Mark up this PDF";
+"mark_highlight" = "Highlight";
+"mark_underline" = "Underline";
+"mark_strike_out" = "Strike out";
+"mark_squiggly" = "Squiggly underline";
+"mark_draw" = "Draw";
+
+/* The colors the menus offer */
+"color_black" = "Black";
+"color_red" = "Red";
+"color_blue" = "Blue";
+"color_green" = "Green";
+"color_yellow" = "Yellow";
+"color_pink" = "Pink";
+"color_none" = "No highlight";
+"color_custom" = "Other color…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "That cell holds a formula and stays as it is.";
+"edit_refused_formula_input" = "Typing a formula is not supported yet.";
+"edit_refused_rich" = "That cell holds more than plain text and stays as it is.";
+"edit_refused_generic" = "That edit is not possible here.";
+"edit_refused_new_line" = "A line break inside a paragraph cannot be saved. Press Return for a new paragraph.";
+"edit_refused_read_only" = "This document cannot be edited.";
+"edit_refused_range" = "An edit cannot reach over a picture or a table.";
+
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Part of Pro";
+"pro_feature_formatting" = "Formatting text, and adding or joining paragraphs, is part of OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Marking up a PDF is part of OpenDocument Reader Pro.";
+"not_now" = "Not now";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Select text, then a tool, to mark it.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "%@ color";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

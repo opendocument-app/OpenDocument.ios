@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d formelcelle viser et resultat, som din redigering har gjort forældet. Den gemte fil beholder formlen, og et regnearksprogram beregner den igen.</string>
+			<key>other</key>
+			<string>%d formelceller viser resultater, som din redigering har gjort forældede. Den gemte fil beholder formlerne, og et regnearksprogram beregner dem igen.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

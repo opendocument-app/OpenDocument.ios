@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d buňka se vzorcem ukazuje výsledek, který vaše úprava učinila zastaralým. Uložený soubor vzorec zachová a tabulkový program ho spočítá znovu.</string>
+			<key>few</key>
+			<string>%d buňky se vzorcem ukazují výsledky, které vaše úprava učinila zastaralými. Uložený soubor vzorce zachová a tabulkový program je spočítá znovu.</string>
+			<key>many</key>
+			<string>%d buňky se vzorcem ukazují výsledky, které vaše úprava učinila zastaralými. Uložený soubor vzorce zachová a tabulkový program je spočítá znovu.</string>
+			<key>other</key>
+			<string>%d buněk se vzorcem ukazuje výsledky, které vaše úprava učinila zastaralými. Uložený soubor vzorce zachová a tabulkový program je spočítá znovu.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

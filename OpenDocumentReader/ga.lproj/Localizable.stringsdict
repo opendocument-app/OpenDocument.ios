@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Taispeánann %d chill fhoirmle toradh atá as dáta de bharr d'eagarthóireachta. Coinníonn an comhad sábháilte an fhoirmle, agus ríomhann aip scarbhileog arís í.</string>
+			<key>two</key>
+			<string>Taispeánann %d cill fhoirmle torthaí atá as dáta de bharr d'eagarthóireachta. Coinníonn an comhad sábháilte na foirmlí, agus ríomhann aip scarbhileog arís iad.</string>
+			<key>few</key>
+			<string>Taispeánann %d cill fhoirmle torthaí atá as dáta de bharr d'eagarthóireachta. Coinníonn an comhad sábháilte na foirmlí, agus ríomhann aip scarbhileog arís iad.</string>
+			<key>many</key>
+			<string>Taispeánann %d cill fhoirmle torthaí atá as dáta de bharr d'eagarthóireachta. Coinníonn an comhad sábháilte na foirmlí, agus ríomhann aip scarbhileog arís iad.</string>
+			<key>other</key>
+			<string>Taispeánann %d cill fhoirmle torthaí atá as dáta de bharr d'eagarthóireachta. Coinníonn an comhad sábháilte na foirmlí, agus ríomhann aip scarbhileog arís iad.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

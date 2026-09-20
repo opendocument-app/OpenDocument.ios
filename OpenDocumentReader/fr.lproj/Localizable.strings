@@ -106,3 +106,59 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Le format de ce fichier n'est pas pris en charge. Essayez de l'ouvrir avec une autre application.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Gras";
+"edit_italic" = "Italique";
+"edit_underline" = "Souligné";
+"edit_strikethrough" = "Barré";
+"edit_text_color" = "Couleur du texte";
+"edit_highlight" = "Surligner";
+"edit_font_size" = "Taille du texte";
+"edit_undo" = "Annuler";
+"edit_redo" = "Rétablir";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Annoter ce PDF";
+"mark_highlight" = "Surligner";
+"mark_underline" = "Souligner";
+"mark_strike_out" = "Barrer";
+"mark_squiggly" = "Soulignement ondulé";
+"mark_draw" = "Dessiner";
+
+/* The colors the menus offer */
+"color_black" = "Noir";
+"color_red" = "Rouge";
+"color_blue" = "Bleu";
+"color_green" = "Vert";
+"color_yellow" = "Jaune";
+"color_pink" = "Rose";
+"color_none" = "Aucun surlignage";
+"color_custom" = "Autre couleur…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Cette cellule contient une formule et reste telle quelle.";
+"edit_refused_formula_input" = "La saisie d’une formule n’est pas encore prise en charge.";
+"edit_refused_rich" = "Cette cellule contient plus que du texte brut et reste telle quelle.";
+"edit_refused_generic" = "Cette modification n’est pas possible ici.";
+"edit_refused_new_line" = "Un saut de ligne à l’intérieur d’un paragraphe ne peut pas être enregistré. Appuyez sur Entrée pour un nouveau paragraphe.";
+"edit_refused_read_only" = "Ce document ne peut pas être modifié.";
+"edit_refused_range" = "Une modification ne peut pas passer par-dessus une image ou un tableau.";
+
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "Réservé à Pro";
+"pro_feature_formatting" = "La mise en forme du texte, ainsi que l’ajout ou la fusion de paragraphes, fait partie d’OpenDocument Reader Pro.";
+"pro_feature_pdf" = "L’annotation de PDF fait partie d’OpenDocument Reader Pro.";
+"not_now" = "Pas maintenant";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Sélectionnez du texte, puis un outil, pour l’annoter.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Couleur : %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

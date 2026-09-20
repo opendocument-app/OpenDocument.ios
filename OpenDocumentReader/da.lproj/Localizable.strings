@@ -106,3 +106,59 @@
 
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Filformatet understøttes ikke. Prøv at åbne filen i en anden app.";
+
+/* The editing tools under the bar, read by VoiceOver */
+"edit_bold" = "Fed";
+"edit_italic" = "Kursiv";
+"edit_underline" = "Understreget";
+"edit_strikethrough" = "Gennemstreget";
+"edit_text_color" = "Tekstfarve";
+"edit_highlight" = "Fremhæv";
+"edit_font_size" = "Tekststørrelse";
+"edit_undo" = "Fortryd";
+"edit_redo" = "Gentag";
+
+/* The marks a PDF takes */
+"mark_pdf" = "Markér denne PDF";
+"mark_highlight" = "Fremhæv";
+"mark_underline" = "Understreg";
+"mark_strike_out" = "Gennemstreg";
+"mark_squiggly" = "Bølget understregning";
+"mark_draw" = "Tegn";
+
+/* The colors the menus offer */
+"color_black" = "Sort";
+"color_red" = "Rød";
+"color_blue" = "Blå";
+"color_green" = "Grøn";
+"color_yellow" = "Gul";
+"color_pink" = "Lyserød";
+"color_none" = "Ingen fremhævning";
+"color_custom" = "Anden farve…";
+
+/* Why an edit was not taken */
+"edit_refused_formula" = "Den celle indeholder en formel og forbliver, som den er.";
+"edit_refused_formula_input" = "Indtastning af formler understøttes ikke endnu.";
+"edit_refused_rich" = "Den celle indeholder mere end ren tekst og forbliver, som den er.";
+"edit_refused_generic" = "Den redigering er ikke mulig her.";
+"edit_refused_new_line" = "Et linjeskift inde i et afsnit kan ikke gemmes. Tryk på Enter for et nyt afsnit.";
+"edit_refused_read_only" = "Dette dokument kan ikke redigeres.";
+"edit_refused_range" = "En redigering kan ikke række hen over et billede eller en tabel.";
+
+/* What Pro adds, shown in the Lite app */
+"pro_feature_title" = "En del af Pro";
+"pro_feature_formatting" = "Formatering af tekst samt tilføjelse eller sammenføjning af afsnit er en del af OpenDocument Reader Pro.";
+"pro_feature_pdf" = "Markering af PDF er en del af OpenDocument Reader Pro.";
+"not_now" = "Ikke nu";
+
+/* Shown when the marking tools come up on a PDF */
+"mark_hint" = "Vælg tekst og derefter et værktøj for at markere den.";
+
+/* The badge in front of the tools that are Pro's, in the Lite app */
+"tool_pro_badge" = "Pro";
+
+/* The chevron beside a tool, which picks the color it uses: "Highlight color" */
+"edit_color_of" = "Farve til %@";
+
+/* The size of the selected text, on the size tool: "12 pt" */
+"edit_font_size_points" = "%@ pt";

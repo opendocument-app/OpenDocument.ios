@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>edit_cells_stale</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cells@</string>
+		<key>cells</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d cellule de formule affiche un résultat que votre modification a rendu obsolète. Le fichier enregistré conserve la formule, et un tableur la recalcule.</string>
+			<key>other</key>
+			<string>%d cellules de formule affichent des résultats que votre modification a rendus obsolètes. Le fichier enregistré conserve les formules, et un tableur les recalcule.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
