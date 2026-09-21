@@ -69,8 +69,8 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
     }
 
-    /// The pencil is selected while editing. Undo, redo and save join the bar
-    /// only while editing, and each is enabled only once the page says so.
+    /// Undo, redo and save join the bar only while editing, and each is
+    /// enabled only once the page says so.
     func testTheBarTakesUndoRedoAndSaveWhileEditing() throws {
         openDocument()
 
@@ -96,8 +96,7 @@ class EditWorkflowTests: XCTestCase {
         waitUntil { self.controller.undoButton.isEnabled }
     }
 
-    /// The magnifier stands down while an edit is on, to leave the three their
-    /// width.
+    /// The magnifier stands down while an edit is on.
     func testTheSearchButtonLeavesTheBarWhileEditing() throws {
         openDocument()
         waitUntil { self.barContains(self.controller.searchButton) }
@@ -184,9 +183,8 @@ class EditWorkflowTests: XCTestCase {
 
     // MARK: - the tools
 
-    /// The strip under the bar: formatting for a text document, once the page
-    /// says it is editable, and gone again with the edit. Undo and redo are
-    /// the bar's, so the strip does not hold them.
+    /// The strip: formatting for a text document, and gone again with the
+    /// edit.
     func testATextDocumentShowsTheFormattingToolsWhileEditing() throws {
         openDocument()
 
@@ -207,8 +205,7 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertNil(controller.editToolBar.layout)
     }
 
-    /// The cells are the editor and there is nothing to format, so a
-    /// spreadsheet gets no strip at all - only the bar.
+    /// The cells are the editor, so a spreadsheet gets no strip - only the bar.
     func testASpreadsheetShowsNoToolStrip() throws {
         documentURL = try copyFixture(ofType: "ods")
         try present(documentURL)
@@ -278,9 +275,8 @@ class EditWorkflowTests: XCTestCase {
 
     // MARK: - the gate
 
-    /// Lite dims what only offers Pro and leaves the highlighter working, in a
-    /// text document and on a pdf alike. The badge says whose the dimmed tools
-    /// are. Driven on the strip itself, since the test bundle is Pro's.
+    /// Lite dims what only offers Pro and leaves the highlighter working.
+    /// Driven on the strip itself, since the test bundle is Pro's.
     func testALockedStripKeepsTheHighlighterAndDimsTheRest() throws {
         let tools = EditToolBar()
         tools.advancedEditing = false
@@ -300,6 +296,27 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertFalse(tools.isDimmed(.markHighlight))
     }
 
+    /// A toggle applies no colour, so its long press opens nothing.
+    func testOnlyTheToolsThatCarryAColourOpenOne() throws {
+        let tools = EditToolBar()
+        tools.layout = .text
+
+        XCTAssertNil(tools.menu(of: .bold))
+        XCTAssertNil(tools.menu(of: .italic))
+        XCTAssertNil(tools.menu(of: .underline))
+        XCTAssertNil(tools.menu(of: .strikethrough))
+
+        XCTAssertNotNil(tools.menu(of: .highlight))
+        XCTAssertNotNil(tools.menu(of: .textColor))
+        XCTAssertNotNil(tools.menu(of: .fontSize))
+
+        tools.layout = .pdf
+
+        for mark in EditToolBar.Layout.pdf.tools {
+            XCTAssertNotNil(tools.menu(of: mark), "\(mark) carries a colour")
+        }
+    }
+
     /// Pro dims nothing and wears no badge.
     func testAnUnlockedStripShowsNoBadge() throws {
         let tools = EditToolBar()
@@ -311,8 +328,7 @@ class EditWorkflowTests: XCTestCase {
 
     // MARK: - a pdf
 
-    /// The pencil is the same on a pdf - the label is what separates them -
-    /// and the edit is a set of marks.
+    /// The pencil is the same on a pdf; the label separates them.
     func testAPdfOffersMarksAndSavesThem() throws {
         documentURL = try copyFixture(ofType: "pdf")
         try present(documentURL)
@@ -477,8 +493,7 @@ class EditWorkflowTests: XCTestCase {
         waitForPage(where: condition)
     }
 
-    /// The strip stands as it will once the editable page has answered what it
-    /// is. Not the strip itself: a sheet answers with no strip at all.
+    /// Waits on the page's answer, not on the strip: a sheet has none.
     private func waitForTools(file: StaticString = #filePath, line: UInt = #line) {
         waitUntil(file: file, line: line) { self.controller.isEditSessionReady }
     }

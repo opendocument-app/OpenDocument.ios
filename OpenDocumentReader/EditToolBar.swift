@@ -1,17 +1,11 @@
 import UIKit
 
-/// The strip of tools under the bar: what changes the text, and nothing else.
-/// Undo, redo and save are the bar's, see ``DocumentViewController``.
+/// The strip of tools under the bar: what changes the text. Undo, redo and
+/// save are the bar's.
 ///
-/// Every tool is one square button, and a tap does the one thing the tool is
-/// for. A tool that applies a colour shows it in the bar under its icon, and a
-/// **long press** opens the colours - there is no second button beside it.
-/// Which tool is on comes back from the page.
-///
-/// Without ``advancedEditing`` the strip is locked: the highlighter still
-/// works, every other tool is dimmed and offers Pro, and Pro's badge stands in
-/// front of the row. One free tool of each kind is what makes the mode worth
-/// opening - see ``Tool/isFree``.
+/// A tap does the tool's one job, and a long press opens the colours it
+/// applies. Without ``advancedEditing`` every tool but the highlighter is
+/// dimmed and offers Pro instead.
 final class EditToolBar: UIView {
 
     /// One button of the strip.
@@ -31,8 +25,7 @@ final class EditToolBar: UIView {
             case .fontSize: return "textformat.size"
             case .markUnderline: return "underline"
             case .markStrikeOut: return "strikethrough"
-            // no wavy underline in the system set, so the wave is drawn - see
-            // ``EditToolBar/squigglyImage``
+            // not in the system set, so it is drawn - see ``squigglyImage``
             case .markSquiggly: return "squiggly"
             case .markDraw: return "scribble.variable"
             }
@@ -77,23 +70,19 @@ final class EditToolBar: UIView {
             }
         }
 
-        /// The one tool a locked strip still does the work of: the highlighter,
-        /// under both the names it has. It is the formatting style in a text
-        /// document and the marking tool on a pdf, so a reader of either kind
-        /// has the same free tool.
+        /// The one tool a locked strip still works, under both its names: the
+        /// formatting style, and the pdf's marking tool.
         var isFree: Bool {
             self == .highlight || self == .markHighlight
         }
 
-        /// Whether the tool's own colours open on a tap rather than on a long
-        /// press. The text colour has no state to turn off, so a tap is the
-        /// colours themselves; the size has no colour and opens its sizes.
+        /// Whether a tap opens the tool's choices. Neither of these two has
+        /// any state to turn off.
         var opensOnTap: Bool {
             self == .textColor || self == .fontSize
         }
 
         /// Whether a bar under the icon shows the colour the tool applies.
-        /// A toggle applies no colour, so its slot stays empty.
         var showsColor: Bool {
             defaultColor != nil
         }
@@ -120,9 +109,8 @@ final class EditToolBar: UIView {
         }
     }
 
-    /// What the strip holds, by what the page is. A sheet or a plain text file
-    /// takes no formatting at all, so there is no strip over it: see
-    /// ``layout`` set to nil.
+    /// What the strip holds. A sheet or a plain text file takes no formatting,
+    /// so it gets no strip at all - ``layout`` is left nil.
     enum Layout {
         /// a text document or a presentation
         case text
@@ -181,18 +169,15 @@ final class EditToolBar: UIView {
 
     static let height: CGFloat = 42
 
-    /// One tool. The slot under the icon is there on every tool, holding
-    /// something or not, so the icons sit on one line, and it is just deep
-    /// enough for the caption - a tool carrying nothing reads as empty for
-    /// every point over that.
+    /// One tool: an icon over a slot. Every tool has the slot, holding
+    /// something or not, so the icons sit on one line.
     private static let toolWidth: CGFloat = 44
     private static let toolHeight: CGFloat = 36
     private static let iconSize: CGFloat = 22
     private static let slotHeight: CGFloat = 10
 
-    /// What the colour bar keeps clear of the icon. Close enough that the bar
-    /// belongs to the tool, and far enough that it is not read as part of the
-    /// glyph - `underline` draws a line of its own along its foot.
+    /// What the colour bar keeps clear of the icon: `underline` draws a line
+    /// of its own along its foot.
     private static let barGap: CGFloat = 3
 
     /// What a tool that only offers Pro is drawn at, against the free one
@@ -206,9 +191,8 @@ final class EditToolBar: UIView {
         }
     }
 
-    /// Whether the tools do their work. Without it every tool but the free one
-    /// is dimmed, a tap goes to `onTap`, which says what Pro is, and Pro's
-    /// badge stands in front of the row.
+    /// Whether the tools do their work. Without it every tool but the free
+    /// one is dimmed and its tap goes to `onTap`, which offers Pro.
     var advancedEditing = true {
         didSet {
             rebuild()
@@ -222,13 +206,12 @@ final class EditToolBar: UIView {
     private let stack = UIStackView()
     private var buttons: [Tool: UIButton] = [:]
     private var bars: [Tool: UIView] = [:]
-    private var icons: [Tool: UIImageView] = [:]
 
-    /// The size the selection is in, under the size tool's icon.
+    /// The caption under the size tool's icon.
     private var sizeCaption: UILabel?
 
     /// The size the selection is in, in points, or nil where the runs
-    /// disagree. The menu marks it.
+    /// disagree.
     private var selectionSize: String?
 
     override init(frame: CGRect) {
@@ -257,9 +240,8 @@ final class EditToolBar: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stack)
 
-        // the row is as wide as the screen where the tools leave room, so that
-        // the spacers at its ends centre them; where they do not fit, it keeps
-        // its own width and scrolls
+        // as wide as the screen where the tools leave room, so the spacers at
+        // its ends centre them; where they do not, it scrolls
         let fills = stack.widthAnchor.constraint(
             greaterThanOrEqualTo: scrollView.frameLayoutGuide.widthAnchor, constant: -16)
         fills.priority = .required
@@ -280,8 +262,7 @@ final class EditToolBar: UIView {
         ])
     }
 
-    /// One end of the row, which takes what the tools leave and so centres
-    /// them. Two of equal width, one at each end.
+    /// One end of the row: two of equal width, which centres what is between.
     private func makeEdgeSpacer() -> UIView {
         let spacer = UIView()
         spacer.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
@@ -303,7 +284,6 @@ final class EditToolBar: UIView {
         }
         buttons = [:]
         bars = [:]
-        icons = [:]
         sizeCaption = nil
         selectionSize = nil
 
@@ -355,8 +335,8 @@ final class EditToolBar: UIView {
         return label
     }
 
-    /// The icon on one line with every other tool's, and under it the slot
-    /// that carries what the tool applies or what it reads on the selection.
+    /// The icon, and under it the slot: the colour the tool applies, or what
+    /// it reads on the selection.
     private func makeButton(for tool: Tool) -> UIButton {
         var configuration = UIButton.Configuration.plain()
         configuration.cornerStyle = .capsule
@@ -371,10 +351,7 @@ final class EditToolBar: UIView {
         icon.tintColor = button.tintColor
         icon.translatesAutoresizingMaskIntoConstraints = false
         button.addSubview(icon)
-        icons[tool] = icon
 
-        // the slot is there on every tool, holding something or not, so that
-        // the icons sit on one line
         let slot = UILayoutGuide()
         button.addLayoutGuide(slot)
 
@@ -418,8 +395,8 @@ final class EditToolBar: UIView {
         return button
     }
 
-    /// A tap does the tool's one job, and a long press opens what it applies.
-    /// Where the tool has nothing to turn off, the tap opens it instead.
+    /// A tap does the tool's one job; a long press opens the colours it
+    /// applies. A dimmed tool only offers Pro.
     private func addActions(to button: UIButton, for tool: Tool) {
         guard !isPro(tool) else {
             button.addAction(
@@ -430,23 +407,27 @@ final class EditToolBar: UIView {
             return
         }
 
-        button.menu = makeMenu(for: tool)
-        button.showsMenuAsPrimaryAction = tool.opensOnTap
+        if tool.opensOnTap {
+            button.menu = makeMenu(for: tool)
+            button.showsMenuAsPrimaryAction = true
 
-        guard !tool.opensOnTap else { return }
+            return
+        }
 
         button.addAction(
             UIAction { [weak self] _ in
                 self?.onTap?(tool)
             }, for: .touchUpInside)
 
-        // VoiceOver has no long press, so the colours behind it are offered as
-        // the button's own actions instead, each named "Highlight yellow"
+        // a toggle applies no colour, so its long press opens nothing
+        guard tool.showsColor else { return }
+
+        button.menu = makeMenu(for: tool)
+        // VoiceOver has no long press, so the colours are offered as actions
         button.accessibilityCustomActions = colorActions(for: tool)
     }
 
-    /// What the long press opens, as one action per colour, for a reader who
-    /// cannot make that press.
+    /// What the long press opens, as one action per colour.
     private func colorActions(for tool: Tool) -> [UIAccessibilityCustomAction] {
         let of = String(format: NSLocalizedString("edit_color_of", comment: ""), tool.label)
 
@@ -478,8 +459,7 @@ final class EditToolBar: UIView {
         return actions
     }
 
-    /// A bar in the slot, in the colour the tool applies, so that the bar is
-    /// what the next tap uses.
+    /// The colour the next tap applies, shown in the slot.
     private func addBar(to button: UIButton, in slot: UILayoutGuide, for tool: Tool) {
         let bar = UIView()
         bar.isUserInteractionEnabled = false
@@ -500,8 +480,7 @@ final class EditToolBar: UIView {
         bars[tool] = bar
     }
 
-    /// What the tool reads on the selection, in the slot: the size the text is
-    /// in. The icon stays, so the tool is still the one it was.
+    /// What the tool reads on the selection, in the slot under its icon.
     private func addCaption(to button: UIButton, in slot: UILayoutGuide) {
         let caption = UILabel()
         caption.isUserInteractionEnabled = false
@@ -570,12 +549,9 @@ final class EditToolBar: UIView {
         return UIMenu(title: tool.label, children: children)
     }
 
-    /// A letter over a wave, in the shape of the `underline` and
-    /// `strikethrough` glyphs beside it: the system set holds no wavy
-    /// underline, and `scribble` is the Draw tool's.
-    ///
-    /// The letter is the one Apple's own `underline` draws in English. It does
-    /// not follow the language, which the system glyph does.
+    /// A letter over a wave, shaped like the `underline` and `strikethrough`
+    /// beside it. The system set has no wavy underline. The letter is the
+    /// English one and does not follow the language, which a system glyph does.
     private static let squigglyImage: UIImage = {
         let size = CGSize(width: iconSize, height: iconSize)
 
@@ -603,9 +579,8 @@ final class EditToolBar: UIView {
         wave.lineCapStyle = .round
 
         return UIGraphicsImageRenderer(size: size).image { _ in
-            // drawn from the letter's own baseline, which sits clear of the wave
-            // draw takes the top of the line box, and the baseline sits an
-            // ascent below that
+            // draw takes the top of the line box; the baseline is an ascent
+            // below it, and sits clear of the wave
             letter.draw(
                 at: CGPoint(x: (iconSize - measured.width) / 2, y: 15.5 - measured.height - font.descender))
 
@@ -624,9 +599,8 @@ final class EditToolBar: UIView {
         }.withRenderingMode(.alwaysOriginal)
     }
 
-    /// Whether `tool` is drawn as the mode: a style the selection shows, or
-    /// the armed marker on a pdf. A locked strip shows none of it, since
-    /// nothing it dims is on.
+    /// Whether `tool` is drawn as on: a style the selection shows, or the
+    /// armed marker on a pdf. A dimmed tool never is.
     func setPressed(_ tool: Tool, _ pressed: Bool) {
         buttons[tool]?.isSelected = pressed && !isPro(tool)
     }
@@ -636,8 +610,7 @@ final class EditToolBar: UIView {
         bars[tool]?.backgroundColor = color
     }
 
-    /// Captions the size tool with "12 pt", or with nothing where the runs
-    /// disagree.
+    /// Captions the size tool with "12 pt", or nothing where the runs disagree.
     func setFontSize(_ points: String?) {
         selectionSize = points
 
@@ -661,8 +634,7 @@ final class EditToolBar: UIView {
         sizeCaption?.text
     }
 
-    /// For the tests: whether the row carries the Pro badge, in front of the
-    /// tools.
+    /// For the tests: whether the row carries the Pro badge.
     var showsProBadge: Bool {
         stack.arrangedSubviews.contains { $0.accessibilityIdentifier == "edit-tool-pro" }
     }
@@ -672,8 +644,12 @@ final class EditToolBar: UIView {
         buttons[tool] != nil
     }
 
-    /// For the tests: whether `tool` is dimmed, which is how a locked strip
-    /// says the tool is Pro's.
+    /// For the tests: what a long press on `tool` opens, if anything.
+    func menu(of tool: Tool) -> UIMenu? {
+        buttons[tool]?.menu
+    }
+
+    /// For the tests: whether `tool` is dimmed, which says it is Pro's.
     func isDimmed(_ tool: Tool) -> Bool {
         (buttons[tool]?.alpha ?? 1) < 1
     }

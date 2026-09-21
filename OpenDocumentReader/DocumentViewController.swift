@@ -70,8 +70,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether the document on screen can be edited and searched. Neither button
     /// stays in the bar when it cannot be used.
     private var canEdit = false { didSet { updateToolBar() } }
-    /// Whether the document is a pdf that takes marks. It decides the pen's
-    /// label and whether redo is in the bar.
+    /// Whether the document is a pdf that takes marks.
     private var canMark = false {
         didSet {
             updateEditButtonRole()
@@ -93,8 +92,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     lazy var undoButton: UIBarButtonItem = makeEditButton(
         symbol: "arrow.uturn.backward", label: "edit_undo", action: #selector(undoTapped(_:)))
 
-    /// Puts it back. A mark on a pdf is taken back one at a time and never put
-    /// back, so this one leaves the bar over a pdf - see ``updateToolBar()``.
+    /// Puts it back. Not over a pdf - see ``updateToolBar()``.
     lazy var redoButton: UIBarButtonItem = makeEditButton(
         symbol: "arrow.uturn.forward", label: "edit_redo", action: #selector(redoTapped(_:)))
 
@@ -102,9 +100,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     lazy var saveButton: UIBarButtonItem = makeEditButton(
         symbol: "square.and.arrow.down", label: "action_edit_save", action: #selector(saveTapped(_:)))
 
-    /// The bar holds what is done to the document; the strip under it what is
-    /// done to the text. All three start off, since a page that has just been
-    /// opened holds nothing to take back or write.
+    /// The bar holds what is done to the document; the strip what is done to
+    /// the text. All three start off: a fresh page has nothing to write.
     private func makeEditButton(symbol: String, label: String, action: Selector) -> UIBarButtonItem {
         let item = UIBarButtonItem(
             image: UIImage(systemName: symbol), style: .plain, target: self, action: action)
@@ -455,9 +452,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     /// From iOS 26 the bar's buttons are glass capsules filling its whole
-    /// height, which whatever is pinned to either edge would cut off - the
-    /// banner above it as much as the tools below. Older bars have a
-    /// background of their own and want no such gap.
+    /// height, which whatever is pinned to either edge would cut off. Older
+    /// bars have a background of their own and want no such gap.
     private static var toolBarMargin: CGFloat {
         if #available(iOS 26.0, *) {
             return 8
@@ -466,8 +462,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         return 0
     }
 
-    /// What the bar takes. A glass capsule is drawn to the bar's height, so a
-    /// bar sized to the glyph alone leaves the capsules touching both edges.
+    /// What the bar takes. A capsule is drawn to the bar's height, so a bar
+    /// sized to the glyph alone leaves them touching both edges.
     private static var toolBarHeight: CGFloat {
         if #available(iOS 26.0, *) {
             return 50
@@ -482,9 +478,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         pageTabBar.translatesAutoresizingMaskIntoConstraints = false
         webview.translatesAutoresizingMaskIntoConstraints = false
 
-        // the banner sits above everything, the bar included. Under the bar it
-        // stood between the editing tools and the page, so the tools read as
-        // part of the ad rather than as part of the document
+        // above everything, the bar included: under it the banner stood
+        // between the tools and the page they act on
         bannerSlot.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bannerSlot.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bannerSlot.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -605,11 +600,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         findAll(searchText: searchText)
     }
 
-    /// The pen: turns the mode on, and off again. Leaving with changes the page
-    /// alone holds asks first. See ``updateEditButtonRole()``.
+    /// The pen: turns the mode on, and off again. Leaving with changes the
+    /// page alone holds asks first.
     ///
-    /// The button stands on the core's answer, and every edition opens what it
-    /// names. What Lite does not sell is the tool, which says so in the strip.
+    /// It stands on the core's answer, and every edition opens what it names.
+    /// What Lite does not sell is the tool - see ``editToolTapped(_:)``.
     @IBAction func toggleEdit(_ sender: UIBarButtonItem) {
         if isEditingDocument {
             leaveEdit()
@@ -665,8 +660,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         saveAndStay()
     }
 
-    /// A pdf keeps its marks in the annotator, not in the editor, so the two
-    /// take back through different calls.
+    /// A pdf keeps its marks in the annotator, not in the editor.
     @objc func undoTapped(_ sender: UIBarButtonItem) {
         AnalyticsManager.shared.report("menu_edit_undo")
 
@@ -731,9 +725,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             odr.onCellsStale = function (detail) {
                 post({ type: 'cellsStale', count: detail && detail.cells ? detail.cells.length : 0 });
             };
-            // only a sheet carries the sheet editor, so this is asked of the
-            // page rather than taken for granted. The pointer is not asked
-            // either: a web view answers that one as a mouse in the simulator
+            // asked of the page, since only a sheet carries that editor. The
+            // pointer is no use: a web view answers it as a mouse
             if (odr.editing && odr.editing.setSheetOptions) {
                 odr.editing.setSheetOptions({ editOnClick: true });
             }
@@ -799,11 +792,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// Turns the mode on in the page already on screen and shows its tools.
-    /// A pdf needs no mode, only a marker that acts on a selection.
-    ///
-    /// A sheet or a plain text file takes no formatting, so it gets no strip at
-    /// all: the cells are the editor, and the bar holds the rest.
+    /// Turns the mode on in the page already on screen and shows its tools. A
+    /// sheet or a plain text file takes no formatting, so it gets no strip.
     private func beginEditSession() {
         hasOfferedProForThisEdit = false
         hasUnsavedEdits = false
@@ -838,9 +828,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// Whether the page has said what it is and the strip stands as it will.
-    /// A sheet answers this with no strip at all, so nothing can wait on the
-    /// strip itself.
+    /// Whether the page has said what it is. Not the strip itself: a sheet
+    /// answers with no strip at all.
     private(set) var isEditSessionReady = false
 
     /// The tools are up, which is what a screenshot of an edit waits for.
@@ -860,9 +849,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// The gate is on the tool, not on the mode: a tool Lite does not sell
-    /// offers Pro instead of doing its work, and the highlighter beside it
-    /// works in every edition.
+    /// The gate is on the tool, not the mode: what Lite does not sell offers
+    /// Pro, and the highlighter beside it works in every edition.
     private func editToolTapped(_ tool: EditToolBar.Tool) {
         if !tool.isFree, !Features.advancedEditing {
             offerPro(canMark ? .pdf : .formatting)
@@ -1022,8 +1010,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// What is done to the document goes after the pen: take back, put back,
-    /// write. The disc is last, as on the website.
+    /// What is done to the document goes after the pen: undo, redo, save.
     private func setUpEditButtons() {
         guard let pen = toolBarItems.firstIndex(where: { $0 === editButtonSpacer }) else { return }
 
@@ -1083,9 +1070,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     private static let toolBarTitleGap: CGFloat = 16
 
     /// While an edit is on the bar is the edit's: undo, redo and save join it,
-    /// and the magnifier and the document's name stand down to leave them the
-    /// width - six buttons and a name do not fit a phone's bar. A mark on a pdf
-    /// is taken back one at a time and never put back, so redo stays out.
+    /// and the magnifier and the name stand down - six buttons and a name do
+    /// not fit a phone's bar. A pdf mark is never put back, so redo stays out.
     private func updateToolBar() {
         toolBar.items = toolBarItems.filter { item in
             if item === editButton || item === editButtonSpacer {
@@ -1118,10 +1104,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         isEditingDocument = document?.edit ?? false
     }
 
-    /// The pencil, for a document and for a pdf alike: the two never stand in
-    /// the bar together, so the label is what separates them. It is drawn
-    /// selected while the mode is on, and VoiceOver reads the label, not the
-    /// glyph.
+    /// The pencil, for a document and a pdf alike: the two never stand in the
+    /// bar together, so the label separates them. Selected while the mode is
+    /// on.
     private func updateEditButtonRole() {
         editButton.image = UIImage(systemName: "pencil")
         editButton.accessibilityLabel = NSLocalizedString(canMark ? "mark_pdf" : "menu_edit", comment: "")

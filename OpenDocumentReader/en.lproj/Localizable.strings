@@ -107,7 +107,7 @@
 /* Shown for a format odrcore does not read */
 "toast_error_illegal_file_reopen" = "Unsupported file format. Try opening it in another app.";
 
-/* The editing tools, read by VoiceOver. Undo and redo are the bar's, the rest the strip under it */
+/* The editing tools, read by VoiceOver. Undo and redo are the bar's */
 "edit_bold" = "Bold";
 "edit_italic" = "Italic";
 "edit_underline" = "Underline";
@@ -145,8 +145,7 @@
 "edit_refused_read_only" = "This document cannot be edited.";
 "edit_refused_range" = "An edit cannot reach over a picture or a table.";
 
-/* What Pro adds, shown in the Lite app as the reader runs into it. The highlighter
-   is free of it in both kinds of document, so that the mode is worth opening */
+/* What Pro adds, shown in the Lite app. The highlighter is free in both kinds */
 "pro_feature_title" = "Part of Pro";
 "pro_feature_formatting" = "Bold, italic, colors and text size, and adding or joining paragraphs, are part of OpenDocument Reader Pro. The highlighter is in every edition.";
 "pro_feature_pdf" = "Underlining, striking out and drawing on a PDF are part of OpenDocument Reader Pro. The highlighter is in every edition.";
