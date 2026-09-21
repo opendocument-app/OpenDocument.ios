@@ -1,0 +1,4 @@
+- You can now edit your documents: bold, italic, underline, colours and text size, with undo, redo and save right in the bar
+- Mark up a PDF with highlights, underlines, strike-throughs and freehand drawing, and save it back
+- Presentations, Excel files and plain text files can be edited and saved as well
+- Spreadsheet cells open with a single tap, very wide pages zoom out to fit, and the name of the open document is shown at the top

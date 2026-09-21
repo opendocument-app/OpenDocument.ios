@@ -1,0 +1,4 @@
+- Możesz już edytować dokumenty: pogrubienie, kursywa, podkreślenie, kolory i rozmiar tekstu, a cofanie, ponawianie i zapisywanie masz od razu na pasku
+- Dodawaj w plikach PDF zakreślenia, podkreślenia, przekreślenia i odręczne rysunki, a potem zapisuj zmiany w pliku
+- Prezentacje, pliki Excela i zwykłe pliki tekstowe też można edytować i zapisywać
+- Komórki arkusza otwierają się jednym dotknięciem, bardzo szerokie strony pomniejszają się do szerokości ekranu, a nazwa otwartego dokumentu widnieje u góry

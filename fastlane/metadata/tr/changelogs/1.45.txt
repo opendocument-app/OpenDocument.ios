@@ -1,0 +1,4 @@
+- Artık belgelerinizi düzenleyebilirsiniz: kalın, italik, altı çizili, renkler ve yazı boyutu; geri alma, yineleme ve kaydetme doğrudan araç çubuğunda
+- PDF'leri vurgulama, altı çizme, üstü çizme ve serbest çizimle işaretleyin, sonra aynı dosyaya kaydedin
+- Sunumlar, Excel dosyaları ve düz metin dosyaları da düzenlenip kaydedilebiliyor
+- Elektronik tablo hücreleri tek dokunuşla açılıyor, çok geniş sayfalar ekrana sığacak şekilde küçülüyor, açık belgenin adı üstte görünüyor

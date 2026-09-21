@@ -1,0 +1,4 @@
+- Agora você pode editar seus documentos: negrito, itálico, sublinhado, cores e tamanho do texto, com desfazer, refazer e salvar direto na barra
+- Faça anotações em um PDF com destaques, sublinhados, tachados e desenho à mão livre, e salve no próprio arquivo
+- Apresentações, arquivos do Excel e arquivos de texto simples também podem ser editados e salvos
+- As células das planilhas abrem com um só toque, as páginas muito largas diminuem para caber na tela e o nome do documento aberto aparece no topo

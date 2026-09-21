@@ -1,0 +1,4 @@
+- Vous pouvez désormais modifier vos documents : gras, italique, souligné, couleurs et taille du texte, avec Annuler, Rétablir et Enregistrer directement dans la barre
+- Surlignez, soulignez, barrez et dessinez à main levée sur un PDF, puis enregistrez-le
+- Les présentations, les fichiers Excel et les fichiers texte se modifient et s'enregistrent aussi
+- Les cellules des feuilles de calcul s'ouvrent d'une simple pression, les pages très larges s'adaptent à l'écran, et le nom du document ouvert s'affiche en haut

@@ -1,0 +1,4 @@
+- Ahora puede editar sus documentos: negrita, cursiva, subrayado, colores y tamaño del texto, con deshacer, rehacer y guardar en la misma barra
+- Resalte, subraye, tache y dibuje a mano alzada en un PDF, y vuelva a guardarlo
+- También puede editar y guardar presentaciones, archivos de Excel y archivos de texto
+- Las celdas de las hojas de cálculo se abren con un solo toque, las páginas muy anchas se ajustan a la pantalla y arriba aparece el nombre del documento abierto
