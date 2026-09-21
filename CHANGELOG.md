@@ -31,7 +31,7 @@ once the version tag exists.
 
 ### Changed
 
-- The engine is odrcore 7.2.1, up from 6.13.0.
+- The engine is odrcore 7.2.2, up from 6.13.0.
 - Entering an edit keeps your place in the document.
 - The pencil turns editing on and off, and marks up a PDF as well.
 - Lite opens every document for editing. The highlighter is in both apps; bold,
@@ -49,6 +49,8 @@ once the version tag exists.
 - A mark on a PDF covers the letters it marks, and an underline sits under the
   text rather than through it.
 - Selecting a word in a PDF keeps the word readable and gives it both handles.
+- Drawing on a PDF puts the ink where your finger went, instead of about twice
+  as far from the page's corner.
 
 ## [1.44]
 
