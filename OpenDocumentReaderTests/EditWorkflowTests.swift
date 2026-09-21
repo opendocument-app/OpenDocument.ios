@@ -69,12 +69,14 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
     }
 
-    /// The pencil is selected while editing. The save button shows only while
-    /// editing, and is enabled only after a change.
-    func testThePenStaysAndTheSaveButtonJoinsItWhileEditing() throws {
+    /// Undo, redo and save join the bar only while editing, and each is
+    /// enabled only once the page says so.
+    func testTheBarTakesUndoRedoAndSaveWhileEditing() throws {
         openDocument()
 
         XCTAssertFalse(barContains(controller.saveButton))
+        XCTAssertFalse(barContains(controller.undoButton))
+        XCTAssertFalse(barContains(controller.redoButton))
 
         controller.toggleEdit(controller.editButton)
         waitForEditablePage()
@@ -83,11 +85,31 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(barContains(controller.editButton))
         XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
         XCTAssertTrue(controller.editButton.isSelected)
+        XCTAssertTrue(barContains(controller.undoButton))
+        XCTAssertTrue(barContains(controller.redoButton))
         XCTAssertTrue(barContains(controller.saveButton))
         XCTAssertFalse(controller.saveButton.isEnabled)
+        XCTAssertFalse(controller.undoButton.isEnabled)
 
         typeIntoTheFirstRun()
         waitUntil { self.controller.saveButton.isEnabled }
+        waitUntil { self.controller.undoButton.isEnabled }
+    }
+
+    /// The magnifier stands down while an edit is on.
+    func testTheSearchButtonLeavesTheBarWhileEditing() throws {
+        openDocument()
+        waitUntil { self.barContains(self.controller.searchButton) }
+
+        controller.toggleEdit(controller.editButton)
+        waitForEditablePage()
+
+        XCTAssertFalse(barContains(controller.searchButton))
+
+        controller.discardChanges()
+        waitForPage(where: "document.querySelectorAll('x-s').length > 0")
+
+        waitUntil { self.barContains(self.controller.searchButton) }
     }
 
     /// With nothing to lose the pen only turns the mode off, and the page stays.
@@ -103,6 +125,7 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertFalse(document.edit)
         XCTAssertFalse(controller.editButton.isSelected)
         XCTAssertFalse(barContains(controller.saveButton))
+        XCTAssertFalse(barContains(controller.undoButton))
         XCTAssertNil(controller.editToolBar.layout)
     }
 
@@ -160,8 +183,8 @@ class EditWorkflowTests: XCTestCase {
 
     // MARK: - the tools
 
-    /// The row under the bar: formatting for a text document, once the page
-    /// says it is editable, and gone again with the edit.
+    /// The strip: formatting for a text document, and gone again with the
+    /// edit.
     func testATextDocumentShowsTheFormattingToolsWhileEditing() throws {
         openDocument()
 
@@ -173,7 +196,8 @@ class EditWorkflowTests: XCTestCase {
 
         XCTAssertEqual(controller.editToolBar.layout, .text)
         XCTAssertTrue(controller.editToolBar.shows(.bold))
-        XCTAssertTrue(controller.editToolBar.shows(.undo))
+        XCTAssertTrue(controller.editToolBar.shows(.highlight))
+        XCTAssertTrue(controller.editToolBar.shows(.fontSize))
 
         controller.discardChanges()
         waitForPage(where: "document.querySelectorAll('x-s').length > 0")
@@ -181,8 +205,8 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertNil(controller.editToolBar.layout)
     }
 
-    /// The cells are the editor, so a spreadsheet gets only the way back.
-    func testASpreadsheetShowsOnlyUndoAndRedo() throws {
+    /// The cells are the editor, so a spreadsheet gets no strip - only the bar.
+    func testASpreadsheetShowsNoToolStrip() throws {
         documentURL = try copyFixture(ofType: "ods")
         try present(documentURL)
         openDocument(where: "document.querySelectorAll('td').length > 0")
@@ -190,9 +214,11 @@ class EditWorkflowTests: XCTestCase {
         controller.toggleEdit(controller.editButton)
         waitForTools()
 
-        XCTAssertEqual(controller.editToolBar.layout, .plain)
-        XCTAssertFalse(controller.editToolBar.shows(.bold))
-        XCTAssertTrue(controller.editToolBar.shows(.undo))
+        XCTAssertNil(controller.editToolBar.layout)
+        XCTAssertTrue(controller.editToolBar.isHidden)
+        XCTAssertTrue(barContains(controller.undoButton))
+        XCTAssertTrue(barContains(controller.redoButton))
+        XCTAssertTrue(barContains(controller.saveButton))
     }
 
     /// A style the caret sits in is shown pressed, the way the page reports it.
@@ -247,9 +273,62 @@ class EditWorkflowTests: XCTestCase {
         waitForPage(where: "document.querySelector('x-s[data-odr-id]').style.backgroundColor === ''")
     }
 
+    // MARK: - the gate
+
+    /// Lite dims what only offers Pro and leaves the highlighter working.
+    /// Driven on the strip itself, since the test bundle is Pro's.
+    func testALockedStripKeepsTheHighlighterAndDimsTheRest() throws {
+        let tools = EditToolBar()
+        tools.advancedEditing = false
+
+        tools.layout = .text
+
+        XCTAssertTrue(tools.showsProBadge)
+        XCTAssertTrue(tools.isDimmed(.bold))
+        XCTAssertTrue(tools.isDimmed(.fontSize))
+        XCTAssertFalse(tools.isDimmed(.highlight))
+
+        tools.layout = .pdf
+
+        XCTAssertTrue(tools.showsProBadge)
+        XCTAssertTrue(tools.isDimmed(.markUnderline))
+        XCTAssertTrue(tools.isDimmed(.markDraw))
+        XCTAssertFalse(tools.isDimmed(.markHighlight))
+    }
+
+    /// A toggle applies no colour, so its long press opens nothing.
+    func testOnlyTheToolsThatCarryAColourOpenOne() throws {
+        let tools = EditToolBar()
+        tools.layout = .text
+
+        XCTAssertNil(tools.menu(of: .bold))
+        XCTAssertNil(tools.menu(of: .italic))
+        XCTAssertNil(tools.menu(of: .underline))
+        XCTAssertNil(tools.menu(of: .strikethrough))
+
+        XCTAssertNotNil(tools.menu(of: .highlight))
+        XCTAssertNotNil(tools.menu(of: .textColor))
+        XCTAssertNotNil(tools.menu(of: .fontSize))
+
+        tools.layout = .pdf
+
+        for mark in EditToolBar.Layout.pdf.tools {
+            XCTAssertNotNil(tools.menu(of: mark), "\(mark) carries a colour")
+        }
+    }
+
+    /// Pro dims nothing and wears no badge.
+    func testAnUnlockedStripShowsNoBadge() throws {
+        let tools = EditToolBar()
+        tools.layout = .text
+
+        XCTAssertFalse(tools.showsProBadge)
+        XCTAssertFalse(tools.isDimmed(.bold))
+    }
+
     // MARK: - a pdf
 
-    /// The pencil is a highlighter on a pdf, and the edit is a set of marks.
+    /// The pencil is the same on a pdf; the label separates them.
     func testAPdfOffersMarksAndSavesThem() throws {
         documentURL = try copyFixture(ofType: "pdf")
         try present(documentURL)
@@ -257,7 +336,9 @@ class EditWorkflowTests: XCTestCase {
 
         XCTAssertTrue(document.isAnnotatable)
         XCTAssertTrue(barContains(controller.editButton))
-        XCTAssertEqual(controller.editButton.image, UIImage(systemName: "highlighter"))
+        XCTAssertEqual(controller.editButton.image, UIImage(systemName: "pencil"))
+        XCTAssertEqual(
+            controller.editButton.accessibilityLabel, NSLocalizedString("mark_pdf", comment: ""))
 
         let sizeBefore = try fileSize()
 
@@ -267,7 +348,9 @@ class EditWorkflowTests: XCTestCase {
 
         XCTAssertEqual(controller.editToolBar.layout, .pdf)
         XCTAssertTrue(controller.editToolBar.shows(.markHighlight))
-        XCTAssertFalse(controller.editToolBar.shows(.redo))
+        // a mark is taken back one at a time and never put back
+        XCTAssertTrue(barContains(controller.undoButton))
+        XCTAssertFalse(barContains(controller.redoButton))
 
         // each marker has a colour of its own
         XCTAssertEqual(controller.editToolBar.color(of: .markHighlight)?.hexString, "#ffe633")
@@ -410,9 +493,9 @@ class EditWorkflowTests: XCTestCase {
         waitForPage(where: condition)
     }
 
-    /// The tools appear once the editable page has answered what it is.
+    /// Waits on the page's answer, not on the strip: a sheet has none.
     private func waitForTools(file: StaticString = #filePath, line: UInt = #line) {
-        waitUntil(file: file, line: line) { self.controller.editToolBar.layout != nil }
+        waitUntil(file: file, line: line) { self.controller.isEditSessionReady }
     }
 
     /// A message from the page lands on a later turn of the run loop.

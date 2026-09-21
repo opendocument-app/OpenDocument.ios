@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Part de Pro";
-"pro_feature_formatting" = "Formatar el text i afegir o unir paràgrafs forma part d’OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Marcar un PDF forma part d’OpenDocument Reader Pro.";
+"pro_feature_formatting" = "La negreta, la cursiva, els colors i la mida del text, i afegir o unir paràgrafs, formen part d’OpenDocument Reader Pro. El marcador hi és a totes les edicions.";
+"pro_feature_pdf" = "Subratllar, ratllar i dibuixar en un PDF formen part d’OpenDocument Reader Pro. El marcador hi és a totes les edicions.";
 "not_now" = "Ara no";
 
 /* Shown when the marking tools come up on a PDF */

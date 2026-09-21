@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Del različice Pro";
-"pro_feature_formatting" = "Oblikovanje besedila ter dodajanje ali združevanje odstavkov je del OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Označevanje PDF je del OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Krepko, ležeče, barve in velikost besedila ter dodajanje ali združevanje odstavkov so del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
+"pro_feature_pdf" = "Podčrtovanje, prečrtovanje in risanje v PDF so del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
 "not_now" = "Ne zdaj";
 
 /* Shown when the marking tools come up on a PDF */

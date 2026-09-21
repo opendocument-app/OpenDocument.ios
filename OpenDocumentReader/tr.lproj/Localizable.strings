@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Pro’nun parçası";
-"pro_feature_formatting" = "Metni biçimlendirmek ve paragraf eklemek ya da birleştirmek OpenDocument Reader Pro’nun bir parçasıdır.";
-"pro_feature_pdf" = "PDF işaretlemek OpenDocument Reader Pro’nun bir parçasıdır.";
+"pro_feature_formatting" = "Kalın, italik, renkler ve metin boyutu ile paragraf eklemek ya da birleştirmek OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
+"pro_feature_pdf" = "Bir PDF’te altını çizmek, üstünü çizmek ve çizim yapmak OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
 "not_now" = "Şimdi değil";
 
 /* Shown when the marking tools come up on a PDF */

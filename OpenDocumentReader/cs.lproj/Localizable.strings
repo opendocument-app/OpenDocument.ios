@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Součást Pro";
-"pro_feature_formatting" = "Formátování textu a přidávání nebo spojování odstavců je součástí OpenDocument Reader Pro.";
-"pro_feature_pdf" = "Označování PDF je součástí OpenDocument Reader Pro.";
+"pro_feature_formatting" = "Tučné písmo, kurzíva, barvy a velikost textu a přidávání nebo spojování odstavců jsou součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
+"pro_feature_pdf" = "Podtržení, přeškrtnutí a kreslení v PDF jsou součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
 "not_now" = "Teď ne";
 
 /* Shown when the marking tools come up on a PDF */

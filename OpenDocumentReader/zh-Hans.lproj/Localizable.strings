@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Pro 功能";
-"pro_feature_formatting" = "设置文字格式以及添加或合并段落是 OpenDocument Reader Pro 的功能。";
-"pro_feature_pdf" = "标注 PDF 是 OpenDocument Reader Pro 的功能。";
+"pro_feature_formatting" = "粗体、斜体、颜色和文字大小，以及添加或合并段落，都是 OpenDocument Reader Pro 的功能。荧光笔在每个版本中都能用。";
+"pro_feature_pdf" = "在 PDF 上添加下划线、删除线和手绘是 OpenDocument Reader Pro 的功能。荧光笔在每个版本中都能用。";
 "not_now" = "暂不";
 
 /* Shown when the marking tools come up on a PDF */

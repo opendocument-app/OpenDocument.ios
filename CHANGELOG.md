@@ -23,23 +23,34 @@ once the version tag exists.
 
 - The name of the open document is shown at the top, between the buttons.
 - Editing tools under the bar: bold, italic, underline, strikethrough, text
-  colour, highlight, text size, undo and redo.
+  colour, highlight and text size. A tap uses the tool, a long press picks its
+  colour.
+- Undo, redo and save sit in the bar while you edit.
 - A PDF can be marked up with highlights, lines and drawings.
 - Presentations, Excel files and plain text files can be edited and saved.
 
 ### Changed
 
-- The engine is odrcore 7.1.0, up from 6.13.0.
+- The engine is odrcore 7.2.2, up from 6.13.0.
 - Entering an edit keeps your place in the document.
-- The pencil turns editing on and off, and a new save button saves without
-  leaving the edit.
-- Lite edits text inside a paragraph. Formatting, paragraphs and PDF marks are
-  part of Pro.
+- The pencil turns editing on and off, and marks up a PDF as well.
+- Lite opens every document for editing. The highlighter is in both apps; bold,
+  italic, colours, text size, paragraphs and the other PDF marks are part of
+  Pro.
+- In the Lite app the advert sits above the bar, so the tools stand on the
+  document.
+- A very wide page, such as an A0 drawing, can be zoomed out to fit.
+- A cell in a spreadsheet opens for editing on a single tap.
 
 ### Fixed
 
 - An email address or a date in a PDF no longer has a link drawn over it,
   which showed the text twice.
+- A mark on a PDF covers the letters it marks, and an underline sits under the
+  text rather than through it.
+- Selecting a word in a PDF keeps the word readable and gives it both handles.
+- Drawing on a PDF puts the ink where your finger went, instead of about twice
+  as far from the page's corner.
 
 ## [1.44]
 

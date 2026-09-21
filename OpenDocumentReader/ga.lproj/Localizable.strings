@@ -147,8 +147,8 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Cuid de Pro";
-"pro_feature_formatting" = "Is cuid de OpenDocument Reader Pro é téacs a fhormáidiú agus ailt a chur leis nó a nascadh.";
-"pro_feature_pdf" = "Is cuid de OpenDocument Reader Pro é PDF a mharcáil.";
+"pro_feature_formatting" = "Is cuid de OpenDocument Reader Pro iad cló trom, cló iodálach, dathanna agus méid an téacs, agus ailt a chur leis nó a nascadh. Tá an marcóir i ngach eagrán.";
+"pro_feature_pdf" = "Is cuid de OpenDocument Reader Pro iad líne a chur faoi théacs, líne a chur tríd agus líníocht a dhéanamh ar PDF. Tá an marcóir i ngach eagrán.";
 "not_now" = "Ní anois";
 
 /* Shown when the marking tools come up on a PDF */
