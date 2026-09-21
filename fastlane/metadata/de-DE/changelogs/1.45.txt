@@ -1,0 +1,4 @@
+- Sie können Ihre Dokumente jetzt bearbeiten: fett, kursiv, unterstrichen, Farben und Schriftgröße, mit Rückgängig, Wiederholen und Speichern direkt in der Leiste
+- Versehen Sie PDFs mit Hervorhebungen, Unterstreichungen, Durchstreichungen und Freihandzeichnungen, und speichern Sie die Änderungen in der Datei
+- Auch Präsentationen, Excel-Dateien und Textdateien lassen sich bearbeiten und speichern
+- Zellen in Tabellenkalkulationen öffnen sich mit einem Tippen, sehr breite Seiten werden passend verkleinert, und oben steht der Name des geöffneten Dokuments

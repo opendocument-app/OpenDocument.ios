@@ -1,0 +1,4 @@
+- Nu kan du redigera dina dokument: fetstil, kursiv, understrykning, färger och textstorlek, med ångra, gör om och spara direkt i verktygsfältet
+- Anteckna i en PDF med färgmarkeringar, understrykningar, genomstrykningar och frihandsritning, och spara den igen
+- Presentationer, Excel-filer och textfiler kan också redigeras och sparas
+- Celler i kalkylblad öppnas med ett enda tryck, mycket breda sidor zoomas ut så att de får plats och namnet på det öppna dokumentet visas högst upp

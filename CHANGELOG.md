@@ -17,7 +17,7 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.45]
 
 ### Added
 
@@ -52,7 +52,7 @@ once the version tag exists.
 - Drawing on a PDF puts the ink where your finger went, instead of about twice
   as far from the page's corner.
 
-## [1.44]
+## [1.44] - 2026-09-05
 
 ### Changed
 
@@ -319,6 +319,7 @@ submitted.
 - Page handling and decryption fixes when opening protected documents.
 
 [Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.44...HEAD
+[1.44]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.43...v1.44
 [1.43]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.42...v1.43
 [1.42]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.41...v1.42
 [1.41]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.40...v1.41

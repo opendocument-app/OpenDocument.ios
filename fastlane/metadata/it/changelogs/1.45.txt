@@ -1,0 +1,4 @@
+- Ora puoi modificare i tuoi documenti: grassetto, corsivo, sottolineato, colori e dimensione del testo, con annulla, ripeti e salva direttamente nella barra
+- Annota un PDF con evidenziazioni, sottolineature, testo barrato e disegno a mano libera, poi salvalo
+- Anche presentazioni, file Excel e file di testo semplice si possono modificare e salvare
+- Le celle dei fogli di calcolo si aprono con un solo tocco, le pagine molto larghe si riducono per adattarsi allo schermo e in alto compare il nome del documento aperto
