@@ -1,0 +1,4 @@
+- Sie können Ihre Dokumente jetzt bearbeiten, mit Rückgängig, Wiederholen und Speichern direkt in der Leiste
+- Heben Sie Text in einem PDF hervor und speichern Sie das PDF
+- Auch Präsentationen, Excel-Dateien und Textdateien lassen sich bearbeiten und speichern, und Zellen in Tabellenkalkulationen öffnen sich mit einem Tippen
+- PDFs öffnen sich schneller, auch einige, die sich bisher gar nicht öffnen ließen, und Text darin lässt sich genauer markieren

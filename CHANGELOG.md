@@ -17,7 +17,10 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [Unreleased]
+## [1.46]
+
+1.45 did not go out in the store, so the store notes of 1.46 carry its changes
+too.
 
 ### Changed
 
