@@ -1,0 +1,4 @@
+- Agora você pode editar seus documentos, com desfazer, refazer e salvar direto na barra
+- Destaque texto em um PDF e salve no próprio arquivo
+- Apresentações, arquivos do Excel e arquivos de texto simples também podem ser editados e salvos, e as células das planilhas abrem com um só toque
+- Os PDFs abrem mais rápido, o app consegue abrir mais deles e a seleção de texto neles ficou mais precisa

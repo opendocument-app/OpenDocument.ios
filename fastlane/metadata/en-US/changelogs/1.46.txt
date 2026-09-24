@@ -1,0 +1,4 @@
+- You can now edit your documents, with undo, redo and save right in the bar
+- Highlight text in a PDF and save it back
+- Presentations, Excel files and plain text files can be edited and saved as well, and a spreadsheet cell opens with a single tap
+- PDFs open faster, more of them open at all, and selecting text in them is more precise

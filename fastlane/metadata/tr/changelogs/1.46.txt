@@ -1,0 +1,4 @@
+- Artık belgelerinizi düzenleyebilirsiniz; geri alma, yineleme ve kaydetme doğrudan araç çubuğunda
+- PDF'lerde metni vurgulayın, sonra aynı dosyaya kaydedin
+- Sunumlar, Excel dosyaları ve düz metin dosyaları da düzenlenip kaydedilebiliyor, elektronik tablo hücreleri de tek dokunuşla açılıyor
+- PDF'ler daha hızlı açılıyor, daha önce açılamayan bazı PDF'ler artık açılabiliyor ve içlerinde metin seçimi daha hassas

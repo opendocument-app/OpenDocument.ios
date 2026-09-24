@@ -1,0 +1,4 @@
+- Nu kan du redigera dina dokument, med ångra, gör om och spara direkt i verktygsfältet
+- Markera text i en PDF och spara markeringen i filen
+- Presentationer, Excel-filer och textfiler kan också redigeras och sparas, och en cell i ett kalkylblad öppnas med ett enda tryck
+- PDF-filer öppnas snabbare, fler av dem går över huvud taget att öppna och det går att markera text i dem mer exakt
