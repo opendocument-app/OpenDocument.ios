@@ -17,6 +17,13 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
+## [Unreleased]
+
+### Fixed
+
+- A long document name no longer pushes the buttons off the bar. The buttons
+  stay in place, and the name is shortened in the middle.
+
 ## [1.46]
 
 1.45 did not go out in the store, so the store notes of 1.46 carry its changes

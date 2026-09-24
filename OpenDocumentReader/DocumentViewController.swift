@@ -59,9 +59,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     /// The document's name, sitting in the bar's empty middle.
     let documentTitleLabel = DocumentTitleLabel()
-    private lazy var documentTitleItem = UIBarButtonItem(customView: documentTitleLabel)
-    private lazy var documentTitleSpacer = UIBarButtonItem(
-        barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
     /// The bar as the storyboard has it, taken before anything is removed, since
     /// that is the only moment every button is there to be read.
@@ -69,7 +66,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     /// Whether the document on screen can be edited and searched. Neither button
     /// stays in the bar when it cannot be used.
-    private var canEdit = false { didSet { updateToolBar() } }
+    var canEdit = false { didSet { updateToolBar() } }
     /// Whether the document is a pdf that takes marks.
     private var canMark = false {
         didSet {
@@ -147,7 +144,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     /// Set by a save, so the page that loads next is put back into the mode.
     private var resumesEditAfterLoad = false
-    private var canSearch = false {
+    var canSearch = false {
         didSet {
             updateToolBar()
 
@@ -1019,16 +1016,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             at: pen + 1)
     }
 
-    /// A gap either side of the name, which is what puts it in the middle.
+    /// On the bar rather than in it: a bar item pushes the buttons aside, and
+    /// the name has to give way to them instead.
     private func setUpDocumentTitle() {
-        // a glass capsule is what a button looks like, and this is not one
-        if #available(iOS 26.0, *) {
-            documentTitleItem.hidesSharedBackground = true
-        }
-
-        guard let back = toolBarItems.firstIndex(where: { $0 === barButtonItem }) else { return }
-
-        toolBarItems.insert(contentsOf: [documentTitleSpacer, documentTitleItem], at: back + 1)
+        toolBar.addSubview(documentTitleLabel)
 
         updateDocumentTitle()
     }
@@ -1041,19 +1032,19 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        updateDocumentTitleWidth()
+        layOutDocumentTitle()
     }
 
-    /// What the bar has left once its buttons have taken theirs.
-    ///
-    /// Measured against the view rather than the bar itself: on the first pass
-    /// the bar still carries the width the storyboard drew it at, and the name
-    /// keeps whatever width it is first measured at.
-    private func updateDocumentTitleWidth() {
-        let buttons = (toolBar.items ?? []).filter { $0.customView == nil && $0.image != nil }
+    /// The name takes what the buttons leave between the back button and the
+    /// rest. The bar does not say where it put a button, so the room is
+    /// counted from how many there are.
+    private func layOutDocumentTitle() {
+        let buttons = (toolBar.items ?? []).filter { $0.image != nil }
+        let start = Self.toolBarButtonWidth + Self.toolBarTitleGap
+        let end = toolBar.bounds.width - CGFloat(buttons.count - 1) * Self.toolBarButtonWidth - Self.toolBarTitleGap
 
-        documentTitleLabel.maximumWidth =
-            view.bounds.width - CGFloat(buttons.count) * Self.toolBarButtonWidth - Self.toolBarTitleGap
+        documentTitleLabel.frame = CGRect(
+            x: start, y: 0, width: max(0, end - start), height: toolBar.bounds.height)
     }
 
     /// What one button takes of the bar. From iOS 26 a glass capsule with air
@@ -1073,12 +1064,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// and the magnifier and the name stand down - six buttons and a name do
     /// not fit a phone's bar. A pdf mark is never put back, so redo stays out.
     private func updateToolBar() {
+        documentTitleLabel.isHidden = isEditingDocument
+        view.setNeedsLayout()
+
         toolBar.items = toolBarItems.filter { item in
             if item === editButton || item === editButtonSpacer {
                 return canEdit
-            }
-            if item === documentTitleItem || item === documentTitleSpacer {
-                return !isEditingDocument
             }
             if item === redoButton || item === redoButtonSpacer {
                 return canEdit && isEditingDocument && !canMark
