@@ -17,7 +17,23 @@ open: **a second build under the same version goes under the already cut
 heading, not back under `Unreleased`.** Date the heading and add its compare link
 once the version tag exists.
 
-## [1.45]
+## [Unreleased]
+
+### Changed
+
+- The engine is odrcore 7.3.1, up from 7.2.2.
+- Scanned PDFs open faster and use less memory.
+
+### Fixed
+
+- A drag with the pen draws on a PDF page that has no mark yet, instead of
+  scrolling the page.
+- Selecting text in a PDF no longer jumps to the start or end of the page.
+- Some scanned PDFs no longer show a blank page.
+- Some PDFs that did not open now open, and some show the right letters instead
+  of empty boxes.
+
+## [1.45] - 2026-09-21
 
 ### Added
 
@@ -318,7 +334,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.44...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.45...HEAD
+[1.45]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.44...v1.45
 [1.44]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.43...v1.44
 [1.43]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.42...v1.43
 [1.42]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.41...v1.42
