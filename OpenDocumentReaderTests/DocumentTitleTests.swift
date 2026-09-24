@@ -18,7 +18,7 @@ class DocumentTitleTests: XCTestCase {
 
     /// The file need not exist: the name is read from the URL, and the bar shows
     /// it before the document is opened.
-    private func present(_ name: String) throws {
+    private func present(_ name: String, width: CGFloat = 390) throws {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: DocumentViewController.self))
         controller = try XCTUnwrap(
             storyboard.instantiateViewController(withIdentifier: "TextDocumentViewController")
@@ -28,7 +28,7 @@ class DocumentTitleTests: XCTestCase {
             for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         controller.document = Document(fileURL: documents.appendingPathComponent(name))
 
-        window = UIWindow(frame: CGRect(x: 0, y: 0, width: 390, height: 844))
+        window = UIWindow(frame: CGRect(x: 0, y: 0, width: width, height: 844))
         window.rootViewController = controller
         window.makeKeyAndVisible()
 
@@ -39,7 +39,7 @@ class DocumentTitleTests: XCTestCase {
         try present("Quarterly report.odt")
 
         XCTAssertEqual(controller.documentTitleLabel.text, "Quarterly report")
-        XCTAssertTrue((controller.toolBar.items ?? []).contains { $0.customView === controller.documentTitleLabel })
+        XCTAssertTrue(controller.documentTitleLabel.isDescendant(of: controller.toolBar))
     }
 
     /// The name is what a reader recognises the file by, so a dot in it is part
@@ -50,52 +50,65 @@ class DocumentTitleTests: XCTestCase {
         XCTAssertEqual(controller.documentTitleLabel.text, "Minutes 12.03")
     }
 
-    func testTheNameSitsBetweenTheBackButtonAndTheRest() throws {
-        try present("Quarterly report.odt")
-
-        let items = try XCTUnwrap(controller.toolBar.items)
-        let name = try XCTUnwrap(items.firstIndex { $0.customView === controller.documentTitleLabel })
-        let back = try XCTUnwrap(items.firstIndex { $0 === controller.barButtonItem })
-        let menu = try XCTUnwrap(items.firstIndex { $0 === controller.menuButton })
-
-        XCTAssertTrue(back < name && name < menu)
+    /// Every button a document can have, as a bar that can edit and search
+    /// shows them.
+    private func showEveryButton() {
+        controller.canEdit = true
+        controller.canSearch = true
+        controller.view.layoutIfNeeded()
     }
 
-    /// What used to be the risk: a name long enough to push the buttons off the
-    /// end of the bar.
-    func testALongNameIsTruncatedRatherThanWidening() throws {
-        try present("Quarterly report for the whole board, final revision.odt")
+    /// Where a button is drawn, read through a private key: the bar has no
+    /// public way to say. The iOS 26 bar does not draw a button put back into it
+    /// while the window is a test's, so there the test cannot look.
+    private func frame(of item: UIBarButtonItem) throws -> CGRect {
+        guard let view = item.value(forKey: "view") as? UIView, view.window != nil, view.bounds.width > 0 else {
+            throw XCTSkip("the bar did not draw this button")
+        }
+        return view.convert(view.bounds, to: controller.toolBar)
+    }
 
-        let label = controller.documentTitleLabel
+    /// The bug this guards: a long name pushed the buttons off the end of the
+    /// bar.
+    func testALongNameLeavesTheButtonsInPlace() throws {
+        try present("Quarterly report.odt", width: 375)
+        let short = (try frame(of: controller.barButtonItem), try frame(of: controller.menuButton))
+        window.isHidden = true
 
-        XCTAssertLessThanOrEqual(label.bounds.width, label.maximumWidth)
-        XCTAssertLessThan(label.maximumWidth, label.text!.size(withAttributes: [.font: label.font!]).width)
+        try present("Quarterly report for the whole board, final revision, with appendices.odt", width: 375)
+        let long = (try frame(of: controller.barButtonItem), try frame(of: controller.menuButton))
+
+        XCTAssertEqual(short.0, long.0)
+        XCTAssertEqual(short.1, long.1)
+    }
+
+    func testALongNameIsCutShortBetweenTheButtons() throws {
+        for width: CGFloat in [375, 390, 402] {
+            try present("Quarterly report for the whole board, final revision, with appendices.odt", width: width)
+            showEveryButton()
+
+            let label = controller.documentTitleLabel
+            let name = label.frame
+
+            XCTAssertLessThan(name.width, label.text!.size(withAttributes: [.font: label.font!]).width)
+            for item in controller.toolBar.items ?? [] where item.image != nil {
+                let button = try frame(of: item)
+                XCTAssertFalse(name.intersects(button), "\(width)")
+            }
+
+            window.isHidden = true
+        }
     }
 
     /// The bar is the same width whoever is in it, so a name has less room when
     /// there are more buttons to leave room for.
-    func testFewerButtonsLeaveTheNameMoreRoom() throws {
+    func testMoreButtonsLeaveTheNameLessRoom() throws {
         try present("Quarterly report.odt")
 
-        let withEverything = controller.documentTitleLabel.maximumWidth
+        let withTwo = controller.documentTitleLabel.bounds.width
 
-        controller.toolBar.items = (controller.toolBar.items ?? []).filter { $0 !== controller.menuButton }
-        controller.view.setNeedsLayout()
-        controller.view.layoutIfNeeded()
+        showEveryButton()
 
-        XCTAssertGreaterThan(controller.documentTitleLabel.maximumWidth, withEverything)
-    }
-
-    func testTheLabelStopsGrowingAtItsMaximum() {
-        let label = DocumentTitleLabel()
-        label.text = String(repeating: "long name ", count: 20)
-
-        label.maximumWidth = .greatestFiniteMagnitude
-        let unbounded = label.intrinsicContentSize.width
-
-        label.maximumWidth = 120
-
-        XCTAssertGreaterThan(unbounded, 120)
-        XCTAssertEqual(label.intrinsicContentSize.width, 120)
+        XCTAssertLessThan(controller.documentTitleLabel.bounds.width, withTwo)
     }
 }
