@@ -1,13 +1,13 @@
 Read documents created using LibreOffice or OpenOffice on the go, wherever you keep them, with the Document Reader!
 
-The file reader lets you open files like ODF (Open Document Format) documents created using LibreOffice or OpenOffice wherever you are. In the bus on your way to school wanting to look at your notes before the big exam? No problem! With the Document Reader you can open files wherever you like and read & search through your documents to go in a clean and simple way. There is a text editor in here as well, for the last typo before a document goes out. It is a young one and it does not reach every document yet, so the reader is what this app is for.
+The file reader lets you open files like ODF (Open Document Format) documents created using LibreOffice or OpenOffice wherever you are. In the bus on your way to school wanting to look at your notes before the big exam? No problem! With the Document Reader you can open files wherever you like and read & search through your documents to go in a clean and simple way. There is a text editor in here as well, for the last typo before a document goes out. It is a young one and it does not reach every document yet, so the reader is what this app is for. ${editing}
 
 You can open files from ODF (ODT, ODS & many more) that you have created with Libre Office or OpenOffice also from within other apps. Supported apps include GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox and lots of others! Or use our integrated file explorer instead to open files on your device.
 
 THE ALL IN ONE DOCUMENT READER
 
 *open files with ODF: ODT (writer), ODS (calc), ODP and ODG without a hassle
-*fix a typo or add a sentence with the young text editor
+*fix typos, edit spreadsheet cells and highlight text in documents and PDFs
 *securely open password-protected documents
 *search for keywords in your ODT (writer), ODS (calc) or ODG and highlight them
 *print documents if your device is connected to a printer

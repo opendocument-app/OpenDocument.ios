@@ -1,13 +1,13 @@
 Consultez où que vous soyez les documents créés avec LibreOffice ou OpenOffice, peu importe où vous les rangez, grâce à la visionneuse de documents !
 
-La visionneuse de documents vous permet d'ouvrir partout vos fichiers ODF (Open Document Format) créés avec LibreOffice ou OpenOffice. Dans le bus, sur le chemin de l'école, vous voulez relire vos notes avant le grand examen ? Aucun souci ! Avec la visionneuse, vous ouvrez vos fichiers où bon vous semble, puis vous lisez vos documents et y faites des recherches, simplement et clairement. Un éditeur de texte est également présent, pour la dernière faute de frappe avant l'envoi d'un document. Il est encore jeune et ne fonctionne pas avec tous les documents : cette application est avant tout une visionneuse.
+La visionneuse de documents vous permet d'ouvrir partout vos fichiers ODF (Open Document Format) créés avec LibreOffice ou OpenOffice. Dans le bus, sur le chemin de l'école, vous voulez relire vos notes avant le grand examen ? Aucun souci ! Avec la visionneuse, vous ouvrez vos fichiers où bon vous semble, puis vous lisez vos documents et y faites des recherches, simplement et clairement. Un éditeur de texte est également présent, pour la dernière faute de frappe avant l'envoi d'un document. Il est encore jeune et ne fonctionne pas avec tous les documents : cette application est avant tout une visionneuse. ${editing}
 
 Vos fichiers ODF (ODT, ODS et bien d'autres) créés avec Libre Office ou OpenOffice s'ouvrent aussi depuis d'autres applications. Parmi celles qui sont prises en charge : GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox et beaucoup d'autres ! Ou utilisez notre explorateur de fichiers intégré pour ouvrir les fichiers de votre appareil.
 
 LA VISIONNEUSE DE DOCUMENTS TOUT-EN-UN
 
 *ouvrez sans effort les fichiers ODF : ODT (writer), ODS (calc), ODP et ODG
-*corrigez une faute de frappe ou ajoutez une phrase avec le jeune éditeur de texte
+*corrigez des fautes, modifiez des cellules de tableur et surlignez du texte dans les documents et les PDF
 *ouvrez en toute sécurité les documents protégés par mot de passe
 *recherchez des mots-clés dans vos ODT (writer), ODS (calc) ou ODG et mettez-les en évidence
 *imprimez vos documents si votre appareil est connecté à une imprimante

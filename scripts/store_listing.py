@@ -112,7 +112,7 @@ LIMITS = {
 
 # The names a `${...}` may have. Declared, so that a misspelt one is an error
 # rather than a sentence that quietly disappears from the store.
-FILL_INS = ("ads",)
+FILL_INS = ("ads", "editing")
 
 # the space in front comes with it, so a fill-in the app leaves empty does not
 # leave a double space in the middle of a sentence

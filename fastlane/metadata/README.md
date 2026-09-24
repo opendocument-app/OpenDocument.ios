@@ -29,14 +29,21 @@ Only the name differs outright, and it has to: an app's name is unique in the
 store, so one file each, `OpenDocument Reader Pro` and `OpenDocument Reader`.
 There is no `name.txt` in this directory - the apps own their names.
 
-One sentence differs inside otherwise shared text, which is the advertising
+Two sentences differ inside otherwise shared text. The first is the advertising
 line: Lite shows ads and Pro does not. Rather than keep two descriptions per
 locale and let them drift, the shared one holds `${ads}` and each app fills it
 in from its own `ads.txt` - Lite has one per locale, Pro has none, and a
 fill-in nobody answers leaves nothing behind, the space in front of it
-included. `FILL_INS` in `scripts/store_listing.py` lists the names one may
-have, so a misspelt `${adds}` is an error rather than a sentence that quietly
-vanishes from the store.
+included.
+
+`${editing}` works the same way, but both apps fill it in. Pro alone adds new
+paragraphs, formats text and marks a pdf past the highlighter. The shared
+description says only what both apps do, and each `editing.txt` says the rest:
+Lite's names it as Pro's, Pro's names it as its own.
+
+`FILL_INS` in `scripts/store_listing.py` lists the names one may have, so a
+misspelt `${adds}` is an error rather than a sentence that quietly vanishes from
+the store.
 
 ## Release notes
 
@@ -73,6 +80,9 @@ for the words the listing already uses in that language.
 A second agent then reads that draft against the English, in the same language,
 because what a first draft gets wrong is not something it can see: a word
 borrowed for its sound rather than its sense reads fine to whoever wrote it.
+
+Both apps get the same notes, so they say what changed and not who gets it: no
+"free", no "Pro".
 
 It writes; it does not upload, and it does not judge. Read the diff before
 committing it - it goes to the store as written.
