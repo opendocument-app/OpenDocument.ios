@@ -1,0 +1,4 @@
+- Ahora puede editar sus documentos y deshacer, rehacer y guardar directamente desde la barra
+- Resalte texto en un PDF y vuelva a guardarlo
+- También puede editar y guardar presentaciones, archivos de Excel y archivos de texto, y las celdas de las hojas de cálculo se abren con un solo toque
+- Los PDF se abren más rápido, ahora se abren también algunos que antes no se podían abrir y el texto se selecciona con más precisión
