@@ -21,7 +21,7 @@ once the version tag exists.
 
 ### Changed
 
-- The engine is odrcore 7.3.1, up from 7.2.2.
+- The engine is odrcore 7.3.2, up from 7.2.2.
 - Scanned PDFs open faster and use less memory.
 
 ### Fixed
@@ -29,6 +29,9 @@ once the version tag exists.
 - A drag with the pen draws on a PDF page that has no mark yet, instead of
   scrolling the page.
 - Selecting text in a PDF no longer jumps to the start or end of the page.
+- A text selection in a PDF stays on the line and covers the spaces between
+  words.
+- A Markdown file has a margin around its text.
 - Some scanned PDFs no longer show a blank page.
 - Some PDFs that did not open now open, and some show the right letters instead
   of empty boxes.
