@@ -1,0 +1,4 @@
+- Ora puoi modificare i tuoi documenti, con annulla, ripeti e salva direttamente nella barra
+- Evidenzia il testo in un PDF e salvalo
+- Anche presentazioni, file Excel e file di testo semplice si possono modificare e salvare, e una cella del foglio di calcolo si apre con un solo tocco
+- I PDF si aprono più velocemente, se ne aprono di più e la selezione del testo è più precisa

@@ -1,0 +1,4 @@
+- Możesz już edytować dokumenty, a cofanie, ponawianie i zapisywanie masz od razu na pasku
+- Wyróżniaj tekst w plikach PDF i zapisuj zmiany w pliku
+- Prezentacje, pliki Excela i zwykłe pliki tekstowe też można edytować i zapisywać, a komórki arkusza otwierają się jednym dotknięciem
+- Więcej plików PDF da się teraz otworzyć, otwierają się szybciej, a tekst zaznacza się w nich dokładniej

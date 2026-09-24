@@ -1,0 +1,4 @@
+- Vous pouvez désormais modifier vos documents, avec Annuler, Rétablir et Enregistrer directement dans la barre
+- Surlignez du texte dans un PDF, puis enregistrez-le
+- Les présentations, les fichiers Excel et les fichiers texte se modifient et s'enregistrent aussi, et une cellule de feuille de calcul s'ouvre d'une simple pression
+- Les PDF s'ouvrent plus vite, davantage d'entre eux s'ouvrent désormais, et la sélection de texte y est plus précise
