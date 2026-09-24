@@ -1,21 +1,17 @@
 # Changelog
 
 Developer-facing changes to OpenDocument Reader for iOS, in [Keep a
-Changelog](https://keepachangelog.com/en/1.1.0/) format. Changes to the shared
-OpenDocument core are listed under the release that shipped them. The shorter
-"What's New" copy the store shows lives in
-`fastlane/metadata/<locale>/changelogs/`, written from these entries by
-`scripts/store-copy.py`.
+Changelog](https://keepachangelog.com/en/1.1.0/) format. Changes to odrcore are
+listed under the release that shipped them. The store's "What's New" text is
+written from these entries by `scripts/store-copy.py`.
 
-Entries go under `Unreleased` in the pull request that makes the change. The
-heading is cut when the release is **submitted**, in one pull request that also
-writes the store copy for that version.
+Rules:
 
-A release run refuses a version with no section here, and makes that section the
-body of the GitHub release it drafts. Until the release is out the section stays
-open: **a second build under the same version goes under the already cut
-heading, not back under `Unreleased`.** Date the heading and add its compare link
-once the version tag exists.
+- Add an entry under `Unreleased` in the pull request that makes the change.
+- Cut the heading in the pull request that also writes the store copy.
+- A second build of the same version goes under the cut heading, not under
+  `Unreleased`.
+- Add the date and the compare link once the version tag exists.
 
 ## [1.47]
 
