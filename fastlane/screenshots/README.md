@@ -1,61 +1,52 @@
 # Store screenshots
 
-What App Store Connect shows of the app, one directory per locale - written
-here by a capture run, and not committed. This directory is empty in the
-repository on purpose.
-
-The store copy next door is text somebody wrote, so it lives in git and the
-release uploads what is committed. A screenshot is not written, it is taken:
-it is only worth what the build it was taken from is worth, and a picture of
-1.38 sitting in git through 1.41 is a picture of an app nobody can install any
-more. So they are taken during the release run, from the build going out.
+The pictures App Store Connect shows of the app. Nothing here is committed. A
+capture run writes the raw pictures to this directory and the framed set to
+`fastlane/framed`, and the release run archives both as artifacts. Screenshots
+are taken during the release run, from the build that goes out.
 
 ```sh
-bundle exec fastlane ios screenshots
+bundle exec fastlane ios screenshots      # capture, then frame
+scripts/frame-screenshots.py              # frame again, without a capture
 ```
 
-That drives the app on both devices in every locale and writes them here.
-`.gitignore` keeps what it wrote out of commits, and the release run archives
-the same set as the `screenshots` artifact - which is how you look at what went
-to the store, before it does on a dry run and after it on a real one.
+The lane does these steps:
 
-## What is in a set
+1. `scripts/make-screenshot-documents.py` writes the localized sample
+   documents. They are build output and go into Debug builds only.
+2. `fastlane snapshot` builds the `ODR Screenshots` scheme once and launches
+   the app once per screen and locale, with `-ODRScreenshot <screen>`. See
+   `OpenDocumentReader/ScreenshotMode.swift`.
+3. `scripts/frame-screenshots.py` puts each capture on a device frame with a
+   headline from `fastlane/frames/frames.json`. It needs Pillow.
+4. `scripts/store_screenshots.py` checks the framed set against the sizes the
+   store accepts.
 
-Six pictures per device, taken by relaunching the app onto one screen at a
-time rather than by tapping through it. The screens, in the order the store
-shows them:
+## The set
+
+Six screens per device, in store order:
 
 | | |
 | --- | --- |
-| `01-browser` | the document browser, with one of each format sitting in it |
-| `02-text` | a text document open, with a search under way |
-| `03-sheet` | a spreadsheet, with the sheet tabs under the tool bar |
-| `04-edit` | a document being edited, keyboard up |
-| `05-pdf` | a pdf |
-| `06-office` | the same reader on a Word file |
+| `01-browser` | the document browser, with one file of each format |
+| `02-text` | a text document |
+| `03-sheet` | a spreadsheet, with its sheet tabs |
+| `04-edit` | a document in edit mode, keyboard up |
+| `05-pdf` | a PDF, with a search under way |
+| `06-office` | a Word file |
 
-Two devices, because an app that runs on iPhone and iPad has to hand in both: a
-6.9" iPhone and a 13" iPad. `scripts/store_screenshots.py` holds the sizes App
-Store Connect accepts and checks the set against them; `Fastfile` holds the
-simulators to look for, newest first, because what a simulator is called
-changes with every Xcode and what it is worth does not.
+Two devices: a 6.9" iPhone and a 13" iPad. `Fastfile` lists the simulator
+names to look for, newest first. `scripts/store_screenshots.py` lists the
+pixel sizes the store accepts.
 
 ## Locales
 
-Eleven in the store, nine in the app. `de-DE`, `en-US`, `es-ES`, `fr-FR`, `it`,
-`pl`, `pt-BR`, `ru` and `tr` are photographed in their own language. `hi` and
-`sv` are given the English pictures, because the app has no Hindi or Swedish UI
-either - that is what those storefronts would show whatever we upload.
+The store has eleven locales and the app has nine. `hi` and `sv` get the
+English pictures, because the app has no Hindi or Swedish UI.
+`scripts/store_screenshots.py --languages` prints the locales to capture.
 
-The documents in the pictures are localized too, which is most of what a reader
-has to show. The lane writes them with `scripts/make-screenshot-documents.py`
-before it builds, rather than keeping them in git: they are build output, and
-they are bundled into Debug builds only. `-ODRScreenshot <screen>` is how the
-app is asked to open one. See `OpenDocumentReader/ScreenshotMode.swift`.
+## Both apps
 
-## Both apps get the same pictures
-
-Pro and Lite are one app built twice, and the one thing that differs on screen -
-the banner Lite carries - is not in a screenshot either way. The set is taken
-once, with the Pro scheme, which links no ad sdk and so cannot raise a consent
-form in front of the camera. Both listings are then given it.
+The set is taken once, with the `ODR Screenshots` scheme. That scheme builds
+the Pro target, which links no ad sdk, so no consent form can appear. Both
+listings get the same pictures.
