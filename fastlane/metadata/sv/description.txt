@@ -1,13 +1,13 @@
 Läs dokument som skapats i LibreOffice eller OpenOffice var du än är, var du än förvarar dem – med dokumentläsaren!
 
-Med filläsaren öppnar du ODF-dokument (Open Document Format) från LibreOffice eller OpenOffice var du än befinner dig. Sitter du på bussen till skolan och vill läsa igenom anteckningarna före det stora provet? Inga problem! Med dokumentläsaren öppnar du dina filer var du vill och läser och söker i dokumenten på ett rent och enkelt sätt. Här finns också en textredigerare, för det sista stavfelet innan ett dokument skickas i väg. Den är ung och når ännu inte alla dokument, så det är läsandet appen är till för.
+Med filläsaren öppnar du ODF-dokument (Open Document Format) från LibreOffice eller OpenOffice var du än befinner dig. Sitter du på bussen till skolan och vill läsa igenom anteckningarna före det stora provet? Inga problem! Med dokumentläsaren öppnar du dina filer var du vill och läser och söker i dokumenten på ett rent och enkelt sätt. Här finns också en textredigerare, för det sista stavfelet innan ett dokument skickas i väg. Den är ung och når ännu inte alla dokument, så det är läsandet appen är till för. ${editing}
 
 Du kan öppna ODF-filer (ODT, ODS och många fler) som du har skapat i LibreOffice eller OpenOffice direkt från andra appar. Bland de appar som stöds finns GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox och många andra! Eller använd vår inbyggda filhanterare för att öppna filer på enheten.
 
 ALLT-I-ETT FÖR ATT LÄSA DOKUMENT
 
 *öppna ODF-filer: ODT (Writer), ODS (Calc), ODP och ODG utan krångel
-*rätta ett stavfel eller lägg till en mening med den unga textredigeraren
+*rätta stavfel, redigera celler i kalkylblad och markera text i dokument och PDF-filer
 *öppna lösenordsskyddade dokument på ett säkert sätt
 *sök efter ord i dina ODT (Writer), ODS (Calc) eller ODG och få träffarna markerade
 *skriv ut dokument när enheten är ansluten till en skrivare

@@ -67,6 +67,7 @@ Write the same release for the people who use the app:
 - four lines at most; leave out anything nobody would notice from the outside
 - plain words. No jargon, no version numbers, no names of internals, nothing that reads like marketing
 - say what is different for them, not what was implemented
+- the same text goes to both apps: the free OpenDocument Reader and the paid OpenDocument Reader Pro, which also adds new paragraphs, text formatting and more ways to mark PDFs. So say what changed, not who gets it - no "free", "Pro", "paid" or "upgrade". Where a change reaches only Pro, describe the part both apps have, or leave it out
 - no full stop at the end of a line, matching the sample
 
 Reply with those lines and nothing else.

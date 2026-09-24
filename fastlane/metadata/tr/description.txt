@@ -1,13 +1,13 @@
 Belge Okuyucu ile LibreOffice veya OpenOffice ile oluşturulmuş belgeleri, nerede tutuyorsanız orada, hareket halindeyken okuyun!
 
-Bu dosya okuyucu, LibreOffice veya OpenOffice ile oluşturulmuş ODF (Open Document Format) belgelerini nerede olursanız olun açmanızı sağlar. Otobüsle okula giderken sınav öncesi notlarınıza bir göz atmak mı istiyorsunuz? Sorun değil! Belge Okuyucu ile dosyalarınızı istediğiniz yerde açar, belgelerinizi temiz ve basit bir görünümde okur, içlerinde arama yaparsınız. Bir belge yola çıkmadan önceki son yazım hatası için burada bir metin düzenleyici de var. Henüz çok yeni ve her belgeye yetişemiyor, bu yüzden bu uygulamanın asıl işi okumak.
+Bu dosya okuyucu, LibreOffice veya OpenOffice ile oluşturulmuş ODF (Open Document Format) belgelerini nerede olursanız olun açmanızı sağlar. Otobüsle okula giderken sınav öncesi notlarınıza bir göz atmak mı istiyorsunuz? Sorun değil! Belge Okuyucu ile dosyalarınızı istediğiniz yerde açar, belgelerinizi temiz ve basit bir görünümde okur, içlerinde arama yaparsınız. Bir belge yola çıkmadan önceki son yazım hatası için burada bir metin düzenleyici de var. Henüz çok yeni ve her belgeye yetişemiyor, bu yüzden bu uygulamanın asıl işi okumak. ${editing}
 
 LibreOffice veya OpenOffice ile oluşturduğunuz ODF dosyalarını (ODT, ODS ve daha birçoğu) diğer uygulamaların içinden de açabilirsiniz. Desteklenen uygulamalar arasında GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox ve daha pek çoğu var! Ya da cihazınızdaki dosyaları açmak için yerleşik dosya gezginimizi kullanın.
 
 HEPSİ BİR ARADA BELGE OKUYUCU
 
 *ODF dosyalarını zahmetsizce açın: ODT (writer), ODS (calc), ODP ve ODG
-*yeni metin düzenleyiciyle bir yazım hatasını düzeltin ya da bir cümle ekleyin
+*yazım hatalarını düzeltin, tablo hücrelerini düzenleyin, belgelerde ve PDF'lerde metni vurgulayın
 *parola korumalı belgeleri güvenle açın
 *ODT (writer), ODS (calc) veya ODG belgelerinizde anahtar kelime arayın ve bulunanları vurgulayın
 *cihazınız bir yazıcıya bağlıysa belgeleri yazdırın

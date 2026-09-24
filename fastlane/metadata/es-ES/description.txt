@@ -1,13 +1,13 @@
 ¡Lea documentos creados con LibreOffice u OpenOffice esté donde esté, los tenga donde los tenga, con el lector de documentos!
 
-El lector de archivos le permite abrir archivos ODF (Open Document Format) creados con LibreOffice u OpenOffice desde cualquier lugar. ¿Va en el autobús camino de clase y quiere repasar los apuntes antes del examen? ¡Ningún problema! Con el lector de documentos puede abrir sus archivos donde quiera y leerlos y buscar en ellos de forma clara y sencilla. También hay un editor de texto, para esa última errata antes de enviar un documento. Es muy nuevo y todavía no llega a todos los documentos, así que esta aplicación es, ante todo, un lector.
+El lector de archivos le permite abrir archivos ODF (Open Document Format) creados con LibreOffice u OpenOffice desde cualquier lugar. ¿Va en el autobús camino de clase y quiere repasar los apuntes antes del examen? ¡Ningún problema! Con el lector de documentos puede abrir sus archivos donde quiera y leerlos y buscar en ellos de forma clara y sencilla. También hay un editor de texto, para esa última errata antes de enviar un documento. Es muy nuevo y todavía no llega a todos los documentos, así que esta aplicación es, ante todo, un lector. ${editing}
 
 También puede abrir archivos ODF (ODT, ODS y muchos más) creados con LibreOffice u OpenOffice desde otras aplicaciones. Entre las compatibles están GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox y muchas más. O use nuestro explorador de archivos integrado para abrir los documentos que tenga en el dispositivo.
 
 EL LECTOR DE DOCUMENTOS TODO EN UNO
 
 *abra archivos ODF: ODT (writer), ODS (calc), ODP y ODG sin complicaciones
-*corrija una errata o añada una frase con el nuevo editor de texto
+*corrija erratas, edite celdas de hojas de cálculo y resalte texto en documentos y PDF
 *abra con seguridad documentos protegidos con contraseña
 *busque palabras clave en sus ODT (writer), ODS (calc) u ODG y resáltelas
 *imprima documentos si su dispositivo está conectado a una impresora

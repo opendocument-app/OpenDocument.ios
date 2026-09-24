@@ -1,13 +1,13 @@
 Leia em qualquer lugar os documentos criados no LibreOffice ou no OpenOffice, onde quer que você os guarde, com o leitor de documentos!
 
-O leitor de arquivos abre documentos ODF (formato OpenDocument) criados no LibreOffice ou no OpenOffice onde você estiver. No ônibus a caminho da escola, querendo revisar as anotações antes da prova? Sem problema! Com o leitor de documentos você abre seus arquivos onde quiser e lê e pesquisa neles de um jeito limpo e simples. Aqui dentro também há um editor de texto, para aquele último erro de digitação antes de o documento sair. Ele ainda é novo e não dá conta de todos os documentos, por isso é para a leitura que este app existe.
+O leitor de arquivos abre documentos ODF (formato OpenDocument) criados no LibreOffice ou no OpenOffice onde você estiver. No ônibus a caminho da escola, querendo revisar as anotações antes da prova? Sem problema! Com o leitor de documentos você abre seus arquivos onde quiser e lê e pesquisa neles de um jeito limpo e simples. Aqui dentro também há um editor de texto, para aquele último erro de digitação antes de o documento sair. Ele ainda é novo e não dá conta de todos os documentos, por isso é para a leitura que este app existe. ${editing}
 
 Você também pode abrir arquivos ODF (ODT, ODS e muitos outros) criados no Libre Office ou no OpenOffice a partir de outros apps. Entre os apps compatíveis estão GMail, Google Drive, iCloud, OneDrive, Nextcloud, Box.net, Dropbox e muitos outros! Ou use o nosso explorador de arquivos integrado para abrir os arquivos que já estão no dispositivo.
 
 O LEITOR DE DOCUMENTOS COMPLETO
 
 *abra arquivos ODF: ODT (Writer), ODS (Calc), ODP e ODG sem complicação
-*corrija um erro de digitação ou acrescente uma frase com o novo editor de texto
+*corrija erros, edite células de planilhas e destaque texto em documentos e PDFs
 *abra com segurança documentos protegidos por senha
 *pesquise palavras nos seus ODT (Writer), ODS (Calc) ou ODG e veja-as destacadas
 *imprima documentos se o seu dispositivo estiver conectado a uma impressora
