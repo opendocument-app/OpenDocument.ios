@@ -29,12 +29,17 @@ enum ScreenshotMode {
         case pdf
         /// a document being edited, keyboard up
         case edit
+        /// the same edit as Lite shows it: the Pro tools dimmed, behind a badge
+        case editLite = "edit-lite"
+
+        /// Whether the screen is an edit, in either app.
+        var isEdit: Bool { self == .edit || self == .editLite }
 
         /// The sample this screen opens, `nil` where it opens none.
         var sample: String? {
             switch self {
             case .browser: return nil
-            case .text, .edit: return "text"
+            case .text, .edit, .editLite: return "text"
             case .sheet: return "sheet"
             case .office: return "word"
             case .pdf: return "paper"

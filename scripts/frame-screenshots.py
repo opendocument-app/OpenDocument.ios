@@ -659,9 +659,14 @@ def main(argv=None):
         shutil.rmtree(out, ignore_errors=True)
         out.mkdir(parents=True, exist_ok=True)
 
+        # Lite's edit is framed as the screen it replaces: the same place,
+        # and the same headline, which is true of both apps
+        replaces = {lite: screen for screen, lite in store.LITE.items()}
+
         for path in sorted(folder.glob("*.png")):
-            name = next((n for n in screens if path.stem.endswith(n)), None)
-            if name is None:
+            taken = next((n for n in store.CAPTURED if path.stem.endswith(n)), None)
+            name = replaces.get(taken, taken)
+            if name not in screens:
                 continue
 
             with Image.open(path) as shot:

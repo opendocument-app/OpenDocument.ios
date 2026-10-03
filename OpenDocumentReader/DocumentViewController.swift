@@ -379,7 +379,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
             return
 
-        case .edit:
+        case .edit, .editLite:
             // ready once the tools are up, which `beginEditSession` says
             editDocument()
 
@@ -810,7 +810,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     private func editSessionReady() {
         isEditSessionReady = true
 
-        if ScreenshotMode.screen == .edit {
+        if ScreenshotMode.screen?.isEdit == true {
             ScreenshotMode.markReady(view)
         }
     }

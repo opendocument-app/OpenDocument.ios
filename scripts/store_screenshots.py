@@ -10,7 +10,7 @@
 #
 #   scripts/store_screenshots.py --languages          what to capture
 #   scripts/store_screenshots.py                      check what was captured
-#   scripts/store_screenshots.py --stage DIR          check it and stage it
+#   scripts/store_screenshots.py --stage DIR --app A  check it and stage A's set
 #
 # The store has eleven locales and the app is translated into nine of them.
 # The other two get the English pictures, which is what their storefront would
@@ -56,6 +56,18 @@ SCREENS = (
     "05-pdf",
     "06-office",
 )
+
+# What Lite shows in place of a screen of Pro's. The edit is the one screen
+# where the two apps differ: Lite dims the Pro tools behind a badge.
+LITE = {
+    "04-edit": "04-edit-lite",
+}
+
+APPS = ("pro", "lite")
+
+# Every picture a run takes, longest name first, so a name that ends another
+# one is never matched in its place.
+CAPTURED = tuple(sorted(SCREENS + tuple(LITE.values()), key=len, reverse=True))
 
 # What App Store Connect accepts, upright, in pixels. An app that runs on both
 # has to hand in both, and the store fits every smaller iPhone and iPad from
@@ -125,9 +137,9 @@ def collect(directory):
 
         pictures = {}
         for path in sorted(folder.glob("*.png")):
-            screen = next((name for name in SCREENS if path.stem.endswith(name)), None)
+            screen = next((name for name in CAPTURED if path.stem.endswith(name)), None)
             if screen is None:
-                problems.append(f"{locale}: {path.name} is not one of {', '.join(SCREENS)}")
+                problems.append(f"{locale}: {path.name} is not one of {', '.join(CAPTURED)}")
                 continue
 
             try:
@@ -148,7 +160,7 @@ def collect(directory):
             pictures.setdefault(kind, {})[screen] = path
 
         for kind in SIZES:
-            missing = [screen for screen in SCREENS if screen not in pictures.get(kind, {})]
+            missing = [screen for screen in CAPTURED if screen not in pictures.get(kind, {})]
             if missing:
                 problems.append(f"{locale}: no {kind} {', '.join(missing)}")
 
@@ -157,12 +169,14 @@ def collect(directory):
     return found, problems
 
 
-def stage(found, directory):
-    """Write the screenshot tree deliver uploads.
+def stage(found, directory, app):
+    """Write the screenshot tree deliver uploads for `app`.
 
     A folder per store locale, the borrowed ones copied from the English rather
     than left out: what deliver does not upload for a locale, App Store Connect
-    keeps - which would be whatever was there before this release.
+    keeps - which would be whatever was there before this release. Lite's
+    pictures go under the name of the screen they replace, so they keep its
+    place in the store.
     """
     directory = Path(directory)
 
@@ -170,8 +184,9 @@ def stage(found, directory):
         folder = directory / locale
         folder.mkdir(parents=True, exist_ok=True)
         for kind, screens in pictures.items():
-            for screen, path in screens.items():
-                shutil.copyfile(path, folder / f"{kind}-{screen}.png")
+            for screen in SCREENS:
+                picture = LITE.get(screen, screen) if app == "lite" else screen
+                shutil.copyfile(screens[picture], folder / f"{kind}-{screen}.png")
 
     for locale in borrowed():
         source = directory / FALLBACK
@@ -211,7 +226,15 @@ def main(argv=None):
         metavar="DIR",
         help="also write the deliver screenshot tree into DIR",
     )
+    parser.add_argument(
+        "--app",
+        choices=APPS,
+        help="the app whose set --stage writes; the two differ in the edit",
+    )
     args = parser.parse_args(argv)
+
+    if args.stage and not args.app:
+        parser.error("--stage needs --app, because Pro and Lite show a different edit")
 
     if args.languages:
         print("\n".join(languages()))
@@ -228,11 +251,11 @@ def main(argv=None):
 
     if args.stage:
         try:
-            stage(found, args.stage)
+            stage(found, args.stage, args.app)
         except OSError as reason:
             return fail(str(reason))
         print(
-            f"staged {len(SCREENS)} screenshots per device for "
+            f"staged {args.app}'s {len(SCREENS)} screenshots per device for "
             f"{len(found) + len(borrowed())} locales in {args.stage}"
         )
     else:

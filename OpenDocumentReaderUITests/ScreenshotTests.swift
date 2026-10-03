@@ -13,6 +13,19 @@ import XCTest
 /// the order the store shows them in.
 final class ScreenshotTests: XCTestCase {
 
+    /// Each picture's name, and the screen it is of. The number is the place
+    /// in the store. Lite's edit takes the place of Pro's in Lite's listing,
+    /// so both are `04`.
+    private static let pictures = [
+        ("01-browser", "browser"),
+        ("02-text", "text"),
+        ("03-sheet", "sheet"),
+        ("04-edit", "edit"),
+        ("04-edit-lite", "edit-lite"),
+        ("05-pdf", "pdf"),
+        ("06-office", "office"),
+    ]
+
     /// Long, because it covers translating a document on a simulator that is
     /// also running eleven other languages' worth of tests today.
     private let readyTimeout: TimeInterval = 180
@@ -40,7 +53,7 @@ final class ScreenshotTests: XCTestCase {
 
         let arguments = app.launchArguments
 
-        for (index, screen) in ["browser", "text", "sheet", "edit", "pdf", "office"].enumerated() {
+        for (name, screen) in Self.pictures {
             app.launchArguments = arguments + ["-ODRScreenshot", screen]
             app.launch()
 
@@ -53,11 +66,11 @@ final class ScreenshotTests: XCTestCase {
                 waitForTheFolderToFill(in: app)
             }
 
-            if screen == "edit" {
+            if screen.hasPrefix("edit") {
                 raiseTheKeyboard(in: app)
             }
 
-            Snapshots.take(String(format: "%02d-%@", index + 1, screen))
+            Snapshots.take(name)
 
             // rather than leaving it running: the next launch has to go through
             // didFinishLaunching again to be handed the next screen

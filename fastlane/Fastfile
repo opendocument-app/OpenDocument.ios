@@ -245,9 +245,10 @@ platform :ios do
     )
 
     # The Pro scheme, so no ad sdk is linked and no consent form can come up in
-    # front of a picture. The two apps are the same app, and what differs - the
-    # banner Lite carries - is not in a screenshot either way, so one set of
-    # pictures goes to both listings.
+    # front of a picture. The two apps differ only in the edit, where Lite dims
+    # the Pro tools: the run takes that screen a second time as Lite shows it,
+    # and each listing gets its own edit. The banner Lite carries is in no
+    # picture either way.
     capture_ios_screenshots(
       project: "OpenDocumentReader.xcodeproj",
       scheme: "ODR Screenshots",
@@ -503,7 +504,7 @@ platform :ios do
       # something captured has to have all of it: half a set is worse in the
       # store than the set already up there.
       captured = !Dir.glob(File.join(FRAMED_DIR, "*", "*.png")).empty?
-      sh(STORE_SCREENSHOTS, "--screenshots", FRAMED_DIR, "--stage", shots_dir) if captured
+      sh(STORE_SCREENSHOTS, "--screenshots", FRAMED_DIR, "--stage", shots_dir, "--app", options[:name]) if captured
       UI.important("no screenshots under #{FRAMED_DIR} - writing the text only") unless captured
 
       key_path = api_key_file
