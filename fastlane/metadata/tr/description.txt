@@ -7,7 +7,7 @@ LibreOffice veya OpenOffice ile oluşturduğunuz ODF dosyalarını (ODT, ODS ve 
 HEPSİ BİR ARADA BELGE OKUYUCU
 
 *ODF dosyalarını zahmetsizce açın: ODT (writer), ODS (calc), ODP ve ODG
-*yazım hatalarını düzeltin, tablo hücrelerini düzenleyin, belgelerde ve PDF'lerde metni vurgulayın
+*yazım hatalarını düzeltin, tablo hücrelerini düzenleyin ve renklendirin, belgelerde ve PDF'lerde metni vurgulayın
 *parola korumalı belgeleri güvenle açın
 *ODT (writer), ODS (calc) veya ODG belgelerinizde anahtar kelime arayın ve bulunanları vurgulayın
 *cihazınız bir yazıcıya bağlıysa belgeleri yazdırın

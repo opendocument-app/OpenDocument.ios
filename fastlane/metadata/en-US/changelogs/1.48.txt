@@ -1,0 +1,4 @@
+- Colour the cells of a spreadsheet
+- Spaces and tabs stay exactly as you typed them
+- Spreadsheet colours show correctly, also in dark mode
+- For your privacy, a document no longer loads images from the internet

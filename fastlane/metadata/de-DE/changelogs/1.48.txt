@@ -1,0 +1,4 @@
+- Färben Sie Zellen in Tabellenkalkulationen ein
+- Leerzeichen und Tabulatoren bleiben genau so, wie Sie sie eingegeben haben
+- Farben in Tabellenkalkulationen werden richtig angezeigt, auch im Dunkelmodus
+- Zum Schutz Ihrer Privatsphäre lädt ein Dokument keine Bilder mehr aus dem Internet

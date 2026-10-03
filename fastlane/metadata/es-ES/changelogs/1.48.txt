@@ -1,0 +1,4 @@
+- Coloree las celdas de una hoja de cálculo
+- Los espacios y las tabulaciones se mantienen tal como los escribió
+- Los colores de las hojas de cálculo se ven bien, también en modo oscuro
+- Por su privacidad, los documentos ya no cargan imágenes de internet

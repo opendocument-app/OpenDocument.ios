@@ -1,0 +1,4 @@
+- Colore as células das planilhas
+- Espaços e tabulações ficam exatamente como você digitou
+- As cores das planilhas aparecem corretamente, inclusive no modo escuro
+- Para sua privacidade, os documentos não carregam mais imagens da internet

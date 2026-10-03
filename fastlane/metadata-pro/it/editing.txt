@@ -1,1 +1,1 @@
-La versione Pro aggiunge anche nuovi paragrafi, la formattazione del testo come grassetto, colori e dimensioni, e altri modi per annotare i PDF: sottolineare, barrare e disegnare.
+La versione Pro aggiunge anche nuovi paragrafi, la formattazione del testo come grassetto, colori, dimensioni e allineamento, la formattazione delle celle dei fogli di calcolo e altri modi per annotare i PDF: sottolineare, barrare e disegnare.

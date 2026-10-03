@@ -1,0 +1,4 @@
+- Colorez les cellules d'une feuille de calcul
+- Les espaces et les tabulations restent exactement tels que vous les avez saisis
+- Les couleurs des feuilles de calcul s'affichent correctement, y compris en mode sombre
+- Pour protéger votre vie privée, un document ne charge plus d'images depuis Internet

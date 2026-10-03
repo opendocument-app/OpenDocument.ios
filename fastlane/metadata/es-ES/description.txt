@@ -7,7 +7,7 @@ También puede abrir archivos ODF (ODT, ODS y muchos más) creados con LibreOffi
 EL LECTOR DE DOCUMENTOS TODO EN UNO
 
 *abra archivos ODF: ODT (writer), ODS (calc), ODP y ODG sin complicaciones
-*corrija erratas, edite celdas de hojas de cálculo y resalte texto en documentos y PDF
+*corrija erratas, edite y coloree celdas de hojas de cálculo, y resalte texto en documentos y PDF
 *abra con seguridad documentos protegidos con contraseña
 *busque palabras clave en sus ODT (writer), ODS (calc) u ODG y resáltelas
 *imprima documentos si su dispositivo está conectado a una impresora

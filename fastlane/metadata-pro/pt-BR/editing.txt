@@ -1,1 +1,1 @@
-A versão Pro também adiciona novos parágrafos, formatação de texto como negrito, cores e tamanhos, e mais formas de marcar PDFs: sublinhar, riscar e desenhar.
+A versão Pro também adiciona novos parágrafos, formatação de texto como negrito, cores, tamanhos e alinhamento, formatação de células de planilhas e mais formas de marcar PDFs: sublinhar, riscar e desenhar.

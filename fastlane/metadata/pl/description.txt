@@ -7,7 +7,7 @@ Pliki ODF (ODT, ODS i wiele innych) utworzone w LibreOffice lub OpenOffice otwor
 PRZEGLĄDARKA DOKUMENTÓW — WSZYSTKO W JEDNYM
 
 *otwieraj bez trudu pliki ODF: ODT (Writer), ODS (Calc), ODP i ODG
-*popraw literówki, edytuj komórki arkuszy i wyróżniaj tekst w dokumentach i plikach PDF
+*popraw literówki, edytuj i koloruj komórki arkuszy oraz wyróżniaj tekst w dokumentach i plikach PDF
 *bezpiecznie otwieraj dokumenty chronione hasłem
 *wyszukuj słowa kluczowe w plikach ODT (Writer), ODS (Calc) i ODG oraz podświetlaj wyniki
 *drukuj dokumenty, jeśli urządzenie jest połączone z drukarką

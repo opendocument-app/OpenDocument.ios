@@ -7,7 +7,7 @@ Du kan öppna ODF-filer (ODT, ODS och många fler) som du har skapat i LibreOffi
 ALLT-I-ETT FÖR ATT LÄSA DOKUMENT
 
 *öppna ODF-filer: ODT (Writer), ODS (Calc), ODP och ODG utan krångel
-*rätta stavfel, redigera celler i kalkylblad och markera text i dokument och PDF-filer
+*rätta stavfel, redigera och färglägg celler i kalkylblad, och markera text i dokument och PDF-filer
 *öppna lösenordsskyddade dokument på ett säkert sätt
 *sök efter ord i dina ODT (Writer), ODS (Calc) eller ODG och få träffarna markerade
 *skriv ut dokument när enheten är ansluten till en skrivare

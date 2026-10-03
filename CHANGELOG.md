@@ -13,7 +13,7 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
-## [Unreleased]
+## [1.48]
 
 ### Added
 
@@ -32,7 +32,7 @@ Rules:
 - Spaces and tabs in text and in cells stay as they were typed.
 - Spreadsheet cells show their colours, also in dark mode.
 
-## [1.47]
+## [1.47] - 2026-09-24
 
 1.46 did not go out in the store either, so the store notes of 1.47 are the
 same.
@@ -365,7 +365,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.46...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.47...HEAD
+[1.47]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.46...v1.47
 [1.46]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.45...v1.46
 [1.45]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.44...v1.45
 [1.44]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.43...v1.44
