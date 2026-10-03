@@ -115,6 +115,12 @@
 "edit_text_color" = "Text color";
 "edit_highlight" = "Highlight";
 "edit_font_size" = "Text size";
+"edit_fill" = "Fill color";
+"edit_align" = "Align";
+"edit_align_left" = "Left";
+"edit_align_center" = "Center";
+"edit_align_right" = "Right";
+"edit_align_justify" = "Justify";
 "edit_undo" = "Undo";
 "edit_redo" = "Redo";
 

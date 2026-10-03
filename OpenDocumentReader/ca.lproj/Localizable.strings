@@ -115,6 +115,12 @@
 "edit_text_color" = "Color del text";
 "edit_highlight" = "Ressaltar";
 "edit_font_size" = "Mida del text";
+"edit_fill" = "Color d'emplenament";
+"edit_align" = "Alinear";
+"edit_align_left" = "Esquerra";
+"edit_align_center" = "Centre";
+"edit_align_right" = "Dreta";
+"edit_align_justify" = "Justificat";
 "edit_undo" = "Desfés";
 "edit_redo" = "Refés";
 

@@ -115,6 +115,12 @@
 "edit_text_color" = "Цвет текста";
 "edit_highlight" = "Выделение";
 "edit_font_size" = "Размер текста";
+"edit_fill" = "Цвет заливки";
+"edit_align" = "Выравнивание";
+"edit_align_left" = "По левому краю";
+"edit_align_center" = "По центру";
+"edit_align_right" = "По правому краю";
+"edit_align_justify" = "По ширине";
 "edit_undo" = "Отменить";
 "edit_redo" = "Повторить";
 

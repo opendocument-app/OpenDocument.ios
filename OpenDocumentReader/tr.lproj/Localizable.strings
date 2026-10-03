@@ -115,6 +115,12 @@
 "edit_text_color" = "Metin rengi";
 "edit_highlight" = "Vurgula";
 "edit_font_size" = "Metin boyutu";
+"edit_fill" = "Dolgu rengi";
+"edit_align" = "Hizala";
+"edit_align_left" = "Sola";
+"edit_align_center" = "Ortaya";
+"edit_align_right" = "Sağa";
+"edit_align_justify" = "İki yana";
 "edit_undo" = "Geri al";
 "edit_redo" = "Yinele";
 

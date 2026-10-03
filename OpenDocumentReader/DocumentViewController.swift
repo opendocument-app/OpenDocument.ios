@@ -126,10 +126,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     private var markColors: [EditToolBar.Tool: UIColor] = [:]
 
     /// The colour the highlight button turns on; the selection's own where it
-    /// has one.
+    /// has one. In a sheet the fill button takes its place, and this colour.
     private var highlightColor = UIColor(hex: EditToolBar.highlightColors[0].hex)
 
-    /// Whether the selection shows a highlight, as the page last said.
+    /// Whether the selection shows a highlight, or in a sheet a fill, as the
+    /// page last said.
     private var selectionHasHighlight = false
 
     /// Which menu the system colour picker was opened from.
@@ -694,65 +695,34 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     /// Hears from the page: the log, a refusal, the style under the caret.
+    /// odrcore's page calls the handler itself, see `CoreWrapper`.
     private func setUpPageMessages() {
-        let controller = webview.configuration.userContentController
-
-        controller.add(WeakScriptMessageHandler(self), name: Self.pageMessageName)
-        controller.addUserScript(
-            WKUserScript(source: Self.pageMessageBridge, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        webview.configuration.userContentController.add(
+            WeakScriptMessageHandler(self), name: CoreWrapper.pageMessageName)
     }
 
-    private static let pageMessageName = "odr"
-
-    /// Points the page's callbacks at this controller. It runs at document
-    /// end, after the page's own scripts.
-    private static let pageMessageBridge = """
-        (function () {
-            if (typeof odr !== 'object' || !window.webkit || !webkit.messageHandlers.odr) { return; }
-            var post = function (message) { webkit.messageHandlers.odr.postMessage(message); };
-            odr.onEditChange = function (e) {
-                post({ type: 'editChange', dirty: !!e.dirty, canUndo: !!e.canUndo, canRedo: !!e.canRedo });
-            };
-            odr.onEditRefused = function (e) {
-                post({ type: 'editRefused', reason: String(e.reason || ''), message: String(e.message || '') });
-            };
-            odr.onSelectionChange = function (style) {
-                post({ type: 'selection', style: style || {} });
-            };
-            odr.onCellsStale = function (detail) {
-                post({ type: 'cellsStale', count: detail && detail.cells ? detail.cells.length : 0 });
-            };
-            // asked of the page, since only a sheet carries that editor. The
-            // pointer is no use: a web view answers it as a mouse
-            if (odr.editing && odr.editing.setSheetOptions) {
-                odr.editing.setSheetOptions({ editOnClick: true });
-            }
-            if (!odr.annotation) { return; }
-            // an armed tool marks each selection as it is made: a tap elsewhere
-            // would lose it
-            odr.annotation.setOptions({ markOnSelection: true });
-            odr.onAnnotationChange = function (e) {
-                post({ type: 'marks', count: e && e.count ? e.count : 0 });
-            };
-        })();
-        """
-
+    /// Each message is one JSON `{type, detail}` string.
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let body = message.body as? [String: Any], let type = body["type"] as? String else { return }
+        guard let json = message.body as? String, let data = json.data(using: .utf8),
+            let envelope = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            let type = envelope["type"] as? String
+        else { return }
+
+        let detail = envelope["detail"] as? [String: Any] ?? [:]
 
         switch type {
         case "editChange":
-            hasUnsavedEdits = body["dirty"] as? Bool ?? false
-            undoButton.isEnabled = body["canUndo"] as? Bool ?? false
-            redoButton.isEnabled = body["canRedo"] as? Bool ?? false
+            hasUnsavedEdits = detail["dirty"] as? Bool ?? false
+            undoButton.isEnabled = detail["canUndo"] as? Bool ?? false
+            redoButton.isEnabled = detail["canRedo"] as? Bool ?? false
 
-        case "marks":
-            let count = body["count"] as? Int ?? 0
+        case "annotationChange":
+            let count = detail["count"] as? Int ?? 0
             hasUnsavedEdits = count > 0
             undoButton.isEnabled = count > 0
 
         case "cellsStale":
-            let count = body["count"] as? Int ?? 0
+            let count = (detail["cells"] as? [Any])?.count ?? 0
             if count > staleCells {
                 let message = String.localizedStringWithFormat(
                     NSLocalizedString("edit_cells_stale", comment: ""), count)
@@ -761,10 +731,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             staleCells = count
 
         case "editRefused":
-            editRefused(reason: body["reason"] as? String ?? "")
+            editRefused(reason: detail["reason"] as? String ?? "")
 
-        case "selection":
-            let style = body["style"] as? [String: Any] ?? [:]
+        case "selectionChange":
+            let style = detail
             editToolBar.setPressed(.bold, style["bold"] as? Bool ?? false)
             editToolBar.setPressed(.italic, style["italic"] as? Bool ?? false)
             editToolBar.setPressed(.underline, style["underline"] as? Bool ?? false)
@@ -774,15 +744,20 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             if let color = style["color"] as? String {
                 editToolBar.setColor(.textColor, UIColor(hex: color))
             }
-            let highlight = style["highlight"] as? String
-            selectionHasHighlight = highlight != nil
+            // a cell has a fill where text has a highlight, and a strip shows
+            // one of the two tools
+            let paint = style["highlight"] as? String ?? style["fill"] as? String
+            selectionHasHighlight = paint != nil
             editToolBar.setPressed(.highlight, selectionHasHighlight)
-            if let highlight {
-                highlightColor = UIColor(hex: highlight)
+            editToolBar.setPressed(.fill, selectionHasHighlight)
+            if let paint {
+                highlightColor = UIColor(hex: paint)
                 editToolBar.setColor(.highlight, highlightColor)
+                editToolBar.setColor(.fill, highlightColor)
             }
             editToolBar.setFontSize(
                 (style["size"] as? String).map { $0.hasSuffix("pt") ? String($0.dropLast(2)) : $0 })
+            editToolBar.setAlignment((style["align"] as? String).flatMap(EditToolBar.Alignment.init(rawValue:)))
 
         default:
             break
@@ -790,7 +765,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     /// Turns the mode on in the page already on screen and shows its tools. A
-    /// sheet or a plain text file takes no formatting, so it gets no strip.
+    /// plain text file takes no formatting, so it gets no strip.
     private func beginEditSession() {
         hasOfferedProForThisEdit = false
         hasUnsavedEdits = false
@@ -816,10 +791,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         webview.evaluateJavaScript("odr.editing.enable(); typeof odr.sheet === 'object'") { [weak self] isSheet, _ in
             guard let self, self.isEditingDocument else { return }
 
-            let formats = !isPlainText && isSheet as? Bool != true
-            self.editToolBar.layout = formats ? .text : nil
-            if formats {
+            if isPlainText {
+                self.editToolBar.layout = nil
+            } else {
+                self.editToolBar.layout = isSheet as? Bool == true ? .sheet : .text
                 self.editToolBar.setColor(.highlight, self.highlightColor)
+                self.editToolBar.setColor(.fill, self.highlightColor)
             }
             self.editSessionReady()
         }
@@ -858,16 +835,22 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         switch tool {
         case .bold, .italic, .underline, .strikethrough:
             run("odr.editing.toggle('\(tool.pageName ?? "")')")
-        case .highlight:
+        case .highlight, .fill:
             // off where the selection shows one, else on in the current colour
             run(
-                "odr.editing.format({ highlight: \(selectionHasHighlight ? "null" : "'\(highlightColor.hexString)'") })"
+                "odr.editing.format({ \(paintKey(of: tool)): \(selectionHasHighlight ? "null" : "'\(highlightColor.hexString)'") })"
             )
         case .markHighlight, .markUnderline, .markStrikeOut, .markSquiggly, .markDraw:
             pressMarker(tool, recolor: false)
         default:
             break
         }
+    }
+
+    /// The key `odr.editing.format` takes for the colour behind the text: a
+    /// cell has a fill, and text has a highlight.
+    private func paintKey(of tool: EditToolBar.Tool) -> String {
+        tool == .fill ? "fill" : "highlight"
     }
 
     private func markColor(of tool: EditToolBar.Tool) -> UIColor {
@@ -902,13 +885,15 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             run("odr.editing.format({ size: '\(size)pt' })")
         case (.textColor, .color(let hex)):
             run("odr.editing.format({ color: '\(hex ?? "")' })")
-        case (.highlight, .color(let hex)):
+        case (.align, .align(let alignment)):
+            run("odr.editing.format({ align: '\(alignment.rawValue)' })")
+        case (.highlight, .color(let hex)), (.fill, .color(let hex)):
             // a colour becomes the one the button turns on; none takes it off
             if let hex {
                 highlightColor = UIColor(hex: hex)
-                editToolBar.setColor(.highlight, highlightColor)
+                editToolBar.setColor(tool, highlightColor)
             }
-            run("odr.editing.format({ highlight: \(hex.map { "'\($0)'" } ?? "null") })")
+            run("odr.editing.format({ \(paintKey(of: tool)): \(hex.map { "'\($0)'" } ?? "null") })")
         case (.markHighlight, .color(let hex)), (.markUnderline, .color(let hex)),
             (.markStrikeOut, .color(let hex)), (.markSquiggly, .color(let hex)), (.markDraw, .color(let hex)):
             markColors[tool] = UIColor(hex: hex ?? tool.defaultColor ?? EditToolBar.markColors[0].hex)
@@ -921,7 +906,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             picker.delegate = self
             picker.supportsAlpha = false
             switch tool {
-            case .highlight: picker.selectedColor = highlightColor
+            case .highlight, .fill: picker.selectedColor = highlightColor
             case .textColor: picker.selectedColor = .label
             default: picker.selectedColor = markColor(of: tool)
             }

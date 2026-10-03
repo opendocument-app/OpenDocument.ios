@@ -115,6 +115,12 @@
 "edit_text_color" = "Barva besedila";
 "edit_highlight" = "Poudari";
 "edit_font_size" = "Velikost besedila";
+"edit_fill" = "Barva polnila";
+"edit_align" = "Poravnaj";
+"edit_align_left" = "Levo";
+"edit_align_center" = "Sredinsko";
+"edit_align_right" = "Desno";
+"edit_align_justify" = "Obojestransko";
 "edit_undo" = "Razveljavi";
 "edit_redo" = "Ponovi";
 

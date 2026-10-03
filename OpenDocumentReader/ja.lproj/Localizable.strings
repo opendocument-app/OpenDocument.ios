@@ -115,6 +115,12 @@
 "edit_text_color" = "文字の色";
 "edit_highlight" = "ハイライト";
 "edit_font_size" = "文字サイズ";
+"edit_fill" = "塗りつぶしの色";
+"edit_align" = "配置";
+"edit_align_left" = "左揃え";
+"edit_align_center" = "中央揃え";
+"edit_align_right" = "右揃え";
+"edit_align_justify" = "両端揃え";
 "edit_undo" = "元に戻す";
 "edit_redo" = "やり直す";
 

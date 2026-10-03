@@ -115,6 +115,12 @@
 "edit_text_color" = "文字颜色";
 "edit_highlight" = "高亮";
 "edit_font_size" = "文字大小";
+"edit_fill" = "填充颜色";
+"edit_align" = "对齐";
+"edit_align_left" = "左对齐";
+"edit_align_center" = "居中";
+"edit_align_right" = "右对齐";
+"edit_align_justify" = "两端对齐";
 "edit_undo" = "撤销";
 "edit_redo" = "重做";
 

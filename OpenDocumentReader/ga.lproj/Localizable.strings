@@ -115,6 +115,12 @@
 "edit_text_color" = "Dath an téacs";
 "edit_highlight" = "Aibhsigh";
 "edit_font_size" = "Méid an téacs";
+"edit_fill" = "Dath líonta";
+"edit_align" = "Ailínigh";
+"edit_align_left" = "Clé";
+"edit_align_center" = "Lár";
+"edit_align_right" = "Deas";
+"edit_align_justify" = "Comhfhadaigh";
 "edit_undo" = "Cealaigh";
 "edit_redo" = "Athdhéan";
 

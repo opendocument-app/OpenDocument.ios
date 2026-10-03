@@ -198,6 +198,8 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(controller.editToolBar.shows(.bold))
         XCTAssertTrue(controller.editToolBar.shows(.highlight))
         XCTAssertTrue(controller.editToolBar.shows(.fontSize))
+        XCTAssertTrue(controller.editToolBar.shows(.align))
+        XCTAssertFalse(controller.editToolBar.shows(.fill))
 
         controller.discardChanges()
         waitForPage(where: "document.querySelectorAll('x-s').length > 0")
@@ -205,20 +207,31 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertNil(controller.editToolBar.layout)
     }
 
-    /// The cells are the editor, so a spreadsheet gets no strip - only the bar.
-    func testASpreadsheetShowsNoToolStrip() throws {
-        documentURL = try copyFixture(ofType: "ods")
-        try present(documentURL)
-        openDocument(where: "document.querySelectorAll('td').length > 0")
+    /// A cell takes a style, so a spreadsheet gets the strip with a fill in
+    /// place of the highlight.
+    func testASpreadsheetShowsTheCellTools() throws {
+        try openSheetForEditing()
 
-        controller.toggleEdit(controller.editButton)
-        waitForTools()
-
-        XCTAssertNil(controller.editToolBar.layout)
-        XCTAssertTrue(controller.editToolBar.isHidden)
+        XCTAssertEqual(controller.editToolBar.layout, .sheet)
+        XCTAssertFalse(controller.editToolBar.isHidden)
+        XCTAssertTrue(controller.editToolBar.shows(.bold))
+        XCTAssertTrue(controller.editToolBar.shows(.fill))
+        XCTAssertTrue(controller.editToolBar.shows(.align))
+        XCTAssertFalse(controller.editToolBar.shows(.highlight))
         XCTAssertTrue(barContains(controller.undoButton))
         XCTAssertTrue(barContains(controller.redoButton))
         XCTAssertTrue(barContains(controller.saveButton))
+    }
+
+    /// The fill button paints the pinned cell, and the edit goes into the log.
+    func testTheFillButtonPaintsTheCell() throws {
+        try openSheetForEditing()
+
+        _ = evaluate("odr.sheet.pin({ column: 0, row: 0 })")
+        controller.editToolBar.onTap?(.fill)
+
+        waitForPage(where: "odr.sheet.cellAt(0, 0).style.backgroundColor !== ''")
+        waitUntil { self.controller.saveButton.isEnabled }
     }
 
     /// A style the caret sits in is shown pressed, the way the page reports it.
@@ -251,6 +264,36 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertEqual(controller.editToolBar.color(of: .textColor)?.hexString, "#e53935")
         XCTAssertEqual(controller.editToolBar.color(of: .highlight)?.hexString, "#c5e1a5")
         XCTAssertEqual(controller.editToolBar.fontSizeTitle, "12 pt")
+    }
+
+    /// The alignment tool shows the alignment the selection has.
+    func testTheSelectionAlignmentReachesTheTool() throws {
+        openDocument()
+
+        controller.toggleEdit(controller.editButton)
+        waitForEditablePage()
+        waitForTools()
+
+        _ = evaluate("odr.onSelectionChange({ align: 'center' })")
+        waitUntil { self.controller.editToolBar.alignment == .center }
+
+        _ = evaluate("odr.onSelectionChange({})")
+        waitUntil { self.controller.editToolBar.alignment == nil }
+    }
+
+    /// A pick from the alignment menu aligns the paragraph of the selection.
+    func testTheAlignmentToolAlignsTheParagraph() throws {
+        openDocument()
+
+        controller.toggleEdit(controller.editButton)
+        waitForEditablePage()
+        waitForTools()
+        selectTheFirstRun()
+
+        controller.editToolBar.onChoice?(.align, .align(.center))
+
+        waitForPage(where: "document.querySelector('x-s[data-odr-id]').closest('x-p').style.textAlign === 'center'")
+        waitUntil { self.controller.saveButton.isEnabled }
     }
 
     /// The highlight button turns a highlight on in its colour, and off again.
@@ -287,6 +330,13 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(tools.isDimmed(.bold))
         XCTAssertTrue(tools.isDimmed(.fontSize))
         XCTAssertFalse(tools.isDimmed(.highlight))
+        XCTAssertTrue(tools.isDimmed(.align))
+
+        tools.layout = .sheet
+
+        XCTAssertTrue(tools.isDimmed(.bold))
+        XCTAssertTrue(tools.isDimmed(.align))
+        XCTAssertFalse(tools.isDimmed(.fill))
 
         tools.layout = .pdf
 
@@ -309,12 +359,28 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertNotNil(tools.menu(of: .highlight))
         XCTAssertNotNil(tools.menu(of: .textColor))
         XCTAssertNotNil(tools.menu(of: .fontSize))
+        XCTAssertNotNil(tools.menu(of: .align))
+
+        tools.layout = .sheet
+
+        XCTAssertNotNil(tools.menu(of: .fill))
 
         tools.layout = .pdf
 
         for mark in EditToolBar.Layout.pdf.tools {
             XCTAssertNotNil(tools.menu(of: mark), "\(mark) carries a colour")
         }
+    }
+
+    /// A cell cannot be justified, so the sheet's menu leaves it out.
+    func testTheAlignmentMenuFollowsTheLayout() throws {
+        let tools = EditToolBar()
+
+        tools.layout = .text
+        XCTAssertEqual(tools.menu(of: .align)?.children.count, 4)
+
+        tools.layout = .sheet
+        XCTAssertEqual(tools.menu(of: .align)?.children.count, 3)
     }
 
     /// Pro dims nothing and wears no badge.
@@ -493,7 +559,16 @@ class EditWorkflowTests: XCTestCase {
         waitForPage(where: condition)
     }
 
-    /// Waits on the page's answer, not on the strip: a sheet has none.
+    private func openSheetForEditing() throws {
+        documentURL = try copyFixture(ofType: "ods")
+        try present(documentURL)
+        openDocument(where: "document.querySelectorAll('td').length > 0")
+
+        controller.toggleEdit(controller.editButton)
+        waitForTools()
+    }
+
+    /// Waits on the page's answer, not on the strip: a plain text file has none.
     private func waitForTools(file: StaticString = #filePath, line: UInt = #line) {
         waitUntil(file: file, line: line) { self.controller.isEditSessionReady }
     }

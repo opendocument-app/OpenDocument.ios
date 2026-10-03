@@ -115,6 +115,12 @@
 "edit_text_color" = "Barva textu";
 "edit_highlight" = "Zvýraznit";
 "edit_font_size" = "Velikost textu";
+"edit_fill" = "Barva výplně";
+"edit_align" = "Zarovnat";
+"edit_align_left" = "Vlevo";
+"edit_align_center" = "Na střed";
+"edit_align_right" = "Vpravo";
+"edit_align_justify" = "Do bloku";
 "edit_undo" = "Zpět";
 "edit_redo" = "Znovu";
 

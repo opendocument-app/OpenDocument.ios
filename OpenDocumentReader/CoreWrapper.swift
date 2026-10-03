@@ -105,6 +105,12 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
     /// Bounds the rows by the sheet's width: the wider, the fewer it keeps.
     private static let spreadsheetCellLimit: UInt64 = 500_000
 
+    /// The name the web view's message handler is added under.
+    @objc static let pageMessageName = "odr"
+
+    /// The function the page calls with each message, as a path from `window`.
+    private static let hostMessageHandler = "webkit.messageHandlers.\(pageMessageName).postMessage"
+
     @objc func translate(
         _ inputPath: String,
         into outputPath: String,
@@ -177,6 +183,15 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         config.spreadsheetLimit = Self.spreadsheetLimit
         config.spreadsheetCellLimit = Self.spreadsheetCellLimit
         config.spreadsheetLimitByContent = true
+        // the page sends every `odr.on*` callback here as one JSON string, so
+        // the app needs no script of its own in the page
+        config.hostMessageHandler = Self.hostMessageHandler
+        // a tap opens the cell editor: the page would ask the pointer, and a
+        // web view answers it as a mouse
+        config.sheetEditOnClick = true
+        // an armed marker marks each selection as it is made: a tap elsewhere
+        // would lose it
+        config.pdfAnnotationMarkOnSelection = true
 
         let documentType: DocumentType
         let openedDocument: OdrCoreObjC.Document?
