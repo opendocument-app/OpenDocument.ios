@@ -24,7 +24,7 @@ The lane does these steps:
 
 ## The set
 
-Six screens per device, in store order:
+Six screens per device, in store order. The edit is taken twice:
 
 | | |
 | --- | --- |
@@ -32,6 +32,7 @@ Six screens per device, in store order:
 | `02-text` | a text document |
 | `03-sheet` | a spreadsheet, with its sheet tabs |
 | `04-edit` | a document in edit mode, keyboard up |
+| `04-edit-lite` | the same, as Lite shows it: the Pro tools dimmed |
 | `05-pdf` | a PDF, with a search under way |
 | `06-office` | a Word file |
 
@@ -48,5 +49,10 @@ English pictures, because the app has no Hindi or Swedish UI.
 ## Both apps
 
 The set is taken once, with the `ODR Screenshots` scheme. That scheme builds
-the Pro target, which links no ad sdk, so no consent form can appear. Both
-listings get the same pictures.
+the Pro target, which links no ad sdk, so no consent form can appear.
+
+The two apps differ only in the edit. `-ODRScreenshot edit-lite` turns the Pro
+tools off in the Pro build, so Lite's edit is taken from the same build.
+`scripts/store_screenshots.py --stage DIR --app lite` puts that picture in
+place of `04-edit`, and each listing gets its own set. Both edits share the
+headline of `04-edit` in `fastlane/frames/frames.json`.
