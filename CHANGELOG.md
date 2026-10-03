@@ -13,6 +13,25 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
+## [Unreleased]
+
+### Added
+
+- Text and cells can be aligned left, centre or right, and text can be
+  justified.
+- Spreadsheet cells can be formatted: bold, italic, underline,
+  strikethrough, text colour, fill colour and text size.
+
+### Changed
+
+- The engine is odrcore 7.4.0, up from 7.3.2.
+- A document no longer loads images from the internet.
+
+### Fixed
+
+- Spaces and tabs in text and in cells stay as they were typed.
+- Spreadsheet cells show their colours, also in dark mode.
+
 ## [1.47]
 
 1.46 did not go out in the store either, so the store notes of 1.47 are the

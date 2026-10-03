@@ -115,6 +115,12 @@
 "edit_text_color" = "Tekstfarve";
 "edit_highlight" = "Fremhæv";
 "edit_font_size" = "Tekststørrelse";
+"edit_fill" = "Fyldfarve";
+"edit_align" = "Juster";
+"edit_align_left" = "Venstre";
+"edit_align_center" = "Centreret";
+"edit_align_right" = "Højre";
+"edit_align_justify" = "Lige margener";
 "edit_undo" = "Fortryd";
 "edit_redo" = "Gentag";
 

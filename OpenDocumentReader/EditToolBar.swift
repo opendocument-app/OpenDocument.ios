@@ -11,7 +11,7 @@ final class EditToolBar: UIView {
     /// One button of the strip.
     enum Tool: CaseIterable {
         case bold, italic, underline, strikethrough
-        case textColor, highlight, fontSize
+        case textColor, highlight, fill, fontSize, align
         case markHighlight, markUnderline, markStrikeOut, markSquiggly, markDraw
 
         var symbol: String {
@@ -22,7 +22,9 @@ final class EditToolBar: UIView {
             case .strikethrough: return "strikethrough"
             case .textColor: return "character"
             case .highlight, .markHighlight: return "highlighter"
+            case .fill: return "paintbrush"
             case .fontSize: return "textformat.size"
+            case .align: return Alignment.left.symbol
             case .markUnderline: return "underline"
             case .markStrikeOut: return "strikethrough"
             // not in the system set, so it is drawn - see ``squigglyImage``
@@ -44,7 +46,9 @@ final class EditToolBar: UIView {
             case .strikethrough: return NSLocalizedString("edit_strikethrough", comment: "")
             case .textColor: return NSLocalizedString("edit_text_color", comment: "")
             case .highlight: return NSLocalizedString("edit_highlight", comment: "")
+            case .fill: return NSLocalizedString("edit_fill", comment: "")
             case .fontSize: return NSLocalizedString("edit_font_size", comment: "")
+            case .align: return NSLocalizedString("edit_align", comment: "")
             case .markHighlight: return NSLocalizedString("mark_highlight", comment: "")
             case .markUnderline: return NSLocalizedString("mark_underline", comment: "")
             case .markStrikeOut: return NSLocalizedString("mark_strike_out", comment: "")
@@ -70,16 +74,22 @@ final class EditToolBar: UIView {
             }
         }
 
-        /// The one tool a locked strip still works, under both its names: the
-        /// formatting style, and the pdf's marking tool.
+        /// The one tool a locked strip still works, under its three names: the
+        /// formatting style, the fill of a cell, and the pdf's marking tool.
         var isFree: Bool {
-            self == .highlight || self == .markHighlight
+            self == .highlight || self == .fill || self == .markHighlight
         }
 
-        /// Whether a tap opens the tool's choices. Neither of these two has
-        /// any state to turn off.
+        /// Whether a tap opens the tool's choices. None of these has any state
+        /// to turn off.
         var opensOnTap: Bool {
-            self == .textColor || self == .fontSize
+            self == .textColor || self == .fontSize || self == .align
+        }
+
+        /// Whether the tool paints behind the text, and so offers to paint
+        /// nothing.
+        var offersNone: Bool {
+            self == .highlight || self == .fill
         }
 
         /// Whether a bar under the icon shows the colour the tool applies.
@@ -91,7 +101,7 @@ final class EditToolBar: UIView {
         var swatches: [Swatch] {
             switch self {
             case .textColor: return EditToolBar.textColors
-            case .highlight: return EditToolBar.highlightColors
+            case .highlight, .fill: return EditToolBar.highlightColors
             default: return EditToolBar.markColors
             }
         }
@@ -100,7 +110,7 @@ final class EditToolBar: UIView {
         var defaultColor: String? {
             switch self {
             case .textColor: return EditToolBar.textColors[0].hex
-            case .highlight: return EditToolBar.highlightColors[0].hex
+            case .highlight, .fill: return EditToolBar.highlightColors[0].hex
             case .markHighlight: return "#ffe633"
             case .markUnderline, .markStrikeOut, .markSquiggly: return "#e53935"
             case .markDraw: return "#1e88e5"
@@ -109,20 +119,52 @@ final class EditToolBar: UIView {
         }
     }
 
-    /// What the strip holds. A sheet or a plain text file takes no formatting,
-    /// so it gets no strip at all - ``layout`` is left nil.
+    /// What the strip holds. A plain text file takes no formatting, so it
+    /// gets no strip at all - ``layout`` is left nil.
     enum Layout {
         /// a text document or a presentation
         case text
+        /// a spreadsheet, whose cells take a style
+        case sheet
         /// a pdf, which takes marks
         case pdf
 
         var tools: [Tool] {
             switch self {
             case .text:
-                return [.bold, .italic, .underline, .strikethrough, .textColor, .highlight, .fontSize]
+                return [.bold, .italic, .underline, .strikethrough, .textColor, .highlight, .fontSize, .align]
+            case .sheet:
+                return [.bold, .italic, .underline, .strikethrough, .textColor, .fill, .fontSize, .align]
             case .pdf:
                 return [.markHighlight, .markUnderline, .markStrikeOut, .markSquiggly, .markDraw]
+            }
+        }
+
+        /// What the alignment tool offers: a cell cannot be justified.
+        var alignments: [Alignment] {
+            self == .sheet ? [.left, .center, .right] : Alignment.allCases
+        }
+    }
+
+    /// How the paragraphs or the cells sit, as the page names it.
+    enum Alignment: String, CaseIterable {
+        case left, center, right, justify
+
+        var symbol: String {
+            switch self {
+            case .left: return "text.alignleft"
+            case .center: return "text.aligncenter"
+            case .right: return "text.alignright"
+            case .justify: return "text.justify"
+            }
+        }
+
+        var label: String {
+            switch self {
+            case .left: return NSLocalizedString("edit_align_left", comment: "")
+            case .center: return NSLocalizedString("edit_align_center", comment: "")
+            case .right: return NSLocalizedString("edit_align_right", comment: "")
+            case .justify: return NSLocalizedString("edit_align_justify", comment: "")
             }
         }
     }
@@ -135,6 +177,7 @@ final class EditToolBar: UIView {
         case customColor
         /// in points
         case size(Int)
+        case align(Alignment)
     }
 
     /// A colour the menus offer.
@@ -214,6 +257,13 @@ final class EditToolBar: UIView {
     /// disagree.
     private var selectionSize: String?
 
+    /// The icon of the alignment tool, which shows the selection's alignment.
+    private var alignIcon: UIImageView?
+
+    /// The alignment of the selection, or nil where the paragraphs or the
+    /// cells disagree.
+    private var selectionAlignment: Alignment?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -286,6 +336,8 @@ final class EditToolBar: UIView {
         bars = [:]
         sizeCaption = nil
         selectionSize = nil
+        alignIcon = nil
+        selectionAlignment = nil
 
         guard let layout else {
             isHidden = true
@@ -384,6 +436,8 @@ final class EditToolBar: UIView {
             addBar(to: button, in: slot, for: tool)
         } else if tool == .fontSize {
             addCaption(to: button, in: slot)
+        } else if tool == .align {
+            alignIcon = icon
         }
 
         // a tool that only offers Pro is dimmed, so the free one is the one
@@ -440,7 +494,7 @@ final class EditToolBar: UIView {
             }
         }
 
-        if tool == .highlight {
+        if tool.offersNone {
             actions.append(
                 UIAccessibilityCustomAction(name: NSLocalizedString("color_none", comment: "")) { [weak self] _ in
                     self?.onChoice?(tool, .color(nil))
@@ -500,11 +554,26 @@ final class EditToolBar: UIView {
     }
 
     private func makeMenu(for tool: Tool) -> UIMenu {
-        guard tool != .fontSize else {
-            return sizeMenu()
+        switch tool {
+        case .fontSize: return sizeMenu()
+        case .align: return alignMenu()
+        default: return colorMenu(for: tool, swatches: tool.swatches, offersNone: tool.offersNone)
         }
+    }
 
-        return colorMenu(for: tool, swatches: tool.swatches, offersNone: tool == .highlight)
+    /// The alignments the layout takes, with the one the selection has marked.
+    private func alignMenu() -> UIMenu {
+        UIMenu(
+            title: Tool.align.label,
+            children: (layout?.alignments ?? []).map { alignment in
+                let action = UIAction(title: alignment.label, image: UIImage(systemName: alignment.symbol)) {
+                    [weak self] _ in
+                    self?.onChoice?(.align, .align(alignment))
+                }
+                action.state = alignment == selectionAlignment ? .on : .off
+
+                return action
+            })
     }
 
     /// The fourteen sizes, with the one the text is in marked.
@@ -622,6 +691,24 @@ final class EditToolBar: UIView {
         if let button = buttons[.fontSize], !isPro(.fontSize) {
             button.menu = sizeMenu()
         }
+    }
+
+    /// Shows the selection's alignment on the tool, or the left one where the
+    /// paragraphs or the cells disagree.
+    func setAlignment(_ alignment: Alignment?) {
+        selectionAlignment = alignment
+
+        alignIcon?.image = UIImage(systemName: (alignment ?? .left).symbol)
+
+        // the mark moves with the selection, and a menu is built once
+        if let button = buttons[.align], !isPro(.align) {
+            button.menu = alignMenu()
+        }
+    }
+
+    /// For the tests: the alignment the tool shows as the selection's.
+    var alignment: Alignment? {
+        selectionAlignment
     }
 
     /// For the tests: the colour the bar under `tool` shows.

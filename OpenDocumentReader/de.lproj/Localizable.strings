@@ -115,6 +115,12 @@
 "edit_text_color" = "Textfarbe";
 "edit_highlight" = "Hervorheben";
 "edit_font_size" = "Textgröße";
+"edit_fill" = "Füllfarbe";
+"edit_align" = "Ausrichten";
+"edit_align_left" = "Links";
+"edit_align_center" = "Zentriert";
+"edit_align_right" = "Rechts";
+"edit_align_justify" = "Blocksatz";
 "edit_undo" = "Rückgängig";
 "edit_redo" = "Wiederholen";
 
