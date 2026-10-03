@@ -1,1 +1,1 @@
-Neue Absätze, Textformatierung und weitere Markierungen in PDFs gibt es mit OpenDocument Reader Pro.
+Neue Absätze, Text- und Zellformatierung und weitere Markierungen in PDFs gibt es mit OpenDocument Reader Pro.

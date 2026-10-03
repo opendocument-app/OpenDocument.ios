@@ -1,0 +1,4 @@
+- Färglägg cellerna i ett kalkylblad
+- Mellanslag och tabbar behålls exakt som du skrev dem
+- Färgerna i kalkylblad visas rätt, även i mörkt läge
+- För att skydda din integritet hämtar dokument inte längre bilder från internet

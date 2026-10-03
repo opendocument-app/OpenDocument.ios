@@ -1,1 +1,1 @@
-Yeni paragraflar, metin biçimlendirme ve PDF'leri işaretlemenin diğer yolları OpenDocument Reader Pro ile gelir.
+Yeni paragraflar, metin ve hücre biçimlendirme ve PDF'leri işaretlemenin diğer yolları OpenDocument Reader Pro ile gelir.

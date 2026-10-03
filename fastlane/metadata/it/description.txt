@@ -7,7 +7,7 @@ I file ODF (ODT, ODS e molti altri) creati con Libre Office o OpenOffice puoi ap
 IL LETTORE DI DOCUMENTI TUTTO IN UNO
 
 *apri senza complicazioni i file ODF: ODT (Writer), ODS (Calc), ODP e ODG
-*correggi errori, modifica celle dei fogli di calcolo ed evidenzia testo in documenti e PDF
+*correggi errori, modifica e colora celle dei fogli di calcolo, ed evidenzia testo in documenti e PDF
 *apri in tutta sicurezza i documenti protetti da password
 *cerca parole chiave nei tuoi ODT (Writer), ODS (Calc) o ODG ed evidenziale
 *stampa i documenti se il dispositivo è collegato a una stampante

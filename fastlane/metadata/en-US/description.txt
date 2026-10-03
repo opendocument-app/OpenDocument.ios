@@ -7,7 +7,7 @@ You can open files from ODF (ODT, ODS & many more) that you have created with Li
 THE ALL IN ONE DOCUMENT READER
 
 *open files with ODF: ODT (writer), ODS (calc), ODP and ODG without a hassle
-*fix typos, edit spreadsheet cells and highlight text in documents and PDFs
+*fix typos, edit and colour spreadsheet cells, and highlight text in documents and PDFs
 *securely open password-protected documents
 *search for keywords in your ODT (writer), ODS (calc) or ODG and highlight them
 *print documents if your device is connected to a printer

@@ -7,7 +7,7 @@ Vos fichiers ODF (ODT, ODS et bien d'autres) créés avec Libre Office ou OpenOf
 LA VISIONNEUSE DE DOCUMENTS TOUT-EN-UN
 
 *ouvrez sans effort les fichiers ODF : ODT (writer), ODS (calc), ODP et ODG
-*corrigez des fautes, modifiez des cellules de tableur et surlignez du texte dans les documents et les PDF
+*corrigez des fautes, modifiez et colorez des cellules de tableur, et surlignez du texte dans les documents et les PDF
 *ouvrez en toute sécurité les documents protégés par mot de passe
 *recherchez des mots-clés dans vos ODT (writer), ODS (calc) ou ODG et mettez-les en évidence
 *imprimez vos documents si votre appareil est connecté à une imprimante

@@ -1,0 +1,4 @@
+- Colora le celle di un foglio di calcolo
+- Spazi e tabulazioni restano esattamente come li hai digitati
+- I colori dei fogli di calcolo si vedono correttamente, anche in modalità scura
+- Per la tua privacy, i documenti non caricano più immagini da internet

@@ -7,7 +7,7 @@ Dateien im ODF-Format (ODT, ODS und viele mehr), die Sie mit Libre Office oder O
 DOKUMENTENBETRACHTER – ALLES IN EINER APP
 
 *ODF-Dateien ohne Umwege öffnen: ODT (Writer), ODS (Calc), ODP und ODG
-*Tippfehler beheben, Tabellenzellen bearbeiten und Text in Dokumenten und PDFs markieren
+*Tippfehler beheben, Tabellenzellen bearbeiten und einfärben und Text in Dokumenten und PDFs markieren
 *passwortgeschützte Dokumente sicher öffnen
 *in ODT (Writer), ODS (Calc) oder ODG nach Stichwörtern suchen und sie hervorheben
 *Dokumente drucken, wenn Ihr Gerät mit einem Drucker verbunden ist

@@ -1,0 +1,4 @@
+- Elektronik tablo hücrelerini renklendirin
+- Boşluklar ve sekmeler tam yazdığınız gibi kalıyor
+- Elektronik tablo renkleri koyu modda da doğru görünüyor
+- Gizliliğinizi korumak için belgeler artık internetten resim yüklemiyor

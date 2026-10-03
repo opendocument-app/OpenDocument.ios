@@ -1,0 +1,4 @@
+- Koloruj komórki arkuszy
+- Spacje i tabulatory zostają dokładnie tak, jak je wpisano
+- Kolory w arkuszach wyświetlają się poprawnie, także w trybie ciemnym
+- Aby chronić Twoją prywatność, dokument nie pobiera już obrazów z internetu
