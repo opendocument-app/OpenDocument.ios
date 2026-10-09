@@ -74,7 +74,7 @@ Security blocks plain HTTP.
 - The pencil calls `odr.editing.enable()`. The page stays in place. The same
   pencil marks up a PDF.
 - The bar holds undo, redo and save. The strip (`EditToolBar`) holds the text
-  formatting. A sheet or a plain text file shows no strip.
+  and cell formatting. Plain text files show no formatting strip.
 - A tap uses a tool. A long press opens its colours. Do not add chevrons.
 - Redo is hidden over a PDF. The magnifier is hidden during an edit.
 - A PDF tool is armed by the page (`odr.annotation.press`), and the app never

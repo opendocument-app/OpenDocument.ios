@@ -1,10 +1,7 @@
 import Foundation
 import os
 
-/// Crash reporting used to go to Crashlytics. OpenDocument.droid dropped its
-/// Firebase dependency, so this mirrors the shell its `nonfree` package keeps:
-/// errors are logged locally instead of being uploaded, so nothing switches it
-/// off.
+/// Logs errors locally without uploading them.
 final class CrashManager {
     static let shared = CrashManager()
 

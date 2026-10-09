@@ -1,10 +1,4 @@
-//
-//  StoreReviewHelper.swift
-//  Template1
-//
-//  Created by Apple on 14/11/17.
 //  Copyright © 2017 Mobiotics. All rights reserved.
-//
 import Foundation
 import StoreKit
 

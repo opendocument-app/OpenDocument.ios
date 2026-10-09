@@ -3,9 +3,6 @@ import XCTest
 
 @testable import OpenDocumentReader
 
-/// The whole round trip, driven through the real view controller rather than
-/// through ``CoreWrapper`` alone: the bar is half of what makes editing work,
-/// and it is the half that broke.
 class EditWorkflowTests: XCTestCase {
     private var documentURL: URL!
     private var window: UIWindow!
@@ -210,9 +207,6 @@ class EditWorkflowTests: XCTestCase {
 
     // MARK: - the page
 
-    /// The one thing edit mode is for. odrcore makes the flow `contenteditable`,
-    /// but a tap has to reach a run for the caret to be set and the keyboard to
-    /// unfold.
     func testTappingTheTextReachesTheEditableRun() throws {
         openDocument()
 
@@ -668,9 +662,6 @@ class EditWorkflowTests: XCTestCase {
         waitForPage(where: "document.querySelectorAll('[contenteditable]').length > 0")
     }
 
-    /// The controller is its own navigation delegate — taking that away is what
-    /// tells the tool bar what the page can do — so the test waits on the page
-    /// itself rather than on `didFinish`.
     private func waitForPage(
         where condition: String, file: StaticString = #filePath, line: UInt = #line
     ) {

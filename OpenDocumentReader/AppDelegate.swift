@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  OpenDocument Reader
-//
-//  Created by Thomas Taschauer on 06.02.19.
 //  Copyright © 2019 Thomas Taschauer. All rights reserved.
-//
 
 import UIKit
 

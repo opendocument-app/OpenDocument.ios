@@ -31,12 +31,7 @@ private final class PageServer {
 
     var port: UInt32 { lock.withLock { handle?.port ?? 0 } }
 
-    /// Connects `service` and returns the base URL its views are served under.
-    /// Nil if the socket could not be opened.
-    ///
-    /// A fresh prefix every time, because the web view caches by URL:
-    /// re-translating after a password or an edit has to end up at an address it
-    /// has not seen.
+    /// Serve the translation under a fresh URL to bypass WebKit caches; nil on failure.
     func connect(_ service: HtmlService) -> URL? {
         lock.lock()
         defer { lock.unlock() }
@@ -65,9 +60,7 @@ private final class PageServer {
 /// slide of a presentation, every page of a PDF, the entire text document.
 private func isCombinedView(_ view: HtmlView) -> Bool { view.name == "document" }
 
-/// The views to show as pages, the same way OpenDocument.droid picks them: a tab
-/// per sheet for spreadsheets, and for everything else the combined view alone,
-/// which already holds every slide or page.
+/// Use one tab per spreadsheet sheet; prefer the combined view for other documents.
 private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [HtmlView] {
     let isSpreadsheet = documentType == .spreadsheet
     let hasCombinedView = views.contains(where: isCombinedView)
@@ -152,9 +145,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             throw coreWrapperError(.unsupportedFileType, "odrcore does not render this file type")
         }
 
-        // the same answers OpenDocument.droid gives odrcore, so a document is
-        // the same document on both — the viewport meta each page carries is
-        // decided from these
+        // Keep rendering settings consistent with OpenDocument.droid.
         let config = HtmlConfig()
         config.editable = editable
         // how far an edit may reach: inside one paragraph, or across the
@@ -163,13 +154,9 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         // resource paths are resolved relative to an output directory, and in
         // server mode there is none — odrcore rejects the combination
         config.relativeResourcePaths = false
-        // the side margins of a printed page, which is what it was written to
-        // look like, and what makes odrcore call a text document paged: its
-        // pages are then fitted to the screen rather than shown at full size
+        // Keep page margins and enable paged layout.
         config.textDocumentMargin = true
-        // the reader's own appearance: odrcore writes a dark sheet behind a
-        // `prefers-color-scheme: dark`, which the web view answers from the
-        // system setting. A pdf has no dark view and stays light.
+        // Follow system appearance; PDFs remain light.
         config.colorScheme = .system
         // served with the pages rather than inlined as base64
         config.embedImages = false

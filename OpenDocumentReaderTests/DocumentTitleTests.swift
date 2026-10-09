@@ -58,9 +58,6 @@ class DocumentTitleTests: XCTestCase {
         controller.view.layoutIfNeeded()
     }
 
-    /// Where a button is drawn, read through a private key: the bar has no
-    /// public way to say. The iOS 26 bar does not draw a button put back into it
-    /// while the window is a test's, so there the test cannot look.
     private func frame(of item: UIBarButtonItem) throws -> CGRect {
         guard let view = item.value(forKey: "view") as? UIView, view.window != nil, view.bounds.width > 0 else {
             throw XCTSkip("the bar did not draw this button")

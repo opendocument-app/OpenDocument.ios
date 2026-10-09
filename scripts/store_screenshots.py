@@ -1,20 +1,6 @@
 #!/usr/bin/env python3
-#
-# The App Store screenshots: which ones there are, and the deliver tree built
-# out of what a capture run wrote.
-#
-# Unlike the store copy, these are not committed. A picture of the app is only
-# worth as much as the app it was taken from, so they are taken during the
-# release run, from the build going out, and handed to deliver from there.
-# `fastlane ios screenshots` takes them; this says what a full set is.
-#
-#   scripts/store_screenshots.py --languages          what to capture
-#   scripts/store_screenshots.py                      check what was captured
-#   scripts/store_screenshots.py --stage DIR --app A  check it and stage A's set
-#
-# The store has eleven locales and the app is translated into nine of them.
-# The other two get the English pictures, which is what their storefront would
-# show anyway: the app has no UI in Hindi or Swedish either.
+# Validate screenshot locales, screens and sizes; optionally stage them for deliver.
+# Usage: scripts/store_screenshots.py [--languages] [--screenshots DIR] [--stage DIR --app APP]
 
 import argparse
 import os
@@ -26,10 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SCREENSHOTS = ROOT / "fastlane" / "screenshots"
 
-# Store locale -> the language the app is in when it is photographed for it.
-# `None` means the app has none, so that locale reads the English pictures.
-# The keys are the locales `fastlane/metadata` has; the values are what iOS
-# resolves the locale to, which is why de-DE is one folder and pt-BR is another.
+# Map store locales to app languages; None uses English screenshots.
 LOCALES = {
     "de-DE": "de",
     "en-US": "en",
@@ -57,22 +40,17 @@ SCREENS = (
     "06-office",
 )
 
-# What Lite shows in place of a screen of Pro's. The edit is the one screen
-# where the two apps differ: Lite dims the Pro tools behind a badge.
+# The Lite screen that replaces a Pro screen: Lite dims the Pro edit tools.
 LITE = {
     "04-edit": "04-edit-lite",
 }
 
 APPS = ("pro", "lite")
 
-# Every picture a run takes, longest name first, so a name that ends another
-# one is never matched in its place.
+# Longest name first, so a name that ends another one never matches in its place.
 CAPTURED = tuple(sorted(SCREENS + tuple(LITE.values()), key=len, reverse=True))
 
-# What App Store Connect accepts, upright, in pixels. An app that runs on both
-# has to hand in both, and the store fits every smaller iPhone and iPad from
-# these two. More than one size per device because which simulator a runner has
-# depends on the Xcode it is running.
+# Accepted portrait screenshot sizes, grouped by device.
 SIZES = {
     "iphone": {
         (1320, 2868),  # 6.9", iPhone 16 Pro Max and later
@@ -118,13 +96,7 @@ def device(width, height):
 
 
 def collect(directory):
-    """What one capture run wrote. Returns (files by locale and device, problems).
-
-    snapshot names its output `<simulator>-<screen>.png`, one folder per
-    language, so the simulator's name is read off the front and the size decides
-    which device it counts as - the name of a simulator changes with Xcode, the
-    number of pixels it has does not.
-    """
+    """Collect screenshots by locale and device, returning files and validation errors."""
     directory = Path(directory)
     found = {}
     problems = []
@@ -150,11 +122,7 @@ def collect(directory):
 
             kind = device(width, height)
             if kind is None:
-                # Not ours to upload, and not a reason to stop: asked for one
-                # simulator, snapshot photographs every one whose name starts
-                # the same way, so a runner that has an iPhone 16 Pro as well as
-                # the Pro Max hands back a third set nobody asked for. What has
-                # to be there is still checked below, per device.
+                # Ignore extra simulator sizes; required devices are checked below.
                 continue
 
             pictures.setdefault(kind, {})[screen] = path
@@ -170,13 +138,9 @@ def collect(directory):
 
 
 def stage(found, directory, app):
-    """Write the screenshot tree deliver uploads for `app`.
+    """Stage screenshots of `app` for deliver, copying English images for fallback locales.
 
-    A folder per store locale, the borrowed ones copied from the English rather
-    than left out: what deliver does not upload for a locale, App Store Connect
-    keeps - which would be whatever was there before this release. Lite's
-    pictures go under the name of the screen they replace, so they keep its
-    place in the store.
+    Lite images take the name of the Pro screen they replace, so they keep its store position.
     """
     directory = Path(directory)
 

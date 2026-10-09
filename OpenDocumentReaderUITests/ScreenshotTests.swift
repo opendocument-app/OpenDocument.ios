@@ -1,16 +1,7 @@
 import XCTest
 
-/// The pictures the App Store shows.
-///
-/// One launch per screen, each with `-ODRScreenshot <screen>`, which is the
-/// app's own back door: it puts itself on that screen and stays there. Nothing
-/// here taps anything, because everything there is to tap on the way - the
-/// document browser - is Apple's UI in eleven languages.
-///
-/// `fastlane snapshot` runs this once per language per device and collects what
-/// it writes. `scripts/store-screenshots.py` then checks the set and stages it
-/// for the release; the names below are the names it expects, and their order is
-/// the order the store shows them in.
+/// Capture each store screen in a separate launch with -ODRScreenshot <screen>.
+/// Fastlane repeats the test for each device and locale.
 final class ScreenshotTests: XCTestCase {
 
     /// Each picture's name, and the screen it is of. The number is the place
@@ -45,10 +36,7 @@ final class ScreenshotTests: XCTestCase {
         // the language and the region this run is for, once
         Snapshots.prepare(app)
 
-        // The keyboard offers to teach swipe typing the first time it comes up
-        // on a fresh simulator, over the keyboard the edit screenshot is of.
-        // Told here that it has already been shown, so nothing has to be tapped
-        // away in a language this test cannot read.
+        // Suppress the first-run swipe keyboard tutorial.
         app.launchArguments += ["-DidShowContinuousPathIntroduction", "1"]
 
         let arguments = app.launchArguments
@@ -78,11 +66,7 @@ final class ScreenshotTests: XCTestCase {
         }
     }
 
-    /// Waits for the browser to have listed the documents.
-    ///
-    /// Recents is filled by the system a few at a time and the app cannot say
-    /// when it is done, so this waits for the count to stop growing. The first
-    /// cell is not the end of it.
+    /// Wait until the Recents file count stabilizes.
     @MainActor
     private func waitForTheFolderToFill(in app: XCUIApplication) {
         let cells = app.collectionViews.cells
@@ -106,15 +90,7 @@ final class ScreenshotTests: XCTestCase {
         }
     }
 
-    /// Taps into the text of the document being edited.
-    ///
-    /// A real tap, not a focus call from the app: WebKit only raises the
-    /// keyboard for a gesture it saw, so an edit staged entirely in code sets a
-    /// caret and nothing else.
-    ///
-    /// Where the text is depends on the page, and a tap into its margin reaches
-    /// nothing, so this works down the page until the keyboard answers rather
-    /// than betting the run on one offset.
+    /// Tap document text to raise the keyboard; WebKit requires a user gesture.
     @MainActor
     private func raiseTheKeyboard(in app: XCUIApplication) {
         let page = app.webViews.firstMatch
@@ -135,16 +111,12 @@ final class ScreenshotTests: XCTestCase {
         XCTFail("no tap down the page set a caret, so the keyboard never came up")
     }
 
-    /// Belt and braces for the swipe typing panel, in case the launch argument
-    /// stops being honoured. Only reaches an English keyboard, which is why it
-    /// is the second line of defence and not the first.
+    /// Dismiss the English keyboard tutorial if the launch flag did not suppress it.
     @MainActor
     private func dismissTheKeyboardTutorial(in app: XCUIApplication) {
         let continueButton = app.buttons["Continue"]
 
-        // Short, because this waits its whole timeout on every run that does not
-        // need it - which is all of them while the launch argument holds. The
-        // panel comes up with the keyboard, and the keyboard is already up here.
+        // Keep this fallback wait short on runs without a tutorial.
         if continueButton.waitForExistence(timeout: 0.5) {
             continueButton.tap()
         }

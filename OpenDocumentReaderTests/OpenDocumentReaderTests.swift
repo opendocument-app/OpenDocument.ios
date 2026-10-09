@@ -1,10 +1,4 @@
-//
-//  OpenDocumentReaderTests.swift
-//  OpenDocumentReaderTests
-//
-//  Created by Thomas Taschauer on 08.11.20.
 //  Copyright © 2020 Thomas Taschauer. All rights reserved.
-//
 
 import WebKit
 import XCTest
@@ -227,9 +221,6 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertTrue(html.contains("(prefers-color-scheme: dark)"), html)
     }
 
-    /// The page measures the view and fits itself to it. A web view does not fit
-    /// a page to the screen the way a browser does, and the app used to carry a
-    /// script of its own for this.
     func testAPageFitsItselfToTheView() throws {
         let wrapper = CoreWrapper()
 
@@ -257,9 +248,6 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertNotEqual(before, wrapper.pageURLs)
     }
 
-    /// A missing `NSAllowsLocalNetworking` shows up here and nowhere else: App
-    /// Transport Security applies to the web view, not to the `URLSession`
-    /// above.
     func testTheWebViewLoadsAServedPage() throws {
         let wrapper = CoreWrapper()
 

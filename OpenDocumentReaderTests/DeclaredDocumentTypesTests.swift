@@ -4,9 +4,6 @@ import XCTest
 
 @testable import OpenDocumentReader
 
-/// What the app offers itself for, held against odrcore's format table the way
-/// OpenDocument.droid holds its manifest against the same table. The plist
-/// cannot read the table, so this is what keeps the two from drifting.
 class DeclaredDocumentTypesTests: XCTestCase {
 
     /// Every `LSItemContentTypes` entry of the built app, not of a copy kept
@@ -18,10 +15,6 @@ class DeclaredDocumentTypesTests: XCTestCase {
         return entries.flatMap { $0["LSItemContentTypes"] as? [String] ?? [] }.compactMap { UTType($0) }
     }()
 
-    /// What the app offers itself for: odrcore's document formats, plus the two
-    /// non-document ones worth opening a viewer for. Narrower than everything
-    /// odrcore translates - it does images, media, fonts and archives too, and
-    /// the app does not want to be the handler for an mp3.
     private var offeredFileTypes: [FileType] {
         Odr.allFileTypes.compactMap { FileType(rawValue: $0.intValue) }
             .filter { type in
@@ -48,9 +41,6 @@ class DeclaredDocumentTypesTests: XCTestCase {
         }
     }
 
-    /// A dynamic type is what iOS invents for an extension it does not know. It
-    /// conforms to `public.data` and nothing else, so a file carrying one is
-    /// greyed out in the browser however broad the claims are.
     func testNoOfferedFormatResolvesToADynamicType() {
         for type in offeredFileTypes {
             for fileExtension in Odr.extensions(fileType: type) {

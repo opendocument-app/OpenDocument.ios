@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Builds the minimal ODF packages the page selection tests translate.
-
-A few hundred bytes each, rather than the megabytes of third party material our
-sample documents are, because all a test asks of them is how many pages a two
-sheet spreadsheet turns into. Rerun when a fixture needs another sheet or slide:
-
-    python3 scripts/make-test-fixtures.py
-"""
+"""Generate minimal ODF, PDF and archive test fixtures. Requires qpdf for encrypted PDFs."""
 
 import shutil
 import subprocess
@@ -88,11 +81,7 @@ def presentation(slides: list[str]) -> str:
 
 
 def pdf(pages: list[str]) -> bytes:
-    """A page per string, each showing it in Helvetica.
-
-    Assembled by hand rather than with a library, because the trailer carries the
-    byte offset of every object and nothing else about the file is hard.
-    """
+    """Build a PDF with one Helvetica text line per page."""
     font = 3
     # 1 catalog, 2 pages, 3 font, then a page and its content stream each
     page_numbers = [4 + 2 * index for index in range(len(pages))]
@@ -133,11 +122,7 @@ def pdf(pages: list[str]) -> bytes:
 
 
 def encrypt_pdf(source: Path, target: Path) -> None:
-    """AES-256, the standard security handler odrcore reads as `V 5`, `R 6`.
-
-    Through qpdf rather than by hand: AES is not in the standard library, and
-    R6 derives its key with it. Needs `brew install qpdf` to rerun.
-    """
+    """Encrypt the fixture with qpdf using AES-256 (V 5, R 6)."""
     if shutil.which("qpdf") is None:
         raise SystemExit("qpdf not found; it writes the encrypted pdf fixture")
 

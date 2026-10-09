@@ -29,11 +29,11 @@ Six screens per device, in store order. The edit is taken twice:
 | | |
 | --- | --- |
 | `01-browser` | the document browser, with one file of each format |
-| `02-text` | a text document |
+| `02-text` | a text document with search results |
 | `03-sheet` | a spreadsheet, with its sheet tabs |
 | `04-edit` | a document in edit mode, keyboard up |
 | `04-edit-lite` | the same, as Lite shows it: the Pro tools dimmed |
-| `05-pdf` | a PDF, with a search under way |
+| `05-pdf` | a PDF |
 | `06-office` | a Word file |
 
 Two devices: a 6.9" iPhone and a 13" iPad. `Fastfile` lists the simulator
@@ -42,7 +42,7 @@ pixel sizes the store accepts.
 
 ## Locales
 
-The store has eleven locales and the app has nine. `hi` and `sv` get the
+Nine of the eleven store locales have app translations. `hi` and `sv` get the
 English pictures, because the app has no Hindi or Swedish UI.
 `scripts/store_screenshots.py --languages` prints the locales to capture.
 

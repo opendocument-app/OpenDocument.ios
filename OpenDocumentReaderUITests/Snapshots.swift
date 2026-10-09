@@ -1,26 +1,8 @@
 import Foundation
 import XCTest
 
-/// The hand-off to `fastlane snapshot`, which is a directory and a file name.
-///
-/// Nothing is passed in process. `capture_ios_screenshots` writes what the run
-/// is for into a cache directory on the host, launches this bundle once per
-/// language, and afterwards collects whatever PNGs it finds there. That is the
-/// whole protocol: two files read, one directory written.
-///
-/// fastlane ships a `SnapshotHelper.swift` to do this, and it used to sit here
-/// verbatim - three hundred lines carrying macOS, tvOS and watchOS branches, a
-/// landscape correction, and a wait on the network activity indicator that iOS
-/// has not drawn since 13. None of it applied to this app, and none of it could
-/// be read or formatted like the rest of these sources, because a copied file
-/// has to stay byte for byte theirs to be replaceable. This is the part we use,
-/// written as ours.
-///
-/// One thing theirs does that this does not: it passes on the `launch_arguments`
-/// from the lane, through a third file. The lane sets none, and the app takes
-/// the only argument it cares about from ``ScreenshotTests`` directly.
-///
-/// https://docs.fastlane.tools/actions/snapshot/
+/// Read fastlane language and locale files and write simulator screenshots.
+/// Launch arguments are set by ScreenshotTests. See https://docs.fastlane.tools/actions/snapshot/.
 enum Snapshots {
 
     /// Where fastlane leaves what it wants, and looks for what it gets back.
@@ -37,11 +19,7 @@ enum Snapshots {
         handOff?.appendingPathComponent("screenshots", isDirectory: true)
     }
 
-    /// Puts the language and region this run is for on the app's arguments.
-    ///
-    /// One launch of this bundle is one language. The app cannot work out which
-    /// on its own - the simulator is the same one every time - so fastlane names
-    /// it in a file and it is handed over here.
+    /// Pass fastlane language and locale settings to the app.
     @MainActor
     static func prepare(_ app: XCUIApplication) {
         guard let handOff else {
@@ -55,9 +33,7 @@ enum Snapshots {
             app.launchArguments += ["-AppleLanguages", "(\(language))"]
         }
 
-        // The region decides how a date and a number are written, which is half
-        // of what a spreadsheet screenshot shows. It follows the language when
-        // the lane does not name one of its own.
+        // Use the language as the locale fallback for dates and numbers.
         let region =
             read(handOff.appendingPathComponent("locale.txt"))
             ?? language.map { Locale(identifier: $0).identifier }
@@ -66,10 +42,7 @@ enum Snapshots {
         }
     }
 
-    /// Writes the screen under the name the release expects to find.
-    ///
-    /// `scripts/store-screenshots.py` reads these back by name, so the shape of
-    /// it - the device, then the screen - is a promise to that script.
+    /// Write <device>-<screen>.png for scripts/store_screenshots.py.
     @MainActor
     static func take(_ name: String) {
         guard let pictures,

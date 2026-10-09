@@ -6,24 +6,8 @@ require "tmpdir"
 # deliver, whose upload_to_app_store this ends in
 require "deliver"
 
-# deliver sends every picture, then reads the set back from App Store Connect
-# and sends again whatever it cannot find. The store lists a picture some
-# seconds after it takes it, so what deliver cannot find is only the locales it
-# sent last - sv and tr, at the end of the alphabet. The second copy joins the
-# first, fills the locale to the ten the store allows, and the pictures that no
-# longer fit are then dropped with a line nobody reads. The lane still ends
-# "Successfully uploaded all screenshots".
-#
-# Not one upload has failed here; only the reading back has. So wait and read
-# again, and if a picture really is missing, stop and say so - never send a
-# second copy.
-#
-# class_eval on the class rather than `module Deliver ... end`: fastlane evals
-# this file against a binding scoped to Fastlane::FastFile, so reopening it by
-# name defines Fastlane::FastFile::Deliver and leaves the real deliver running.
-# Reading a constant still finds the real one, so nothing says a word - which
-# is how the first go at this shipped, patched nothing, and doubled 1.41's
-# screenshots a third time.
+# Wait for App Store Connect to list uploaded screenshots without resending them.
+# Patch via class_eval because Fastlane evaluates this file in its own namespace.
 LOOKS = 7
 LOOK_AGAIN_AFTER = 30
 WAITS_AT_MOST = (LOOKS - 1) * LOOK_AGAIN_AFTER
@@ -67,17 +51,13 @@ end
 
 default_platform(:ios)
 
-# name also picks the app's half of the listing: fastlane/metadata is what both
-# say, and fastlane/metadata-pro and -lite are where they differ. An app's name
-# has to be unique in the store, so that much always differs.
+# The app name selects its metadata override directory.
 APPS = {
   pro: { name: "pro", scheme: "ODR Full", app_identifier: "at.tomtasche.reader" },
   lite: { name: "lite", scheme: "ODR Lite", app_identifier: "at.tomtasche.reader.lite1" },
 }.freeze
 
-# Absolute, because lane bodies run in fastlane/ while actions run one directory
-# up: a bare "build" would be fastlane/build/ to File.exist? and build/ to gym.
-# Resolved at parse time, which fastlane also does from fastlane/.
+# Resolve paths before lane and action working directories diverge.
 IPA_DIR = File.expand_path("../build").freeze
 
 # Absolute for the same reason. They resolve the repository from their own path,
@@ -92,15 +72,10 @@ MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").fre
 SCREENSHOT_DIR = File.expand_path("screenshots").freeze
 FRAMED_DIR = File.expand_path("framed").freeze
 
-# Named, where snapshot would pick a fresh temp directory each run. The app is
-# built once into it and then photographed eighteen times without building
-# again, and CI keeps it between runs.
+# Reuse one build across screenshot devices and locales.
 SCREENSHOT_BUILD_DIR = File.expand_path("../build/screenshots").freeze
 
-# The two sizes App Store Connect asks an app that runs on both for, named by
-# whatever the runner's Xcode calls them. Newest first, and the first one the
-# runner actually has wins - a simulator's name changes with every Xcode, the
-# number of pixels it has does not, and store_screenshots.py checks that.
+# Choose the newest installed iPhone and iPad models from these candidates.
 SCREENSHOT_DEVICES = {
   "iphone" => ["iPhone 17 Pro Max", "iPhone 16 Pro Max", "iPhone 15 Pro Max"],
   "ipad" => ["iPad Pro 13-inch (M5)", "iPad Pro 13-inch (M4)", "iPad Pro (12.9-inch) (6th generation)"],
@@ -142,9 +117,7 @@ def screenshot_ios
   newest
 end
 
-# The locales to photograph. Every one the app is translated into, unless
-# ODR_SCREENSHOT_LANGUAGES names fewer - which is how to look at one language's
-# pictures without waiting out the other eight.
+# Capture all supported locales unless ODR_SCREENSHOT_LANGUAGES narrows the set.
 def screenshot_languages
   given = ENV["ODR_SCREENSHOT_LANGUAGES"].to_s.strip
   return given.split(",").map(&:strip) unless given.empty?
@@ -152,9 +125,7 @@ def screenshot_languages
   sh(STORE_SCREENSHOTS, "--languages", log: false).split("\n").map(&:strip).reject(&:empty?)
 end
 
-# One simulator per device the store wants, out of the ones that run the iOS
-# being photographed, or a failure naming what is there instead - which beats
-# xcodebuild spending twenty minutes not finding it.
+# Choose one installed simulator per requested device type.
 def screenshot_devices(ios)
   given = ENV["ODR_SCREENSHOT_DEVICES"].to_s.strip
   return given.split(",").map(&:strip) unless given.empty?
@@ -224,16 +195,10 @@ platform :ios do
 
     UI.message("photographing #{devices.join(' and ')} on iOS #{ios} in #{languages.join(', ')}")
 
-    # The documents in the pictures, written rather than committed: they are
-    # build output, and the only thing that opens them is the run below. Ahead
-    # of the build, because the target picks its resources up off the disk as
-    # it starts - a file written later lands in the next build, not this one.
+    # Generate sample resources before Xcode discovers build inputs.
     sh(MAKE_DOCUMENTS)
 
-    # Built once, here. snapshot asks xcodebuild to build and then test on every
-    # run, and there are eighteen of them - two devices in nine languages. The
-    # build is the same every time, and checking it is still up to date costs
-    # about two minutes on a runner.
+    # Build once for all screenshot runs.
     scan(
       project: "OpenDocumentReader.xcodeproj",
       scheme: "ODR Screenshots",
@@ -244,11 +209,8 @@ platform :ios do
       skip_detect_devices: true
     )
 
-    # The Pro scheme, so no ad sdk is linked and no consent form can come up in
-    # front of a picture. The two apps differ only in the edit, where Lite dims
-    # the Pro tools: the run takes that screen a second time as Lite shows it,
-    # and each listing gets its own edit. The banner Lite carries is in no
-    # picture either way.
+    # Use Pro for both listings so ad and consent dialogs cannot obscure screenshots.
+    # The run captures the edit screen a second time as Lite shows it.
     capture_ios_screenshots(
       project: "OpenDocumentReader.xcodeproj",
       scheme: "ODR Screenshots",
@@ -258,47 +220,31 @@ platform :ios do
       ios_version: ios,
       languages: languages,
       output_directory: SCREENSHOT_DIR,
-      # 9:41 and a full battery, as Apple's own screenshots have. Spelled out
-      # because the default asks for "charged", which iOS 26 draws as a green
-      # charging battery - Apple's own pictures show a plain full one.
+      # Use 9:41 and a full, non-charging battery.
       override_status_bar: true,
       override_status_bar_arguments:
         "--time 9:41 --dataNetwork wifi --wifiMode active --wifiBars 3 " \
         "--cellularMode active --cellularBars 4 --batteryState discharging --batteryLevel 100",
       # a rerun replaces the set rather than adding to it
       clear_previous_screenshots: true,
-      # snapshot refuses to start without a file named SnapshotHelper.swift,
-      # and checks its version marker. We do not carry theirs - the hand-off is
-      # OpenDocumentReaderUITests/Snapshots.swift, which is ours - so there is
-      # nothing for it to find and nothing for it to check.
+      # Snapshots.swift implements the handoff; no vendored SnapshotHelper.swift to check.
       skip_helper_version_check: true,
       # the runner has no browser to open the summary in, and no one watching it
       skip_open_summary: true,
       stop_after_first_error: true,
-      # one device per xcodebuild rather than both at once: two simulators
-      # rendering on a three core runner took ten minutes over one, and ran the
-      # test out of the time XCTest allows it
+      # Run one simulator at a time to limit memory use.
       concurrent_simulators: false,
       # the build above, photographed as it stands
       derived_data_path: SCREENSHOT_BUILD_DIR,
       test_without_building: true,
-      # the language the app is given is not the language the status bar is
-      # drawn in, and an iPad's status bar carries the date. Without this it
-      # reads Mon Aug 17 over a Russian document.
+      # Localize the simulator status bar as well as the app.
       localize_simulator: true
     )
 
-    # A raw capture is not what the store shows. The framing is separate from the
-    # photography so that changing a headline costs a second of Pillow rather
-    # than a quarter hour of simulators - rerun this script alone after an edit
-    # to fastlane/frames/frames.json.
+    # Frame captures separately so design changes do not require new screenshots.
     sh(FRAME_SCREENSHOTS)
 
-    # what came out is what the store would be given, so it is checked here
-    # rather than at upload time on the other side of the run. A run narrowed to
-    # some of the languages or to one of the devices has nothing to check
-    # against: half a set is what it was asked for, and the release checks the
-    # two halves together once both runners have handed theirs in.
+    # Validate complete sets; the release workflow checks combined device jobs.
     narrowed = %w[ODR_SCREENSHOT_LANGUAGES ODR_SCREENSHOT_DEVICE ODR_SCREENSHOT_DEVICES]
       .any? { |name| !ENV[name].to_s.strip.empty? }
 
@@ -342,9 +288,7 @@ platform :ios do
     )
   end
 
-  # ASC_KEY_CONTENT is the base64 of the .p8. It is written to a private
-  # temporary file because that is the shape app_store_connect_api_key takes it
-  # in; every caller removes it again.
+  # Decode the API key into a private temporary file; callers remove it.
   private_lane :api_key_file do
     path = File.join(Dir.mktmpdir("asc-api-key"), "AuthKey_#{ENV.fetch('ASC_KEY_ID')}.p8")
     File.write(path, Base64.decode64(ENV.fetch("ASC_KEY_CONTENT")))
@@ -374,16 +318,11 @@ platform :ios do
     }.max + 1
   end
 
-  # ODR_VERSION and ODR_BUILD_NUMBER come from the environment rather than lane
-  # options, which fastlane passes through as strings: `dry_run:false` would
-  # arrive as "false" and read as true. An unset ODR_BUILD_NUMBER asks App Store
-  # Connect itself, as a hand run does.
+  # Read version and build from the environment; resolve an unset build number from the store.
   private_lane :build_ipa do |options|
     version = ENV["ODR_VERSION"].to_s.strip
 
-    # resolve-version.py refuses this in CI, but these lanes are meant to be
-    # runnable by hand, where nothing else stops an unversioned build before the
-    # upload rejects 0.0.0 twenty minutes in
+    # Require a version for local uploads as well as CI.
     if version.empty? && !dry_run?
       UI.user_error!(
         "no version to build: set ODR_VERSION (e.g. ODR_VERSION=1.36), " \
@@ -402,11 +341,7 @@ platform :ios do
 
       UI.message("building #{options[:scheme]} #{version.empty? ? '(unversioned)' : version} as build #{build_number}")
 
-      # Manual, because automatic signing has xcodebuild mint distribution assets
-      # of its own - cloud signing, which only an Admin key may do, and which
-      # left the imported certificate unused. sigh wants an Admin key only when
-      # the account has no profile yet and it has to create one; that fails here,
-      # before the build, rather than after it.
+      # Use manual signing and fetch the provisioning profile before building.
       profile_dir = Dir.mktmpdir("provisioning-profile")
       get_provisioning_profile(
         api_key: key,
@@ -461,9 +396,7 @@ platform :ios do
         ipa: ipa,
         skip_screenshots: true,
         skip_metadata: true,
-        # uploading is not the same as shipping: promoting a build stays a
-        # deliberate step in App Store Connect. deliver's option is
-        # submit_for_review; skip_submission is pilot's and is rejected here.
+        # Upload without submitting for review.
         submit_for_review: false,
         # deliver runs precheck even when it is not submitting, and precheck
         # refuses to run at all against in-app purchases with an API key
@@ -474,18 +407,7 @@ platform :ios do
     end
   end
 
-  # What the store says about the app: the "What's New" of ODR_VERSION in every
-  # locale, and the rest of the listing text with it.
-  #
-  # deliver uploads every metadata file it finds under metadata_path, so it is
-  # given a staged directory rather than fastlane/metadata itself, and
-  # store_listing.py names what goes into it. What is staged is what this
-  # repository says the store should say; anything else is left as App Store
-  # Connect has it.
-  #
-  # Separate from upload_ipa so a rejected word can be rewritten and pushed again
-  # without touching the binary, which App Store Connect refuses a second time
-  # anyway.
+  # Stage and upload version notes and app-specific listing metadata separately from the binary.
   private_lane :upload_listing do |options|
     version = ENV["ODR_VERSION"].to_s.strip
     UI.user_error!("no version to write notes for: set ODR_VERSION (e.g. ODR_VERSION=1.41)") if version.empty?
@@ -499,10 +421,7 @@ platform :ios do
       # ever written to disk
       sh(STORE_LISTING, "--version", version, "--stage", notes_dir, "--app", options[:name])
 
-      # A run with nothing captured writes the text alone, so fixing a word in a
-      # description does not cost a quarter hour of simulators. A run with
-      # something captured has to have all of it: half a set is worse in the
-      # store than the set already up there.
+      # Upload text alone when no screenshots exist; otherwise require a complete set.
       captured = !Dir.glob(File.join(FRAMED_DIR, "*", "*.png")).empty?
       sh(STORE_SCREENSHOTS, "--screenshots", FRAMED_DIR, "--stage", shots_dir, "--app", options[:name]) if captured
       UI.important("no screenshots under #{FRAMED_DIR} - writing the text only") unless captured

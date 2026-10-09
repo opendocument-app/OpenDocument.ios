@@ -33,18 +33,14 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         refreshPrivacyButton()
     }
 
-    /// Whether the screen `-ODRScreenshot` asked for is already up.
-    /// `viewDidAppear` runs again every time something over the browser goes
-    /// away, and a second document presented over the first would be the picture.
+    /// Stage each screenshot once, even if the browser reappears.
     private var isShowingScreenshot = false
 
     private func showForScreenshot(_ screen: ScreenshotMode.Screen) {
         guard !isShowingScreenshot else { return }
         isShowingScreenshot = true
 
-        // The browser is the picture. It opens on Recents, which is empty when
-        // the samples were laid out rather than opened, so each is revealed in
-        // turn to put it there.
+        // Reveal the samples to populate Recents before capturing the browser.
         guard screen != .browser else {
             reveal(ScreenshotMode.browserDocuments) { [weak self] in
                 guard let self else { return }
@@ -78,10 +74,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     // MARK: - Privacy
 
-    /// Brings consent up to date and then offers the way back to it.
-    ///
-    /// The app has no settings screen, so the browser's chrome carries this - the only route back
-    /// to either choice, both of which are asked once.
+    /// Refresh consent and expose privacy options in the browser toolbar.
     private func refreshPrivacyButton() {
         guard Features.withAds else { return }
 

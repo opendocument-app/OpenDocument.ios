@@ -1,11 +1,6 @@
 import UIKit
 
-/// A horizontally scrollable row of text tabs, one per document page.
-///
-/// Replaces the vendored ScrollableSegmentedControl, whose upstream was archived
-/// in 2022, and covers only what the document view asked of it: text tabs that
-/// share the available width while they fit, scroll once they do not, and
-/// underline the selected one.
+/// Scrollable page tabs with an underline for the selected page.
 final class PageTabBar: UIControl {
     static let titlePadding: CGFloat = 8
     static let underlineHeight: CGFloat = 4
@@ -114,10 +109,7 @@ final class PageTabBar: UIControl {
         resizeTabs()
     }
 
-    /// Every tab gets an even share of the row while that is wide enough for the
-    /// longest title. Failing that they keep their own widths and share out
-    /// whatever is left over, so a single long sheet name is neither truncated
-    /// nor allowed to dictate the width of the short ones.
+    /// Use equal widths when titles fit; otherwise preserve title widths and distribute spare space.
     private func resizeTabs() {
         guard let widestTitle = titleWidths.max() else {
             tabWidths = []

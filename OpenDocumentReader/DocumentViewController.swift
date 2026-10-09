@@ -186,9 +186,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // once, not on every appearance: a second target would parse the
-        // document twice for a single tap, and a second set of constraints
-        // would fight the first
+        // Install targets and constraints once.
         pageTabBar.addTarget(self, action: #selector(pageSelected(sender:)), for: .valueChanged)
         webview.navigationDelegate = self
         webview.uiDelegate = self
@@ -237,9 +235,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         ])
     }
 
-    /// Only a link that leaves the page carries `target="_blank"`, and this app
-    /// has no second window: the web goes to the browser, and what odrcore
-    /// serves — should any of it arrive here — to the web view that asked.
+    /// Open served links in this web view and external links in their system app.
     func webView(
         _ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
         for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures
@@ -255,10 +251,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         return nil
     }
 
-    /// odrcore renders a page only once this web view asks for it, so a document
-    /// that falls over halfway through translating falls over here rather than
-    /// in `translate`. Only the main frame counts: a link in the document
-    /// answering 404 is not this document failing to render.
+    /// Rendering is lazy, so main-frame HTTP failures count as document failures.
     func webView(
         _ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
@@ -347,9 +340,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             }
         }
 
-        // the document is drawn, which is what a screenshot of it waits for -
-        // and only the document: the "loading" page finishes first, and a
-        // picture of it is a picture of the word "loading"
+        // Signal screenshot readiness only after the document navigation finishes.
         if let documentNavigation, navigation === documentNavigation {
             stageScreenshot()
         }
@@ -359,9 +350,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// says it is ready. A picture of a search is a picture of its hits.
     private func stageScreenshot() {
         switch ScreenshotMode.screen {
-        // The search is shown on the ODF document rather than on the pdf: as of
-        // odrcore 6.7.0 a hit in a pdf is drawn beside the word it found, not on
-        // it. Move this back to `.pdf` once a core lands that places it right.
+        // Use the text document for the search screenshot.
         case .text:
             let query = ScreenshotMode.query
             showSearchBar()
@@ -369,9 +358,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             // the hits are the picture, not a keyboard sitting over them
             searchBar.resignFirstResponder()
 
-            // Ready once the hits are drawn, not once they are asked for: the
-            // call is asynchronous, and a picture taken in between is a picture
-            // of the page unsearched.
+            // Wait for search results before marking the screenshot ready.
             callSearch("odr.search", with: query) { [weak self] in
                 guard let self else { return }
 
@@ -450,9 +437,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// From iOS 26 the bar's buttons are glass capsules filling its whole
-    /// height, which whatever is pinned to either edge would cut off. Older
-    /// bars have a background of their own and want no such gap.
+    /// Leave room around iOS 26 glass toolbar buttons.
     private static var toolBarMargin: CGFloat {
         if #available(iOS 26.0, *) {
             return 8
@@ -493,9 +478,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         searchBar.topAnchor.constraint(equalTo: barStack.bottomAnchor, constant: Self.toolBarMargin).isActive =
             true
 
-        // under the search bar, which is why the tab bar is not in the tool
-        // bar's stack: an arranged subview is placed by the stack, and these
-        // would be a second answer to the same question
+        // Place tabs below search, outside the toolbar stack.
         pageTabBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         pageTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -513,11 +496,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         bannerSlotHeight.constant = 0.0
     }
 
-    /// No ad to show, so the slot promotes the paid app instead of collapsing.
-    ///
-    /// This is our own view - nothing is fetched and no identifier is read - so it is as valid on
-    /// the path where the user refused consent as on the one where an ad request merely came back
-    /// empty.
+    /// Show the local Pro promotion when no ad is available.
     private func showHouseAd() {
         houseAdView.rotate()
 
@@ -630,11 +609,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         findAll(searchText: searchText)
     }
 
-    /// The pen: turns the mode on, and off again. Leaving with changes the
-    /// page alone holds asks first.
-    ///
-    /// It stands on the core's answer, and every edition opens what it names.
-    /// What Lite does not sell is the tool - see ``editToolTapped(_:)``.
+    /// Toggle editing, confirming unsaved changes before leaving.
     @IBAction func toggleEdit(_ sender: UIBarButtonItem) {
         if isEditingDocument {
             leaveEdit()
@@ -841,8 +816,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// Whether the page has said what it is. Not the strip itself: a sheet
-    /// answers with no strip at all.
+    /// Whether the current page's editing tools are ready.
     private(set) var isEditSessionReady = false
 
     /// The tools are up, which is what a screenshot of an edit waits for.
@@ -1059,9 +1033,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         layOutDocumentTitle()
     }
 
-    /// The name takes what the buttons leave between the back button and the
-    /// rest. The bar does not say where it put a button, so the room is
-    /// counted from how many there are.
+    /// Fit the title between the back button and trailing actions.
     private func layOutDocumentTitle() {
         let buttons = (toolBar.items ?? []).filter { $0.image != nil }
         let start = Self.toolBarButtonWidth + Self.toolBarTitleGap
@@ -1084,9 +1056,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Kept clear either side of the name, so it never sits against a button.
     private static let toolBarTitleGap: CGFloat = 16
 
-    /// While an edit is on the bar is the edit's: undo, redo and save join it,
-    /// and the magnifier and the name stand down - six buttons and a name do
-    /// not fit a phone's bar. A pdf mark is never put back, so redo stays out.
+    /// Show edit actions while editing; hide search and title. PDFs have no redo.
     private func updateToolBar() {
         documentTitleLabel.isHidden = isEditingDocument
         view.setNeedsLayout()
@@ -1127,18 +1097,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         return document?.result != nil && components?.url == document?.result
     }
 
-    /// The pencil, for a document and a pdf alike: the two never stand in the
-    /// bar together, so the label separates them. Selected while the mode is
-    /// on.
+    /// Use the pencil for editing and PDF markup, with a distinct accessibility label.
     private func updateEditButtonRole() {
         editButton.image = UIImage(systemName: "pencil")
         editButton.accessibilityLabel = NSLocalizedString(canMark ? "mark_pdf" : "menu_edit", comment: "")
         editButton.isSelected = isEditingDocument
     }
 
-    /// Asked of the page rather than guessed from the format: odrcore writes the
-    /// `odr` object into what it renders as a document or as text, and into
-    /// nothing else — a pdf picks the button up on its own once it does.
+    /// Ask the translated page whether it supports search.
     private func updateSearchButton() {
         guard let url = webview.url, isDocumentPage(url) else {
             canSearch = false
@@ -1223,7 +1189,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// Drops the document, so viewDidDisappear does not close it a second time.
+    /// Close and release the document before dismissing the reader, so
+    /// viewDidDisappear does not close it a second time.
     func closeCurrentDocument(then finish: (() -> Void)? = nil) {
         document?.close()
         document = nil
@@ -1347,9 +1314,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         printController.present(animated: true, completionHandler: nil)
     }
 
-    /// A page of ours rather than a document: the word "loading", or the error.
-    /// The colour scheme is named because a web view paints a page that claims
-    /// none white, whatever the reader has the device set to.
+    /// Loading and error pages follow system appearance.
     private func loadMessage(_ body: String) {
         webview.loadHTMLString(
             "<html><head><meta name=\"color-scheme\" content=\"light dark\"></head><body>\(body)</body></html>",
@@ -1379,10 +1344,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         documentNavigation = self.webview.load(URLRequest(url: url))
     }
 
-    /// Three the system draws better, all falling back to `corePageInReserve`:
-    /// html, which odrcore has no type for and reads as its own source, iWork,
-    /// whose styles and pictures it does not read, and a container it knows as a
-    /// document (`.epub` is composite content, `.zip` is not).
+    /// Prefer WebKit for HTML, iWork and composite archives, with odrcore as fallback.
     private func systemDrawsItBetter(_ doc: Document) -> Bool {
         let ext = doc.fileURL.pathExtension.lowercased()
 

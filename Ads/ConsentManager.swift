@@ -8,25 +8,15 @@ Gathers advertising consent through Google's User Messaging Platform.
 import UIKit
 import UserMessagingPlatform
 
-/// The consent form in front of the banner in the Lite configuration.
-///
-/// Google's EU user consent policy requires a TCF-integrated CMP for the EEA, the UK and
-/// Switzerland; UMP is Google's own, and what the Android app uses. Who is asked is decided by the
-/// geo-targeting of the messages in AdMob, not here.
+/// Gathers Lite ad consent through UMP using AdMob region settings.
 final class ConsentManager {
 
     static let manager = ConsentManager()
 
     private init() {}
 
-    /// Brings consent up to date, presenting the form where the region requires one.
-    ///
-    /// Reports `canRequestAds`: whether an answer is on file, not what it was - "do not consent"
-    /// leaves it true. What the answer allows is `adsMayUseAdvertisingIdentifier`. Errors do not
-    /// enter into it; the decision is cached, so a failed form or an offline update still leaves
-    /// an earlier consent standing.
-    ///
-    /// Completes on the main queue.
+    /// Refresh consent and present a form when required.
+    /// Reports canRequestAds on main; cached consent survives refresh failures.
     func gatherConsent(from viewController: UIViewController, completion: @escaping (Bool) -> Void) {
         requestUpdate { updated in
             guard updated else {
@@ -44,13 +34,7 @@ final class ConsentManager {
         }
     }
 
-    /// Brings consent up to date without ever presenting a form.
-    ///
-    /// Needed on every launch: `privacyOptionsRequirementStatus` answers from a cache only an
-    /// update in the *current* session fills, so skipping it hides the privacy entry point on the
-    /// second launch.
-    ///
-    /// Completes on the main queue.
+    /// Refresh the session consent cache without presenting a form. Completes on main.
     func refresh(completion: @escaping () -> Void) {
         requestUpdate { _ in
             DispatchQueue.main.async {
@@ -59,13 +43,8 @@ final class ConsentManager {
         }
     }
 
-    /// Whether an ad shown to this user may carry an advertising identifier, which is what ATT
-    /// governs.
-    ///
-    /// The first flag of the TCF signals UMP writes to `UserDefaults` is purpose 1, device storage.
-    /// Without it Google falls back to limited ads, which carry no identifier; refusing only
-    /// personalisation leaves one in play, for frequency capping and cross-app reporting. Absent
-    /// keys mean no TCF region.
+    /// Read TCF purpose 1 (device storage) before requesting ATT.
+    /// A missing TCF key allows the ATT request.
     var adsMayUseAdvertisingIdentifier: Bool {
         guard let purposeConsents = UserDefaults.standard.string(forKey: "IABTCF_PurposeConsents") else {
             return true
@@ -80,10 +59,7 @@ final class ConsentManager {
         ConsentInformation.shared.privacyOptionsRequirementStatus == .required
     }
 
-    /// Reopens the consent form so a decision can be changed or withdrawn, as GDPR Art. 7(3) and
-    /// TCF require. Only in response to the user asking.
-    ///
-    /// Completes on the main queue.
+    /// Present privacy choices on user request. Completes on main.
     func presentPrivacyOptions(from viewController: UIViewController, completion: @escaping () -> Void) {
         ConsentForm.presentPrivacyOptionsForm(from: viewController) { formError in
             if let formError = formError {

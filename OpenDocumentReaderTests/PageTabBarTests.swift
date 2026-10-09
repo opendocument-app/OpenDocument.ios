@@ -105,9 +105,6 @@ class PageTabBarTests: XCTestCase {
         XCTAssertLessThan(widths[1], widths[2] / 2)
     }
 
-    /// An even share is only fair while it is wide enough for the longest
-    /// title: all three of these fit the bar, but an even third would truncate
-    /// the long one for no reason.
     func testALongTitleKeepsItsWidthWhileTheyAllStillFit() throws {
         tabBar.titles = ["A", "B", "Q4 Revenue Forecast"]
 

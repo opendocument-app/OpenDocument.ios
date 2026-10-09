@@ -1,19 +1,6 @@
 #!/usr/bin/env python3
-#
-# Resolves the version a release run builds: the dispatch input, or nothing at
-# all on a dry run, which builds the 0.0.0 in project.pbxproj.
-#
-# The version comes from that input rather than a tag the run was pushed on: a
-# tag would be a promise made before the upload, and a version often takes more
-# than one build to clear review. The workflow writes the tags afterwards.
-#
-# The shape is checked here because xcodebuild never checks it: MARKETING_VERSION
-# is a free-form string to the build, so a typo would only surface when App Store
-# Connect rejects the upload at the very end. Whether the version is above what
-# is live is left to the store, which is the only thing that knows.
-#
-# Writes the resolved version to GITHUB_OUTPUT as `version`, empty when there is
-# none. Run it by hand to see what a dispatch would build.
+# Validate the release version and write it to GITHUB_OUTPUT.
+# A dry run may omit the version and build the project default.
 
 import argparse
 import os

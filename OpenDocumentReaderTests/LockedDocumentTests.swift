@@ -3,10 +3,6 @@ import XCTest
 
 @testable import OpenDocumentReader
 
-/// A legacy Word, Excel or PowerPoint file can say it is password protected,
-/// and no password opens it: odrcore reads the flag but cannot decrypt any of
-/// them. The reader has to say so rather than ask, and rather than hand the
-/// file to the web view, which makes nothing of it either.
 class LockedDocumentTests: XCTestCase {
     private let temporaryDirectory = NSTemporaryDirectory()
     private var documentURL: URL!
