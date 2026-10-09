@@ -38,32 +38,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        let inboxUrl = documentsUrl.appendingPathComponent("Inbox")
-
         let destinationUrl: URL
-        if inputURL.absoluteString.contains(inboxUrl.absoluteString) {
-            destinationUrl = documentsUrl.appendingPathComponent(inputURL.lastPathComponent)
-
-            do {
-                try FileManager.default.moveItem(at: inputURL, to: destinationUrl)
-            } catch {
-                CrashManager.shared.log(error)
-
-                return
-            }
-        } else {
-            destinationUrl = inputURL
+        do {
+            destinationUrl = try Self.importFromInbox(inputURL, documents: documentsUrl)
+        } catch {
+            CrashManager.shared.log(error)
+            documentBrowserViewController.showGenericError()
+            return
         }
 
         documentBrowserViewController.revealDocument(at: destinationUrl, importIfNeeded: true) {
-            revealedDocumentURL, _ in
+            revealedDocumentURL, error in
             guard let documentUrl = revealedDocumentURL else {
-                // ignoring errors because they should pop up in failedToImportDocumentAt too
-
+                if let error { CrashManager.shared.log(error) }
+                documentBrowserViewController.showGenericError()
                 return
             }
 
             documentBrowserViewController.presentDocument(at: documentUrl)
         }
     }
+
+    /// Move Inbox files into Documents without replacing an existing file.
+    static func importFromInbox(_ input: URL, documents: URL) throws -> URL {
+        let inbox = documents.appendingPathComponent("Inbox", isDirectory: true).standardizedFileURL
+        guard input.isFileURL, input.deletingLastPathComponent().standardizedFileURL == inbox else {
+            return input
+        }
+
+        let manager = FileManager.default
+        let name = input.deletingPathExtension().lastPathComponent
+        let suffix = input.pathExtension.isEmpty ? "" : "." + input.pathExtension
+        var destination = documents.appendingPathComponent(input.lastPathComponent)
+        var number = 2
+        while manager.fileExists(atPath: destination.path) {
+            destination = documents.appendingPathComponent("\(name) (\(number))\(suffix)")
+            number += 1
+        }
+
+        try manager.moveItem(at: input, to: destination)
+        return destination
+    }
+
 }

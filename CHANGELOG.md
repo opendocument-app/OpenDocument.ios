@@ -29,6 +29,13 @@ Rules:
 
 ### Fixed
 
+- Opening a full-screen dialog keeps the document and its unsaved edits open.
+- Switching sheets asks before discarding edits and restores editing on the new sheet.
+- Reloading a spreadsheet updates its tabs and keeps the selected sheet in range.
+- Search handles pasted line breaks and special characters.
+- HTML files cannot enable native editing controls through page messages.
+- Imported files with duplicate names keep both copies.
+- Document passwords are hidden while typed, and error logging is thread safe.
 - Spaces and tabs in text and in cells stay as they were typed.
 - Spreadsheet cells show their colours, also in dark mode.
 

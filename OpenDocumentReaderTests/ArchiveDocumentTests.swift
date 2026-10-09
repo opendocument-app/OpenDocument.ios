@@ -139,6 +139,27 @@ class ArchiveDocumentTests: XCTestCase {
         return url
     }
 
+    func testHtmlCannotEnableTheNativeEditorThroughPageMessages() throws {
+        let url = try writeHtml(ofType: "html")
+        try present(url)
+        let opened = expectation(description: "opened")
+        document.open { _ in opened.fulfill() }
+        wait(for: [opened], timeout: 60)
+        waitForPage(where: "document.querySelector('h1') !== null")
+
+        evaluate(
+            """
+            window.webkit.messageHandlers.odr.postMessage(JSON.stringify({
+                type: 'editChange', detail: { dirty: true, canUndo: true }
+            }));
+            """)
+        _ = XCTWaiter.wait(for: [expectation(description: "message delivery")], timeout: 0.2)
+
+        XCTAssertFalse(controller.canEdit)
+        XCTAssertFalse(controller.saveButton.isEnabled)
+        XCTAssertFalse(controller.undoButton.isEnabled)
+    }
+
     /// And when the system cannot draw it after all, the listing takes over
     /// rather than a message.
     func testAnArchiveTheSystemCannotDrawFallsBackToTheListing() throws {

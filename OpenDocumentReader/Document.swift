@@ -83,7 +83,6 @@ class Document: UIDocument {
     public var isAnnotatable = false
     /// Whether this is plain text - see `CoreWrapper.isPlainText`.
     public var isPlainText = false
-    private var wasPageCountAnnounced = false
 
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
         parse()
@@ -101,6 +100,7 @@ class Document: UIDocument {
         isPlainText = false
         result = nil
         pageURLs = nil
+        pageNames = nil
         notify { $0.documentUpdateContent(self) }
 
         do {
@@ -138,11 +138,7 @@ class Document: UIDocument {
 
         showPage()
 
-        if !wasPageCountAnnounced {
-            notify { $0.documentPagesChanged(self) }
-
-            wasPageCountAnnounced = true
-        }
+        notify { $0.documentPagesChanged(self) }
 
         notify { $0.documentLoadingCompleted(self) }
     }
@@ -153,7 +149,13 @@ class Document: UIDocument {
     private func showPage() {
         guard let pageURLs, !pageURLs.isEmpty else { return }
 
-        result = pageURLs[min(max(page, 0), pageURLs.count - 1)]
+        let index = min(max(page, 0), pageURLs.count - 1)
+        guard page == index else {
+            page = index
+            return
+        }
+
+        result = pageURLs[index]
 
         notify { $0.documentUpdateContent(self) }
     }

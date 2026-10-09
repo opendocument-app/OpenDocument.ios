@@ -335,6 +335,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        updateEditButton()
         updateSearchButton()
 
         // a save renders the file again, and the edit goes on in the new page
@@ -555,13 +556,40 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        closeCurrentDocument()
+        if isBeingDismissed || isMovingFromParent {
+            document?.close()
+            document = nil
+        }
     }
 
     @objc func pageSelected(sender: PageTabBar) {
-        guard let index = sender.selectedIndex else { return }
+        guard let doc = document, let index = sender.selectedIndex, index != doc.page else { return }
 
+        guard doc.edit, hasUnsavedEdits else {
+            switchPage(to: index)
+            return
+        }
+
+        sender.selectedIndex = doc.page
+        confirmLeavingEdits(
+            save: {
+                self.saveContent { success in
+                    guard success else { return }
+                    doc.reload()
+                    self.switchPage(to: index)
+                }
+            },
+            discard: {
+                doc.reload()
+                self.switchPage(to: index)
+            })
+    }
+
+    private func switchPage(to index: Int) {
+        resumesEditAfterLoad = document?.edit == true
+        isEditSessionReady = false
         document?.page = index
+        pageTabBar.selectedIndex = document?.page
     }
 
     func showWebsite() {
@@ -585,6 +613,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        findAll(searchText: "")
         hideSearchBar()
     }
 
@@ -620,6 +649,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             return
         }
 
+        confirmLeavingEdits(
+            save: {
+                self.saveContent { success in
+                    guard success else { return }
+                    self.document?.endEdit(renderingAgain: true)
+                }
+            },
+            discard: { self.discardChanges() })
+    }
+
+    private func confirmLeavingEdits(save: @escaping () -> Void, discard: @escaping () -> Void) {
         AnalyticsManager.shared.report("show_alert_unsaved_changes")
 
         let alert = UIAlertController(
@@ -633,7 +673,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 handler: { _ in
                     AnalyticsManager.shared.report("alert_unsaved_changes_no")
 
-                    self.discardChanges()
+                    discard()
                 }))
         alert.addAction(
             UIAlertAction(
@@ -641,13 +681,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 handler: { _ in
                     AnalyticsManager.shared.report("alert_unsaved_changes_yes")
 
-                    // the file holds the edit once it is written, so leaving
-                    // reads back what was saved
-                    self.saveContent { success in
-                        guard success else { return }
-
-                        self.document?.endEdit(renderingAgain: true)
-                    }
+                    save()
                 }))
 
         present(alert, animated: true)
@@ -703,7 +737,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     /// Each message is one JSON `{type, detail}` string.
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let json = message.body as? String, let data = json.data(using: .utf8),
+        guard message.frameInfo.isMainFrame,
+            let url = message.frameInfo.request.url, isDocumentPage(url),
+            let json = message.body as? String, let data = json.data(using: .utf8),
             let envelope = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
             let type = envelope["type"] as? String
         else { return }
@@ -1075,9 +1111,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Offered for the documents that can be edited, whether or not one is being
     /// edited right now — the button is the way both into an edit and out of it.
     private func updateEditButton() {
-        canMark = document?.isAnnotatable ?? false
-        canEdit = (document?.isEditable ?? false) || canMark
+        let isTranslatedPage = webview.url.map(isDocumentPage) ?? false
+        canMark = isTranslatedPage && (document?.isAnnotatable ?? false)
+        canEdit = isTranslatedPage && ((document?.isEditable ?? false) || canMark)
         isEditingDocument = document?.edit ?? false
+    }
+
+    private func isDocumentPage(_ url: URL) -> Bool {
+        url == document?.result && CoreWrapper.isServedURL(url)
     }
 
     /// The pencil, for a document and a pdf alike: the two never stand in the
@@ -1093,8 +1134,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// `odr` object into what it renders as a document or as text, and into
     /// nothing else — a pdf picks the button up on its own once it does.
     private func updateSearchButton() {
+        guard let url = webview.url, isDocumentPage(url) else {
+            canSearch = false
+            return
+        }
+
         webview.evaluateJavaScript("typeof odr === 'object' && typeof odr.search === 'function'") {
             [weak self] available, _ in
+            guard self?.webview.url == url else { return }
             self?.canSearch = available as? Bool ?? false
         }
     }
@@ -1107,10 +1154,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     private func showSearchBar() {
-        searchBar.becomeFirstResponder()
         searchBar.isHidden = false
         searchBarHeightWhenHidden?.isActive = false
         searchBarHeightWhenShown?.isActive = true
+        searchBar.becomeFirstResponder()
     }
 
     private func hideSearchBar() {
@@ -1133,21 +1180,16 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     private func callSearch(
         _ function: String, with searchText: String, then finish: (() -> Void)? = nil
     ) {
-        // an unescaped quote or backslash in the query would break the call
-        // apart rather than search for itself
-        let escaped =
-            searchText
-            .replacingOccurrences(of: "\\", with: "\\\\")
-            .replacingOccurrences(of: "\"", with: "\\\"")
-
         guard let webview else {
             finish?()
 
             return
         }
 
-        webview.evaluateJavaScript("\(function)(\"\(escaped)\")") { _, error in
-            if let error {
+        webview.callAsyncJavaScript(
+            "\(function)(query)", arguments: ["query": searchText], in: nil, in: .page
+        ) { result in
+            if case .failure(let error) = result {
                 CrashManager.shared.log(error)
             }
 
@@ -1163,34 +1205,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
 
         if doc.edit, hasUnsavedEdits {
-            let alert = UIAlertController(
-                title: NSLocalizedString("alert_unsaved_changes", comment: ""),
-                message: NSLocalizedString("alert_save_now", comment: ""), preferredStyle: .alert)
-            alert.addAction(
-                UIAlertAction(
-                    title: NSLocalizedString("no", comment: ""), style: .destructive,
-                    handler: { (_) in
-                        AnalyticsManager.shared.report("alert_unsaved_changes_no")
-
-                        // nothing was written, so closing is the discard
-                        self.closeCurrentDocument()
-                    }))
-            alert.addAction(
-                UIAlertAction(
-                    title: NSLocalizedString("yes", comment: ""), style: .default,
-                    handler: { (_) in
-                        AnalyticsManager.shared.report("alert_unsaved_changes_yes")
-
-                        self.saveContent { (success) -> Void in
-                            if success {
-                                self.closeCurrentDocument()
-                            }
-                        }
-                    }))
-
-            self.present(alert, animated: true, completion: nil)
-
-            AnalyticsManager.shared.report("show_alert_unsaved_changes")
+            confirmLeavingEdits(
+                save: {
+                    self.saveContent { success in
+                        if success { self.closeCurrentDocument() }
+                    }
+                },
+                discard: { self.closeCurrentDocument() })
         } else {
             closeCurrentDocument()
         }
@@ -1239,7 +1260,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
 
-        alert.popoverPresentationController?.sourceView = menuButton.value(forKey: "view") as? UIView
+        alert.popoverPresentationController?.barButtonItem = menuButton
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -1291,9 +1312,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         controller.present(alert, animated: true)
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-            alert.dismiss(animated: true)
-
-            completion?()
+            alert.dismiss(animated: true, completion: completion)
         }
     }
 
@@ -1388,7 +1407,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             title: NSLocalizedString("toast_error_password_protected", comment: ""), message: "", preferredStyle: .alert
         )
         alert.addTextField { textField in
-            textField.text = ""
+            textField.isSecureTextEntry = true
+            textField.textContentType = .password
         }
         alert.addAction(
             UIAlertAction(
@@ -1471,6 +1491,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     func documentLoadingStarted(_ doc: Document) {
         progressBar.isHidden = false
         progressBar.observedProgress = doc.loadProgress
+        isEditSessionReady = false
+        isEditingDocument = doc.edit
 
         // neither is known until the page it produces is loaded
         canEdit = false
@@ -1482,8 +1504,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         AnalyticsManager.shared.report("load_odf_success")
 
         progressBar.isHidden = true
-
-        updateEditButton()
 
         let fileType = doc.fileURL.pathExtension.lowercased()
 
@@ -1512,7 +1532,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         let pageNames = doc.pageNames ?? []
 
         pageTabBar.titles = pageNames
-        pageTabBar.selectedIndex = pageNames.isEmpty ? nil : 0
+        pageTabBar.selectedIndex = pageNames.isEmpty ? nil : doc.page
 
         // a single page needs no tab to switch to
         pageTabBar.isHidden = pageNames.count <= 1

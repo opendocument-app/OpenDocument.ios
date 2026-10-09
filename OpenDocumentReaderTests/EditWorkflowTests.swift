@@ -62,6 +62,75 @@ class EditWorkflowTests: XCTestCase {
 
     // MARK: - the bar
 
+    func testSearchPassesSpecialCharactersAsText() throws {
+        openDocument()
+        _ = evaluate("odr.search = query => { window.lastQuery = query; }")
+        let query = "quote\" slash\\ newline\nreturn\rtab\t\u{2028}"
+
+        controller.searchBar(controller.searchBar, textDidChange: query)
+
+        waitForPage(where: "typeof window.lastQuery === 'string'")
+        XCTAssertEqual(evaluate("window.lastQuery") as? String, query)
+    }
+
+    func testCoveringTheReaderKeepsTheDocumentAndEdits() throws {
+        openDocument()
+        controller.editDocument()
+        waitForEditablePage()
+        typeIntoTheFirstRun()
+
+        let modal = UIViewController()
+        modal.modalPresentationStyle = .fullScreen
+        let presented = expectation(description: "modal presented")
+        controller.present(modal, animated: false) { presented.fulfill() }
+        wait(for: [presented], timeout: 10)
+
+        XCTAssertTrue(controller.document === document)
+        XCTAssertFalse(document.documentState.contains(.closed))
+
+        let dismissed = expectation(description: "modal dismissed")
+        modal.dismiss(animated: false) { dismissed.fulfill() }
+        wait(for: [dismissed], timeout: 10)
+
+        XCTAssertTrue(document.edit)
+        XCTAssertTrue(controller.saveButton.isEnabled)
+        XCTAssertTrue((evaluate("document.body.textContent") as? String ?? "").contains(Self.editedText))
+    }
+
+    func testSwitchingSheetsResumesEditing() throws {
+        try openSheetForEditing()
+        let firstPage = document.result
+
+        controller.pageTabBar.selectedIndex = 1
+        controller.pageSelected(sender: controller.pageTabBar)
+        waitUntil { self.controller.isEditSessionReady }
+
+        XCTAssertEqual(document.page, 1)
+        XCTAssertNotEqual(document.result, firstPage)
+        XCTAssertEqual(controller.webview.url, document.result)
+        XCTAssertTrue(document.edit)
+        XCTAssertEqual(controller.editToolBar.layout, .sheet)
+        XCTAssertFalse(controller.saveButton.isEnabled)
+    }
+
+    func testSwitchingSheetsWithEditsKeepsThePageUntilConfirmed() throws {
+        try openSheetForEditing()
+        _ = evaluate("odr.onEditChange({ dirty: true, canUndo: true, canRedo: false })")
+        waitUntil { self.controller.saveButton.isEnabled }
+        let firstPage = document.result
+
+        controller.pageTabBar.selectedIndex = 1
+        controller.pageSelected(sender: controller.pageTabBar)
+
+        XCTAssertEqual(document.page, 0)
+        XCTAssertEqual(document.result, firstPage)
+        XCTAssertEqual(controller.pageTabBar.selectedIndex, 0)
+        XCTAssertTrue(controller.saveButton.isEnabled)
+        let alert = try XCTUnwrap(controller.presentedViewController as? UIAlertController)
+        XCTAssertEqual(alert.actions.count, 3)
+        XCTAssertTrue(alert.actions.contains { $0.style == .cancel })
+    }
+
     func testAnEditableDocumentOffersThePencil() throws {
         openDocument()
 
@@ -489,6 +558,7 @@ class EditWorkflowTests: XCTestCase {
             where:
                 "document.querySelectorAll('[contenteditable]').length > 0 && document.body.textContent.indexOf('\(Self.editedText)') >= 0"
         )
+        waitForTools()
 
         XCTAssertTrue(document.edit)
         XCTAssertTrue(controller.editButton.isSelected)

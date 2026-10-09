@@ -296,6 +296,7 @@ class OpenDocumentReaderTests: XCTestCase {
             "http://127.0.0.1:\(port + 1)/file/odr1/document.html",
             "http://127.0.0.1/file/odr1/document.html",
             "http://localhost:\(port)/file/odr1/document.html",
+            "http://127.0.0.1:4294967296/file/odr1/document.html",
         ] {
             XCTAssertFalse(CoreWrapper.isServedURL(try XCTUnwrap(URL(string: other))), other)
         }
