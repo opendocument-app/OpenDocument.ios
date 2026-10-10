@@ -86,6 +86,10 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
     /// Whether the file is plain text, which takes typing but no formatting.
     @objc var isPlainText: Bool { lock.withLock { textFile != nil } }
+    /// The page size the document is laid out for, in points; zero where it has none.
+    @objc private(set) var pageSize: CGSize = .zero
+    /// Whether the file is a pdf the print system can read as it is.
+    @objc private(set) var isPrintablePdf = false
 
     private var document: OdrCoreObjC.Document?
     private var textFile: TextFile?
@@ -120,6 +124,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         textFile = nil
         pdfFile = nil
         isArchive = false
+        pageSize = .zero
+        isPrintablePdf = false
 
         let fileTypes = (try? DecodedFile.listFileTypes(path: inputPath)) ?? []
         guard !fileTypes.isEmpty else {
@@ -127,7 +133,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         }
 
         var file = try DecodedFile.decode(path: inputPath)
-        if file.isPasswordEncrypted {
+        let encrypted = file.isPasswordEncrypted
+        if encrypted {
             do {
                 file = try file.decrypt(withPassword: password ?? "")
             } catch let error as NSError
@@ -184,6 +191,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         let openedDocument: OdrCoreObjC.Document?
         var openedTextFile: TextFile?
         var openedPdfFile: PdfFile?
+        var openedPageSize: CGSize?
         let service: HtmlService
 
         if file.isDocumentFile {
@@ -194,6 +202,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             // the document's own answer: a format odrcore renders but cannot write
             // back would otherwise offer Edit and fail at the save
             openedDocument = document.isEditable && document.isSavable ? document : nil
+            openedPageSize = Self.pageSize(of: document)
             service = try HtmlTranslator.translate(document: document, config: config)
         } else {
             // `.unknown` keeps the single view each of these has -
@@ -227,10 +236,30 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         self.document = openedDocument
         self.textFile = openedTextFile
         self.pdfFile = openedPdfFile
+        pageSize = openedPageSize ?? .zero
+        isPrintablePdf = file.isPdfFile && !encrypted
 
         isArchive = file.isArchiveFile
         pageNames = views.map(\.name)
         pageURLs = views.map { base.appendingPathComponent($0.path) }
+    }
+
+    /// The first page's: a presentation has one size, and a drawing seldom more.
+    private static func pageSize(of document: OdrCoreObjC.Document) -> CGSize? {
+        guard let root = try? document.rootElement() else {
+            return nil
+        }
+        let layout: PageLayout?
+        switch document.documentType {
+        case .text: layout = (root as? TextRoot)?.pageLayout
+        case .presentation: layout = (root.firstChild as? Slide)?.pageLayout
+        case .drawing: layout = (root.firstChild as? OdrCoreObjC.Page)?.pageLayout
+        default: layout = nil
+        }
+        guard let layout else {
+            return nil
+        }
+        return PrintPaper.size(width: layout.width, height: layout.height)
     }
 
     /// The script the page hands its edits back through: the editor's log for
