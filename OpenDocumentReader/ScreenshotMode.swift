@@ -158,7 +158,7 @@ enum ScreenshotMode {
         return all["en"]
     }
 
-    /// The word searched for in the localized text sample.
+    /// The word the search screenshot looks for in the text sample.
     private(set) static var query = ""
 
     /// Copy the localized sample to Documents, falling back to English.

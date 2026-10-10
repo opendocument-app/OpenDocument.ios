@@ -43,8 +43,8 @@ final class ConsentManager {
         }
     }
 
-    /// Read TCF purpose 1 (device storage) before requesting ATT.
-    /// A missing TCF key allows the ATT request.
+    /// Whether TCF purpose 1 (device storage) allows the advertising identifier.
+    /// True when no TCF consent is stored.
     var adsMayUseAdvertisingIdentifier: Bool {
         guard let purposeConsents = UserDefaults.standard.string(forKey: "IABTCF_PurposeConsents") else {
             return true

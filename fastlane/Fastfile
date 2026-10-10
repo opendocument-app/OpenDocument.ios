@@ -232,7 +232,7 @@ platform :ios do
       # the runner has no browser to open the summary in, and no one watching it
       skip_open_summary: true,
       stop_after_first_error: true,
-      # Run one simulator at a time to limit memory use.
+      # Run one simulator at a time; two at once overran the XCTest time limit.
       concurrent_simulators: false,
       # the build above, photographed as it stands
       derived_data_path: SCREENSHOT_BUILD_DIR,
