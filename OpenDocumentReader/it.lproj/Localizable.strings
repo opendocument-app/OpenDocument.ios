@@ -121,6 +121,14 @@
 "edit_align_center" = "Centro";
 "edit_align_right" = "Destra";
 "edit_align_justify" = "Giustificato";
+"edit_rows" = "Righe";
+"edit_columns" = "Colonne";
+"edit_insert_rows_above" = "Inserisci riga sopra";
+"edit_insert_rows_below" = "Inserisci riga sotto";
+"edit_delete_rows" = "Elimina riga";
+"edit_insert_columns_left" = "Inserisci colonna a sinistra";
+"edit_insert_columns_right" = "Inserisci colonna a destra";
+"edit_delete_columns" = "Elimina colonna";
 "edit_undo" = "Annulla";
 "edit_redo" = "Ripeti";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Un’interruzione di riga dentro un paragrafo non può essere salvata. Premi Invio per un nuovo paragrafo.";
 "edit_refused_read_only" = "Questo documento non può essere modificato.";
 "edit_refused_range" = "Una modifica non può passare sopra un’immagine o una tabella.";
+"edit_refused_sheet_cut" = "Questo foglio è troppo grande per essere mostrato per intero. Si può modificare solo la parte mostrata.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Parte di Pro";
 "pro_feature_formatting" = "Il grassetto, il corsivo, i colori e la dimensione del testo, e aggiungere o unire paragrafi, fanno parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
 "pro_feature_pdf" = "Sottolineare, barrare e disegnare su un PDF fanno parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
+"pro_feature_structure" = "Aggiungere ed eliminare righe e colonne fa parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
 "not_now" = "Non ora";
 
 /* Shown when the marking tools come up on a PDF */

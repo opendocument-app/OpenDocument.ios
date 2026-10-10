@@ -76,7 +76,7 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["document"])
     }
 
-    /// A csv reaches odrcore only through the decoded file — see `isCsv`.
+    /// A csv is a spreadsheet of one sheet, so it gets one page.
     func testCsvIsTranslated() throws {
         let wrapper = CoreWrapper()
         let url = try copyFixture(ofType: "csv")
@@ -84,7 +84,7 @@ class OpenDocumentReaderTests: XCTestCase {
         try wrapper.translate(
             url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
-        XCTAssertEqual(wrapper.pageNames, ["document"])
+        XCTAssertEqual(wrapper.pageNames.count, 1)
     }
 
     /// odrcore renders these now; they used to be handed to the web view.
@@ -165,18 +165,20 @@ class OpenDocumentReaderTests: XCTestCase {
         XCTAssertEqual(wrapper.pageNames, ["image"])
     }
 
-    /// And it has no document behind it, so the menu must not offer to edit one.
-    func testCsvIsNotEditable() throws {
+    /// The cells of a csv take edits, but the csv is not plain text, so it
+    /// gets the sheet tools.
+    func testCsvIsEditableAsASheet() throws {
         let wrapper = CoreWrapper()
         let url = try copyFixture(ofType: "csv")
 
         try wrapper.translate(
             url.path, into: temporaryDirectory, with: nil, editable: true, scope: .document)
 
-        XCTAssertFalse(wrapper.isEditable)
+        XCTAssertTrue(wrapper.isEditable)
+        XCTAssertFalse(wrapper.isPlainText)
     }
 
-    /// The odt does, which is what keeps the check above from passing vacuously.
+    /// The odt takes edits too.
     func testATextDocumentIsEditable() throws {
         let wrapper = CoreWrapper()
 

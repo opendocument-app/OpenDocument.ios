@@ -194,11 +194,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         var openedPageSize: CGSize?
         let service: HtmlService
 
-        if file.isDocumentFile {
-            let documentFile = try file.asDocumentFile()
-            let document = try documentFile.document()
-
-            documentType = documentFile.documentType
+        if let document = try Self.document(of: file) {
+            documentType = document.documentType
             // the document's own answer: a format odrcore renders but cannot write
             // back would otherwise offer Edit and fail at the save
             openedDocument = document.isEditable && document.isSavable ? document : nil
@@ -244,6 +241,18 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         pageURLs = views.map { base.appendingPathComponent($0.path) }
     }
 
+    /// The document behind the file. A csv is a one-sheet spreadsheet, but an
+    /// encoding odrcore cannot decode leaves it only the text view.
+    private static func document(of file: DecodedFile) throws -> OdrCoreObjC.Document? {
+        if file.isDocumentFile {
+            return try file.asDocumentFile().document()
+        }
+        if file.isCsvFile {
+            return try? file.asCsvFile().document()
+        }
+        return nil
+    }
+
     /// The first page's: a presentation has one size, and a drawing seldom more.
     private static func pageSize(of document: OdrCoreObjC.Document) -> CGSize? {
         guard let root = try? document.rootElement() else {
@@ -274,8 +283,8 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         lock.lock()
         defer { lock.unlock() }
 
-        // odrcore streams the parts an edit did not touch out of the file it opened, and
-        // truncates the destination first - so saving onto the open file empties it
+        // every kind of file is written beside the output and swapped in, so a
+        // failed save leaves the open file as it was
         let output = URL(fileURLWithPath: outputPath)
 
         let staging = try stagingDirectory(for: output)

@@ -121,6 +121,14 @@
 "edit_align_center" = "Na střed";
 "edit_align_right" = "Vpravo";
 "edit_align_justify" = "Do bloku";
+"edit_rows" = "Řádky";
+"edit_columns" = "Sloupce";
+"edit_insert_rows_above" = "Vložit řádek nad";
+"edit_insert_rows_below" = "Vložit řádek pod";
+"edit_delete_rows" = "Odstranit řádek";
+"edit_insert_columns_left" = "Vložit sloupec vlevo";
+"edit_insert_columns_right" = "Vložit sloupec vpravo";
+"edit_delete_columns" = "Odstranit sloupec";
 "edit_undo" = "Zpět";
 "edit_redo" = "Znovu";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Zalomení řádku uvnitř odstavce nelze uložit. Stiskněte Enter pro nový odstavec.";
 "edit_refused_read_only" = "Tento dokument nelze upravovat.";
 "edit_refused_range" = "Úprava nemůže sahat přes obrázek nebo tabulku.";
+"edit_refused_sheet_cut" = "Tento list je příliš velký na úplné zobrazení. Upravit lze jen zobrazenou část.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Součást Pro";
 "pro_feature_formatting" = "Tučné písmo, kurzíva, barvy a velikost textu a přidávání nebo spojování odstavců jsou součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
 "pro_feature_pdf" = "Podtržení, přeškrtnutí a kreslení v PDF jsou součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
+"pro_feature_structure" = "Přidávání a odstraňování řádků a sloupců je součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
 "not_now" = "Teď ne";
 
 /* Shown when the marking tools come up on a PDF */

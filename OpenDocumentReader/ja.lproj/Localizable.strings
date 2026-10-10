@@ -121,6 +121,14 @@
 "edit_align_center" = "中央揃え";
 "edit_align_right" = "右揃え";
 "edit_align_justify" = "両端揃え";
+"edit_rows" = "行";
+"edit_columns" = "列";
+"edit_insert_rows_above" = "上に行を挿入";
+"edit_insert_rows_below" = "下に行を挿入";
+"edit_delete_rows" = "行を削除";
+"edit_insert_columns_left" = "左に列を挿入";
+"edit_insert_columns_right" = "右に列を挿入";
+"edit_delete_columns" = "列を削除";
 "edit_undo" = "元に戻す";
 "edit_redo" = "やり直す";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "段落内の改行は保存できません。新しい段落にはReturnキーを押してください。";
 "edit_refused_read_only" = "この書類は編集できません。";
 "edit_refused_range" = "画像や表をまたぐ編集はできません。";
+"edit_refused_sheet_cut" = "このシートは大きすぎてすべてを表示できません。編集できるのは表示されている部分だけです。";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Proの機能";
 "pro_feature_formatting" = "太字、斜体、色、文字サイズと、段落の追加や結合はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
 "pro_feature_pdf" = "PDFへの下線、取り消し線、手書きはOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
+"pro_feature_structure" = "行と列の追加と削除はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
 "not_now" = "あとで";
 
 /* Shown when the marking tools come up on a PDF */

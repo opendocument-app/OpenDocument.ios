@@ -8,6 +8,7 @@ final class EditToolBar: UIView {
     enum Tool: CaseIterable {
         case bold, italic, underline, strikethrough
         case textColor, highlight, fill, fontSize, align
+        case rows, columns
         case markHighlight, markUnderline, markStrikeOut, markSquiggly, markDraw
 
         var symbol: String {
@@ -21,6 +22,8 @@ final class EditToolBar: UIView {
             case .fill: return "paintbrush"
             case .fontSize: return "textformat.size"
             case .align: return Alignment.left.symbol
+            case .rows: return "rectangle.split.1x2"
+            case .columns: return "rectangle.split.2x1"
             case .markUnderline: return "underline"
             case .markStrikeOut: return "strikethrough"
             // not in the system set, so it is drawn - see ``squigglyImage``
@@ -45,6 +48,8 @@ final class EditToolBar: UIView {
             case .fill: return NSLocalizedString("edit_fill", comment: "")
             case .fontSize: return NSLocalizedString("edit_font_size", comment: "")
             case .align: return NSLocalizedString("edit_align", comment: "")
+            case .rows: return NSLocalizedString("edit_rows", comment: "")
+            case .columns: return NSLocalizedString("edit_columns", comment: "")
             case .markHighlight: return NSLocalizedString("mark_highlight", comment: "")
             case .markUnderline: return NSLocalizedString("mark_underline", comment: "")
             case .markStrikeOut: return NSLocalizedString("mark_strike_out", comment: "")
@@ -79,7 +84,17 @@ final class EditToolBar: UIView {
         /// Whether a tap opens the tool's choices. None of these has any state
         /// to turn off.
         var opensOnTap: Bool {
-            self == .textColor || self == .fontSize || self == .align
+            self == .textColor || self == .fontSize || self == .align || !structures.isEmpty
+        }
+
+        /// What the tool's menu inserts or deletes; empty for a tool that
+        /// changes no rows or columns.
+        var structures: [Structure] {
+            switch self {
+            case .rows: return [.insertRowsAbove, .insertRowsBelow, .deleteRows]
+            case .columns: return [.insertColumnsLeft, .insertColumnsRight, .deleteColumns]
+            default: return []
+            }
         }
 
         /// Whether the tool paints behind the text, and so offers to paint
@@ -122,6 +137,8 @@ final class EditToolBar: UIView {
         case text
         /// a spreadsheet, whose cells take a style
         case sheet
+        /// a sheet whose cells take no style, such as a csv
+        case values
         /// a pdf, which takes marks
         case pdf
 
@@ -130,7 +147,11 @@ final class EditToolBar: UIView {
             case .text:
                 return [.bold, .italic, .underline, .strikethrough, .textColor, .highlight, .fontSize, .align]
             case .sheet:
-                return [.bold, .italic, .underline, .strikethrough, .textColor, .fill, .fontSize, .align]
+                return [
+                    .bold, .italic, .underline, .strikethrough, .textColor, .fill, .fontSize, .align, .rows, .columns,
+                ]
+            case .values:
+                return [.rows, .columns]
             case .pdf:
                 return [.markHighlight, .markUnderline, .markStrikeOut, .markSquiggly, .markDraw]
             }
@@ -165,6 +186,50 @@ final class EditToolBar: UIView {
         }
     }
 
+    /// A row or column edit, applied to the rows or columns the selection
+    /// spans.
+    enum Structure: CaseIterable {
+        case insertRowsAbove, insertRowsBelow, deleteRows
+        case insertColumnsLeft, insertColumnsRight, deleteColumns
+
+        /// The call to `odr.editing` that does it.
+        var script: String {
+            switch self {
+            case .insertRowsAbove: return "odr.editing.insertRows('above')"
+            case .insertRowsBelow: return "odr.editing.insertRows('below')"
+            case .deleteRows: return "odr.editing.deleteRows()"
+            case .insertColumnsLeft: return "odr.editing.insertColumns('left')"
+            case .insertColumnsRight: return "odr.editing.insertColumns('right')"
+            case .deleteColumns: return "odr.editing.deleteColumns()"
+            }
+        }
+
+        var symbol: String {
+            switch self {
+            case .insertRowsAbove: return "arrow.up"
+            case .insertRowsBelow: return "arrow.down"
+            case .insertColumnsLeft: return "arrow.left"
+            case .insertColumnsRight: return "arrow.right"
+            case .deleteRows, .deleteColumns: return "trash"
+            }
+        }
+
+        var label: String {
+            switch self {
+            case .insertRowsAbove: return NSLocalizedString("edit_insert_rows_above", comment: "")
+            case .insertRowsBelow: return NSLocalizedString("edit_insert_rows_below", comment: "")
+            case .deleteRows: return NSLocalizedString("edit_delete_rows", comment: "")
+            case .insertColumnsLeft: return NSLocalizedString("edit_insert_columns_left", comment: "")
+            case .insertColumnsRight: return NSLocalizedString("edit_insert_columns_right", comment: "")
+            case .deleteColumns: return NSLocalizedString("edit_delete_columns", comment: "")
+            }
+        }
+
+        var isDelete: Bool {
+            self == .deleteRows || self == .deleteColumns
+        }
+    }
+
     /// A pick from one of the menus.
     enum Choice {
         /// `#rrggbb`, or nil for no highlight
@@ -174,6 +239,7 @@ final class EditToolBar: UIView {
         /// in points
         case size(Int)
         case align(Alignment)
+        case structure(Structure)
     }
 
     /// A colour the menus offer.
@@ -553,6 +619,7 @@ final class EditToolBar: UIView {
         switch tool {
         case .fontSize: return sizeMenu()
         case .align: return alignMenu()
+        case .rows, .columns: return structureMenu(for: tool)
         default: return colorMenu(for: tool, swatches: tool.swatches, offersNone: tool.offersNone)
         }
     }
@@ -569,6 +636,20 @@ final class EditToolBar: UIView {
                 action.state = alignment == selectionAlignment ? .on : .off
 
                 return action
+            })
+    }
+
+    /// Insert before, insert after, and delete what the selection spans.
+    private func structureMenu(for tool: Tool) -> UIMenu {
+        UIMenu(
+            title: tool.label,
+            children: tool.structures.map { structure in
+                UIAction(
+                    title: structure.label, image: UIImage(systemName: structure.symbol),
+                    attributes: structure.isDelete ? .destructive : []
+                ) { [weak self] _ in
+                    self?.onChoice?(tool, .structure(structure))
+                }
             })
     }
 

@@ -195,14 +195,23 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertNil(controller.editToolBar.layout)
     }
 
-    /// A document nothing can be written back to keeps the room for itself.
-    func testACsvOffersNoEditButton() throws {
+    /// A csv takes values but no cell style, so it gets only the row and
+    /// column tools.
+    func testACsvEditsWithTheRowAndColumnTools() throws {
         documentURL = try copyFixture(ofType: "csv")
         try present(documentURL)
-        openDocument(where: "typeof odr === 'object'")
+        openDocument(where: "document.querySelectorAll('td').length > 0")
 
-        XCTAssertFalse(controller.document?.isEditable ?? true)
-        XCTAssertFalse(barContains(controller.editButton))
+        XCTAssertTrue(controller.document?.isEditable ?? false)
+        XCTAssertTrue(barContains(controller.editButton))
+
+        controller.toggleEdit(controller.editButton)
+        waitForTools()
+
+        XCTAssertEqual(controller.editToolBar.layout, .values)
+        XCTAssertTrue(controller.editToolBar.shows(.rows))
+        XCTAssertTrue(controller.editToolBar.shows(.columns))
+        XCTAssertFalse(controller.editToolBar.shows(.bold))
     }
 
     // MARK: - the page
@@ -280,6 +289,8 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(controller.editToolBar.shows(.bold))
         XCTAssertTrue(controller.editToolBar.shows(.fill))
         XCTAssertTrue(controller.editToolBar.shows(.align))
+        XCTAssertTrue(controller.editToolBar.shows(.rows))
+        XCTAssertTrue(controller.editToolBar.shows(.columns))
         XCTAssertFalse(controller.editToolBar.shows(.highlight))
         XCTAssertTrue(barContains(controller.undoButton))
         XCTAssertTrue(barContains(controller.redoButton))
@@ -294,6 +305,19 @@ class EditWorkflowTests: XCTestCase {
         controller.editToolBar.onTap?(.fill)
 
         waitForPage(where: "odr.sheet.cellAt(0, 0).style.backgroundColor !== ''")
+        waitUntil { self.controller.saveButton.isEnabled }
+    }
+
+    /// A row inserted above the pinned cell pushes the rows down, and the
+    /// edit goes into the log.
+    func testTheRowsToolInsertsARow() throws {
+        try openSheetForEditing()
+
+        let rows = evaluate("document.querySelectorAll('tr').length") as? Int ?? 0
+        _ = evaluate("odr.sheet.pin({ column: 0, row: 0 })")
+        controller.editToolBar.onChoice?(.rows, .structure(.insertRowsAbove))
+
+        waitForPage(where: "document.querySelectorAll('tr').length === \(rows + 1)")
         waitUntil { self.controller.saveButton.isEnabled }
     }
 
@@ -399,6 +423,8 @@ class EditWorkflowTests: XCTestCase {
 
         XCTAssertTrue(tools.isDimmed(.bold))
         XCTAssertTrue(tools.isDimmed(.align))
+        XCTAssertTrue(tools.isDimmed(.rows))
+        XCTAssertTrue(tools.isDimmed(.columns))
         XCTAssertFalse(tools.isDimmed(.fill))
 
         tools.layout = .pdf
@@ -427,6 +453,8 @@ class EditWorkflowTests: XCTestCase {
         tools.layout = .sheet
 
         XCTAssertNotNil(tools.menu(of: .fill))
+        XCTAssertEqual(tools.menu(of: .rows)?.children.count, 3)
+        XCTAssertEqual(tools.menu(of: .columns)?.children.count, 3)
 
         tools.layout = .pdf
 

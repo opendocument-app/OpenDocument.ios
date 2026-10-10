@@ -121,6 +121,14 @@
 "edit_align_center" = "Centré";
 "edit_align_right" = "À droite";
 "edit_align_justify" = "Justifié";
+"edit_rows" = "Lignes";
+"edit_columns" = "Colonnes";
+"edit_insert_rows_above" = "Insérer une ligne au-dessus";
+"edit_insert_rows_below" = "Insérer une ligne en dessous";
+"edit_delete_rows" = "Supprimer la ligne";
+"edit_insert_columns_left" = "Insérer une colonne à gauche";
+"edit_insert_columns_right" = "Insérer une colonne à droite";
+"edit_delete_columns" = "Supprimer la colonne";
 "edit_undo" = "Annuler";
 "edit_redo" = "Rétablir";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Un saut de ligne à l’intérieur d’un paragraphe ne peut pas être enregistré. Appuyez sur Entrée pour un nouveau paragraphe.";
 "edit_refused_read_only" = "Ce document ne peut pas être modifié.";
 "edit_refused_range" = "Une modification ne peut pas passer par-dessus une image ou un tableau.";
+"edit_refused_sheet_cut" = "Cette feuille est trop grande pour être affichée en entier. Seule la partie affichée peut être modifiée.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Réservé à Pro";
 "pro_feature_formatting" = "Le gras, l’italique, les couleurs et la taille du texte, ainsi que l’ajout ou la fusion de paragraphes, font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
 "pro_feature_pdf" = "Souligner, barrer et dessiner sur un PDF font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
+"pro_feature_structure" = "Ajouter et supprimer des lignes et des colonnes fait partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
 "not_now" = "Pas maintenant";
 
 /* Shown when the marking tools come up on a PDF */

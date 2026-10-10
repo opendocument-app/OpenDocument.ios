@@ -15,6 +15,15 @@ Rules:
 
 ## [Unreleased]
 
+### Added
+
+- Spreadsheets can insert and delete rows and columns in Pro.
+- A CSV file can be edited and saved.
+
+### Changed
+
+- The engine is odrcore 7.5.1, up from 7.4.0.
+
 ### Fixed
 
 - A PDF prints as the file itself, one page to a sheet. A PDF with a password
