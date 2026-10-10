@@ -571,25 +571,28 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
 
         sender.selectedIndex = doc.page
+        // the edits are only in the page, so leaving it discards them
         confirmLeavingEdits(
             save: {
                 self.saveContent { success in
-                    guard success else { return }
-                    doc.reload()
-                    self.switchPage(to: index)
+                    if success { self.switchPage(to: index, reloading: true) }
                 }
             },
-            discard: {
-                doc.reload()
-                self.switchPage(to: index)
-            })
+            discard: { self.switchPage(to: index) })
     }
 
-    private func switchPage(to index: Int) {
-        resumesEditAfterLoad = document?.edit == true
+    /// After a save, `reloading` renders the saved file again.
+    private func switchPage(to index: Int, reloading: Bool = false) {
+        guard let doc = document else { return }
+
+        resumesEditAfterLoad = doc.edit
         isEditSessionReady = false
-        document?.page = index
-        pageTabBar.selectedIndex = document?.page
+        if reloading {
+            doc.reload(page: index)
+        } else {
+            doc.page = index
+        }
+        pageTabBar.selectedIndex = doc.page
     }
 
     func showWebsite() {
@@ -1117,8 +1120,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         isEditingDocument = document?.edit ?? false
     }
 
+    /// An anchor in the document stays on the same page.
     private func isDocumentPage(_ url: URL) -> Bool {
-        url == document?.result && CoreWrapper.isServedURL(url)
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        components?.fragment = nil
+        return document?.result != nil && components?.url == document?.result
     }
 
     /// The pencil, for a document and a pdf alike: the two never stand in the
@@ -1217,8 +1223,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         }
     }
 
-    /// Also reached through viewDidDisappear, so the document is dropped rather
-    /// than closed a second time on the way out.
+    /// Drops the document, so viewDidDisappear does not close it a second time.
     func closeCurrentDocument(then finish: (() -> Void)? = nil) {
         document?.close()
         document = nil
@@ -1312,6 +1317,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         controller.present(alert, animated: true)
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            // a toast that was never presented never calls a dismiss completion
+            guard alert.presentingViewController != nil else {
+                completion?()
+                return
+            }
             alert.dismiss(animated: true, completion: completion)
         }
     }

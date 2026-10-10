@@ -67,8 +67,13 @@ class Document: UIDocument {
         rendersAgainOnLeave = true
     }
 
-    /// Renders the file again and keeps the mode: what a save stays in.
-    func reload() {
+    /// Renders the file again and keeps the mode: what a save stays in. With
+    /// `page`, it opens that page, and the old render does not load it first.
+    func reload(page: Int? = nil) {
+        if let page {
+            pageURLs = nil
+            self.page = page
+        }
         parse()
     }
 
