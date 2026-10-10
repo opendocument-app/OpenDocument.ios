@@ -337,6 +337,6 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         let port = PageServer.shared.port
 
         return port != 0 && url.scheme == "http" && url.host == "127.0.0.1"
-            && url.port.map(UInt32.init) == port
+            && url.port == Int(port)
     }
 }

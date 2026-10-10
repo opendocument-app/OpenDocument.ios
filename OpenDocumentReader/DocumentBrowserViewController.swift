@@ -171,7 +171,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         showGenericError()
     }
 
-    private func showGenericError() {
+    func showGenericError() {
         let alert = UIAlertController(
             title: "",
             message: NSLocalizedString("toast_error_generic", comment: ""),
@@ -217,7 +217,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         let doc = Document(fileURL: documentURL)
 
-        let transitionController = self.transitionController(forDocumentURL: documentURL)
+        let transitionController = self.transitionController(forDocumentAt: documentURL)
         transitionController.targetView = documentViewController.webview
         documentViewController.transitionController = transitionController
         transitionController.loadingProgress = doc.loadProgress

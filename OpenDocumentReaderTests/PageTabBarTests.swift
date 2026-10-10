@@ -194,6 +194,30 @@ class DocumentViewControllerPageTabsTests: XCTestCase {
         XCTAssertTrue(viewController.pageTabBar.isHidden)
     }
 
+    func testReloadKeepsTheSelectedSheet() {
+        let document = makeDocument(pageNames: ["Alpha", "Beta", "Gamma"])
+        document.page = 2
+
+        viewController.documentPagesChanged(document)
+
+        XCTAssertEqual(viewController.pageTabBar.selectedIndex, 2)
+    }
+
+    func testPageIndexMatchesTheDisplayedPageAfterClamping() {
+        let document = makeDocument(pageNames: ["Alpha", "Beta"])
+        document.pageURLs = [documentURL, documentURL.appendingPathComponent("beta")]
+
+        document.page = 5
+
+        XCTAssertEqual(document.page, 1)
+        XCTAssertEqual(document.result, document.pageURLs?.last)
+
+        document.page = -1
+
+        XCTAssertEqual(document.page, 0)
+        XCTAssertEqual(document.result, document.pageURLs?.first)
+    }
+
     /// Pages used to be appended, so a second announcement left the tab bar
     /// showing every page twice.
     func testPagesAreReplacedNotAppended() {

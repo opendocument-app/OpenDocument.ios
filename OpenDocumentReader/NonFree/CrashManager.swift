@@ -10,12 +10,13 @@ final class CrashManager {
 
     private let logger = Logger(subsystem: "app.opendocument.reader", category: "crash")
     private var customValues: [String: String] = [:]
+    private let lock = NSLock()
 
     private init() {}
 
     /// Context attached to everything reported afterwards.
     func setCustomValue(_ value: String, forKey key: String) {
-        customValues[key] = value
+        lock.withLock { customValues[key] = value }
     }
 
     func log(_ message: String) {
@@ -27,12 +28,11 @@ final class CrashManager {
     }
 
     private func describedContext() -> String {
-        guard !customValues.isEmpty else { return "" }
-
-        return
+        lock.withLock {
             customValues
-            .sorted { $0.key < $1.key }
-            .map { "\($0.key)=\($0.value)" }
-            .joined(separator: " ")
+                .sorted { $0.key < $1.key }
+                .map { "\($0.key)=\($0.value)" }
+                .joined(separator: " ")
+        }
     }
 }
