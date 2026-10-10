@@ -1,0 +1,3 @@
+- CSV dosyalarını düzenleyin ve kaydedin
+- PDF'ler özgün dosyanın kendisinden, her kâğıda bir sayfa olacak şekilde yazdırılıyor
+- Yazdırırken belgenin kâğıt boyutu ve yönü (örneğin A4 veya yatay) baştan seçili geliyor

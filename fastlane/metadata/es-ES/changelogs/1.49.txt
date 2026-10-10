@@ -1,0 +1,3 @@
+- Edite y guarde archivos CSV
+- Los PDF se imprimen como el archivo original, una página por hoja
+- Al imprimir se parte del tamaño de papel y la orientación del documento, como A4 u horizontal

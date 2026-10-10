@@ -1,0 +1,3 @@
+- Edite e salve arquivos CSV
+- O PDF é impresso como o arquivo original, uma página por folha
+- A impressão já vem com o tamanho de papel e a orientação do documento, como A4 ou paisagem
