@@ -108,9 +108,7 @@ final class AdSlot: NSObject, BannerViewDelegate {
         bannerView.load(Request())
     }
 
-    /// Asks again for a hidden banner, which the unit will not refresh. Reschedules itself before
-    /// it asks: a request that never comes back must not end the chain. A suspended app cannot
-    /// fire the work item, so backgrounding needs no guard.
+    /// Retry unfilled banners, scheduling the next attempt before sending this request.
     private func scheduleRetry() {
         retry?.cancel()
 

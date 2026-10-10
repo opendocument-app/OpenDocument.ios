@@ -1,25 +1,6 @@
 #!/usr/bin/env python3
-#
-# Puts the captured screenshots into the picture the store shows: the app on a
-# phone, on a coloured ground, under a line of copy in that locale's language.
-#
-#   scripts/frame-screenshots.py                    frame the whole capture
-#   scripts/frame-screenshots.py --locale en-US     one locale, for a look
-#
-# `fastlane ios screenshots` takes the raw captures into fastlane/screenshots;
-# this reads them and writes the framed set to fastlane/framed, which is what
-# `scripts/store_screenshots.py` then checks and stages. The raw set is left
-# alone, so a framing change costs a rerun of this and not of the simulators.
-#
-# Nothing here is drawn from an image file. Every part of the design is a
-# rounded rectangle, a plain rectangle or a line of text, so it is all in
-# `fastlane/frames/frames.json` and in the numbers below - which is also what
-# lets one canvas size become another. The only asset is the font.
-#
-# Needs Pillow, which is the one thing in this repository's scripts that is not
-# in the standard library:
-#
-#   python3 -m pip install Pillow
+# Frame App Store captures from fastlane/screenshots into fastlane/framed.
+# Requires Pillow. Use --locale to frame one locale.
 
 import argparse
 import bisect
@@ -42,21 +23,7 @@ FRAMES = ROOT / "fastlane" / "frames"
 CAPTURED = ROOT / "fastlane" / "screenshots"
 FRAMED = ROOT / "fastlane" / "framed"
 
-# The design, as fractions of the canvas rather than pixels, because the canvas
-# is whatever the capture is - 1320x2868 today and something else after the next
-# device.
-#
-# How far down something sits is a fraction of the height; how big it is, and
-# how far across, is a fraction of the width. So a taller canvas gives
-# everything more room without stretching any of it.
-#
-# The proportions came off the 2020 artwork at 1242x2208, where the phone was
-# anchored by its top left corner and left to run off the bottom and the right.
-# It stands whole now, as the Play listing's does: a device with its corners cut
-# off reads as a picture that did not fit rather than as a phone. The canvas
-# cannot grow to make room - App Store Connect takes the capture's own size and
-# no other - so the device is fitted into it instead, which costs it some size
-# and leaves ground under it.
+# Layout dimensions are fractions of the canvas: y positions use height; sizes use width.
 LAYOUT = {
     "iphone": {
         "headline_top": 0.068,
@@ -67,18 +34,13 @@ LAYOUT = {
         "screen_top": 0.265,
         "screen_width": 0.650,         # as wide as it may be; `foot` is the other limit
         "foot": 0.045,                 # ground left under the device, of the height
-        # An iPhone 17 Pro Max, from its published dimensions: a 440pt screen
-        # inside a 78.0mm body, which leaves 2.54mm - 15.3pt - of black border
-        # and aluminium on every side, and a 62pt display corner.
+        # iPhone 17 Pro Max bezel and corner proportions.
         "bezel": 0.0272,               # screen edge to the outside of the body
         "rim": 0.57,                   # how much of that is the black border
         "corner": 0.141,               # screen corner, of the screen's width
         "island": (0.2826, 0.0811),    # the Dynamic Island, of the screen's width
         "island_top": 0.0334,
-        # The action button and the two volume keys: (how far down the body,
-        # how long), both of the body's height. Measured off Apple's own bezel
-        # artwork, which is also where the bezel, the island and the corner
-        # come from - so all of it is the device rather than a guess at it.
+        # Left buttons as (top, height), relative to body height.
         "buttons": [(0.189, 0.0423), (0.262, 0.0686), (0.349, 0.0686)],
         # the side button, on the right edge
         "buttons_right": [(0.286, 0.1082)],
@@ -89,34 +51,9 @@ LAYOUT = {
         "dash_stroke": 0.0056,
         "dash_on": 0.0236,
         "dash_off": 0.0098,
-        # Each decoration is a line that comes in from off the canvas, turns a
-        # corner and leaves again - one corner of a rounded rectangle far bigger
-        # than the picture. Points are (x, y) in canvas fractions, and a point
-        # past 1 is off the edge on purpose. A y of "chips" starts the line at
-        # the top of the tabs, so it runs behind however many there are and
-        # comes out underneath: anchored to a number instead, a screen with one
-        # tab leaves the line starting in mid air below it.
-        # The line crossing every screen. Each picture takes it in at the height
-        # the one before let it out at, steps it to a new height somewhere along
-        # the way, and hands it on - so no two screens carry the same line and
-        # the gallery still reads as one. There is one height per seam, which is
-        # one more than there are screens.
-        #
-        # Every height sits between the foot of the headline and the top of the
-        # device, the only band that is neither written on nor covered up.
+        # Gallery seam heights in canvas fractions; adjacent screens share a seam.
         "seams": [0.150, 0.200, 0.170, 0.215, 0.158, 0.195, 0.176],
-        # What the line does between the two seams it has to join. "in" is the
-        # height it arrived at and "out" the one it has to leave at; anything
-        # else is a height of its own. Only the left quarter is free below the
-        # band - the device covers the rest - so that is where a line can wander
-        # before it has to come back up and go.
-        # A step and, on some, a shallow dip into the left column before it. Kept
-        # shallow on purpose: the line is there to tie the pictures together, and
-        # one that wanders far down the page competes with what it is framing.
-        # One step, at a different place on each. Two of them dip a little
-        # further first, and only a little: the line is there to tie the
-        # pictures together, and anything more reads as decoration for its own
-        # sake across the top of every screen.
+        # Routes join the "in" and "out" seams; numeric heights are canvas fractions.
         "routes": [
             [(0.34, "in"), (0.34, "out")],
             [(0.17, "in"), (0.17, "out")],
@@ -126,10 +63,7 @@ LAYOUT = {
             [(0.15, "in"), (0.15, 0.238), (0.33, 0.238), (0.33, "out")],
         ],
         "radii": [0.078, 0.066, 0.086, 0.062, 0.072, 0.070],
-        # The lower line. Some of these hang off the tabs, some come in from the
-        # left edge instead - picking up where the picture before let its own
-        # line disappear behind the device - and one leaves to the left again.
-        # A screen with no tabs takes one of the ones that does not need them.
+        # Lower decorations attach to chips or enter from the canvas edge.
         "decorations": [
             [("chips", "chips"), ("chips", 0.930), (0.55, 0.930)],
             [(-0.2, 0.700), (0.155, 0.700), (0.155, 0.930), (0.62, 0.930)],
@@ -146,10 +80,7 @@ LAYOUT = {
         "screen_top": 0.250,
         "screen_width": 0.720,
         "foot": 0.055,
-        # An iPad Pro 13-inch, likewise: a 1032pt screen in a 215.5mm body is
-        # 8.44mm - 43.8pt - of border, near three times the phone's, and the
-        # display corner is 18pt where the phone's is 62. Nothing on the left
-        # edge either: its buttons are all on the top one.
+        # iPad Pro 13-inch bezel and corner proportions.
         "bezel": 0.0350,
         "rim": 0.86,
         "corner": 0.0174,
@@ -189,9 +120,7 @@ RIM = ("#c9c9cf", "#6f7076", "#8e8f95", "#7c7d83", "#6a6b71", "#b6b7bd")
 BUTTON = ("#d8d8d6", "#a9a9a7", "#c4c4c2")
 GLASS = 96      # how brightly the screen's edge catches the light, of 255
 
-# The shadow the device casts. Black rather than a colour of its own, which was
-# mixed for the green ground and went muddy on the orange one, and offset down
-# and right instead of sitting square behind the body, where the body covers it.
+# Black shadow, offset down and right.
 SHADOW = (0, 0, 0, 105)
 SHADOW_OFFSET = (0.30, 0.65)    # of the bezel, across and down
 SHADOW_BLUR = 0.85              # of the bezel
@@ -251,12 +180,7 @@ def rounded_path(points, radius, per_corner=24):
 
 
 def dashed(canvas, points, stroke, on, off, colour=(255, 255, 255, 255), phase=0.0):
-    """Lays dashes along a path, so a dash carries on around a corner.
-
-    Counted out from the start of the path rather than accumulated as it walks,
-    because a step that rounds to nothing next to a distance already travelled
-    is a step that never arrives.
-    """
+    """Draw dashes continuously around a path, measuring from its start to avoid rounding drift."""
     reached = [0.0]
     for before, after in zip(points, points[1:]):
         reached.append(reached[-1] + math.hypot(after[0] - before[0], after[1] - before[1]))
@@ -297,20 +221,12 @@ def dashed(canvas, points, stroke, on, off, colour=(255, 255, 255, 255), phase=0
 
 
 def squircle(box, radius, exponent=5.0, per_corner=40):
-    """A rounded rectangle whose corners are superellipse quadrants.
-
-    Apple's corners are a continuous curve rather than a circular arc: the
-    curvature eases into the straight edge instead of starting at full bend. A
-    circle reads as an Android phone, or as a 2015 one. Exponent 5 is close
-    enough that nobody looks twice.
-    """
+    """Return a rounded rectangle with superellipse corners."""
     x0, y0, x1, y1 = box
     r = min(radius, (x1 - x0) / 2, (y1 - y0) / 2)
     points = []
 
-    # each corner as (centre, x sign, y sign), going clockwise from bottom right.
-    # Two of the four are walked backwards, so that every quadrant leaves off
-    # where the next one starts and the outline closes.
+    # Walk superellipse corners clockwise, reversing alternate quadrants.
     for (cx, cy), sx, sy in (((x1 - r, y1 - r), 1, 1), ((x0 + r, y1 - r), -1, 1),
                              ((x0 + r, y0 + r), -1, -1), ((x1 - r, y0 + r), 1, -1)):
         for step in range(per_corner + 1):
@@ -325,13 +241,7 @@ def squircle(box, radius, exponent=5.0, per_corner=40):
 
 
 def outset(points, distance):
-    """The same outline, moved out by a fixed distance along its own normals.
-
-    A squircle grown by raising its radius is not parallel to the one it grew
-    from: the gap between the two opens up around the corner and closes down
-    the sides. Drawn that way a bezel is visibly fatter at the corners than
-    along the edges, which is the first thing anybody who owns the phone sees.
-    """
+    """Offset an outline along its normals to preserve a constant border width."""
     walked = list(zip(points, points[1:] + points[:1]))
     facing = 1.0 if sum(x0 * y1 - x1 * y0 for (x0, y0), (x1, y1) in walked) > 0 else -1.0
     moved = []
@@ -355,13 +265,7 @@ def stencil(size, points, supersample=3):
 
 
 def chamfer(share):
-    """The metal's colour that far across the band, outside edge to black.
-
-    Read off Apple's own bezel: the edge is turned, so it comes in at a middling
-    grey, climbs to a highlight about two thirds of the way in and falls away
-    again. Lit along its length like this it reads as a rolled edge; filled
-    flat, as a grey stripe.
-    """
+    """Return the metal color across the bezel, from outside edge to black."""
     stops = ((0.00, 109), (0.19, 157), (0.40, 190), (0.64, 235), (0.79, 195), (1.00, 120))
     place = bisect.bisect_right([at for at, _ in stops], share)
     if place == 0:
@@ -412,26 +316,14 @@ def walked(points):
 
 
 def phone(canvas, shot, layout):
-    """The device: the capture behind glass, in a metal body.
-
-    Drawn rather than pasted from a mockup, so it is the shape of whatever was
-    captured. A frame downloaded for one device is the wrong shape for the next
-    one, and the sets on offer stop at a generation the store no longer asks for.
-
-    Built in its own image and composited once, so the parts can be masked
-    against each other without the ground showing through the seams.
-    """
+    """Composite a capture inside a device frame, with bezel, buttons and shadow."""
     width, height = canvas.size
     bezel = layout["bezel"] * width          # screen edge to the outside of the body
     rim = bezel * layout["rim"]              # how much of that is metal
 
     left, top = layout["screen_left"] * width, layout["screen_top"] * height
 
-    # Two limits rather than one fraction: `screen_width` is as wide as it may
-    # be, and `foot` is how much ground has to be left under it. Sized by the
-    # fraction alone, a device a little taller than the one the number was picked
-    # for runs its bottom rim off the canvas and a shorter one leaves a stripe of
-    # ground - neither of which is a decision anybody made.
+    # Fit the device within screen_width while preserving the foot margin.
     standing = (height - layout["foot"] * height) - top - bezel
     screen_width = min(layout["screen_width"] * width, standing * shot.width / shot.height)
     screen_height = screen_width * shot.height / shot.width
@@ -463,15 +355,11 @@ def phone(canvas, shot, layout):
                                    radius=stand * 0.55, fill=255)
     device.paste(metal, (0, 0), buttons)
 
-    # Every edge is the screen's own outline moved out, so the black border and
-    # the metal around it are the same width the whole way round - which is what
-    # they are on the device, and not what a bigger squircle would give.
+    # Offset the screen outline to keep the bezel width constant.
     face = squircle(here(screen), corner)
     outline = outset(face, bezel)
 
-    # The metal, lit across the band's own width rather than the body's: the
-    # band is filled as rings, each the colour ``chamfer`` gives for how far in
-    # it sits, so the highlight follows the edge the whole way round.
+    # Shade concentric bezel rings with chamfer().
     band = bezel - rim
     lit = Image.new("RGB", size, chamfer(1.0))
     rings = ImageDraw.Draw(lit)
@@ -492,10 +380,7 @@ def phone(canvas, shot, layout):
                      (round(inside[0]), round(inside[1]),
                       round(inside[0]) + fitted.width, round(inside[1]) + fitted.height)))
 
-    # The hairline where the glass meets the surround, which a real device
-    # catches the light along. Without it a screen that is dark at the top - the
-    # intro is - runs into the black bezel, and the two read as one fat border
-    # off a phone from 2016.
+    # Highlight the glass edge to separate dark screens from the bezel.
     hair = max(1.0, screen_width * 0.0012)
     halo = ImageChops.subtract(
         stencil(size, face), stencil(size, outset(face, -hair))
@@ -521,12 +406,7 @@ def phone(canvas, shot, layout):
 
 
 def headline(canvas, lines, layout):
-    """Two lines, light over bold, centred and shrunk until they fit.
-
-    Fitted rather than set at a fixed size because the same sentence is a third
-    longer in German than in English, and a line that runs off the picture is
-    worse than one set a little smaller.
-    """
+    """Fit two centered headline lines to the available width."""
     width, height = canvas.size
     size = round(layout["headline_size"] * width)
     allowed = layout["headline_width"] * width
@@ -553,14 +433,7 @@ def chips(canvas, names, palette, layout):
     face = font(round(layout["chip_text"] * width), "Bold")
     draw = ImageDraw.Draw(canvas)
 
-    # As wide as the longest word in the whole design needs, and no narrower
-    # than the design's own tab: "odt" is three letters and "docx" is four, and
-    # a tab cut to fit the shorter one loses the end of the longer.
-    #
-    # Measured across every format rather than the two or three on this screen,
-    # so the tabs are one length through the gallery. Cut to fit each screen
-    # they step in and out as the reader swipes, which reads as the pictures
-    # having been made at different times.
+    # Size all chips to the widest format name, keeping their width consistent across screens.
     padding = layout["chip_text"] * width * 0.42
     chip_width = max([least] + [draw.textlength(name, font=face) + 2 * padding for name in palette])
 
@@ -586,9 +459,7 @@ def frame(shot, screen, locale, spec, order=0):
     stroke = layout["dash_stroke"] * width
     radius = layout["radii"][order % len(layout["radii"])] * width
 
-    # The crossing line, and the dash pattern picked up where the screens before
-    # it left off, so the dashes carry on across the gallery rather than
-    # restarting at every picture.
+    # Continue the dash phase from preceding screens.
     before = sum(walked(crossing(layout, index, shot.size)) for index in range(order))
     dashed(
         canvas, rounded_path(crossing(layout, order, shot.size), radius), stroke, on, off, phase=before

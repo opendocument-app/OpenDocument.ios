@@ -1,23 +1,7 @@
 #!/usr/bin/env python3
-"""Builds the documents the App Store screenshots are taken of.
+"""Generate reproducible localized samples for Debug screenshot builds.
 
-A reader's screenshots are mostly the document it is reading, so these are
-written rather than borrowed: a short report, a small spreadsheet and a three
-slide deck, in every language the app speaks and the store has a listing for.
-The screenshot of the German store shows a German document.
-
-Kept small on purpose - a few kilobytes each, no images, no third party
-material - because they are read once, on a simulator, to be photographed.
-They are bundled in Debug builds only; `EXCLUDED_SOURCE_FILE_NAMES` keeps
-`sample-*` out of the archive that goes to the store.
-
-    python3 scripts/make-screenshot-documents.py
-    python3 scripts/make-screenshot-documents.py --language en    one of them
-
-What it writes is not committed - the screenshot lane runs this before it
-builds. The packages are byte for byte reproducible, so a rerun that changes
-no wording writes the same bytes.
-"""
+Usage: python3 scripts/make-screenshot-documents.py [--language en]"""
 
 import argparse
 import json
@@ -53,11 +37,7 @@ MANIFEST = """<?xml version="1.0" encoding="UTF-8"?>
 </manifest:manifest>
 """
 
-# A4 upright for the report and the sheet, 16:9 for the deck.
-#
-# A page is fitted to the width of the screen, so a page with little on it reads
-# as a smudge in the top third of an empty sheet. The answer is words rather
-# than smaller paper: these documents are written long enough to fill A4.
+# A4 portrait for documents; 16:9 for slides.
 PAGE_LAYOUTS = {
     "document": '<style:page-layout-properties fo:page-width="21cm" fo:page-height="29.7cm"'
     ' fo:margin-top="2cm" fo:margin-bottom="2cm" fo:margin-left="2cm" fo:margin-right="2cm"/>',
@@ -69,9 +49,7 @@ PAGE_LAYOUTS = {
 ACCENT = "#1c6fd6"
 RULE = "#d4d9e0"
 
-# Which section of the report the figures sit under - the costs one, second of the
-# five - and how many rows of them there are. The rows are what carry the report
-# past the foot of a phone screen, so this is the number to turn if it stops.
+# Place the cost table under the second report section.
 COSTS_SECTION = 1
 REPORT_ROWS = 26
 
@@ -113,15 +91,7 @@ def paragraph_style(name: str, *, size: str, weight: str = "normal", colour: str
 
 
 def report(words: dict) -> str:
-    """A title, a lead, headed sections with the costs figures under theirs, and a
-    closing line.
-
-    Long on purpose. A page fitted to the width of a phone is about two thirds of
-    its height, so a document that ends after one is photographed with a third of
-    the screen showing the backdrop behind it. Which is why there is a table in
-    here at all: the figures are the only length the report can be given that is
-    already written in all nine languages.
-    """
+    """Build a report with headings and a cost table long enough to fill the screenshot."""
     automatic = "\n".join(
         [
             paragraph_style("Title", size="26pt", weight="bold", space="0.8cm"),
@@ -170,15 +140,7 @@ def report(words: dict) -> str:
 
 
 def table(words: dict, columns: int = 4, rows: int = 0, scale: int = 1) -> tuple:
-    """The figures as rows of cells: a header, the items across as many periods
-    as are asked for with their totals, and a totals row under them.
-
-    Narrowed and shortened for the files that are not the budget, so the .xlsx
-    and the invoice hold their own figures rather than the .ods twice.
-
-    As wide as the header a language has words for, so one translated ahead of
-    the others comes out short rather than out of step.
-    """
+    """Return header, data and totals rows for the requested periods and row count."""
     periods = words["periods"][:columns]
     columns = len(periods)
     taken = FIGURES[:rows] if rows else FIGURES
@@ -199,11 +161,7 @@ def table(words: dict, columns: int = 4, rows: int = 0, scale: int = 1) -> tuple
 
 
 def odf_row(cells: list, style: str | None = None) -> str:
-    """One row of an ODF table, as the report and the sheet both write it.
-
-    A figure carries its value in the attribute as well as in the text, or the
-    spreadsheet holds a column of text that happens to look like numbers.
-    """
+    """Build an ODF row with numeric cells carrying both values and display text."""
     marked = f' table:style-name="{style}"' if style else ""
     out = ["    <table:table-row>"]
     for cell in cells:
@@ -664,9 +622,7 @@ WORDS = {
     },
 }
 
-# What the sheets add up: forty rows over six periods, so there is enough of it
-# to look like a spreadsheet. The first twenty keep the first four figures they
-# had, because the invoice and the .xlsx take slices off the front.
+# Forty rows across six periods; other formats reuse smaller slices.
 FIGURES = [
     [1200, 1450, 1310, 1600, 1380, 1520],
     [480, 620, 510, 470, 690, 540],
@@ -710,9 +666,7 @@ FIGURES = [
     [740, 770, 800, 790, 830, 860],
 ]
 
-# What the browser lists them as. Realistic rather than descriptive: the first
-# screenshot is meant to look like somebody's folder, and the extensions do the
-# talking about what the app opens.
+# Localized sample filenames.
 FILE_NAMES = {
     "en": {"text": "Quarterly report", "sheet": "Budget", "slides": "Project plan",
            "word": "Contract", "cells": "Sales figures", "deck": "Team offsite",
@@ -743,9 +697,7 @@ FILE_NAMES = {
            "paper": "Fatura", "rows": "Kişiler", "notes": "Notlar"},
 }
 
-# The rest of the folder, so it does not read as a set of nine samples. Each is
-# a copy of the sample named beside it, which only decides its icon: the browser
-# shows a name and an icon, and none of them is ever opened.
+# Extra browser entries copy existing samples and are never opened.
 FILLERS = {
     "meeting": "text",
     "letter": "text",
@@ -874,12 +826,7 @@ FILLER_NAMES = {
 }
 
 
-# The word the search screenshot looks for.
-#
-# Counted out of the document rather than written down, so it is always a word
-# that is really in there, and always one that is in there several times - a
-# search that highlights a single hit does not look like a search. Short words
-# are skipped because "the" and "and" say nothing about the document.
+# Choose a frequent long word for visible search matches.
 def query(words: dict) -> str:
     """The most repeated long word of the report, which is what to search for."""
     text = " ".join(
@@ -897,10 +844,7 @@ def query(words: dict) -> str:
     return max(counted, key=lambda word: (counted[word], len(word)))
 
 
-# The folder is not nine copies of one report. What each file is called says
-# what it should hold, so the contract reads like a contract and the invoice
-# like an invoice - a folder where every document has the same title is the one
-# thing a picture of a folder must not be.
+# Distinct sample content for each document format.
 OTHERS = {
     "en": {
         "contract": ["Service agreement",
@@ -1097,15 +1041,7 @@ OTHERS = {
 PEOPLE = ["A. Bauer", "M. Rossi", "J. Novak", "L. Dubois", "S. Meyer", "K. Larsen"]
 
 
-# --- the other formats ------------------------------------------------------
-#
-# The first screenshot is a folder, so the folder has to look like somebody's.
-# What it holds is the quiet half of the message: an .odt beside an .xlsx beside
-# a .pdf says what the app opens without a line of copy claiming it.
-#
-# These are written small and plain for the same reason the ODF ones are. They
-# are read by odrcore, not by Word, so they carry the least markup that is still
-# a valid package.
+# Minimal OOXML packages for screenshot samples.
 
 OOXML_RELS = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
@@ -1115,11 +1051,7 @@ OOXML_RELS = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 WORD_MAIN = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument"
 
-# How many lines the contract's appendix lists, and the half-points the whole of it
-# is set in. Between them they are what carries it past the foot of a phone screen,
-# the clauses above being fourteen short sentences - and they are the only length
-# there is to give it, the renderer honouring neither `w:spacing` on a paragraph nor
-# `w:trHeight` on a row.
+# Appendix row count and text size in half-points.
 ANNEX_ROWS = 40
 CONTRACT_TEXT = 28
 
@@ -1161,9 +1093,7 @@ def docx_parts(words: dict, others: dict) -> dict:
     def para(runs: str, after: int) -> str:
         return f'<w:p><w:pPr><w:spacing w:after="{after}"/></w:pPr>{runs}</w:p>'
 
-    # A clause a paragraph, numbered in line with its first word. A number on a
-    # line of its own above the sentence reads as a list of scraps rather than as
-    # a contract.
+    # Number each clause inline.
     paragraphs = [
         para(run(title, size=72, bold=True), 640),
         para(run(lead, size=CONTRACT_TEXT), 420),
@@ -1177,14 +1107,10 @@ def docx_parts(words: dict, others: dict) -> dict:
             )
         )
 
-    # An empty paragraph between them, rather than trusting w:spacing: the
-    # renderer sets the clauses flush against each other whatever `w:after`
-    # says, and a contract whose clauses touch reads as one block of text.
+    # Use empty paragraphs because odrcore ignores w:spacing here.
     body = '<w:p/>'.join(paragraphs)
 
-    # The appendix the last clauses promise, and the length that carries the
-    # contract past the foot of the screen. Its two columns are words the report
-    # already has in every language, so it costs no translation.
+    # Reuse localized table labels for the contract appendix.
     _, rows, _ = table(words, columns=1, rows=ANNEX_ROWS)
     body += cell_rows(
         [[words["item"], words["total"]]] + [[line[0], str(line[-1])] for line in rows]
@@ -1200,10 +1126,7 @@ def docx_parts(words: dict, others: dict) -> dict:
         '<Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-'
         'officedocument.wordprocessingml.styles+xml"/></Types>',
         "_rels/.rels": OOXML_RELS.format(type=WORD_MAIN, target="word/document.xml"),
-        # Not optional. odrcore opens /word/styles.xml whether or not the
-        # document has a style in it, and a package without one is not read as a
-        # Word file at all: it falls through to the web view, which draws the
-        # text with no page around it and offers neither search nor editing.
+        # odrcore requires word/styles.xml even when no named styles are used.
         "word/_rels/document.xml.rels": OOXML_RELS.format(
             type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles",
             target="styles.xml",
@@ -1220,9 +1143,7 @@ def docx_parts(words: dict, others: dict) -> dict:
         "</w:styles>",
         "word/document.xml": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
-        # A4 with 2cm margins, in twentieths of a point. Without it there is no
-        # page for odrcore to lay the text on, and the document is drawn as a
-        # bare column of text rather than as a sheet of paper.
+        # A4 with 2 cm margins, measured in twentieths of a point.
         f"<w:body>{body}"
         '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/>'
         '<w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134"/>'
@@ -1336,10 +1257,7 @@ def pptx_parts(words: dict) -> dict:
     }
 
 
-# Helvetica's own character widths, in thousandths of the point size, so the pdf
-# can be set the way a real one is: each word placed where it belongs rather
-# than a whole line handed over as one run. It is also what lets the lines wrap
-# where the text actually reaches the margin.
+# Helvetica character widths in thousandths of a point.
 HELVETICA = {
     "regular": (
         "278 278 355 556 556 889 667 191 333 333 389 584 278 333 278 278 "
@@ -1366,11 +1284,7 @@ WIDTHS = {
 
 
 def advance(text: str, weight: str, size: float) -> float:
-    """How wide that text is set in Helvetica at that size.
-
-    An accented letter is as wide as the letter it is built on - true across
-    Helvetica's Latin range - so the table only has to hold the plain ones.
-    """
+    """Measure Helvetica text in points, approximating accented letters with their base widths."""
     table = WIDTHS[weight]
     total = 0
     for character in text:
@@ -1387,20 +1301,7 @@ WINANSI = set(bytes(range(32, 256)).decode("cp1252", errors="ignore"))
 
 
 def spellable(words: dict, others: dict) -> bool:
-    """Whether Helvetica's encoding can write everything the invoice puts on the page.
-
-    Everything, not a line or two of it: this used to read the title and the
-    closing, which is a sample rather than an answer - a language those two happen
-    to be spellable in can still hold a character further down that the encoding
-    has no byte for, and that character reaches the page as mojibake. The forty
-    rows the invoice bills for are forty more chances of that than it had.
-
-    Three of the nine languages fail this and take the English invoice: pl and tr
-    for a handful of letters, ru for its whole script. Fixing that means embedding
-    a subset of a real font and writing the text as CIDs, which is a job of its own
-    and not one to do inside a screenshot script - so it is written down here
-    rather than left to be discovered in the store.
-    """
+    """Check all invoice text against WinAnsi; unsupported locales use English."""
     spoken = [words["item"], words["total"], words["title"], words["closing"]]
     spoken += words["periods"] + words["rows"] + others["invoice"]
 
@@ -1411,23 +1312,12 @@ def spellable(words: dict, others: dict) -> bool:
 PAGE = (595.0, 842.0)
 MARGIN = 57.0
 
-# How many lines the invoice bills for. Enough to run onto a second page, for the
-# reason `report` gives: a page is two thirds of a phone's height, and what fills
-# the rest is the top of the page after it.
+# Enough invoice rows to span two pages.
 INVOICE_ROWS = 40
 
 
 def pdf_bytes(words: dict, others: dict) -> bytes:
-    """A PDF written out by hand rather than through a library.
-
-    An invoice, which is a page of placed labels and figures rather than of
-    running prose: every cell is set where it belongs, so nothing has to be
-    wrapped and `advance` is only asked how wide a number is.
-
-    Helvetica and WinAnsi, so what it says is Latin text only - the languages
-    this cannot spell get the English wording, which is also what the search
-    screenshot then looks for.
-    """
+    """Build a paginated Helvetica invoice PDF, falling back to English for unsupported characters."""
     latin = spellable(words, others)
     said = words if latin else WORDS["en"]
 
@@ -1445,9 +1335,7 @@ def pdf_bytes(words: dict, others: dict) -> bytes:
     pages = [[]]
 
     def put(text, x, y, weight="regular", size=10, align="left"):
-        """One line, placed on whichever page is open. Numbers are hung off the
-        right, which is what makes a column of figures a column rather than a
-        ragged list."""
+        """Place a line on the current page, optionally aligned right."""
         name = "F2" if weight == "bold" else "F1"
         at = x - advance(text, weight, size) if align == "right" else x
         pages[-1].append(f"BT /{name} {size:g} Tf {at:.1f} {y:.1f} Td ({literal(text)}) Tj ET")
@@ -1477,10 +1365,7 @@ def pdf_bytes(words: dict, others: dict) -> bytes:
         amount = line[-1]
         y -= 15
 
-        # A line that would be set in the bottom margin opens the next page
-        # instead, with the column heads written again above it - which is what a
-        # producer does, and what makes the last page short rather than the first
-        # page overfull.
+        # Start a new page and repeat column headers before reaching the bottom margin.
         if y < MARGIN + 80:
             pages.append([])
             y = PAGE[1] - MARGIN - 26

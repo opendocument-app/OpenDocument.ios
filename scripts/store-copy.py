@@ -1,28 +1,6 @@
 #!/usr/bin/env python3
-#
-# Writes the store copy of one release: the English "What's New" text, and one
-# translation per locale the listing has.
-#
-#   scripts/store-copy.py 1.41              write whatever is missing
-#   scripts/store-copy.py 1.41 --english    rewrite the English too
-#   scripts/store-copy.py 1.41 --dry-run    print it, write nothing
-#
-# One `claude -p` per language rather than one call holding all of them. Each
-# agent is given that locale's own description.txt and the notes of the release
-# before it, so it reaches for the words the listing already uses in that
-# language instead of translating the English afresh every release. They run at
-# the same time, and a language that comes back wrong is retried on its own.
-#
-# A second agent then reads the draft against the English, in the same language,
-# and rewrites what reads as English wearing that language's words. `--no-review`
-# skips it.
-#
-# The English is written from the CHANGELOG.md section of that version, or from
-# Unreleased while the heading is still open. A file that is already there is
-# left alone and translated, since that is the copy that was reviewed.
-#
-# Nothing here uploads: `scripts/store_listing.py` checks and stages what this
-# writes, and the release run uploads it.
+# Generate and review localized release notes without uploading them.
+# Usage: scripts/store-copy.py VERSION [--english] [--dry-run] [--locales LOCALES]
 
 import argparse
 import concurrent.futures
@@ -240,9 +218,7 @@ def english(version, model, attempts):
 
 
 def translate(locale, version, source, model, attempts, review=True):
-    # the description is shown to the agent as the app already speaks that
-    # language, so the ${...} an app fills in comes out rather than being read
-    # as something the listing says
+    # Remove listing placeholders before supplying translation context.
     path = listing.METADATA / locale / "description.txt"
     description = listing.fill_in(path.read_text(encoding="utf-8"), [], where=path.name).strip()
 
@@ -262,9 +238,7 @@ def translate(locale, version, source, model, attempts, review=True):
     if not review:
         return draft
 
-    # A second reader of the same language, because what a first draft gets
-    # wrong is not something the draft can see: a word borrowed for its sound
-    # rather than its sense reads fine to whoever wrote it.
+    # Review each translation against the English text.
     return produce(
         REVIEW_PROMPT.format(
             app=APP,

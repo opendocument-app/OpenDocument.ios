@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
-#
-# Prints the CHANGELOG.md section for one version, and fails when there is none.
-#
-# The release run reads it before building, so a version without release copy
-# fails in seconds rather than once both apps are uploaded, and again when it
-# drafts the github release, whose body the section becomes.
+# Print a version section from CHANGELOG.md; fail if missing or empty.
 
 import argparse
 import re
 import sys
 
-# `## [1.37] - 2026-08-02`, `## [1.38]`, `## Unreleased`. Whatever follows the
-# version is not looked at, so an unusual date separator still closes the
-# section above it. Not `###`, which belongs to whichever section it sits in
+# Match version headings at level two, allowing optional brackets and dates.
 HEADING = re.compile(r"^## +\[?([^\]\s]+)")
 
 # `[1.37]: https://github.com/...compare/1.36...1.37` at the foot of the file:

@@ -1,14 +1,8 @@
 import StoreKit
 import UIKit
 
-/// The promotion for the paid app that takes the banner's place when no ad arrives.
-///
-/// This is our own content, not an ad: nothing is fetched, no identifier is read and no storage is
-/// touched. That is what makes it usable on every no-fill path, including the one where the user
-/// refused consent outright and Google is serving limited ads or nothing at all.
-///
-/// One layout, sized to whatever the slot gives it - the banner height is fixed by the ad slot and
-/// cannot grow, so parts drop out instead of wrapping.
+/// Local Pro promotion shown when no ad fills the banner.
+/// Hide content as space shrinks to preserve the fixed banner height.
 final class HouseAdView: UIView {
 
     /// One rotation of the promotion. `shortHeadline` is what a phone-width slot can actually fit.

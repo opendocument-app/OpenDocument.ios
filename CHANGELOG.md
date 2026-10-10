@@ -24,6 +24,7 @@ Rules:
 
 ### Changed
 
+- Shortened code comments and corrected editing and screenshot documentation.
 - The engine is odrcore 7.4.0, up from 7.3.2.
 - A document no longer loads images from the internet.
 

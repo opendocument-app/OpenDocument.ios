@@ -4,9 +4,6 @@ import XCTest
 
 @testable import OpenDocumentReader
 
-/// Print takes the page the web view is showing, and since odrcore renders a
-/// document in the reader's own appearance that page can be dark. Paper is not:
-/// a dark page printed as it stands is pale ink on white, which is nothing.
 class PrintAppearanceTests: XCTestCase {
 
     /// The web view prints in light whatever the device is set to, so the menu

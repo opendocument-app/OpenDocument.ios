@@ -1,10 +1,4 @@
-//
-//  Constants.swift
-//  OpenDocumentReader
-//
-//  Created by Artsem Lemiasheuski on 19.12.19.
 //  Copyright © 2019 Thomas Taschauer. All rights reserved.
-//
 
 import Foundation
 

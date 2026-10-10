@@ -1,11 +1,7 @@
 import UIKit
 
-/// The strip of tools under the bar: what changes the text. Undo, redo and
-/// save are the bar's.
-///
-/// A tap does the tool's one job, and a long press opens the colours it
-/// applies. Without ``advancedEditing`` every tool but the highlighter is
-/// dimmed and offers Pro instead.
+/// Formatting and PDF tools. Tap to apply; long-press for colors.
+/// Locked tools offer Pro, while highlighting stays available.
 final class EditToolBar: UIView {
 
     /// One button of the strip.
@@ -618,9 +614,7 @@ final class EditToolBar: UIView {
         return UIMenu(title: tool.label, children: children)
     }
 
-    /// A letter over a wave, shaped like the `underline` and `strikethrough`
-    /// beside it. The system set has no wavy underline. The letter is the
-    /// English one and does not follow the language, which a system glyph does.
+    /// Custom wavy-underline icon; SF Symbols has no equivalent.
     private static let squigglyImage: UIImage = {
         let size = CGSize(width: iconSize, height: iconSize)
 

@@ -1,8 +1,7 @@
 import Foundation
 import os
 
-// Event and parameter names kept from the Firebase days so the reports stay
-// comparable with OpenDocument.droid, which uses the same identifiers.
+// Event and parameter names shared with OpenDocument.droid.
 enum AnalyticsConstants {
     static let paramContentType = "content_type"
     static let paramContent = "content"
@@ -14,9 +13,7 @@ enum AnalyticsConstants {
     static let eventAddToCart = "add_to_cart"
 }
 
-/// Analytics used to go to Firebase. OpenDocument.droid dropped its Firebase
-/// dependency, so this mirrors the shell its `nonfree` package keeps: the call
-/// sites stay, but nothing leaves the device, so nothing switches it off.
+/// Logs analytics events locally without uploading them.
 final class AnalyticsManager {
     static let shared = AnalyticsManager()
 

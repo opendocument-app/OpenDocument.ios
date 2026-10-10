@@ -148,9 +148,7 @@ class Document: UIDocument {
         notify { $0.documentLoadingCompleted(self) }
     }
 
-    /// Clamped to what the document has: switching to page five of a
-    /// spreadsheet and then editing it into four sheets should not walk off the
-    /// end.
+    /// Clamp the selected page after a reload changes the page count.
     private func showPage() {
         guard let pageURLs, !pageURLs.isEmpty else { return }
 
@@ -165,10 +163,7 @@ class Document: UIDocument {
         notify { $0.documentUpdateContent(self) }
     }
 
-    /// UIDocument reads on a background queue, so `load(fromContents:)` — and
-    /// with it everything `parse` reports — arrives off the main thread. Runs
-    /// inline when already there, so setting `page` or `edit` still updates the
-    /// view before returning.
+    /// Deliver UI callbacks on main, synchronously when already there.
     private func notify(_ body: @escaping (DocumentDelegate) -> Void) {
         guard !Thread.isMainThread else {
             if let delegate {

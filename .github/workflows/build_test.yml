@@ -45,9 +45,7 @@ jobs:
       - name: run tests
         run: bundle exec fastlane tests
 
-      # taking the pictures is a quarter hour of simulators and belongs to the
-      # release, but a screenshot target that no longer compiles should not wait
-      # for one to say so
+      # Compile screenshot tests here; capture them during release.
       - name: build the screenshot tests
         run: >
           xcodebuild build-for-testing
@@ -62,9 +60,7 @@ jobs:
           path: |
             /Users/runner/Library/Developer/Xcode/DerivedData/OpenDocumentReader-*/
 
-  # the test job only builds the simulator slice of one target, so release-only
-  # and device-only breakage used to surface at deploy time. Both schemes, since
-  # the flavors link different sources and different sdks
+  # Build both device targets to check Release code and each SDK configuration.
   build:
     runs-on: macos-26
     strategy:

@@ -1,32 +1,6 @@
 #!/usr/bin/env python3
-#
-# The App Store listing: where it is kept, and the deliver tree built out of it.
-#
-# App Store Connect keeps only the notes of the submission in flight, so the
-# history it throws away is kept here instead: one file per locale per marketing
-# version, `fastlane/metadata/<locale>/changelogs/1.41.txt`.
-#
-# deliver reads none of that. It reads `release_notes.txt` beside it, one per
-# locale, and uploads every metadata file it finds - so it is pointed at a
-# staged directory rather than at fastlane/metadata itself, and what is copied
-# in is named here rather than being whatever happens to be lying around.
-#
-#   scripts/store_listing.py --version 1.41                       check the notes
-#   scripts/store_listing.py --version 1.41 --stage DIR           notes alone
-#   scripts/store_listing.py --version 1.41 --stage DIR --app pro the whole listing
-#
-# The two apps share one listing and differ in a few places, so what is staged
-# is read in three passes - `fastlane/metadata/<locale>/`, then the app's own
-# `all/`, then its `<locale>/` - and the last one to hold a file wins. A
-# `${name}` left in any of that text is filled in the same way, from the app's
-# `name.txt`, or with nothing where the app has none.
-#
-# A release run checks before it builds, so a version missing a translation
-# fails in seconds rather than once both apps are uploaded. Which languages
-# there are, and which files a listing cannot be without, are written down below
-# rather than counted up from what is on disk: either going missing should stop
-# the release, not leave that storefront quietly as the console had it.
-# `scripts/store-copy.py` writes the release notes this reads.
+# Validate and stage versioned store notes and app-specific listing metadata.
+# Usage: scripts/store_listing.py --version VERSION [--stage DIR --app pro|lite]
 
 import argparse
 import os
@@ -37,16 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 METADATA = ROOT / "fastlane" / "metadata"
 
-# What each app says instead. `<app>/all/` is read into every locale, `<app>/de-DE/`
-# into that one - so a name that is the same in every language is one file, and a
-# sentence that has to be translated is eleven.
+# Apply app-wide overrides before locale-specific overrides.
 APPS = ("pro", "lite")
 EVERY_LOCALE = "all"
 
-# The languages the store sells the app in. Written down rather than counted up
-# from whatever directories are there: a locale that loses its description, or
-# its directory altogether, would otherwise drop out of the check and out of the
-# upload alike, and the release would pass without ever mentioning it.
+# Require every supported storefront locale, even if its directory is missing.
 LOCALES = (
     "de-DE",
     "en-US",
@@ -64,15 +33,7 @@ LOCALES = (
 # what App Store Connect takes in one locale's "What's New"
 LIMIT = 4000
 
-# The text of the listing, per locale, as deliver names it. Listed rather than
-# globbed so that adding a file here is a decision: everything in this set is
-# pushed over whatever App Store Connect currently says.
-#
-# What a listing cannot be without. None of the three passes holding one of these
-# is an error rather than a file left out of what is staged: deliver reads a
-# field it was not given as "leave this be", so the console would keep the old
-# words through the one run meant to replace them. The name is the easiest to
-# lose - each app says it in a single file, for all eleven languages at once.
+# Required deliver metadata fields; missing fields would retain stale store values.
 REQUIRED = (
     "name.txt",
     "subtitle.txt",
@@ -93,14 +54,9 @@ LOCALISED = REQUIRED + OPTIONAL
 # Attached to the version rather than to a locale.
 NON_LOCALISED = ("copyright.txt",)
 
-# Left behind deliberately, though deliver would take them: `review_information`
-# is the account's own contact details and the note to the reviewer, and the
-# category files say where the app sits in the store. Neither is release copy,
-# and a release is a poor moment to discover either had drifted.
+# Keep review contact details and store categories out of listing uploads.
 
-# What App Store Connect refuses, rather than truncates. Checked against what is
-# staged, since that is what goes up - a name is short enough on its own and too
-# long once an app has added a word to it.
+# Validate final text after app overrides and placeholders are applied.
 LIMITS = {
     "name.txt": 30,
     "subtitle.txt": 30,
@@ -161,9 +117,7 @@ def sources(app, locale, metadata=METADATA):
 
 
 def read(name, places):
-    """The last of `places` to hold `name`, or None. An empty file does not count:
-    deliver reads one as "leave this be" rather than as "clear it", so a blank
-    override would silently be no override at all."""
+    """Read the last nonempty override; deliver treats empty fields as unchanged."""
     found = None
     for place in places:
         path = place / name
@@ -216,12 +170,7 @@ def collect(version, metadata=METADATA):
 
 
 def stage(texts, directory, app=None, metadata=METADATA):
-    """Write the metadata tree deliver uploads.
-
-    The release notes of this version always. With `app`, the rest of the listing
-    text beside them, as that app says it - which is what makes this repository,
-    rather than App Store Connect, the place the listing is written.
-    """
+    """Stage version notes and, when app is set, its complete listing metadata."""
     directory = Path(directory)
     if app and app not in APPS:
         raise ValueError(f"no such app: {app} - one of {', '.join(APPS)}")
