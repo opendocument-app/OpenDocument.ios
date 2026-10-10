@@ -88,6 +88,10 @@ class Document: UIDocument {
     public var isAnnotatable = false
     /// Whether this is plain text - see `CoreWrapper.isPlainText`.
     public var isPlainText = false
+    /// See `CoreWrapper.pageSize`; nil where it has none.
+    public var pageSize: CGSize?
+    /// See `CoreWrapper.isPrintablePdf`.
+    public var isPrintablePdf = false
 
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
         parse()
@@ -103,6 +107,8 @@ class Document: UIDocument {
         isEditable = false
         isAnnotatable = false
         isPlainText = false
+        pageSize = nil
+        isPrintablePdf = false
         result = nil
         pageURLs = nil
         pageNames = nil
@@ -134,6 +140,8 @@ class Document: UIDocument {
         isEditable = coreWrapper.isEditable
         isAnnotatable = coreWrapper.isAnnotatable
         isPlainText = coreWrapper.isPlainText
+        pageSize = coreWrapper.pageSize == .zero ? nil : coreWrapper.pageSize
+        isPrintablePdf = coreWrapper.isPrintablePdf
 
         loadProgress.completedUnitCount = loadProgress.totalUnitCount
 

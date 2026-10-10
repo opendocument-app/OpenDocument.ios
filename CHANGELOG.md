@@ -13,6 +13,15 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
+## [Unreleased]
+
+### Fixed
+
+- A PDF prints as the file itself, one page to a sheet. A PDF with a password
+  or with unsaved marks prints from the screen as before.
+- Printing starts on the paper and orientation of the document, for example A4
+  or a landscape slide, where the printer has that paper.
+
 ## [1.48]
 
 ### Added

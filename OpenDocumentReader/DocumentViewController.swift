@@ -1308,11 +1308,32 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         printInfo.outputType = UIPrintInfo.OutputType.general
         printInfo.jobName = "OpenDocument Reader - Document"
 
+        // the controller is shared, so each job states all of them
+        printController.printingItem = nil
+        printController.printFormatter = nil
+
+        let pageSize: CGSize?
+        // the file has no unsaved marks, and prints at its own page size
+        if let document, document.isPrintablePdf, !hasUnsavedEdits {
+            printController.printingItem = document.fileURL
+            pageSize = PrintPaper.firstPageSize(ofPDFAt: document.fileURL)
+        } else {
+            printController.printFormatter = webview.viewPrintFormatter()
+            pageSize = document?.pageSize
+        }
+
+        paperChooser = pageSize.map { PaperChooser(pageSize: $0) }
+        if let paperChooser {
+            printInfo.orientation = paperChooser.orientation
+        }
+        printController.delegate = paperChooser
         printController.printInfo = printInfo
-        printController.printFormatter = webview.viewPrintFormatter()
 
         printController.present(animated: true, completionHandler: nil)
     }
+
+    /// Held here: the print controller holds its delegate weakly.
+    private var paperChooser: PaperChooser?
 
     /// Loading and error pages follow system appearance.
     private func loadMessage(_ body: String) {
