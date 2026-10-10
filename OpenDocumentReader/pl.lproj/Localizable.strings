@@ -121,6 +121,14 @@
 "edit_align_center" = "Do środka";
 "edit_align_right" = "Do prawej";
 "edit_align_justify" = "Wyjustuj";
+"edit_rows" = "Wiersze";
+"edit_columns" = "Kolumny";
+"edit_insert_rows_above" = "Wstaw wiersz powyżej";
+"edit_insert_rows_below" = "Wstaw wiersz poniżej";
+"edit_delete_rows" = "Usuń wiersz";
+"edit_insert_columns_left" = "Wstaw kolumnę z lewej";
+"edit_insert_columns_right" = "Wstaw kolumnę z prawej";
+"edit_delete_columns" = "Usuń kolumnę";
 "edit_undo" = "Cofnij";
 "edit_redo" = "Ponów";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Podziału wiersza wewnątrz akapitu nie można zapisać. Naciśnij Enter, aby zacząć nowy akapit.";
 "edit_refused_read_only" = "Tego dokumentu nie można edytować.";
 "edit_refused_range" = "Zmiana nie może sięgać przez obraz ani tabelę.";
+"edit_refused_sheet_cut" = "Ten arkusz jest za duży, aby pokazać go w całości. Można edytować tylko pokazaną część.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Część wersji Pro";
 "pro_feature_formatting" = "Pogrubienie, kursywa, kolory i rozmiar tekstu oraz dodawanie i łączenie akapitów to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
 "pro_feature_pdf" = "Podkreślanie, przekreślanie i rysowanie w PDF to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
+"pro_feature_structure" = "Dodawanie i usuwanie wierszy i kolumn to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
 "not_now" = "Nie teraz";
 
 /* Shown when the marking tools come up on a PDF */

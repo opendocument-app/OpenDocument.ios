@@ -121,6 +121,14 @@
 "edit_align_center" = "По центру";
 "edit_align_right" = "По правому краю";
 "edit_align_justify" = "По ширине";
+"edit_rows" = "Строки";
+"edit_columns" = "Столбцы";
+"edit_insert_rows_above" = "Вставить строку выше";
+"edit_insert_rows_below" = "Вставить строку ниже";
+"edit_delete_rows" = "Удалить строку";
+"edit_insert_columns_left" = "Вставить столбец слева";
+"edit_insert_columns_right" = "Вставить столбец справа";
+"edit_delete_columns" = "Удалить столбец";
 "edit_undo" = "Отменить";
 "edit_redo" = "Повторить";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Перенос строки внутри абзаца нельзя сохранить. Нажмите Ввод, чтобы начать новый абзац.";
 "edit_refused_read_only" = "Этот документ нельзя редактировать.";
 "edit_refused_range" = "Изменение не может проходить через картинку или таблицу.";
+"edit_refused_sheet_cut" = "Этот лист слишком большой, чтобы показать его целиком. Изменить можно только показанную часть.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Часть Pro";
 "pro_feature_formatting" = "Полужирный, курсив, цвета и размер текста, а также добавление и объединение абзацев — часть OpenDocument Reader Pro. Маркер есть в любом издании.";
 "pro_feature_pdf" = "Подчёркивание, зачёркивание и рисование в PDF — часть OpenDocument Reader Pro. Маркер есть в любом издании.";
+"pro_feature_structure" = "Добавление и удаление строк и столбцов — часть OpenDocument Reader Pro. Маркер есть в любом издании.";
 "not_now" = "Не сейчас";
 
 /* Shown when the marking tools come up on a PDF */

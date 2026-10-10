@@ -121,6 +121,14 @@
 "edit_align_center" = "Zentriert";
 "edit_align_right" = "Rechts";
 "edit_align_justify" = "Blocksatz";
+"edit_rows" = "Zeilen";
+"edit_columns" = "Spalten";
+"edit_insert_rows_above" = "Zeile oberhalb einfügen";
+"edit_insert_rows_below" = "Zeile unterhalb einfügen";
+"edit_delete_rows" = "Zeile löschen";
+"edit_insert_columns_left" = "Spalte links einfügen";
+"edit_insert_columns_right" = "Spalte rechts einfügen";
+"edit_delete_columns" = "Spalte löschen";
 "edit_undo" = "Rückgängig";
 "edit_redo" = "Wiederholen";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Ein Zeilenumbruch innerhalb eines Absatzes kann nicht gespeichert werden. Drücke die Eingabetaste für einen neuen Absatz.";
 "edit_refused_read_only" = "Dieses Dokument kann nicht bearbeitet werden.";
 "edit_refused_range" = "Eine Änderung kann nicht über ein Bild oder eine Tabelle hinausreichen.";
+"edit_refused_sheet_cut" = "Diese Tabelle ist zu groß, um sie ganz anzuzeigen. Nur der angezeigte Teil kann bearbeitet werden.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Teil von Pro";
 "pro_feature_formatting" = "Fett, kursiv, Farben und Schriftgröße sowie Absätze einfügen oder zusammenführen sind Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
 "pro_feature_pdf" = "Unterstreichen, Durchstreichen und Zeichnen in einem PDF sind Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
+"pro_feature_structure" = "Zeilen und Spalten einfügen und löschen ist Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
 "not_now" = "Nicht jetzt";
 
 /* Shown when the marking tools come up on a PDF */

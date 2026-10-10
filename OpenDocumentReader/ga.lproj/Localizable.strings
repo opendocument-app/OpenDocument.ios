@@ -121,6 +121,14 @@
 "edit_align_center" = "Lár";
 "edit_align_right" = "Deas";
 "edit_align_justify" = "Comhfhadaigh";
+"edit_rows" = "Rónna";
+"edit_columns" = "Colúin";
+"edit_insert_rows_above" = "Cuir isteach ró os a chionn";
+"edit_insert_rows_below" = "Cuir isteach ró faoi";
+"edit_delete_rows" = "Scrios an ró";
+"edit_insert_columns_left" = "Cuir isteach colún ar chlé";
+"edit_insert_columns_right" = "Cuir isteach colún ar dheis";
+"edit_delete_columns" = "Scrios an colún";
 "edit_undo" = "Cealaigh";
 "edit_redo" = "Athdhéan";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Ní féidir briseadh líne laistigh d’alt a shábháil. Brúigh Iontráil le haghaidh alt nua.";
 "edit_refused_read_only" = "Ní féidir an doiciméad seo a chur in eagar.";
 "edit_refused_range" = "Ní féidir le hathrú dul thar phictiúr ná thar thábla.";
+"edit_refused_sheet_cut" = "Tá an bhileog seo rómhór le taispeáint ina hiomláine. Ní féidir ach an chuid a thaispeántar a chur in eagar.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Cuid de Pro";
 "pro_feature_formatting" = "Is cuid de OpenDocument Reader Pro iad cló trom, cló iodálach, dathanna agus méid an téacs, agus ailt a chur leis nó a nascadh. Tá an marcóir i ngach eagrán.";
 "pro_feature_pdf" = "Is cuid de OpenDocument Reader Pro iad líne a chur faoi théacs, líne a chur tríd agus líníocht a dhéanamh ar PDF. Tá an marcóir i ngach eagrán.";
+"pro_feature_structure" = "Is cuid de OpenDocument Reader Pro é rónna agus colúin a chur leis agus a scriosadh. Tá an marcóir i ngach eagrán.";
 "not_now" = "Ní anois";
 
 /* Shown when the marking tools come up on a PDF */

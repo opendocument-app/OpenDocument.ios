@@ -121,6 +121,14 @@
 "edit_align_center" = "Center";
 "edit_align_right" = "Right";
 "edit_align_justify" = "Justify";
+"edit_rows" = "Rows";
+"edit_columns" = "Columns";
+"edit_insert_rows_above" = "Insert row above";
+"edit_insert_rows_below" = "Insert row below";
+"edit_delete_rows" = "Delete row";
+"edit_insert_columns_left" = "Insert column left";
+"edit_insert_columns_right" = "Insert column right";
+"edit_delete_columns" = "Delete column";
 "edit_undo" = "Undo";
 "edit_redo" = "Redo";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "A line break inside a paragraph cannot be saved. Press Return for a new paragraph.";
 "edit_refused_read_only" = "This document cannot be edited.";
 "edit_refused_range" = "An edit cannot reach over a picture or a table.";
+"edit_refused_sheet_cut" = "This sheet is too large to show in full. Only the part on screen can be edited.";
 
 /* What Pro adds, shown in the Lite app. The highlighter is free in both kinds */
 "pro_feature_title" = "Part of Pro";
 "pro_feature_formatting" = "Bold, italic, colors and text size, and adding or joining paragraphs, are part of OpenDocument Reader Pro. The highlighter is in every edition.";
 "pro_feature_pdf" = "Underlining, striking out and drawing on a PDF are part of OpenDocument Reader Pro. The highlighter is in every edition.";
+"pro_feature_structure" = "Adding and deleting rows and columns is part of OpenDocument Reader Pro. The highlighter is in every edition.";
 "not_now" = "Not now";
 
 /* Shown when the marking tools come up on a PDF */

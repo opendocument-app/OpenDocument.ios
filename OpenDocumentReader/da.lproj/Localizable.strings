@@ -121,6 +121,14 @@
 "edit_align_center" = "Centreret";
 "edit_align_right" = "Højre";
 "edit_align_justify" = "Lige margener";
+"edit_rows" = "Rækker";
+"edit_columns" = "Kolonner";
+"edit_insert_rows_above" = "Indsæt række over";
+"edit_insert_rows_below" = "Indsæt række under";
+"edit_delete_rows" = "Slet række";
+"edit_insert_columns_left" = "Indsæt kolonne til venstre";
+"edit_insert_columns_right" = "Indsæt kolonne til højre";
+"edit_delete_columns" = "Slet kolonne";
 "edit_undo" = "Fortryd";
 "edit_redo" = "Gentag";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Et linjeskift inde i et afsnit kan ikke gemmes. Tryk på Enter for et nyt afsnit.";
 "edit_refused_read_only" = "Dette dokument kan ikke redigeres.";
 "edit_refused_range" = "En redigering kan ikke række hen over et billede eller en tabel.";
+"edit_refused_sheet_cut" = "Dette ark er for stort til at blive vist helt. Kun den viste del kan redigeres.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "En del af Pro";
 "pro_feature_formatting" = "Fed, kursiv, farver og tekststørrelse samt tilføjelse eller sammenføjning af afsnit er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
 "pro_feature_pdf" = "Understregning, gennemstregning og tegning i en PDF er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
+"pro_feature_structure" = "Indsættelse og sletning af rækker og kolonner er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
 "not_now" = "Ikke nu";
 
 /* Shown when the marking tools come up on a PDF */

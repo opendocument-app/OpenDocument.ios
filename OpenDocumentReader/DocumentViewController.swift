@@ -779,7 +779,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     /// Turns the mode on in the page already on screen and shows its tools. A
-    /// plain text file takes no formatting, so it gets no strip.
+    /// plain text file takes no formatting, so it gets no strip. A csv states
+    /// that its cells take no style, so it gets only the row and column tools.
     private func beginEditSession() {
         hasOfferedProForThisEdit = false
         hasUnsavedEdits = false
@@ -802,13 +803,23 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         let isPlainText = document?.isPlainText == true
 
-        webview.evaluateJavaScript("odr.editing.enable(); typeof odr.sheet === 'object'") { [weak self] isSheet, _ in
+        let script = """
+            odr.editing.enable();
+            typeof odr.sheet !== 'object' ? 'text'
+                : document.body.getAttribute('data-odr-sheet-styles') === 'false' ? 'values' : 'sheet'
+            """
+
+        webview.evaluateJavaScript(script) { [weak self] kind, _ in
             guard let self, self.isEditingDocument else { return }
 
             if isPlainText {
                 self.editToolBar.layout = nil
             } else {
-                self.editToolBar.layout = isSheet as? Bool == true ? .sheet : .text
+                switch kind as? String {
+                case "sheet": self.editToolBar.layout = .sheet
+                case "values": self.editToolBar.layout = .values
+                default: self.editToolBar.layout = .text
+                }
                 self.editToolBar.setColor(.highlight, self.highlightColor)
                 self.editToolBar.setColor(.fill, self.highlightColor)
             }
@@ -840,7 +851,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Pro, and the highlighter beside it works in every edition.
     private func editToolTapped(_ tool: EditToolBar.Tool) {
         if !tool.isFree, !Features.advancedEditing {
-            offerPro(canMark ? .pdf : .formatting)
+            offerPro(canMark ? .pdf : tool.structures.isEmpty ? .formatting : .structure)
 
             return
         }
@@ -912,6 +923,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             markColors[tool] = UIColor(hex: hex ?? tool.defaultColor ?? EditToolBar.markColors[0].hex)
             editToolBar.setColor(tool, markColor(of: tool))
             pressMarker(tool, recolor: true)
+        case (_, .structure(let structure)):
+            run(structure.script)
         case (_, .customColor):
             colorPickerTool = tool
 
@@ -955,22 +968,27 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         case "rich", "shapes": key = "edit_refused_rich"
         case "readOnly": key = "edit_refused_read_only"
         case "range": key = "edit_refused_range"
+        case "sheetCut": key = "edit_refused_sheet_cut"
         default: key = "edit_refused_generic"
         }
 
         AnalyticsManager.shared.report("edit_refused", parameters: ["reason": reason])
 
-        showToast(controller: self, message: NSLocalizedString(key, comment: ""), seconds: 1.5)
+        // the cut sheet is said once, as the edit starts, so it stays longer
+        let seconds: Double = reason == "sheetCut" ? 3 : 1.5
+        showToast(controller: self, message: NSLocalizedString(key, comment: ""), seconds: seconds)
     }
 
     /// What Pro adds, as the reader runs into it.
     enum ProFeature {
         case formatting
+        case structure
         case pdf
 
         var message: String {
             switch self {
             case .formatting: return NSLocalizedString("pro_feature_formatting", comment: "")
+            case .structure: return NSLocalizedString("pro_feature_structure", comment: "")
             case .pdf: return NSLocalizedString("pro_feature_pdf", comment: "")
             }
         }

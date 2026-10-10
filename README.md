@@ -47,7 +47,8 @@ Rules:
   id. The constants behind them live in `Ads/Linked.swift` and
   `NoAds/Linked.swift`.
 - Lite edits with the scope `paragraph`. odrcore refuses a larger change with
-  `outOfScope`, and the app offers Pro.
+  `outOfScope`, and the app offers Pro. The scope does not reach a sheet, so
+  the app locks the row and column tools itself.
 - The gate is on the tool, not on the mode. Both apps open every editable
   document, and a locked `EditToolBar` dims the Pro tools. The highlighter
   works in both apps. Do not gate the whole edit mode.
@@ -74,7 +75,8 @@ Security blocks plain HTTP.
 - The pencil calls `odr.editing.enable()`. The page stays in place. The same
   pencil marks up a PDF.
 - The bar holds undo, redo and save. The strip (`EditToolBar`) holds the text
-  and cell formatting. Plain text files show no formatting strip.
+  and cell formatting, and the row and column tools of a sheet. Plain text
+  files show no strip. A CSV file shows only the row and column tools.
 - A tap uses a tool. A long press opens its colours. Do not add chevrons.
 - Redo is hidden over a PDF. The magnifier is hidden during an edit.
 - A PDF tool is armed by the page (`odr.annotation.press`), and the app never

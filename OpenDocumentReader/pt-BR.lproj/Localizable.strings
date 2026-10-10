@@ -121,6 +121,14 @@
 "edit_align_center" = "Centralizado";
 "edit_align_right" = "À direita";
 "edit_align_justify" = "Justificado";
+"edit_rows" = "Linhas";
+"edit_columns" = "Colunas";
+"edit_insert_rows_above" = "Inserir linha acima";
+"edit_insert_rows_below" = "Inserir linha abaixo";
+"edit_delete_rows" = "Excluir linha";
+"edit_insert_columns_left" = "Inserir coluna à esquerda";
+"edit_insert_columns_right" = "Inserir coluna à direita";
+"edit_delete_columns" = "Excluir coluna";
 "edit_undo" = "Desfazer";
 "edit_redo" = "Refazer";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Uma quebra de linha dentro de um parágrafo não pode ser salva. Pressione Enter para um novo parágrafo.";
 "edit_refused_read_only" = "Este documento não pode ser editado.";
 "edit_refused_range" = "Uma edição não pode passar por cima de uma imagem ou de uma tabela.";
+"edit_refused_sheet_cut" = "Esta planilha é grande demais para ser mostrada inteira. Só a parte mostrada pode ser editada.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Parte do Pro";
 "pro_feature_formatting" = "Negrito, itálico, cores e tamanho do texto, e adicionar ou juntar parágrafos, fazem parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
 "pro_feature_pdf" = "Sublinhar, riscar e desenhar em um PDF fazem parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
+"pro_feature_structure" = "Adicionar e excluir linhas e colunas faz parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
 "not_now" = "Agora não";
 
 /* Shown when the marking tools come up on a PDF */

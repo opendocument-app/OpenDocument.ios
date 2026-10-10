@@ -121,6 +121,14 @@
 "edit_align_center" = "Centro";
 "edit_align_right" = "Derecha";
 "edit_align_justify" = "Justificado";
+"edit_rows" = "Filas";
+"edit_columns" = "Columnas";
+"edit_insert_rows_above" = "Insertar fila arriba";
+"edit_insert_rows_below" = "Insertar fila debajo";
+"edit_delete_rows" = "Eliminar fila";
+"edit_insert_columns_left" = "Insertar columna a la izquierda";
+"edit_insert_columns_right" = "Insertar columna a la derecha";
+"edit_delete_columns" = "Eliminar columna";
 "edit_undo" = "Deshacer";
 "edit_redo" = "Rehacer";
 
@@ -150,11 +158,13 @@
 "edit_refused_new_line" = "Un salto de línea dentro de un párrafo no se puede guardar. Pulsa Intro para un párrafo nuevo.";
 "edit_refused_read_only" = "Este documento no se puede editar.";
 "edit_refused_range" = "Una edición no puede pasar por encima de una imagen o una tabla.";
+"edit_refused_sheet_cut" = "Esta hoja es demasiado grande para mostrarla entera. Solo se puede editar la parte que se muestra.";
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Parte de Pro";
 "pro_feature_formatting" = "La negrita, la cursiva, los colores y el tamaño del texto, y añadir o unir párrafos, forman parte de OpenDocument Reader Pro. El marcador está en todas las ediciones.";
 "pro_feature_pdf" = "Subrayar, tachar y dibujar en un PDF forman parte de OpenDocument Reader Pro. El marcador está en todas las ediciones.";
+"pro_feature_structure" = "Añadir y eliminar filas y columnas forma parte de OpenDocument Reader Pro. El marcador está en todas las ediciones.";
 "not_now" = "Ahora no";
 
 /* Shown when the marking tools come up on a PDF */
