@@ -13,7 +13,7 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
-## [Unreleased]
+## [1.49]
 
 ### Added
 
@@ -31,7 +31,7 @@ Rules:
 - Printing starts on the paper and orientation of the document, for example A4
   or a landscape slide, where the printer has that paper.
 
-## [1.48]
+## [1.48] - 2026-10-03
 
 ### Added
 
@@ -391,7 +391,8 @@ submitted.
 - An incorrect password is now reported as such instead of a generic failure.
 - Page handling and decryption fixes when opening protected documents.
 
-[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.47...HEAD
+[Unreleased]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.48...HEAD
+[1.48]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.47...v1.48
 [1.47]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.46...v1.47
 [1.46]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.45...v1.46
 [1.45]: https://github.com/opendocument-app/OpenDocument.ios/compare/v1.44...v1.45

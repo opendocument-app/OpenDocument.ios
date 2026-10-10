@@ -1,0 +1,3 @@
+- Edytuj i zapisuj pliki CSV
+- Plik PDF drukuje się jak oryginał, jedna strona na kartkę
+- Drukowanie od razu ustawia rozmiar papieru i orientację dokumentu, np. A4 lub poziomą

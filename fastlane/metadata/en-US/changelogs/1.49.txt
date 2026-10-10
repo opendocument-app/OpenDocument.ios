@@ -1,0 +1,3 @@
+- Edit and save CSV files
+- A PDF prints as the original file, one page per sheet
+- Printing starts on the paper size and orientation of the document, such as A4 or landscape

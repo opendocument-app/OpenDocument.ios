@@ -1,0 +1,3 @@
+- Redigera och spara CSV-filer
+- En PDF-fil skrivs ut som originalfilen, en sida per ark
+- Utskriften utgår från dokumentets pappersstorlek och orientering, till exempel A4 eller liggande

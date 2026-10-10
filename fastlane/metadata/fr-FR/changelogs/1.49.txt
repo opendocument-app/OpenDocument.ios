@@ -1,0 +1,3 @@
+- Modifiez et enregistrez les fichiers CSV
+- Un PDF s'imprime tel quel, une page par feuille
+- L'impression reprend d'emblée le format de papier et l'orientation du document, par exemple A4 ou paysage

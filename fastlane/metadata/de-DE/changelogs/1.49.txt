@@ -1,0 +1,3 @@
+- CSV-Dateien bearbeiten und speichern
+- Ein PDF wird als Originaldatei gedruckt, eine Seite pro Blatt
+- Beim Drucken sind Papierformat und Ausrichtung des Dokuments voreingestellt, etwa A4 oder Querformat

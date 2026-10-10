@@ -1,0 +1,3 @@
+- Modifica e salva i file CSV
+- Un PDF si stampa come il file originale, una pagina per foglio
+- La stampa parte dal formato carta e dall'orientamento del documento, come A4 od orizzontale
