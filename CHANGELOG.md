@@ -22,7 +22,7 @@ Rules:
 
 ### Changed
 
-- The engine is odrcore 7.5.1, up from 7.4.0.
+- The engine is odrcore 7.5.2, up from 7.4.0.
 
 ### Fixed
 
