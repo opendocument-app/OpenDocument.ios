@@ -154,6 +154,7 @@
 "edit_refused_formula" = "そのセルには数式が入っているため、そのままになります。";
 "edit_refused_formula_input" = "数式の入力はまだ対応していません。";
 "edit_refused_array" = "このセルは配列数式の一部のため、変更できません。";
+"edit_refused_formula_invalid" = "その数式は正しくありません。";
 "edit_refused_rich" = "そのセルには書式付きの内容が入っているため、そのままになります。";
 "edit_refused_generic" = "この編集はここではできません。";
 "edit_refused_new_line" = "段落内の改行は保存できません。新しい段落にはReturnキーを押してください。";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "太字、斜体、色、文字サイズと、段落の追加や結合はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
 "pro_feature_pdf" = "PDFへの下線、取り消し線、手書きはOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
 "pro_feature_structure" = "行と列の追加と削除はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
+"pro_feature_formulas" = "表計算に数式を入力する機能はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
 "not_now" = "あとで";
 
 /* Shown when the marking tools come up on a PDF */

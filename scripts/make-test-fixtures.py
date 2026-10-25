@@ -180,6 +180,11 @@ def main() -> None:
     path.write_bytes(pdf(["First", "Second"]))
     print(f"wrote {path}")
 
+    # long enough that its later pages load as the reader comes near
+    long = tests / "test-long.pdf"
+    long.write_bytes(pdf([f"Page {number}" for number in range(1, 40)] + ["Last page"]))
+    print(f"wrote {long}")
+
     encrypted = tests / "test-encrypted.pdf"
     encrypt_pdf(path, encrypted)
     print(f"wrote {encrypted}")

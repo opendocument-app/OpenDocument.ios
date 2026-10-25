@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Diese Zelle enthält eine Formel und bleibt, wie sie ist.";
 "edit_refused_formula_input" = "Formeln eingeben wird noch nicht unterstützt.";
 "edit_refused_array" = "Diese Zelle gehört zu einer Matrixformel und bleibt, wie sie ist.";
+"edit_refused_formula_invalid" = "Diese Formel ist ungültig.";
 "edit_refused_rich" = "Diese Zelle enthält mehr als reinen Text und bleibt, wie sie ist.";
 "edit_refused_generic" = "Diese Änderung ist hier nicht möglich.";
 "edit_refused_new_line" = "Ein Zeilenumbruch innerhalb eines Absatzes kann nicht gespeichert werden. Drücke die Eingabetaste für einen neuen Absatz.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Fett, kursiv, Farben und Schriftgröße sowie Absätze einfügen oder zusammenführen sind Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
 "pro_feature_pdf" = "Unterstreichen, Durchstreichen und Zeichnen in einem PDF sind Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
 "pro_feature_structure" = "Zeilen und Spalten einfügen und löschen ist Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
+"pro_feature_formulas" = "Formeln in eine Tabelle eingeben ist Teil von OpenDocument Reader Pro. Der Textmarker ist in jeder Ausgabe dabei.";
 "not_now" = "Nicht jetzt";
 
 /* Shown when the marking tools come up on a PDF */

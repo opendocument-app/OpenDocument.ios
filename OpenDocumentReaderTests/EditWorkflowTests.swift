@@ -1,3 +1,4 @@
+import PDFKit
 import WebKit
 import XCTest
 
@@ -25,7 +26,7 @@ class EditWorkflowTests: XCTestCase {
 
     /// Out of the read-only test bundle, and away from the temporary directory
     /// translating uses for its cache and output.
-    private func copyFixture(ofType pathExtension: String) throws -> URL {
+    private func copyFixture(named name: String = "test", ofType pathExtension: String) throws -> URL {
         let documentsURL = try FileManager.default.url(
             for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
 
@@ -33,7 +34,7 @@ class EditWorkflowTests: XCTestCase {
         try? FileManager.default.removeItem(at: url)
 
         let bundlePath = try XCTUnwrap(
-            Bundle(for: Self.self).path(forResource: "test", ofType: pathExtension))
+            Bundle(for: Self.self).path(forResource: name, ofType: pathExtension))
         try FileManager.default.copyItem(at: URL(fileURLWithPath: bundlePath), to: url)
 
         return url
@@ -82,6 +83,34 @@ class EditWorkflowTests: XCTestCase {
 
         controller.searchBarResultsListButtonClicked(controller.searchBar)
         waitUntil { self.controller.searchCountLabel.text == "2/\(count)" }
+    }
+
+    func testALongPdfLoadsItsLaterPagesLazily() throws {
+        try openTheLongPdf()
+
+        XCTAssertEqual(evaluate("document.querySelectorAll('[data-odr-chunk-src]').length > 0") as? Bool, true)
+    }
+
+    func testSearchFindsAPageThatHasNotLoaded() throws {
+        try openTheLongPdf()
+        controller.searchButton(controller.searchButton)
+        controller.searchBar.text = "Last page"
+
+        controller.searchBar(controller.searchBar, textDidChange: "Last page")
+
+        waitUntil { self.controller.searchCountLabel.text == "1/1" }
+    }
+
+    func testPrintingLoadsEveryPageFirst() throws {
+        try openTheLongPdf()
+
+        let loaded = expectation(description: "loaded")
+        controller.loadAllChunks { loaded.fulfill() }
+        wait(for: [loaded], timeout: 60)
+
+        XCTAssertEqual(evaluate("document.querySelectorAll('[data-odr-chunk-src]').length") as? Int, 0)
+        let printed = try XCTUnwrap(PDFDocument(data: printedPdf()))
+        XCTAssertTrue(printed.string?.contains("Last page") ?? false)
     }
 
     func testCoveringTheReaderKeepsTheDocumentAndEdits() throws {
@@ -649,6 +678,32 @@ class EditWorkflowTests: XCTestCase {
     }
 
     // MARK: - helpers
+
+    private func openTheLongPdf() throws {
+        documentURL = try copyFixture(named: "test-long", ofType: "pdf")
+        try present(documentURL)
+        openDocument(where: "document.querySelectorAll('[data-odr-space]').length > 0")
+    }
+
+    /// What a print of the web view puts on A4.
+    private func printedPdf() -> Data {
+        let renderer = UIPrintPageRenderer()
+        renderer.addPrintFormatter(controller.webview.viewPrintFormatter(), startingAtPageAt: 0)
+        let paper = CGRect(x: 0, y: 0, width: 595, height: 842)
+        renderer.setValue(paper, forKey: "paperRect")
+        renderer.setValue(paper.insetBy(dx: 36, dy: 36), forKey: "printableRect")
+
+        let data = NSMutableData()
+        UIGraphicsBeginPDFContextToData(data, paper, nil)
+        renderer.prepare(forDrawingPages: NSRange(location: 0, length: renderer.numberOfPages))
+        for page in 0..<renderer.numberOfPages {
+            UIGraphicsBeginPDFPage()
+            renderer.drawPage(at: page, in: UIGraphicsGetPDFContextBounds())
+        }
+        UIGraphicsEndPDFContext()
+
+        return data as Data
+    }
 
     private func barContains(_ item: UIBarButtonItem) -> Bool {
         (controller.toolBar.items ?? []).contains { $0 === item }

@@ -93,8 +93,14 @@ The search bar calls `odr.search`, and the page sends the count back as
 part near the viewport, and that find does not reach the rest.
 
 The count sits in a pill below the bar, because the search field does not show
-a right view. Lazy loading stays off, because a print from the web view leaves
-a part that has not loaded empty.
+a right view.
+
+## Lazy loading
+
+odrcore lays out and loads only the part near the viewport. It keeps an
+editable text file or sheet whole, so `CoreWrapper` asks for an editable page
+only where the app can save the file. A part that has not loaded prints as
+empty space, so the app loads every part before a print from the web view.
 
 ## Formatting
 
