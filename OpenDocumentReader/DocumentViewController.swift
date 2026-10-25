@@ -167,6 +167,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         return slot
     }()
 
+    /// The place of the selected hit and the number of hits, below the search bar.
+    let searchCountLabel = UILabel()
+    private let searchCountPill = UIView()
+
     private var searchBarHeightWhenShown: NSLayoutConstraint?
     private var searchBarHeightWhenHidden: NSLayoutConstraint?
     private lazy var pageTabBarHeight = pageTabBar.heightAnchor.constraint(equalToConstant: 0)
@@ -197,6 +201,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         searchBar.showsCancelButton = true
         searchBarHeightWhenShown = searchBar.heightAnchor.constraint(equalToConstant: 56)
         searchBarHeightWhenHidden = searchBar.heightAnchor.constraint(equalToConstant: 0)
+        setUpSearchCount()
 
         setUpEditToolBar()
         setUpPageMessages()
@@ -744,6 +749,11 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
             }
             staleCells = count
 
+        case "searchChange":
+            showSearchCount(
+                detail["count"] as? Int ?? 0, current: detail["current"] as? Int ?? -1,
+                complete: detail["complete"] as? Bool ?? true)
+
         case "editRefused":
             editRefused(reason: detail["reason"] as? String ?? "")
 
@@ -965,6 +975,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         case "newLine": key = "edit_refused_new_line"
         case "formula": key = "edit_refused_formula"
         case "formulaInput": key = "edit_refused_formula_input"
+        case "array": key = "edit_refused_array"
         case "rich", "shapes": key = "edit_refused_rich"
         case "readOnly": key = "edit_refused_read_only"
         case "range": key = "edit_refused_range"
@@ -1150,9 +1161,46 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         searchBar.becomeFirstResponder()
     }
 
+    private func setUpSearchCount() {
+        searchCountLabel.font = .monospacedDigitSystemFont(ofSize: UIFont.smallSystemFontSize, weight: .medium)
+        searchCountLabel.textColor = .secondaryLabel
+        searchCountLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        // over the document, because the search field does not show a right view
+        searchCountPill.backgroundColor = .secondarySystemBackground
+        searchCountPill.layer.cornerRadius = 12
+        searchCountPill.isUserInteractionEnabled = false
+        searchCountPill.translatesAutoresizingMaskIntoConstraints = false
+        searchCountPill.addSubview(searchCountLabel)
+        view.addSubview(searchCountPill)
+
+        NSLayoutConstraint.activate([
+            searchCountLabel.leadingAnchor.constraint(equalTo: searchCountPill.leadingAnchor, constant: 10),
+            searchCountLabel.trailingAnchor.constraint(equalTo: searchCountPill.trailingAnchor, constant: -10),
+            searchCountLabel.topAnchor.constraint(equalTo: searchCountPill.topAnchor, constant: 4),
+            searchCountLabel.bottomAnchor.constraint(equalTo: searchCountPill.bottomAnchor, constant: -4),
+            searchCountPill.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
+            searchCountPill.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
+        showSearchCount(0, current: -1, complete: true)
+    }
+
+    /// `current` counts from 0, and is -1 where no hit is selected. Hits that
+    /// are still being counted show as a "+".
+    private func showSearchCount(_ count: Int, current: Int, complete: Bool) {
+        if searchBar.isHidden || searchBar.text?.isEmpty ?? true {
+            searchCountLabel.text = nil
+        } else {
+            let total = "\(count)\(complete ? "" : "+")"
+            searchCountLabel.text = current >= 0 ? "\(current + 1)/\(total)" : total
+        }
+        searchCountPill.isHidden = searchCountLabel.text == nil
+    }
+
     private func hideSearchBar() {
         searchBar.text = ""
         searchBar.isHidden = true
+        showSearchCount(0, current: -1, complete: true)
         searchBarHeightWhenHidden?.isActive = true
         searchBarHeightWhenShown?.isActive = false
 

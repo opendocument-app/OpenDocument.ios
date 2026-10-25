@@ -153,6 +153,7 @@
 /* Why an edit was not taken */
 "edit_refused_formula" = "Cette cellule contient une formule et reste telle quelle.";
 "edit_refused_formula_input" = "La saisie d’une formule n’est pas encore prise en charge.";
+"edit_refused_array" = "Cette cellule fait partie d’une formule matricielle et reste telle quelle.";
 "edit_refused_rich" = "Cette cellule contient plus que du texte brut et reste telle quelle.";
 "edit_refused_generic" = "Cette modification n’est pas possible ici.";
 "edit_refused_new_line" = "Un saut de ligne à l’intérieur d’un paragraphe ne peut pas être enregistré. Appuyez sur Entrée pour un nouveau paragraphe.";

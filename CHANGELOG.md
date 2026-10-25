@@ -13,6 +13,23 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
+## [Unreleased]
+
+### Added
+
+- The search shows which hit is selected and how many there are.
+
+### Changed
+
+- The engine is odrcore 7.6.0, up from 7.5.2. Long text files, PDFs, sheets
+  and presentations open faster.
+- A cell of an array formula says why it cannot be edited.
+
+### Fixed
+
+- Words in a Word document no longer run together where the formatting changes.
+- A font that is not installed falls back to one of the same kind.
+
 ## [1.49]
 
 ### Added

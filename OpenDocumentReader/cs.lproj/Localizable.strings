@@ -153,6 +153,7 @@
 /* Why an edit was not taken */
 "edit_refused_formula" = "Tato buňka obsahuje vzorec a zůstává beze změny.";
 "edit_refused_formula_input" = "Zadávání vzorců zatím není podporováno.";
+"edit_refused_array" = "Tato buňka je součástí maticového vzorce a zůstane beze změny.";
 "edit_refused_rich" = "Tato buňka obsahuje víc než prostý text a zůstává beze změny.";
 "edit_refused_generic" = "Tato úprava tu není možná.";
 "edit_refused_new_line" = "Zalomení řádku uvnitř odstavce nelze uložit. Stiskněte Enter pro nový odstavec.";

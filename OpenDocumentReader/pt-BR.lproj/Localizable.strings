@@ -153,6 +153,7 @@
 /* Why an edit was not taken */
 "edit_refused_formula" = "Essa célula contém uma fórmula e fica como está.";
 "edit_refused_formula_input" = "Digitar uma fórmula ainda não é possível.";
+"edit_refused_array" = "Essa célula faz parte de uma fórmula matricial e fica como está.";
 "edit_refused_rich" = "Essa célula contém mais do que texto simples e fica como está.";
 "edit_refused_generic" = "Essa edição não é possível aqui.";
 "edit_refused_new_line" = "Uma quebra de linha dentro de um parágrafo não pode ser salva. Pressione Enter para um novo parágrafo.";
