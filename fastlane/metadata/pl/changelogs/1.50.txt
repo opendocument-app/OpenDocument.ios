@@ -1,0 +1,4 @@
+- Wyszukiwanie pokazuje, na którym wyniku jesteś i ile ich jest
+- Długie dokumenty i pliki PDF otwierają się szybciej
+- Słowa w dokumentach Word nie zlewają się już ze sobą
+- Brakująca czcionka jest zastępowana podobną

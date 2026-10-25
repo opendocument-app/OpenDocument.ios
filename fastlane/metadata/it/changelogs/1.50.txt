@@ -1,0 +1,4 @@
+- La ricerca mostra a quale risultato sei e quanti ce ne sono
+- I documenti lunghi e i PDF si aprono più velocemente
+- Nei documenti Word le parole non si attaccano più tra loro
+- Un font mancante viene sostituito da uno simile

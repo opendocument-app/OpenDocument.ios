@@ -1,0 +1,4 @@
+- Arama, kaçıncı sonuçta olduğunuzu ve toplam kaç sonuç bulunduğunu gösteriyor
+- Uzun belgeler ve PDF'ler daha hızlı açılıyor
+- Word belgelerinde kelimeler artık birbirine yapışmıyor
+- Eksik bir yazı tipinin yerine benzer bir yazı tipi kullanılıyor

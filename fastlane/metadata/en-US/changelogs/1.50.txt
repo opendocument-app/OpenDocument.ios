@@ -1,0 +1,4 @@
+- Search shows which match you are on and how many there are
+- Long documents and PDFs open faster
+- Words in Word documents no longer run together
+- A missing font is replaced with a similar one
