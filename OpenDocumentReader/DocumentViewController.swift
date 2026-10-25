@@ -755,7 +755,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 complete: detail["complete"] as? Bool ?? true)
 
         case "editRefused":
-            editRefused(reason: detail["reason"] as? String ?? "")
+            editRefused(reason: detail["reason"] as? String ?? "", inSheet: detail["sheet"] != nil)
 
         case "selectionChange":
             let style = detail
@@ -815,6 +815,9 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         let script = """
             odr.editing.enable();
+            if (typeof odr.sheet === 'object' && typeof odr.editing.loadFormulas === 'function') {
+                odr.editing.loadFormulas();
+            }
             typeof odr.sheet !== 'object' ? 'text'
                 : document.body.getAttribute('data-odr-sheet-styles') === 'false' ? 'values' : 'sheet'
             """
@@ -959,13 +962,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         editToolChose(tool, .color(viewController.selectedColor.hexString))
     }
 
-    /// The page refused an edit. In Lite, an edit out of scope offers Pro.
-    private func editRefused(reason: String) {
+    /// The page refused an edit. In Lite, an edit out of scope offers Pro: in
+    /// a sheet that edit is a typed formula.
+    private func editRefused(reason: String, inSheet: Bool) {
         if reason == "outOfScope", !Features.advancedEditing {
             guard !hasOfferedProForThisEdit else { return }
             hasOfferedProForThisEdit = true
 
-            offerPro(.formatting)
+            offerPro(inSheet ? .formulas : .formatting)
 
             return
         }
@@ -975,6 +979,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         case "newLine": key = "edit_refused_new_line"
         case "formula": key = "edit_refused_formula"
         case "formulaInput": key = "edit_refused_formula_input"
+        case "formulaInvalid": key = "edit_refused_formula_invalid"
         case "array": key = "edit_refused_array"
         case "rich", "shapes": key = "edit_refused_rich"
         case "readOnly": key = "edit_refused_read_only"
@@ -994,12 +999,14 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     enum ProFeature {
         case formatting
         case structure
+        case formulas
         case pdf
 
         var message: String {
             switch self {
             case .formatting: return NSLocalizedString("pro_feature_formatting", comment: "")
             case .structure: return NSLocalizedString("pro_feature_structure", comment: "")
+            case .formulas: return NSLocalizedString("pro_feature_formulas", comment: "")
             case .pdf: return NSLocalizedString("pro_feature_pdf", comment: "")
             }
         }
@@ -1368,6 +1375,36 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     func printDocument() {
         AnalyticsManager.shared.report("menu_print")
 
+        if let document, document.isPrintablePdf, !hasUnsavedEdits {
+            presentPrint()
+        } else {
+            // a part that has not loaded prints as empty space
+            loadAllChunks { [weak self] in self?.presentPrint() }
+        }
+    }
+
+    /// Loads every part of the page that loads as the reader comes near, and
+    /// calls `then` once none is loading any more.
+    func loadAllChunks(then: @escaping () -> Void) {
+        let script = """
+            if (typeof odr === 'object' && odr.chunks) {
+                document.querySelectorAll('.odr-chunk[data-odr-chunk-src]').forEach(odr.chunks.show);
+                while (document.querySelector('[data-odr-chunk-loading]') !== null) {
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                }
+            }
+            """
+
+        webview.callAsyncJavaScript(script, arguments: [:], in: nil, in: .page) { result in
+            if case .failure(let error) = result {
+                CrashManager.shared.log(error)
+            }
+
+            then()
+        }
+    }
+
+    private func presentPrint() {
         let printController = UIPrintInteractionController.shared
         let printInfo: UIPrintInfo = UIPrintInfo(dictionary: nil)
 

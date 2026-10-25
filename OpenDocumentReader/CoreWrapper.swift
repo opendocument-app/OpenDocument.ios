@@ -154,7 +154,6 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
 
         // Keep rendering settings consistent with OpenDocument.droid.
         let config = HtmlConfig()
-        config.editable = editable
         // how far an edit may reach: inside one paragraph, or across the
         // document with formatting
         config.editingScope = scope
@@ -186,6 +185,10 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
         // an armed marker marks each selection as it is made: a tap elsewhere
         // would lose it
         config.pdfAnnotationMarkOnSelection = true
+        // lay out and load only what is near the viewport; core keeps an
+        // editable text file or sheet whole
+        config.lazyLayout = true
+        config.lazyLoading = true
 
         let documentType: DocumentType
         let openedDocument: OdrCoreObjC.Document?
@@ -200,6 +203,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             // back would otherwise offer Edit and fail at the save
             openedDocument = document.isEditable && document.isSavable ? document : nil
             openedPageSize = Self.pageSize(of: document)
+            config.editable = editable && openedDocument != nil
             service = try HtmlTranslator.translate(document: document, config: config)
         } else {
             // `.unknown` keeps the single view each of these has -
@@ -215,6 +219,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
             {
                 openedPdfFile = pdf
             }
+            config.editable = editable && (openedTextFile != nil || openedPdfFile != nil)
 
             service = try HtmlTranslator.translate(file: file, config: config)
         }

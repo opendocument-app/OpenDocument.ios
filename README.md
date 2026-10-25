@@ -47,8 +47,9 @@ Rules:
   id. The constants behind them live in `Ads/Linked.swift` and
   `NoAds/Linked.swift`.
 - Lite edits with the scope `paragraph`. odrcore refuses a larger change with
-  `outOfScope`, and the app offers Pro. The scope does not reach a sheet, so
-  the app locks the row and column tools itself.
+  `outOfScope`, and the app offers Pro. In a sheet, that change is a typed
+  formula. The scope does not reach the row and column tools, so the app locks
+  them itself.
 - The gate is on the tool, not on the mode. Both apps open every editable
   document, and a locked `EditToolBar` dims the Pro tools. The highlighter
   works in both apps. Do not gate the whole edit mode.
@@ -93,8 +94,14 @@ The search bar calls `odr.search`, and the page sends the count back as
 part near the viewport, and that find does not reach the rest.
 
 The count sits in a pill below the bar, because the search field does not show
-a right view. Lazy loading stays off, because a print from the web view leaves
-a part that has not loaded empty.
+a right view.
+
+## Lazy loading
+
+odrcore lays out and loads only the part near the viewport. It keeps an
+editable text file or sheet whole, so `CoreWrapper` asks for an editable page
+only where the app can save the file. A part that has not loaded prints as
+empty space, so the app loads every part before a print from the web view.
 
 ## Formatting
 

@@ -154,6 +154,7 @@
 "edit_refused_formula" = "That cell holds a formula and stays as it is.";
 "edit_refused_formula_input" = "Typing a formula is not supported yet.";
 "edit_refused_array" = "That cell is part of an array formula and stays as it is.";
+"edit_refused_formula_invalid" = "That formula is not valid.";
 "edit_refused_rich" = "That cell holds more than plain text and stays as it is.";
 "edit_refused_generic" = "That edit is not possible here.";
 "edit_refused_new_line" = "A line break inside a paragraph cannot be saved. Press Return for a new paragraph.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Bold, italic, colors and text size, and adding or joining paragraphs, are part of OpenDocument Reader Pro. The highlighter is in every edition.";
 "pro_feature_pdf" = "Underlining, striking out and drawing on a PDF are part of OpenDocument Reader Pro. The highlighter is in every edition.";
 "pro_feature_structure" = "Adding and deleting rows and columns is part of OpenDocument Reader Pro. The highlighter is in every edition.";
+"pro_feature_formulas" = "Typing formulas into a spreadsheet is part of OpenDocument Reader Pro. The highlighter is in every edition.";
 "not_now" = "Not now";
 
 /* Shown when the marking tools come up on a PDF */

@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Tá foirmle sa chill sin agus fanann sí mar atá.";
 "edit_refused_formula_input" = "Ní thacaítear le foirmlí a chlóscríobh go fóill.";
 "edit_refused_array" = "Is cuid d’fhoirmle eagair an cill sin agus fanann sí mar atá.";
+"edit_refused_formula_invalid" = "Níl an fhoirmle sin bailí.";
 "edit_refused_rich" = "Tá níos mó ná gnáth-théacs sa chill sin agus fanann sí mar atá.";
 "edit_refused_generic" = "Ní féidir an t-athrú sin a dhéanamh anseo.";
 "edit_refused_new_line" = "Ní féidir briseadh líne laistigh d’alt a shábháil. Brúigh Iontráil le haghaidh alt nua.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Is cuid de OpenDocument Reader Pro iad cló trom, cló iodálach, dathanna agus méid an téacs, agus ailt a chur leis nó a nascadh. Tá an marcóir i ngach eagrán.";
 "pro_feature_pdf" = "Is cuid de OpenDocument Reader Pro iad líne a chur faoi théacs, líne a chur tríd agus líníocht a dhéanamh ar PDF. Tá an marcóir i ngach eagrán.";
 "pro_feature_structure" = "Is cuid de OpenDocument Reader Pro é rónna agus colúin a chur leis agus a scriosadh. Tá an marcóir i ngach eagrán.";
+"pro_feature_formulas" = "Is cuid de OpenDocument Reader Pro é foirmlí a chlóscríobh i scarbhileog. Tá an marcóir i ngach eagrán.";
 "not_now" = "Ní anois";
 
 /* Shown when the marking tools come up on a PDF */

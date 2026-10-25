@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Ta celica vsebuje formulo in ostane, kot je.";
 "edit_refused_formula_input" = "Vnos formul še ni podprt.";
 "edit_refused_array" = "Ta celica je del matrične formule in ostane nespremenjena.";
+"edit_refused_formula_invalid" = "Ta formula ni veljavna.";
 "edit_refused_rich" = "Ta celica vsebuje več kot navadno besedilo in ostane, kot je.";
 "edit_refused_generic" = "To urejanje tu ni mogoče.";
 "edit_refused_new_line" = "Preloma vrstice znotraj odstavka ni mogoče shraniti. Pritisnite Enter za nov odstavek.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Krepko, ležeče, barve in velikost besedila ter dodajanje ali združevanje odstavkov so del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
 "pro_feature_pdf" = "Podčrtovanje, prečrtovanje in risanje v PDF so del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
 "pro_feature_structure" = "Dodajanje in brisanje vrstic in stolpcev je del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
+"pro_feature_formulas" = "Vnašanje formul v preglednico je del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
 "not_now" = "Ne zdaj";
 
 /* Shown when the marking tools come up on a PDF */
