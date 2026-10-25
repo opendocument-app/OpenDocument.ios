@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Ta komórka zawiera formułę i pozostaje bez zmian.";
 "edit_refused_formula_input" = "Wpisywanie formuł nie jest jeszcze obsługiwane.";
 "edit_refused_array" = "Ta komórka należy do formuły tablicowej i pozostaje bez zmian.";
+"edit_refused_formula_invalid" = "Ta formuła jest nieprawidłowa.";
 "edit_refused_rich" = "Ta komórka zawiera więcej niż zwykły tekst i pozostaje bez zmian.";
 "edit_refused_generic" = "Ta zmiana nie jest tu możliwa.";
 "edit_refused_new_line" = "Podziału wiersza wewnątrz akapitu nie można zapisać. Naciśnij Enter, aby zacząć nowy akapit.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Pogrubienie, kursywa, kolory i rozmiar tekstu oraz dodawanie i łączenie akapitów to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
 "pro_feature_pdf" = "Podkreślanie, przekreślanie i rysowanie w PDF to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
 "pro_feature_structure" = "Dodawanie i usuwanie wierszy i kolumn to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
+"pro_feature_formulas" = "Wpisywanie formuł w arkuszu jest częścią OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
 "not_now" = "Nie teraz";
 
 /* Shown when the marking tools come up on a PDF */

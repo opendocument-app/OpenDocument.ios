@@ -99,6 +99,7 @@ class OpenDocumentReaderTests: XCTestCase {
     }
 
     /// Its text has to reach the page, or there is nothing for search to walk.
+    /// The second page loads as the reader comes near, from a script of its own.
     func testPdfPageCarriesItsText() throws {
         let wrapper = CoreWrapper()
         let url = try copyFixture(ofType: "pdf")
@@ -106,11 +107,17 @@ class OpenDocumentReaderTests: XCTestCase {
         try wrapper.translate(
             url.path, into: temporaryDirectory, with: nil, editable: false, scope: .document)
 
-        let (data, _) = try fetch(try XCTUnwrap(wrapper.pageURLs.first))
+        let pageURL = try XCTUnwrap(wrapper.pageURLs.first)
+        let (data, _) = try fetch(pageURL)
         let html = try XCTUnwrap(String(data: data, encoding: .utf8))
-
         XCTAssertTrue(html.contains("First"), html)
-        XCTAssertTrue(html.contains("Second"), html)
+
+        let attribute = try XCTUnwrap(
+            html.range(of: #"data-odr-chunk-src="[^"]+""#, options: .regularExpression),
+            "the second page is not loaded lazily")
+        let source = html[attribute].dropFirst("data-odr-chunk-src=\"".count).dropLast()
+        let (script, _) = try fetch(try XCTUnwrap(URL(string: String(source), relativeTo: pageURL)))
+        XCTAssertTrue(String(decoding: script, as: UTF8.self).contains("Second"))
     }
 
     /// `wrongPassword` rather than `unsupportedFileType`, because that is what

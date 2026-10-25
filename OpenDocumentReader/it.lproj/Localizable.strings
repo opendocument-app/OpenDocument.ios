@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Quella cella contiene una formula e resta com’è.";
 "edit_refused_formula_input" = "Digitare una formula non è ancora supportato.";
 "edit_refused_array" = "Quella cella fa parte di una formula matrice e resta com’è.";
+"edit_refused_formula_invalid" = "Questa formula non è valida.";
 "edit_refused_rich" = "Quella cella contiene più di testo semplice e resta com’è.";
 "edit_refused_generic" = "Questa modifica non è possibile qui.";
 "edit_refused_new_line" = "Un’interruzione di riga dentro un paragrafo non può essere salvata. Premi Invio per un nuovo paragrafo.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Il grassetto, il corsivo, i colori e la dimensione del testo, e aggiungere o unire paragrafi, fanno parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
 "pro_feature_pdf" = "Sottolineare, barrare e disegnare su un PDF fanno parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
 "pro_feature_structure" = "Aggiungere ed eliminare righe e colonne fa parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
+"pro_feature_formulas" = "Digitare formule in un foglio di calcolo fa parte di OpenDocument Reader Pro. L’evidenziatore c’è in ogni edizione.";
 "not_now" = "Non ora";
 
 /* Shown when the marking tools come up on a PDF */

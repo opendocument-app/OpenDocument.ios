@@ -21,8 +21,8 @@ Rules:
 
 ### Changed
 
-- The engine is odrcore 7.6.0, up from 7.5.2. Long text files, PDFs, sheets
-  and presentations open faster.
+- The engine is odrcore 7.6.0, up from 7.5.2. Long documents open faster, and
+  a long PDF loads its pages as the reader comes near.
 - A cell of an array formula says why it cannot be edited.
 
 ### Fixed

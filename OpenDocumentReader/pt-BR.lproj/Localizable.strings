@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Essa célula contém uma fórmula e fica como está.";
 "edit_refused_formula_input" = "Digitar uma fórmula ainda não é possível.";
 "edit_refused_array" = "Essa célula faz parte de uma fórmula matricial e fica como está.";
+"edit_refused_formula_invalid" = "Essa fórmula não é válida.";
 "edit_refused_rich" = "Essa célula contém mais do que texto simples e fica como está.";
 "edit_refused_generic" = "Essa edição não é possível aqui.";
 "edit_refused_new_line" = "Uma quebra de linha dentro de um parágrafo não pode ser salva. Pressione Enter para um novo parágrafo.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Negrito, itálico, cores e tamanho do texto, e adicionar ou juntar parágrafos, fazem parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
 "pro_feature_pdf" = "Sublinhar, riscar e desenhar em um PDF fazem parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
 "pro_feature_structure" = "Adicionar e excluir linhas e colunas faz parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
+"pro_feature_formulas" = "Digitar fórmulas numa planilha faz parte do OpenDocument Reader Pro. O marca-texto está em todas as edições.";
 "not_now" = "Agora não";
 
 /* Shown when the marking tools come up on a PDF */

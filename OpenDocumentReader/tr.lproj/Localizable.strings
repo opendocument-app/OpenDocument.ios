@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Bu hücrede bir formül var ve olduğu gibi kalır.";
 "edit_refused_formula_input" = "Formül yazma henüz desteklenmiyor.";
 "edit_refused_array" = "Bu hücre bir dizi formülünün parçasıdır ve olduğu gibi kalır.";
+"edit_refused_formula_invalid" = "Bu formül geçerli değil.";
 "edit_refused_rich" = "Bu hücrede düz metinden fazlası var ve olduğu gibi kalır.";
 "edit_refused_generic" = "Bu düzenleme burada yapılamaz.";
 "edit_refused_new_line" = "Paragraf içindeki satır sonu kaydedilemez. Yeni paragraf için Enter’a basın.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Kalın, italik, renkler ve metin boyutu ile paragraf eklemek ya da birleştirmek OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
 "pro_feature_pdf" = "Bir PDF’te altını çizmek, üstünü çizmek ve çizim yapmak OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
 "pro_feature_structure" = "Satır ve sütun eklemek ve silmek OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
+"pro_feature_formulas" = "Bir tabloya formül yazmak OpenDocument Reader Pro’nun parçasıdır. Fosforlu kalem her sürümde vardır.";
 "not_now" = "Şimdi değil";
 
 /* Shown when the marking tools come up on a PDF */

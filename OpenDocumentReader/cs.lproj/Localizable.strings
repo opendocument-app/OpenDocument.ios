@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Tato buňka obsahuje vzorec a zůstává beze změny.";
 "edit_refused_formula_input" = "Zadávání vzorců zatím není podporováno.";
 "edit_refused_array" = "Tato buňka je součástí maticového vzorce a zůstane beze změny.";
+"edit_refused_formula_invalid" = "Tento vzorec není platný.";
 "edit_refused_rich" = "Tato buňka obsahuje víc než prostý text a zůstává beze změny.";
 "edit_refused_generic" = "Tato úprava tu není možná.";
 "edit_refused_new_line" = "Zalomení řádku uvnitř odstavce nelze uložit. Stiskněte Enter pro nový odstavec.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Tučné písmo, kurzíva, barvy a velikost textu a přidávání nebo spojování odstavců jsou součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
 "pro_feature_pdf" = "Podtržení, přeškrtnutí a kreslení v PDF jsou součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
 "pro_feature_structure" = "Přidávání a odstraňování řádků a sloupců je součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
+"pro_feature_formulas" = "Zadávání vzorců do tabulky je součástí OpenDocument Reader Pro. Zvýrazňovač je v každé edici.";
 "not_now" = "Teď ne";
 
 /* Shown when the marking tools come up on a PDF */

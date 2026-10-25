@@ -154,6 +154,7 @@
 "edit_refused_formula" = "Cette cellule contient une formule et reste telle quelle.";
 "edit_refused_formula_input" = "La saisie d’une formule n’est pas encore prise en charge.";
 "edit_refused_array" = "Cette cellule fait partie d’une formule matricielle et reste telle quelle.";
+"edit_refused_formula_invalid" = "Cette formule n’est pas valide.";
 "edit_refused_rich" = "Cette cellule contient plus que du texte brut et reste telle quelle.";
 "edit_refused_generic" = "Cette modification n’est pas possible ici.";
 "edit_refused_new_line" = "Un saut de ligne à l’intérieur d’un paragraphe ne peut pas être enregistré. Appuyez sur Entrée pour un nouveau paragraphe.";
@@ -166,6 +167,7 @@
 "pro_feature_formatting" = "Le gras, l’italique, les couleurs et la taille du texte, ainsi que l’ajout ou la fusion de paragraphes, font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
 "pro_feature_pdf" = "Souligner, barrer et dessiner sur un PDF font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
 "pro_feature_structure" = "Ajouter et supprimer des lignes et des colonnes fait partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
+"pro_feature_formulas" = "Saisir des formules dans un tableur fait partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
 "not_now" = "Pas maintenant";
 
 /* Shown when the marking tools come up on a PDF */
