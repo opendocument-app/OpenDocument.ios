@@ -1,0 +1,4 @@
+- A pesquisa mostra em qual resultado você está e quantos existem
+- Documentos longos e PDFs abrem mais rápido
+- As palavras em documentos do Word não aparecem mais grudadas
+- Uma fonte ausente é substituída por outra parecida

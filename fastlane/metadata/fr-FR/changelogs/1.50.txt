@@ -1,0 +1,4 @@
+- La recherche indique l'occurrence en cours et le nombre total d'occurrences
+- Les longs documents et les PDF s'ouvrent plus vite
+- Les mots des documents Word ne sont plus collés
+- Une police manquante est remplacée par une police similaire

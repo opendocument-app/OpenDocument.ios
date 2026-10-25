@@ -1,0 +1,4 @@
+- Sökningen visar vilken träff du är på och hur många det finns
+- Långa dokument och PDF-filer öppnas snabbare
+- Ord i Word-dokument flyter inte längre ihop
+- Ett typsnitt som saknas ersätts med ett liknande

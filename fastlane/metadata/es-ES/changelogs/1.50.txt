@@ -1,0 +1,4 @@
+- La búsqueda muestra en qué resultado está y cuántos hay
+- Los documentos largos y los PDF se abren más rápido
+- Las palabras de los documentos de Word ya no aparecen pegadas
+- Las fuentes que faltan se sustituyen por otras parecidas

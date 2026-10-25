@@ -1,0 +1,4 @@
+- Die Suche zeigt, bei welchem Treffer Sie sind und wie viele es gibt
+- Lange Dokumente und PDFs öffnen sich schneller
+- Wörter in Word-Dokumenten kleben nicht mehr aneinander
+- Fehlt eine Schriftart, wird eine ähnliche verwendet

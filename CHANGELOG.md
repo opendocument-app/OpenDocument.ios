@@ -13,7 +13,7 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
-## [Unreleased]
+## [1.50]
 
 ### Added
 
