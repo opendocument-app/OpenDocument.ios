@@ -153,6 +153,7 @@
 /* Why an edit was not taken */
 "edit_refused_formula" = "That cell holds a formula and stays as it is.";
 "edit_refused_formula_input" = "Typing a formula is not supported yet.";
+"edit_refused_array" = "That cell is part of an array formula and stays as it is.";
 "edit_refused_rich" = "That cell holds more than plain text and stays as it is.";
 "edit_refused_generic" = "That edit is not possible here.";
 "edit_refused_new_line" = "A line break inside a paragraph cannot be saved. Press Return for a new paragraph.";

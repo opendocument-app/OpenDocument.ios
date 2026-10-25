@@ -153,6 +153,7 @@
 /* Why an edit was not taken */
 "edit_refused_formula" = "Tá foirmle sa chill sin agus fanann sí mar atá.";
 "edit_refused_formula_input" = "Ní thacaítear le foirmlí a chlóscríobh go fóill.";
+"edit_refused_array" = "Is cuid d’fhoirmle eagair an cill sin agus fanann sí mar atá.";
 "edit_refused_rich" = "Tá níos mó ná gnáth-théacs sa chill sin agus fanann sí mar atá.";
 "edit_refused_generic" = "Ní féidir an t-athrú sin a dhéanamh anseo.";
 "edit_refused_new_line" = "Ní féidir briseadh líne laistigh d’alt a shábháil. Brúigh Iontráil le haghaidh alt nua.";

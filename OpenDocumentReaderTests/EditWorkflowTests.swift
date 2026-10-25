@@ -70,6 +70,20 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertEqual(evaluate("window.lastQuery") as? String, query)
     }
 
+    func testSearchShowsTheSelectedHitAndTheCount() throws {
+        openDocument()
+        controller.searchButton(controller.searchButton)
+        controller.searchBar.text = "simple"
+
+        controller.searchBar(controller.searchBar, textDidChange: "simple")
+        waitUntil { self.controller.searchCountLabel.text?.hasPrefix("1/") == true }
+        let count = try XCTUnwrap(controller.searchCountLabel.text?.dropFirst(2))
+        XCTAssertGreaterThan(Int(count) ?? 0, 1)
+
+        controller.searchBarResultsListButtonClicked(controller.searchBar)
+        waitUntil { self.controller.searchCountLabel.text == "2/\(count)" }
+    }
+
     func testCoveringTheReaderKeepsTheDocumentAndEdits() throws {
         openDocument()
         controller.editDocument()

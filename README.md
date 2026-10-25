@@ -86,6 +86,16 @@ Security blocks plain HTTP.
   one and then moves it into place.
 - The page talks to the app through one `WKScriptMessageHandler`.
 
+## Search
+
+The search bar calls `odr.search`, and the page sends the count back as
+`searchChange`. Do not use the find of the web view. odrcore lays out only the
+part near the viewport, and that find does not reach the rest.
+
+The count sits in a pill below the bar, because the search field does not show
+a right view. Lazy loading stays off, because a print from the web view leaves
+a part that has not loaded empty.
+
 ## Formatting
 
 `scripts/format.sh` runs `swift-format` from the active Xcode toolchain, with

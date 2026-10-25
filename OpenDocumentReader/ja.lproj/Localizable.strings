@@ -153,6 +153,7 @@
 /* Why an edit was not taken */
 "edit_refused_formula" = "そのセルには数式が入っているため、そのままになります。";
 "edit_refused_formula_input" = "数式の入力はまだ対応していません。";
+"edit_refused_array" = "このセルは配列数式の一部のため、変更できません。";
 "edit_refused_rich" = "そのセルには書式付きの内容が入っているため、そのままになります。";
 "edit_refused_generic" = "この編集はここではできません。";
 "edit_refused_new_line" = "段落内の改行は保存できません。新しい段落にはReturnキーを押してください。";

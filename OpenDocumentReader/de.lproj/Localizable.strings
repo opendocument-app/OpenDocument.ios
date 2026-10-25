@@ -153,6 +153,7 @@
 /* Why an edit was not taken */
 "edit_refused_formula" = "Diese Zelle enthält eine Formel und bleibt, wie sie ist.";
 "edit_refused_formula_input" = "Formeln eingeben wird noch nicht unterstützt.";
+"edit_refused_array" = "Diese Zelle gehört zu einer Matrixformel und bleibt, wie sie ist.";
 "edit_refused_rich" = "Diese Zelle enthält mehr als reinen Text und bleibt, wie sie ist.";
 "edit_refused_generic" = "Diese Änderung ist hier nicht möglich.";
 "edit_refused_new_line" = "Ein Zeilenumbruch innerhalb eines Absatzes kann nicht gespeichert werden. Drücke die Eingabetaste für einen neuen Absatz.";
