@@ -18,10 +18,12 @@ Rules:
 ### Added
 
 - The search shows which hit is selected and how many there are.
+- Formulas can be typed into a spreadsheet in Pro, and formula cells show new
+  results as the sheet changes.
 
 ### Changed
 
-- The engine is odrcore 7.6.0, up from 7.5.2. Long documents open faster, and
+- The engine is odrcore 7.6.1, up from 7.5.2. Long documents open faster, and
   a long PDF loads its pages as the reader comes near.
 - A cell of an array formula says why it cannot be edited.
 

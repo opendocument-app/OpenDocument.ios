@@ -47,8 +47,9 @@ Rules:
   id. The constants behind them live in `Ads/Linked.swift` and
   `NoAds/Linked.swift`.
 - Lite edits with the scope `paragraph`. odrcore refuses a larger change with
-  `outOfScope`, and the app offers Pro. The scope does not reach a sheet, so
-  the app locks the row and column tools itself.
+  `outOfScope`, and the app offers Pro. In a sheet, that change is a typed
+  formula. The scope does not reach the row and column tools, so the app locks
+  them itself.
 - The gate is on the tool, not on the mode. Both apps open every editable
   document, and a locked `EditToolBar` dims the Pro tools. The highlighter
   works in both apps. Do not gate the whole edit mode.

@@ -340,6 +340,45 @@ class EditWorkflowTests: XCTestCase {
         XCTAssertTrue(barContains(controller.saveButton))
     }
 
+    // MARK: - formulas
+
+    /// A3 is the sum of A1 and A2, and computes again as they change.
+    func testAFormulaCellComputesAsTheSheetChanges() throws {
+        try openTheFormulaSheetForEditing()
+
+        type("7", intoColumn: 0, row: 0)
+
+        waitForPage(where: "odr.sheet.cellAt(0, 2).textContent.trim() === '10'")
+    }
+
+    func testATypedFormulaComputes() throws {
+        try openTheFormulaSheetForEditing()
+
+        type("=A1*10", intoColumn: 0, row: 1)
+
+        waitForPage(where: "odr.sheet.cellAt(0, 1).textContent.trim() === '20'")
+        waitForPage(where: "odr.sheet.cellAt(0, 2).textContent.trim() === '22'")
+    }
+
+    func testAFormulaCellOpensOnItsFormula() throws {
+        try openTheFormulaSheetForEditing()
+
+        _ = evaluate("odr.editing.editAt(0, 2)")
+
+        waitForPage(where: "document.querySelector('.odr-sheet-editor')?.value === '=SUM(A1:A2)'")
+    }
+
+    func testAWrongFormulaSaysWhy() throws {
+        try openTheFormulaSheetForEditing()
+
+        type("=SUM(", intoColumn: 0, row: 0)
+
+        waitUntil { self.controller.presentedViewController is UIAlertController }
+        XCTAssertEqual(
+            (controller.presentedViewController as? UIAlertController)?.message,
+            NSLocalizedString("edit_refused_formula_invalid", comment: ""))
+    }
+
     /// The fill button paints the pinned cell, and the edit goes into the log.
     func testTheFillButtonPaintsTheCell() throws {
         try openSheetForEditing()
@@ -727,6 +766,27 @@ class EditWorkflowTests: XCTestCase {
 
         controller.toggleEdit(controller.editButton)
         waitForTools()
+    }
+
+    private func openTheFormulaSheetForEditing() throws {
+        documentURL = try copyFixture(named: "test-formula", ofType: "ods")
+        try present(documentURL)
+        openDocument(where: "document.querySelectorAll('td').length > 0")
+
+        controller.toggleEdit(controller.editButton)
+        waitForTools()
+    }
+
+    /// Opens the cell editor, types `text` and presses Enter, as the reader does.
+    private func type(_ text: String, intoColumn column: Int, row: Int) {
+        _ = evaluate("odr.editing.editAt(\(column), \(row))")
+        waitForPage(where: "document.querySelector('.odr-sheet-editor') !== null")
+        controller.webview.callAsyncJavaScript(
+            """
+            const editor = document.querySelector('.odr-sheet-editor');
+            editor.value = text;
+            editor.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+            """, arguments: ["text": text], in: nil, in: .page, completionHandler: nil)
     }
 
     /// Waits on the page's answer, not on the strip: a plain text file has none.

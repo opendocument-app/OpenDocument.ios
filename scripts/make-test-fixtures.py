@@ -68,6 +68,28 @@ def spreadsheet(sheets: list[str]) -> str:
     return content(f"  <office:spreadsheet>\n{tables}\n  </office:spreadsheet>")
 
 
+def formula_sheet() -> str:
+    """Two numbers in A1 and A2, and their sum in A3."""
+    rows = "\n".join(
+        f"""    <table:table-row>
+     <table:table-cell office:value-type="float" office:value="{value}"><text:p>{value}</text:p></table:table-cell>
+    </table:table-row>"""
+        for value in (2, 3)
+    )
+    total = """    <table:table-row>
+     <table:table-cell table:formula="of:=SUM([.A1:.A2])" office:value-type="float" office:value="5"><text:p>5</text:p></table:table-cell>
+    </table:table-row>"""
+    return content(
+        f"""  <office:spreadsheet>
+   <table:table table:name="Sum">
+    <table:table-column/>
+{rows}
+{total}
+   </table:table>
+  </office:spreadsheet>"""
+    )
+
+
 def presentation(slides: list[str]) -> str:
     pages = "\n".join(
         f"""   <draw:page draw:name="{slide}" draw:master-page-name="Default">
@@ -169,6 +191,11 @@ def main() -> None:
         tests / "test.ods",
         "application/vnd.oasis.opendocument.spreadsheet",
         spreadsheet(["Alpha", "Beta", "Gamma"]),
+    )
+    write(
+        tests / "test-formula.ods",
+        "application/vnd.oasis.opendocument.spreadsheet",
+        formula_sheet(),
     )
     write(
         tests / "test.odp",
