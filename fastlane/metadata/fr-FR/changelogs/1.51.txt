@@ -1,0 +1,1 @@
+- Les fichiers Word, Excel, PowerPoint, Pages, Numbers et Keynote protégés par mot de passe s'ouvrent désormais une fois le mot de passe saisi

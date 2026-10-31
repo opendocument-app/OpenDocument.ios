@@ -1,0 +1,1 @@
+- Los archivos de Word, Excel, PowerPoint, Pages, Numbers y Keynote protegidos con contraseña ya se abren al introducir la contraseña

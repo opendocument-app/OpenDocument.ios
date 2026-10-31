@@ -1,0 +1,1 @@
+- Arquivos do Word, Excel, PowerPoint, Pages, Numbers e Keynote protegidos por senha agora abrem quando você digita a senha
