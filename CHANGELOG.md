@@ -13,6 +13,17 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
+## Unreleased
+
+### Added
+
+- Locked Word, Excel, PowerPoint, Pages, Numbers and Keynote files open with
+  their password.
+
+### Changed
+
+- The engine is odrcore 7.7.0, up from 7.6.1.
+
 ## [1.50]
 
 ### Added
