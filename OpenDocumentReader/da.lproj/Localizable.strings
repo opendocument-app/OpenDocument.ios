@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Dette ark er for stort til at blive vist helt. Kun den viste del kan redigeres.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "En del af Pro";
-"pro_feature_formatting" = "Fed, kursiv, farver og tekststørrelse samt tilføjelse eller sammenføjning af afsnit er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
-"pro_feature_pdf" = "Understregning, gennemstregning og tegning i en PDF er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
-"pro_feature_structure" = "Indsættelse og sletning af rækker og kolonner er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
-"pro_feature_formulas" = "At skrive formler i et regneark er en del af OpenDocument Reader Pro. Overstregningstuschen er med i alle udgaver.";
+"pro_feature_title" = "Pro-funktion";
+"pro_feature_formatting" = "Fed, kursiv, farver, tekststørrelse samt nye eller sammenlagte afsnit er Pro-funktioner. Fremhævning er gratis.";
+"pro_feature_pdf" = "Understregning, gennemstregning og tegning på en PDF er Pro-funktioner. Fremhævning er gratis.";
+"pro_feature_sheet" = "Fed, kursiv, farver, tekststørrelse, justering, formler samt indsættelse og sletning af rækker og kolonner er Pro-funktioner. Fyld er gratis.";
 "not_now" = "Ikke nu";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Støt OpenDocument Reader";
+"pass_why" = "Et lille team laver OpenDocument Reader. Appen sporer dig ikke, men det kan reklamerne i den gratis version. Dit køb fjerner reklamerne og betaler for opdateringer og nye funktioner.";
+"pass_buy" = "Abonner for %@ om året";
+"pass_buy_no_price" = "Abonner";
+"pass_get_pro" = "Betal én gang: få Pro-appen";
+"pass_unlocked" = "Tak! Pro-funktionerne er nu slået til.";
+"pass_unlocked_editing" = "Tak! Afslut redigeringstilstanden for at bruge alle Pro-værktøjer.";
+"pass_restored" = "Dit køb er gendannet. Pro-funktionerne er slået til.";
+"pass_restored_editing" = "Dit køb er gendannet. Afslut redigeringstilstanden for at bruge alle Pro-værktøjer.";
+"pass_on_editing" = "Pro-funktionerne er slået til. Afslut redigeringstilstanden for at bruge alle Pro-værktøjer.";
+"menu_support" = "Støt appen";
+"pass_terms" = "Ingen reklamer og alle Pro-funktioner i 1 år. Fornyes hvert år. Opsig når som helst i App Store.";
+"pass_unavailable" = "App Store er ikke tilgængelig. Log ind i App Store, og prøv igen.";
+"pass_restore" = "Gendan køb";
+"pass_nothing_to_restore" = "Der blev ikke fundet noget aktivt abonnement.";
+"pass_terms_of_use" = "Brugsvilkår";
+"pass_privacy_policy" = "Privatlivspolitik";

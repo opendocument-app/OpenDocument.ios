@@ -15,6 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         StoreReviewHelper.incrementAppOpenedCount()
 
+        // Lite only: asks the App Store whether the yearly pass is active
+        Pass.shared.start()
+
         return true
     }
 

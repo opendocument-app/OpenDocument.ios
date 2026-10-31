@@ -164,10 +164,9 @@
 
 /* What Pro adds, shown in the Lite app */
 "pro_feature_title" = "Pro 功能";
-"pro_feature_formatting" = "粗体、斜体、颜色和文字大小，以及添加或合并段落，都是 OpenDocument Reader Pro 的功能。荧光笔在每个版本中都能用。";
-"pro_feature_pdf" = "在 PDF 上添加下划线、删除线和手绘是 OpenDocument Reader Pro 的功能。荧光笔在每个版本中都能用。";
-"pro_feature_structure" = "添加和删除行与列是 OpenDocument Reader Pro 的功能。荧光笔在每个版本中都能用。";
-"pro_feature_formulas" = "在电子表格中输入公式是 OpenDocument Reader Pro 的功能。荧光笔在每个版本中都能用。";
+"pro_feature_formatting" = "粗体、斜体、颜色、文字大小以及新建或合并段落都是 Pro 功能。突出显示可免费使用。";
+"pro_feature_pdf" = "在 PDF 上添加下划线、删除线和绘图都是 Pro 功能。突出显示可免费使用。";
+"pro_feature_sheet" = "粗体、斜体、颜色、文字大小、对齐、公式以及插入或删除行和列都是 Pro 功能。填充可免费使用。";
 "not_now" = "暂不";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ 磅";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "支持 OpenDocument Reader";
+"pass_why" = "OpenDocument Reader 由一个小团队开发。本应用不会跟踪您，但免费版中的广告可能会。您的购买可以去掉广告，并资助更新和新功能的开发。";
+"pass_buy" = "订阅，每年 %@";
+"pass_buy_no_price" = "订阅";
+"pass_get_pro" = "一次性买断：获取 Pro 应用";
+"pass_unlocked" = "谢谢！Pro 功能现已开启。";
+"pass_unlocked_editing" = "谢谢！退出编辑模式后即可使用所有 Pro 工具。";
+"pass_restored" = "您的购买已恢复。Pro 功能已开启。";
+"pass_restored_editing" = "您的购买已恢复。退出编辑模式后即可使用所有 Pro 工具。";
+"pass_on_editing" = "Pro 功能已开启。退出编辑模式后即可使用所有 Pro 工具。";
+"menu_support" = "支持本应用";
+"pass_terms" = "1 年内无广告，并可使用所有 Pro 功能。每年自动续订。可随时在 App Store 中取消。";
+"pass_unavailable" = "App Store 不可用。请登录 App Store 后重试。";
+"pass_restore" = "恢复购买";
+"pass_nothing_to_restore" = "未找到有效的订阅。";
+"pass_terms_of_use" = "使用条款";
+"pass_privacy_policy" = "隐私政策";

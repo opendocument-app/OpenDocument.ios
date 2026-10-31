@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Aquest full és massa gran per mostrar-lo sencer. Només es pot editar la part que es mostra.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Part de Pro";
-"pro_feature_formatting" = "La negreta, la cursiva, els colors i la mida del text, i afegir o unir paràgrafs, formen part d’OpenDocument Reader Pro. El marcador hi és a totes les edicions.";
-"pro_feature_pdf" = "Subratllar, ratllar i dibuixar en un PDF formen part d’OpenDocument Reader Pro. El marcador hi és a totes les edicions.";
-"pro_feature_structure" = "Afegir i suprimir files i columnes forma part d’OpenDocument Reader Pro. El marcador hi és a totes les edicions.";
-"pro_feature_formulas" = "Escriure fórmules en un full de càlcul forma part d’OpenDocument Reader Pro. El marcador hi és a totes les edicions.";
+"pro_feature_title" = "Funció Pro";
+"pro_feature_formatting" = "La negreta, la cursiva, els colors, la mida del text i els paràgrafs nous o units són funcions Pro. El ressaltador és gratuït.";
+"pro_feature_pdf" = "Subratllar, ratllar i dibuixar en un PDF són funcions Pro. El ressaltador és gratuït.";
+"pro_feature_sheet" = "La negreta, la cursiva, els colors, la mida del text, l'alineació, les fórmules i inserir o suprimir files i columnes són funcions Pro. L'emplenament és gratuït.";
 "not_now" = "Ara no";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Doneu suport a OpenDocument Reader";
+"pass_why" = "OpenDocument Reader el fa un equip petit. L'aplicació no us fa cap seguiment, però els anuncis de la versió gratuïta sí que en poden fer. La vostra compra elimina els anuncis i finança les actualitzacions i les funcions noves.";
+"pass_buy" = "Subscriu-te per %@ l'any";
+"pass_buy_no_price" = "Subscriu-te";
+"pass_get_pro" = "Paga una vegada: obtén l'aplicació Pro";
+"pass_unlocked" = "Gràcies! Les funcions Pro ja estan activades.";
+"pass_unlocked_editing" = "Gràcies! Sortiu del mode d'edició per fer servir totes les eines Pro.";
+"pass_restored" = "S'ha restaurat la vostra compra. Les funcions Pro estan activades.";
+"pass_restored_editing" = "S'ha restaurat la vostra compra. Sortiu del mode d'edició per fer servir totes les eines Pro.";
+"pass_on_editing" = "Les funcions Pro estan activades. Sortiu del mode d'edició per fer servir totes les eines Pro.";
+"menu_support" = "Doneu suport a l'aplicació";
+"pass_terms" = "Sense anuncis i amb totes les funcions Pro durant 1 any. Es renova cada any. Cancel·leu-la quan vulgueu a l'App Store.";
+"pass_unavailable" = "L'App Store no està disponible. Inicieu la sessió a l'App Store i torneu-ho a provar.";
+"pass_restore" = "Restaura la compra";
+"pass_nothing_to_restore" = "No s'ha trobat cap subscripció activa.";
+"pass_terms_of_use" = "Condicions d'ús";
+"pass_privacy_policy" = "Política de privadesa";

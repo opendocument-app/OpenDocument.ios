@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Tá an bhileog seo rómhór le taispeáint ina hiomláine. Ní féidir ach an chuid a thaispeántar a chur in eagar.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Cuid de Pro";
-"pro_feature_formatting" = "Is cuid de OpenDocument Reader Pro iad cló trom, cló iodálach, dathanna agus méid an téacs, agus ailt a chur leis nó a nascadh. Tá an marcóir i ngach eagrán.";
-"pro_feature_pdf" = "Is cuid de OpenDocument Reader Pro iad líne a chur faoi théacs, líne a chur tríd agus líníocht a dhéanamh ar PDF. Tá an marcóir i ngach eagrán.";
-"pro_feature_structure" = "Is cuid de OpenDocument Reader Pro é rónna agus colúin a chur leis agus a scriosadh. Tá an marcóir i ngach eagrán.";
-"pro_feature_formulas" = "Is cuid de OpenDocument Reader Pro é foirmlí a chlóscríobh i scarbhileog. Tá an marcóir i ngach eagrán.";
+"pro_feature_title" = "Gné Pro";
+"pro_feature_formatting" = "Is gnéithe Pro iad trom, iodálach, dathanna, méid an téacs, agus míreanna nua nó cumaiscthe. Tá an t-aibhsitheoir saor in aisce.";
+"pro_feature_pdf" = "Is gnéithe Pro iad líne faoi, líne tríd agus líníocht ar PDF. Tá an t-aibhsitheoir saor in aisce.";
+"pro_feature_sheet" = "Is gnéithe Pro iad trom, iodálach, dathanna, méid an téacs, ailíniú, foirmlí, agus rónna agus colúin a ionsá nó a scriosadh. Tá an líonadh saor in aisce.";
 "not_now" = "Ní anois";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Tabhair tacaíocht d'OpenDocument Reader";
+"pass_why" = "Is foireann bheag a dhéanann OpenDocument Reader. Ní rianaíonn an aip thú, ach is féidir leis na fógraí sa leagan saor in aisce é sin a dhéanamh. Cuireann do cheannach deireadh leis na fógraí agus íocann sé as nuashonruithe agus gnéithe nua.";
+"pass_buy" = "Liostáil ar %@ in aghaidh na bliana";
+"pass_buy_no_price" = "Liostáil";
+"pass_get_pro" = "Íoc uair amháin: faigh an aip Pro";
+"pass_unlocked" = "Go raibh maith agat! Tá na gnéithe Pro ar siúl anois.";
+"pass_unlocked_editing" = "Go raibh maith agat! Fág an mód eagarthóireachta chun gach uirlis Pro a úsáid.";
+"pass_restored" = "Tá do cheannach athchóirithe. Tá na gnéithe Pro ar siúl.";
+"pass_restored_editing" = "Tá do cheannach athchóirithe. Fág an mód eagarthóireachta chun gach uirlis Pro a úsáid.";
+"pass_on_editing" = "Tá na gnéithe Pro ar siúl. Fág an mód eagarthóireachta chun gach uirlis Pro a úsáid.";
+"menu_support" = "Tacaigh leis an aip";
+"pass_terms" = "Gan fógraí agus gach gné Pro ar feadh bliana. Athnuaitear é gach bliain. Cealaigh am ar bith ar an App Store.";
+"pass_unavailable" = "Níl an App Store ar fáil. Sínigh isteach ar an App Store agus bain triail eile as.";
+"pass_restore" = "Athchóirigh an ceannach";
+"pass_nothing_to_restore" = "Níor aimsíodh aon síntiús gníomhach.";
+"pass_terms_of_use" = "Téarmaí Úsáide";
+"pass_privacy_policy" = "Polasaí Príobháideachais";

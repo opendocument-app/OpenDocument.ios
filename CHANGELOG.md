@@ -19,6 +19,8 @@ Rules:
 
 - Locked Word, Excel, PowerPoint, Pages, Numbers and Keynote files open with
   their password.
+- Lite sells a yearly pass for €3: no ads and all Pro features. The heart on
+  the start screen, "Support the app" in the menu and the Pro gate offer it.
 
 ### Changed
 

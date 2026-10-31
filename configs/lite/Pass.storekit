@@ -1,0 +1,63 @@
+{
+  "identifier" : "0D7A1F3E",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "",
+    "_developerTeamID" : "5LS6X97G6J",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 0,
+    "_locale" : "de_DE",
+    "_storefront" : "DEU",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "8C4E2A10",
+      "localizations" : [
+
+      ],
+      "name" : "Pro pass",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "3.00",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "5A9B7C21",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "No ads and all Pro features for 1 year",
+              "displayName" : "Pro pass",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "pro_pass",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Pro pass",
+          "subscriptionGroupID" : "8C4E2A10",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

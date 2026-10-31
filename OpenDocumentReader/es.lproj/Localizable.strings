@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Esta hoja es demasiado grande para mostrarla entera. Solo se puede editar la parte que se muestra.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Parte de Pro";
-"pro_feature_formatting" = "La negrita, la cursiva, los colores y el tamaño del texto, y añadir o unir párrafos, forman parte de OpenDocument Reader Pro. El marcador está en todas las ediciones.";
-"pro_feature_pdf" = "Subrayar, tachar y dibujar en un PDF forman parte de OpenDocument Reader Pro. El marcador está en todas las ediciones.";
-"pro_feature_structure" = "Añadir y eliminar filas y columnas forma parte de OpenDocument Reader Pro. El marcador está en todas las ediciones.";
-"pro_feature_formulas" = "Escribir fórmulas en una hoja de cálculo es parte de OpenDocument Reader Pro. El marcador está en todas las ediciones.";
+"pro_feature_title" = "Función Pro";
+"pro_feature_formatting" = "La negrita, la cursiva, los colores, el tamaño del texto y crear o unir párrafos son funciones Pro. El resaltador es gratuito.";
+"pro_feature_pdf" = "Subrayar, tachar y dibujar en un PDF son funciones Pro. El resaltador es gratuito.";
+"pro_feature_sheet" = "La negrita, la cursiva, los colores, el tamaño del texto, la alineación, las fórmulas y la inserción o eliminación de filas y columnas son funciones Pro. El relleno es gratuito.";
 "not_now" = "Ahora no";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Apoye a OpenDocument Reader";
+"pass_why" = "Un pequeño equipo crea OpenDocument Reader. La aplicación no le rastrea, pero los anuncios de la versión gratuita sí pueden hacerlo. Su compra elimina los anuncios y financia las actualizaciones y las nuevas funciones.";
+"pass_buy" = "Suscribirse por %@ al año";
+"pass_buy_no_price" = "Suscribirse";
+"pass_get_pro" = "Pago único: consiga la aplicación Pro";
+"pass_unlocked" = "¡Gracias! Las funciones Pro ya están activadas.";
+"pass_unlocked_editing" = "¡Gracias! Salga del modo de edición para usar todas las herramientas Pro.";
+"pass_restored" = "Se ha restaurado su compra. Las funciones Pro están activadas.";
+"pass_restored_editing" = "Se ha restaurado su compra. Salga del modo de edición para usar todas las herramientas Pro.";
+"pass_on_editing" = "Las funciones Pro están activadas. Salga del modo de edición para usar todas las herramientas Pro.";
+"menu_support" = "Apoyar la aplicación";
+"pass_terms" = "Sin anuncios y con todas las funciones Pro durante 1 año. Se renueva cada año. Cancele cuando quiera en el App Store.";
+"pass_unavailable" = "El App Store no está disponible. Inicie sesión en el App Store y vuelva a intentarlo.";
+"pass_restore" = "Restaurar compra";
+"pass_nothing_to_restore" = "No se ha encontrado ninguna suscripción activa.";
+"pass_terms_of_use" = "Condiciones de uso";
+"pass_privacy_policy" = "Política de privacidad";
