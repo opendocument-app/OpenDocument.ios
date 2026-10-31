@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "このシートは大きすぎてすべてを表示できません。編集できるのは表示されている部分だけです。";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Proの機能";
-"pro_feature_formatting" = "太字、斜体、色、文字サイズと、段落の追加や結合はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
-"pro_feature_pdf" = "PDFへの下線、取り消し線、手書きはOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
-"pro_feature_structure" = "行と列の追加と削除はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
-"pro_feature_formulas" = "表計算に数式を入力する機能はOpenDocument Reader Proの機能です。蛍光ペンはどの版でも使えます。";
+"pro_feature_title" = "Pro の機能";
+"pro_feature_formatting" = "太字、斜体、色、文字サイズ、段落の追加や結合は Pro の機能です。ハイライトは無料で使えます。";
+"pro_feature_pdf" = "PDF への下線、取り消し線、描画は Pro の機能です。ハイライトは無料で使えます。";
+"pro_feature_sheet" = "太字、斜体、色、文字サイズ、配置、数式、行や列の挿入・削除は Pro の機能です。塗りつぶしは無料で使えます。";
 "not_now" = "あとで";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "OpenDocument Reader を応援する";
+"pass_why" = "OpenDocument Reader は小さなチームが作っています。このアプリがあなたを追跡することはありませんが、無料版の広告は追跡する可能性があります。ご購入いただくと広告が消え、アップデートや新機能の開発を支えることができます。";
+"pass_buy" = "年額 %@ で登録";
+"pass_buy_no_price" = "登録する";
+"pass_get_pro" = "買い切り：Pro アプリを購入";
+"pass_unlocked" = "ありがとうございます！ Pro の機能が有効になりました。";
+"pass_unlocked_editing" = "ありがとうございます！ 編集モードを終了すると、すべての Pro ツールを使えるようになります。";
+"pass_restored" = "購入を復元しました。Pro の機能が有効になっています。";
+"pass_restored_editing" = "購入を復元しました。編集モードを終了すると、すべての Pro ツールを使えるようになります。";
+"pass_on_editing" = "Pro の機能は有効になっています。編集モードを終了すると、すべての Pro ツールを使えるようになります。";
+"menu_support" = "アプリを応援する";
+"pass_terms" = "1 年間、広告なしですべての Pro 機能を使えます。毎年自動で更新されます。App Store でいつでも解約できます。";
+"pass_unavailable" = "App Store を利用できません。App Store にサインインしてから、もう一度お試しください。";
+"pass_restore" = "購入を復元";
+"pass_nothing_to_restore" = "有効なサブスクリプションが見つかりませんでした。";
+"pass_terms_of_use" = "利用規約";
+"pass_privacy_policy" = "プライバシーポリシー";

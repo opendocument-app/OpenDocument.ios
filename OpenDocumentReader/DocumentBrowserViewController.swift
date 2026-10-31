@@ -5,9 +5,12 @@
  A document browser view controller subclass that implements methods for creating, opening, and importing documents.
  */
 
+import StoreKit
 import UIKit
 
-class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
+class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate,
+    SKStoreProductViewControllerDelegate
+{
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,6 +18,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         allowsDocumentCreation = false
         allowsPickingMultipleItems = false
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(passUnlocked(_:)), name: Pass.didUnlock, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -30,6 +36,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
         StoreReviewHelper.checkAndAskForReview()
 
+        updateBarButtons()
         refreshPrivacyButton()
     }
 
@@ -72,6 +79,89 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         }
     }
 
+    // MARK: - Support
+
+    /// Shown once consent has been refreshed. It stays after the pass: withdrawal outlives the ads.
+    private var showsPrivacyButton = false
+
+    /// "Support the app" in Lite until the pass is active, where it is seen without a menu, and
+    /// the privacy options.
+    private func updateBarButtons() {
+        var items: [UIBarButtonItem] = []
+
+        if Pass.shared.offersSupport {
+            // a glyph: with a title, iOS 26 folds it into the overflow menu, where it is not seen
+            let support = UIBarButtonItem(
+                image: UIImage(systemName: "heart"), style: .plain, target: self,
+                action: #selector(showSupport(_:)))
+            support.accessibilityLabel = NSLocalizedString("menu_support", comment: "")
+            items.append(support)
+        }
+
+        if showsPrivacyButton {
+            items.append(
+                UIBarButtonItem(
+                    title: NSLocalizedString("privacy", value: "Privacy", comment: ""), style: .plain, target: self,
+                    action: #selector(showPrivacyOptions(_:))))
+        }
+
+        additionalTrailingNavigationBarButtonItems = items
+    }
+
+    @objc private func showSupport(_ sender: UIBarButtonItem) {
+        AnalyticsManager.shared.report("landing_support")
+
+        PassViewController.present(from: self, feature: nil) { [weak self] in
+            self?.openProOnAppStore()
+        }
+    }
+
+    /// The Pro app's page, over the browser.
+    private func openProOnAppStore() {
+        AnalyticsManager.shared.report(AnalyticsConstants.eventAddToCart)
+
+        let store = SKStoreProductViewController()
+        store.delegate = self
+        store.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: Constants.proAppStoreId]) {
+            loaded, error in
+            if let error {
+                CrashManager.shared.log(error)
+            }
+
+            guard loaded else { return }
+
+            DispatchQueue.main.async {
+                self.present(store, animated: true)
+            }
+        }
+    }
+
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismiss(animated: true)
+    }
+
+    /// The button goes. The reader says thank you if one is open; otherwise the browser does.
+    @objc private func passUnlocked(_ notification: Notification) {
+        updateBarButtons()
+
+        guard presentedViewController == nil || presentedViewController is PassViewController else { return }
+
+        let purchased = notification.userInfo?["purchased"] as? Bool ?? false
+        AnalyticsManager.shared.report(purchased ? "pass_unlocked" : "pass_restored")
+
+        // the sheet goes away first
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+            guard let self, self.presentedViewController == nil else { return }
+
+            let alert = UIAlertController(
+                title: nil, message: NSLocalizedString(purchased ? "pass_unlocked" : "pass_restored", comment: ""),
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
+
+            self.present(alert, animated: true)
+        }
+    }
+
     // MARK: - Privacy
 
     /// Refresh consent and expose privacy options in the browser toolbar.
@@ -79,14 +169,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         guard Features.withAds else { return }
 
         AdPrivacy.refresh {
-            let item = UIBarButtonItem(
-                title: NSLocalizedString("privacy", value: "Privacy", comment: ""),
-                style: .plain,
-                target: self,
-                action: #selector(self.showPrivacyOptions(_:))
-            )
-
-            self.additionalTrailingNavigationBarButtonItems = [item]
+            self.showsPrivacyButton = true
+            self.updateBarButtons()
         }
     }
 

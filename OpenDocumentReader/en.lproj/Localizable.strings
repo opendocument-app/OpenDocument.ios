@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "This sheet is too large to show in full. Only the part on screen can be edited.";
 
 /* What Pro adds, shown in the Lite app. The highlighter is free in both kinds */
-"pro_feature_title" = "Part of Pro";
-"pro_feature_formatting" = "Bold, italic, colors and text size, and adding or joining paragraphs, are part of OpenDocument Reader Pro. The highlighter is in every edition.";
-"pro_feature_pdf" = "Underlining, striking out and drawing on a PDF are part of OpenDocument Reader Pro. The highlighter is in every edition.";
-"pro_feature_structure" = "Adding and deleting rows and columns is part of OpenDocument Reader Pro. The highlighter is in every edition.";
-"pro_feature_formulas" = "Typing formulas into a spreadsheet is part of OpenDocument Reader Pro. The highlighter is in every edition.";
+"pro_feature_title" = "Pro feature";
+"pro_feature_formatting" = "Bold, italic, colors, text size, and new or joined paragraphs are Pro features. The highlighter is free.";
+"pro_feature_pdf" = "Underline, strikethrough and drawing on a PDF are Pro features. The highlighter is free.";
+"pro_feature_sheet" = "Bold, italic, colors, text size, alignment, formulas, and inserting or deleting rows and columns are Pro features. The fill is free.";
 "not_now" = "Not now";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Support OpenDocument Reader";
+"pass_why" = "A small team makes OpenDocument Reader. The app does not track you, but the ads in the free version can. Your purchase removes the ads and pays for updates and new features.";
+"pass_buy" = "Subscribe for %@ per year";
+"pass_buy_no_price" = "Subscribe";
+"pass_get_pro" = "Pay once: get the Pro app";
+"pass_unlocked" = "Thank you! The Pro features are now on.";
+"pass_unlocked_editing" = "Thank you! Leave the edit mode to use every Pro tool.";
+"pass_restored" = "Your purchase is restored. The Pro features are on.";
+"pass_restored_editing" = "Your purchase is restored. Leave the edit mode to use every Pro tool.";
+"pass_on_editing" = "The Pro features are on. Leave the edit mode to use every Pro tool.";
+"menu_support" = "Support the app";
+"pass_terms" = "No ads and all Pro features for 1 year. Renews every year. Cancel any time in the App Store.";
+"pass_unavailable" = "The App Store is not available. Sign in to the App Store and try again.";
+"pass_restore" = "Restore purchase";
+"pass_nothing_to_restore" = "No active subscription was found.";
+"pass_terms_of_use" = "Terms of Use";
+"pass_privacy_policy" = "Privacy Policy";

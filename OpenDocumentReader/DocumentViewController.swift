@@ -139,6 +139,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// Whether the Pro offer was shown during this edit, so it shows once.
     private var hasOfferedProForThisEdit = false
 
+    /// The pass came during this edit, and the page still has Lite's editing scope. The scope is
+    /// decided while translating, so leaving the edit renders the page again.
+    private var renderWhenEditEnds = false
+
     /// How many formula cells the edits so far left out of date; said each
     /// time the number grows.
     private var staleCells = 0
@@ -221,13 +225,18 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         updateToolBar()
 
         setUpHouseAd()
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(passUnlocked(_:)), name: Pass.didUnlock, object: nil)
     }
 
     private func setUpHouseAd() {
         houseAdView.isHidden = true
         houseAdView.translatesAutoresizingMaskIntoConstraints = false
         houseAdView.onTap = { [weak self] in
-            self?.openProOnAppStore()
+            AnalyticsManager.shared.report("house_ad_tapped")
+
+            self?.offerPass(nil)
         }
 
         view.addSubview(houseAdView)
@@ -402,7 +411,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         document?.webview = webview
 
-        if !Features.withAds {
+        if !Features.showsAds {
             hideBannerSlot()
         }
     }
@@ -420,7 +429,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
         // the consent form is modal, so it has to wait for the window hierarchy - viewWillAppear
         // is too early. This runs again on every reappearance, hence the flag.
-        guard Features.withAds, !hasStartedAds else {
+        guard Features.showsAds, !hasStartedAds else {
             return
         }
         hasStartedAds = true
@@ -434,7 +443,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     ) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        guard Features.withAds else { return }
+        guard Features.showsAds else { return }
 
         // afterwards, not alongside: the slot only has its new width once the rotation settled
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
@@ -495,9 +504,10 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
         webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    /// The paid app has no ad and no house ad either, so the slot collapses.
+    /// The paid app and the pass have no ad and no house ad either, so the slot collapses.
     private func hideBannerSlot() {
         houseAdView.isHidden = true
+        bannerSlot.isHidden = true
         bannerSlotHeight.constant = 0.0
     }
 
@@ -511,7 +521,6 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     private func openProOnAppStore() {
-        AnalyticsManager.shared.report("house_ad_tapped")
         // OpenDocument.droid's name for the same intent
         AnalyticsManager.shared.report(AnalyticsConstants.eventAddToCart)
 
@@ -627,7 +636,8 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// off. With them: save, discard, or stay.
     func leaveEdit() {
         guard hasUnsavedEdits else {
-            document?.endEdit(renderingAgain: false)
+            // the pass came during the edit, and the Pro tools need a new render
+            document?.endEdit(renderingAgain: renderWhenEditEnds)
 
             return
         }
@@ -863,8 +873,13 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// The gate is on the tool, not the mode: what Lite does not sell offers
     /// Pro, and the highlighter beside it works in every edition.
     private func editToolTapped(_ tool: EditToolBar.Tool) {
-        if !tool.isFree, !Features.advancedEditing {
-            offerPro(canMark ? .pdf : tool.structures.isEmpty ? .formatting : .structure)
+        if !tool.isFree, !editToolBar.advancedEditing {
+            // bought during this edit: the tools unlock once the page is rendered again
+            if Features.advancedEditing {
+                showUnlockedEditing()
+            } else {
+                offerPro(canMark ? .pdf : isSheetLayout || !tool.structures.isEmpty ? .sheet : .formatting)
+            }
 
             return
         }
@@ -965,11 +980,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     /// The page refused an edit. In Lite, an edit out of scope offers Pro: in
     /// a sheet that edit is a typed formula.
     private func editRefused(reason: String, inSheet: Bool) {
+        if reason == "outOfScope", Features.advancedEditing, renderWhenEditEnds {
+            showUnlockedEditing()
+
+            return
+        }
+
         if reason == "outOfScope", !Features.advancedEditing {
             guard !hasOfferedProForThisEdit else { return }
             hasOfferedProForThisEdit = true
 
-            offerPro(inSheet ? .formulas : .formatting)
+            offerPro(inSheet ? .sheet : .formatting)
 
             return
         }
@@ -996,40 +1017,78 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
     }
 
     /// What Pro adds, as the reader runs into it.
+    /// The names that OpenDocument.droid reports the same gate under.
     enum ProFeature {
         case formatting
-        case structure
-        case formulas
+        case sheet
         case pdf
 
         var message: String {
             switch self {
             case .formatting: return NSLocalizedString("pro_feature_formatting", comment: "")
-            case .structure: return NSLocalizedString("pro_feature_structure", comment: "")
-            case .formulas: return NSLocalizedString("pro_feature_formulas", comment: "")
+            case .sheet: return NSLocalizedString("pro_feature_sheet", comment: "")
             case .pdf: return NSLocalizedString("pro_feature_pdf", comment: "")
             }
         }
     }
 
-    /// Says what Pro is for, and leads to it. The Lite app's one gate.
+    /// Says what Pro is for, and offers the yearly pass and the Pro app. The Lite app's one gate.
     func offerPro(_ feature: ProFeature) {
-        AnalyticsManager.shared.report("pro_gate_shown", parameters: ["feature": "\(feature)"])
+        offerPass(PassViewController.Feature(name: "\(feature)", message: feature.message))
+    }
 
-        let alert = UIAlertController(
-            title: NSLocalizedString("pro_feature_title", comment: ""),
-            message: feature.message,
-            preferredStyle: .alert)
-        alert.addAction(
-            UIAlertAction(title: NSLocalizedString("not_now", comment: ""), style: .cancel))
-        alert.addAction(
-            UIAlertAction(title: NSLocalizedString("house_ad_cta_get_pro", comment: ""), style: .default) { _ in
-                AnalyticsManager.shared.report("pro_gate_tapped", parameters: ["feature": "\(feature)"])
+    /// The yearly pass, with the Pro app beside it. From the gate, `feature` says what the user
+    /// just tried; nil from every other way in.
+    func offerPass(_ feature: PassViewController.Feature?) {
+        PassViewController.present(from: self, feature: feature) { [weak self] in
+            self?.openProOnAppStore()
+        }
+    }
 
-                self.openProOnAppStore()
-            })
+    /// A sheet or a csv: the gate names the tools of a sheet.
+    private var isSheetLayout: Bool {
+        editToolBar.layout == .sheet || editToolBar.layout == .values
+    }
 
-        present(alert, animated: true)
+    /// The pass is active, but the page still has Lite's editing scope.
+    private func showUnlockedEditing() {
+        renderWhenEditEnds = true
+
+        showToast(controller: self, message: NSLocalizedString("pass_on_editing", comment: ""), seconds: 2.5)
+    }
+
+    /// Says thank you, or that a purchase is restored. Takes the ads away, and renders the
+    /// document again for the Pro editing scope: at once while it is read, and after the edit
+    /// otherwise, so that no edit is lost.
+    @objc private func passUnlocked(_ notification: Notification) {
+        guard viewIfLoaded?.window != nil else { return }
+
+        let purchased = notification.userInfo?["purchased"] as? Bool ?? false
+        AnalyticsManager.shared.report(purchased ? "pass_unlocked" : "pass_restored")
+
+        hideBannerSlot()
+
+        let editing = document?.edit ?? false
+        if editing {
+            renderWhenEditEnds = true
+        } else if document?.result != nil {
+            document?.reload()
+        }
+
+        let key: String
+        switch (purchased, editing) {
+        case (true, true): key = "pass_unlocked_editing"
+        case (true, false): key = "pass_unlocked"
+        case (false, true): key = "pass_restored_editing"
+        case (false, false): key = "pass_restored"
+        }
+
+        // the sheet goes away first, and a toast cannot go over it
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+            guard let self, self.presentedViewController == nil else { return }
+
+            self.showToast(controller: self, message: NSLocalizedString(key, comment: ""), seconds: 2.5)
+        }
     }
 
     /// A script whose answer nobody needs.
@@ -1303,6 +1362,17 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
                 handler: { (_) in
                     self.showWebsite()
                 }))
+        // last, as on Android: Lite's pass. Pro has paid already
+        if Pass.shared.offersSupport {
+            alert.addAction(
+                UIAlertAction(
+                    title: NSLocalizedString("menu_support", comment: ""), style: .default,
+                    handler: { (_) in
+                        AnalyticsManager.shared.report("menu_support")
+
+                        self.offerPass(nil)
+                    }))
+        }
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
 
         alert.popoverPresentationController?.barButtonItem = menuButton
@@ -1447,6 +1517,12 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 
     func documentUpdateContent(_ doc: Document) {
         guard let url = doc.result else {
+            // a new render: it takes the editing scope there is now
+            renderWhenEditEnds = false
+            if editToolBar.advancedEditing != Features.advancedEditing {
+                editToolBar.advancedEditing = Features.advancedEditing
+            }
+
             documentNavigation = nil
             loadMessage("<h1>\(NSLocalizedString("loading", comment: ""))</h1>")
 

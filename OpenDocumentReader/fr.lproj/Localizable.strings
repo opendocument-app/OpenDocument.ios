@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Cette feuille est trop grande pour être affichée en entier. Seule la partie affichée peut être modifiée.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Réservé à Pro";
-"pro_feature_formatting" = "Le gras, l’italique, les couleurs et la taille du texte, ainsi que l’ajout ou la fusion de paragraphes, font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
-"pro_feature_pdf" = "Souligner, barrer et dessiner sur un PDF font partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
-"pro_feature_structure" = "Ajouter et supprimer des lignes et des colonnes fait partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
-"pro_feature_formulas" = "Saisir des formules dans un tableur fait partie d’OpenDocument Reader Pro. Le surligneur est dans toutes les éditions.";
+"pro_feature_title" = "Fonctionnalité Pro";
+"pro_feature_formatting" = "Le gras, l'italique, les couleurs, la taille du texte ainsi que la création ou la fusion de paragraphes sont des fonctionnalités Pro. Le surligneur est gratuit.";
+"pro_feature_pdf" = "Souligner, barrer et dessiner sur un PDF sont des fonctionnalités Pro. Le surligneur est gratuit.";
+"pro_feature_sheet" = "Le gras, l'italique, les couleurs, la taille du texte, l'alignement, les formules ainsi que l'insertion ou la suppression de lignes et de colonnes sont des fonctionnalités Pro. Le remplissage est gratuit.";
 "not_now" = "Pas maintenant";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Soutenez OpenDocument Reader";
+"pass_why" = "OpenDocument Reader est créé par une petite équipe. L'application ne vous piste pas, mais les publicités de la version gratuite peuvent le faire. Votre achat supprime les publicités et finance les mises à jour et les nouvelles fonctionnalités.";
+"pass_buy" = "S'abonner pour %@ par an";
+"pass_buy_no_price" = "S'abonner";
+"pass_get_pro" = "Payer une fois : obtenir l'appli Pro";
+"pass_unlocked" = "Merci ! Les fonctionnalités Pro sont désormais activées.";
+"pass_unlocked_editing" = "Merci ! Quittez le mode édition pour utiliser tous les outils Pro.";
+"pass_restored" = "Votre achat a été restauré. Les fonctionnalités Pro sont activées.";
+"pass_restored_editing" = "Votre achat a été restauré. Quittez le mode édition pour utiliser tous les outils Pro.";
+"pass_on_editing" = "Les fonctionnalités Pro sont activées. Quittez le mode édition pour utiliser tous les outils Pro.";
+"menu_support" = "Soutenir l'application";
+"pass_terms" = "Aucune publicité et toutes les fonctionnalités Pro pendant 1 an. Renouvellement chaque année. Résiliable à tout moment dans l'App Store.";
+"pass_unavailable" = "L'App Store n'est pas disponible. Connectez-vous à l'App Store et réessayez.";
+"pass_restore" = "Restaurer l'achat";
+"pass_nothing_to_restore" = "Aucun abonnement actif n'a été trouvé.";
+"pass_terms_of_use" = "Conditions d'utilisation";
+"pass_privacy_policy" = "Politique de confidentialité";

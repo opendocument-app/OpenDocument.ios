@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Bu sayfa tamamı gösterilemeyecek kadar büyük. Yalnızca gösterilen kısım düzenlenebilir.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Pro’nun parçası";
-"pro_feature_formatting" = "Kalın, italik, renkler ve metin boyutu ile paragraf eklemek ya da birleştirmek OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
-"pro_feature_pdf" = "Bir PDF’te altını çizmek, üstünü çizmek ve çizim yapmak OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
-"pro_feature_structure" = "Satır ve sütun eklemek ve silmek OpenDocument Reader Pro’nun bir parçasıdır. Fosforlu kalem her sürümde vardır.";
-"pro_feature_formulas" = "Bir tabloya formül yazmak OpenDocument Reader Pro’nun parçasıdır. Fosforlu kalem her sürümde vardır.";
+"pro_feature_title" = "Pro özelliği";
+"pro_feature_formatting" = "Kalın, italik, renkler, metin boyutu ve paragraf ekleme ya da birleştirme Pro özellikleridir. Vurgulayıcı ücretsizdir.";
+"pro_feature_pdf" = "PDF üzerinde altını çizme, üstünü çizme ve çizim yapma Pro özellikleridir. Vurgulayıcı ücretsizdir.";
+"pro_feature_sheet" = "Kalın, italik, renkler, metin boyutu, hizalama, formüller ve satır ya da sütun ekleme veya silme Pro özellikleridir. Dolgu ücretsizdir.";
 "not_now" = "Şimdi değil";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "OpenDocument Reader'a destek olun";
+"pass_why" = "OpenDocument Reader'ı küçük bir ekip geliştiriyor. Uygulama sizi izlemez, ancak ücretsiz sürümdeki reklamlar izleyebilir. Satın alımınız reklamları kaldırır, güncellemelerin ve yeni özelliklerin masrafını karşılar.";
+"pass_buy" = "Yıllık %@ ile abone ol";
+"pass_buy_no_price" = "Abone ol";
+"pass_get_pro" = "Bir kez ödeyin: Pro uygulamasını alın";
+"pass_unlocked" = "Teşekkürler! Pro özellikleri artık açık.";
+"pass_unlocked_editing" = "Teşekkürler! Tüm Pro araçlarını kullanmak için düzenleme modundan çıkın.";
+"pass_restored" = "Satın alımınız geri yüklendi. Pro özellikleri açık.";
+"pass_restored_editing" = "Satın alımınız geri yüklendi. Tüm Pro araçlarını kullanmak için düzenleme modundan çıkın.";
+"pass_on_editing" = "Pro özellikleri açık. Tüm Pro araçlarını kullanmak için düzenleme modundan çıkın.";
+"menu_support" = "Uygulamaya destek olun";
+"pass_terms" = "1 yıl boyunca reklamsız kullanım ve tüm Pro özellikleri. Her yıl yenilenir. İstediğiniz zaman App Store'dan iptal edebilirsiniz.";
+"pass_unavailable" = "App Store kullanılamıyor. App Store'da oturum açıp tekrar deneyin.";
+"pass_restore" = "Satın alımı geri yükle";
+"pass_nothing_to_restore" = "Etkin abonelik bulunamadı.";
+"pass_terms_of_use" = "Kullanım Koşulları";
+"pass_privacy_policy" = "Gizlilik Politikası";

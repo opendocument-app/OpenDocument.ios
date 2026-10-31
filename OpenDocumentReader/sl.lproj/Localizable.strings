@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Ta list je prevelik, da bi ga prikazali v celoti. Urejati je mogoče le prikazani del.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Del različice Pro";
-"pro_feature_formatting" = "Krepko, ležeče, barve in velikost besedila ter dodajanje ali združevanje odstavkov so del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
-"pro_feature_pdf" = "Podčrtovanje, prečrtovanje in risanje v PDF so del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
-"pro_feature_structure" = "Dodajanje in brisanje vrstic in stolpcev je del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
-"pro_feature_formulas" = "Vnašanje formul v preglednico je del OpenDocument Reader Pro. Označevalnik je v vsaki izdaji.";
+"pro_feature_title" = "Funkcija Pro";
+"pro_feature_formatting" = "Krepko, ležeče, barve, velikost besedila ter novi ali združeni odstavki so funkcije Pro. Označevanje je brezplačno.";
+"pro_feature_pdf" = "Podčrtovanje, prečrtovanje in risanje po PDF-ju so funkcije Pro. Označevanje je brezplačno.";
+"pro_feature_sheet" = "Krepko, ležeče, barve, velikost besedila, poravnava, formule ter vstavljanje in brisanje vrstic in stolpcev so funkcije Pro. Polnilo je brezplačno.";
 "not_now" = "Ne zdaj";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Podprite OpenDocument Reader";
+"pass_why" = "OpenDocument Reader razvija majhna ekipa. Aplikacija vam ne sledi, oglasi v brezplačni različici pa vam lahko. Z nakupom odstranite oglase ter podprete posodobitve in nove funkcije.";
+"pass_buy" = "Naroči se za %@ na leto";
+"pass_buy_no_price" = "Naroči se";
+"pass_get_pro" = "Enkratno plačilo: aplikacija Pro";
+"pass_unlocked" = "Hvala! Funkcije Pro so zdaj vklopljene.";
+"pass_unlocked_editing" = "Hvala! Zapustite način urejanja, da boste lahko uporabljali vsa orodja Pro.";
+"pass_restored" = "Vaš nakup je obnovljen. Funkcije Pro so vklopljene.";
+"pass_restored_editing" = "Vaš nakup je obnovljen. Zapustite način urejanja, da boste lahko uporabljali vsa orodja Pro.";
+"pass_on_editing" = "Funkcije Pro so vklopljene. Zapustite način urejanja, da boste lahko uporabljali vsa orodja Pro.";
+"menu_support" = "Podprite aplikacijo";
+"pass_terms" = "Brez oglasov in vse funkcije Pro za 1 leto. Naročnina se podaljša vsako leto. Kadar koli jo lahko prekličete v App Storu.";
+"pass_unavailable" = "App Store ni na voljo. Prijavite se v App Store in poskusite znova.";
+"pass_restore" = "Obnovi nakup";
+"pass_nothing_to_restore" = "Aktivne naročnine ni bilo mogoče najti.";
+"pass_terms_of_use" = "Pogoji uporabe";
+"pass_privacy_policy" = "Pravilnik o zasebnosti";

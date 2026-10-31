@@ -163,11 +163,10 @@
 "edit_refused_sheet_cut" = "Ten arkusz jest za duży, aby pokazać go w całości. Można edytować tylko pokazaną część.";
 
 /* What Pro adds, shown in the Lite app */
-"pro_feature_title" = "Część wersji Pro";
-"pro_feature_formatting" = "Pogrubienie, kursywa, kolory i rozmiar tekstu oraz dodawanie i łączenie akapitów to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
-"pro_feature_pdf" = "Podkreślanie, przekreślanie i rysowanie w PDF to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
-"pro_feature_structure" = "Dodawanie i usuwanie wierszy i kolumn to część OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
-"pro_feature_formulas" = "Wpisywanie formuł w arkuszu jest częścią OpenDocument Reader Pro. Zakreślacz jest w każdej edycji.";
+"pro_feature_title" = "Funkcja Pro";
+"pro_feature_formatting" = "Pogrubienie, kursywa, kolory, rozmiar tekstu oraz nowe lub połączone akapity to funkcje Pro. Wyróżnianie jest bezpłatne.";
+"pro_feature_pdf" = "Podkreślenie, przekreślenie i rysowanie w pliku PDF to funkcje Pro. Wyróżnianie jest bezpłatne.";
+"pro_feature_sheet" = "Pogrubienie, kursywa, kolory, rozmiar tekstu, wyrównanie, formuły oraz wstawianie i usuwanie wierszy i kolumn to funkcje Pro. Wypełnienie jest bezpłatne.";
 "not_now" = "Nie teraz";
 
 /* Shown when the marking tools come up on a PDF */
@@ -181,3 +180,22 @@
 
 /* The size of the selected text, on the size tool: "12 pt" */
 "edit_font_size_points" = "%@ pt";
+
+/* the yearly pass in Lite, from the Pro gate or from "Support the app" */
+"pass_title" = "Wesprzyj OpenDocument Reader";
+"pass_why" = "OpenDocument Reader tworzy mały zespół. Aplikacja cię nie śledzi, ale reklamy w bezpłatnej wersji mogą to robić. Twój zakup usuwa reklamy i finansuje aktualizacje oraz nowe funkcje.";
+"pass_buy" = "Subskrybuj za %@ rocznie";
+"pass_buy_no_price" = "Subskrybuj";
+"pass_get_pro" = "Zapłać raz: kup aplikację Pro";
+"pass_unlocked" = "Dziękujemy! Funkcje Pro są już włączone.";
+"pass_unlocked_editing" = "Dziękujemy! Wyjdź z trybu edycji, aby używać wszystkich narzędzi Pro.";
+"pass_restored" = "Twój zakup został przywrócony. Funkcje Pro są włączone.";
+"pass_restored_editing" = "Twój zakup został przywrócony. Wyjdź z trybu edycji, aby używać wszystkich narzędzi Pro.";
+"pass_on_editing" = "Funkcje Pro są włączone. Wyjdź z trybu edycji, aby używać wszystkich narzędzi Pro.";
+"menu_support" = "Wesprzyj aplikację";
+"pass_terms" = "Bez reklam i ze wszystkimi funkcjami Pro przez 1 rok. Subskrypcja odnawia się co roku. Możesz ją anulować w dowolnej chwili w App Store.";
+"pass_unavailable" = "App Store jest niedostępny. Zaloguj się w App Store i spróbuj ponownie.";
+"pass_restore" = "Przywróć zakup";
+"pass_nothing_to_restore" = "Nie znaleziono aktywnej subskrypcji.";
+"pass_terms_of_use" = "Warunki korzystania";
+"pass_privacy_policy" = "Polityka prywatności";
