@@ -1,1 +1,1 @@
-Mostramos anuncios para financiar el desarrollo de la aplicación y puede quitarlos temporalmente desde el menú de la propia aplicación.
+Los anuncios financian el desarrollo de la aplicación. Una suscripción anual dentro de la aplicación los quita.

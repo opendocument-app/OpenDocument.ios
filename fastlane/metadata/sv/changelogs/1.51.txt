@@ -1,0 +1,1 @@
+- Lösenordsskyddade Word-, Excel-, PowerPoint-, Pages-, Numbers- och Keynote-filer öppnas nu när du anger lösenordet

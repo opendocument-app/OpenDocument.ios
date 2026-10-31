@@ -1,0 +1,1 @@
+- Passwortgeschützte Word-, Excel-, PowerPoint-, Pages-, Numbers- und Keynote-Dateien öffnen sich jetzt nach Eingabe des Passworts

@@ -1,0 +1,1 @@
+- Файлы Word, Excel, PowerPoint, Pages, Numbers и Keynote, защищенные паролем, теперь открываются после ввода пароля

@@ -1,0 +1,1 @@
+- Parola korumalı Word, Excel, PowerPoint, Pages, Numbers ve Keynote dosyaları artık parolayı girince açılıyor
