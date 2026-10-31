@@ -1646,7 +1646,7 @@ class DocumentViewController: UIViewController, DocumentDelegate, UISearchBarDel
 enum FailedToOpen {
     /// odrcore does not read this format at all.
     case unsupported
-    /// A legacy Word, Excel or PowerPoint file no password opens.
+    /// A locked file that no password opens.
     case locked
     /// odrcore took it and it still did not appear.
     case broken

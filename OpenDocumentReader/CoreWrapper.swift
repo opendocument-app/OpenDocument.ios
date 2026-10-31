@@ -9,8 +9,8 @@ let CoreWrapperErrorDomain = "app.opendocument.CoreWrapperErrorDomain"
     case wrongPassword = 2
     /// Not something odrcore renders for us — see the guard in `translate`.
     case unsupportedFileType = 3
-    /// Locked, and odrcore has no way in whatever the password — a legacy Word,
-    /// Excel or PowerPoint file.
+    /// Locked with a cipher odrcore cannot decrypt, whatever the password, for
+    /// example a legacy Word file with XOR obfuscation.
     case undecryptable = 4
 }
 
@@ -143,6 +143,7 @@ private func selectViews(_ views: [HtmlView], _ documentType: DocumentType) -> [
                 throw coreWrapperError(.wrongPassword, "wrong password")
             } catch let error as NSError
                 where error.code == ODRError.unsupportedOperation.rawValue
+                || error.code == ODRError.unsupportedCryptoAlgorithm.rawValue
             {
                 throw coreWrapperError(.undecryptable, "odrcore cannot decrypt this format")
             }

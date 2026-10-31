@@ -37,9 +37,12 @@ class LockedDocumentTests: XCTestCase {
         return url
     }
 
-    /// Its own code, not `wrongPassword`: that one puts the prompt up, and the
-    /// prompt would only come back.
-    func testALockedLegacyFileReportsItsOwnError() throws {
+    /// The password of `test-encrypted.doc`, from `OpenDocument.test/index.csv`.
+    private let fixturePassword = "password"
+
+    /// odrcore 7.7.0 decrypts RC4, so a locked legacy Word file asks for its
+    /// password like any other locked file.
+    func testALockedLegacyFileAsksForItsPassword() throws {
         let wrapper = CoreWrapper()
 
         for password in [nil, "secret"] {
@@ -48,13 +51,23 @@ class LockedDocumentTests: XCTestCase {
                     documentURL.path, into: temporaryDirectory, with: password,
                     editable: false, scope: .document)
             ) { error in
-                XCTAssertEqual((error as NSError).code, CoreWrapperError.undecryptable.rawValue)
+                XCTAssertEqual((error as NSError).code, CoreWrapperError.wrongPassword.rawValue)
             }
         }
     }
 
-    /// Its own message rather than the broken-file one: no password opens it.
-    func testALockedLegacyFileSaysWhyItDidNotOpen() throws {
+    func testALockedLegacyFileOpensWithItsPassword() throws {
+        let wrapper = CoreWrapper()
+
+        try wrapper.translate(
+            documentURL.path, into: temporaryDirectory, with: fixturePassword,
+            editable: false, scope: .document)
+
+        XCTAssertFalse(wrapper.pageURLs.isEmpty)
+    }
+
+    /// The reader keeps the document and puts the password prompt up.
+    func testALockedLegacyFileShowsThePasswordPrompt() throws {
         try present(documentURL)
 
         let opened = expectation(description: "opened")
@@ -63,23 +76,12 @@ class LockedDocumentTests: XCTestCase {
 
         let alert = try XCTUnwrap(waitForAlert())
 
-        XCTAssertEqual(alert.message, NSLocalizedString("toast_error_password_protected", comment: ""))
+        XCTAssertEqual(alert.title, NSLocalizedString("toast_error_password_protected", comment: ""))
+        XCTAssertEqual(alert.textFields?.count, 1)
         XCTAssertEqual(
-            alert.actions.map(\.title), [NSLocalizedString("ok", comment: "")],
-            "a locked file is not ours to hear about")
-    }
-
-    /// The reader is taken off the screen before the message.
-    func testTheReaderIsClosedBeforeTheMessage() throws {
-        try present(documentURL)
-
-        let opened = expectation(description: "opened")
-        document.open { _ in opened.fulfill() }
-        wait(for: [opened], timeout: 60)
-
-        _ = waitForAlert()
-
-        XCTAssertNil(controller.document, "the reader is still holding the document")
+            alert.actions.map(\.title),
+            [NSLocalizedString("cancel", comment: ""), NSLocalizedString("ok", comment: "")])
+        XCTAssertNotNil(controller.document, "the reader let go of the document")
     }
 
     private func waitForAlert() -> UIAlertController? {
