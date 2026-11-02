@@ -32,3 +32,5 @@
 Это приложение с открытым исходным кодом. Мы никак не связаны с OpenOffice, LibreOffice или подобными проектами. Сделано в Австрии. ${ads} Будем рады любым отзывам по электронной почте.
 
 ODF — это формат офисных пакетов Open Office и Libre Office. Поддерживаются текстовые документы (Writer, ODT), электронные таблицы (Calc, ODS) и презентации (Impress, ODP), в том числе сложное форматирование и встроенные изображения. Диаграммы тоже не проблема. А если данные нужно защитить, вы сможете открыть и документы с паролем. Этот формат используют и другие приложения: LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office и 602Office.
+
+${terms}
