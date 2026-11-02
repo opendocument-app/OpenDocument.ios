@@ -1,1 +1,1 @@
-Reklamlar uygulamanın geliştirilmesini destekler. Uygulama içindeki yıllık abonelik reklamları kaldırır.
+Reklamlar uygulamanın geliştirilmesini destekler. Uygulama içindeki yıllık abonelik reklamları kaldırır. Kullanım Koşulları (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
