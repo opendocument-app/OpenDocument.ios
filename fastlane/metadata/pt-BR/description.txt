@@ -32,3 +32,5 @@ Além disso, o leitor de documentos procura abrir da melhor forma possível vár
 Este app é de código aberto. Não temos vínculo com o OpenOffice, o LibreOffice ou similares. Feito na Áustria. ${ads} Adoramos receber todo tipo de feedback por e-mail.
 
 O ODF é o formato usado por suítes de escritório como o Open Office e o Libre Office. São compatíveis documentos de texto (Writer, ODT), planilhas (Calc, ODS) e também apresentações (Impress, ODP), incluindo formatações complexas e imagens incorporadas. Gráficos também não são problema. E se você quiser proteger seus dados, dá até para abrir documentos protegidos por senha. Outros aplicativos que usam esse formato são LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office e 602Office.
+
+${terms}

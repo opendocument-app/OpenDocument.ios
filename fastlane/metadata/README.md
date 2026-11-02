@@ -20,9 +20,13 @@ places in order, and the last one wins:
 
 - The name differs, because a store name is unique. Each app has one
   `all/name.txt`, and this directory has none.
-- The shared description holds `${ads}` and `${editing}`. Each app fills them
-  from its own `ads.txt` and `editing.txt` in that locale. Lite has an
-  `ads.txt`, Pro has none, and an empty fill-in leaves no space behind.
+- The shared description holds `${ads}`, `${editing}` and `${terms}`. Each app
+  fills them from its own `ads.txt`, `editing.txt` and `terms.txt` in that
+  locale. Lite has an `ads.txt`, Pro has none, and an empty fill-in leaves no
+  space behind.
+- `terms.txt` links to the Terms of Use, on its own line at the end. App Review
+  wants this link in every locale of an app that sells a subscription, so Lite
+  has one and Pro has none.
 - `FILL_INS` in `scripts/store_listing.py` lists the allowed names, so a
   misspelt fill-in is an error.
 

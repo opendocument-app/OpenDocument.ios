@@ -32,3 +32,5 @@ Dessutom stöder dokumentläsaren så många andra filformat som möjligt:
 Appen är öppen källkod. Vi har ingen koppling till OpenOffice, LibreOffice eller liknande. Tillverkad i Österrike. ${ads} Vi uppskattar all form av återkoppling via e-post.
 
 ODF är det format som används av kontorspaket som Open Office och Libre Office. Textdokument (Writer, ODT), kalkylblad (Calc, ODS) och presentationer (Impress, ODP) stöds, även med komplex formatering och inbäddade bilder. Diagram är inte heller något problem. Vill du skydda dina uppgifter kan du dessutom öppna lösenordsskyddade dokument. Andra program som använder formatet är LibreOffice, OpenOffice, NeoOffice, StarOffice, Go-oo, IBM Workplace, IBM Lotus Symphony, ChinaOffice, AndrOpen Office, Co-Create Office, EuroOffice, KaiOffice, Jambo OpenOffice, MagyarOffice, MultiMedia Office, MYOffice, NextOffice, OfficeOne, OfficeTLE, OOo4Kids, OpenOfficePL, OpenOfficeT7, OxOffice, OxygenOffice, Pladao Office, PlusOffice, RedOffice, RomanianOffice, SunShine Office, ThizOffice, UP Office, White Label Office, WPS Office Storm, Libre Office, Collabora Office och 602Office.
+
+${terms}

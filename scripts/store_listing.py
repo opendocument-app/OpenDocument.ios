@@ -68,11 +68,11 @@ LIMITS = {
 
 # The names a `${...}` may have. Declared, so that a misspelt one is an error
 # rather than a sentence that quietly disappears from the store.
-FILL_INS = ("ads", "editing")
+FILL_INS = ("ads", "editing", "terms")
 
-# the space in front comes with it, so a fill-in the app leaves empty does not
-# leave a double space in the middle of a sentence
-FILL_IN = re.compile(r"( ?)\$\{([a-z_]+)\}")
+# the space or the line breaks in front come with it, so a fill-in the app
+# leaves empty does not leave a double space in a sentence, or a blank paragraph
+FILL_IN = re.compile(r"(\n+| ?)\$\{([a-z_]+)\}")
 
 
 def locales(metadata=METADATA):
