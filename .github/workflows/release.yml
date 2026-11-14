@@ -208,8 +208,8 @@ jobs:
         with:
           xcode-version: ${{ env.xcode_version }}
 
-      # storeframe frames the captures; it is the one thing the scripts here
-      # want that is not in the standard library
+      # storeframe frames the captures and sampledoc writes the samples, the two
+      # things the scripts here want that are not in the standard library
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
@@ -220,7 +220,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: build/screenshots
-          key: screenshots-${{ matrix.device }}-${{ runner.os }}-${{ env.xcode_version }}-${{ hashFiles('OpenDocumentReader.xcodeproj/project.pbxproj', 'OpenDocumentReader.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'OpenDocumentReader/**', 'OpenDocumentReaderUITests/**', 'Ads/**', 'NoAds/**', 'configs/**', 'scripts/make-screenshot-documents.py') }}
+          key: screenshots-${{ matrix.device }}-${{ runner.os }}-${{ env.xcode_version }}-${{ hashFiles('OpenDocumentReader.xcodeproj/project.pbxproj', 'OpenDocumentReader.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'OpenDocumentReader/**', 'OpenDocumentReaderUITests/**', 'Ads/**', 'NoAds/**', 'configs/**', 'scripts/make-screenshot-documents.py', 'scripts/requirements.txt') }}
 
       # half a set, so the lane does not check it - the job below does, once
       # both halves are in
