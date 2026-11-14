@@ -1,14 +1,14 @@
 {
   "_comment": [
     "What the App Store pictures show, and what they say in every language.",
-    "scripts/frame-screenshots.py draws them; see that file for the geometry.",
+    "storeframe (scripts/requirements.txt) draws them, in its tabs style; see",
+    "https://github.com/andiwand/storeframe for the geometry.",
     "",
     "One entry per screen, in the order the store shows them, named as the",
     "screenshot test writes them. `headline` is two lines: the first is set",
     "light and the second bold, so each language picks its own break rather",
     "than inheriting the English one."
   ],
-  "font": "Nunito[wght].ttf",
   "backgrounds": {
     "orange": [
       "#f4b663",
@@ -196,6 +196,7 @@
     },
     {
       "name": "04-edit",
+      "aliases": ["04-edit-lite"],
       "background": "blue",
       "chips": [
         "odt"

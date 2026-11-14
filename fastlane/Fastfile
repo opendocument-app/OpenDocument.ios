@@ -64,7 +64,8 @@ IPA_DIR = File.expand_path("../build").freeze
 # so they do not care which of the two they are called from.
 STORE_LISTING = File.expand_path("../scripts/store_listing.py").freeze
 STORE_SCREENSHOTS = File.expand_path("../scripts/store_screenshots.py").freeze
-FRAME_SCREENSHOTS = File.expand_path("../scripts/frame-screenshots.py").freeze
+# The design storeframe frames the captures with (scripts/requirements.txt).
+FRAMES_DESIGN = File.expand_path("frames/frames.json").freeze
 MAKE_DOCUMENTS = File.expand_path("../scripts/make-screenshot-documents.py").freeze
 
 # Where snapshot writes, and where the framed set goes. Neither is committed:
@@ -242,7 +243,8 @@ platform :ios do
     )
 
     # Frame captures separately so design changes do not require new screenshots.
-    sh(FRAME_SCREENSHOTS)
+    sh("python3", "-m", "storeframe", "frame", FRAMES_DESIGN, "--platform", "ios",
+       "--captured", SCREENSHOT_DIR, "--out", FRAMED_DIR)
 
     # Validate complete sets; the release workflow checks combined device jobs.
     narrowed = %w[ODR_SCREENSHOT_LANGUAGES ODR_SCREENSHOT_DEVICE ODR_SCREENSHOT_DEVICES]

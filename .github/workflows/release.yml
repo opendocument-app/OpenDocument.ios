@@ -208,12 +208,12 @@ jobs:
         with:
           xcode-version: ${{ env.xcode_version }}
 
-      # the framing draws with Pillow, which is the one thing the scripts here
+      # storeframe frames the captures; it is the one thing the scripts here
       # want that is not in the standard library
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
-      - run: python3 -m pip install --quiet Pillow
+      - run: python3 -m pip install --quiet -r scripts/requirements.txt
 
       # Cache the screenshot build using all source and resource inputs.
       - name: reuse the last build
