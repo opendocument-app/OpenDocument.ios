@@ -7,7 +7,8 @@ are taken during the release run, from the build that goes out.
 
 ```sh
 bundle exec fastlane ios screenshots      # capture, then frame
-scripts/frame-screenshots.py              # frame again, without a capture
+python3 -m storeframe frame fastlane/frames/frames.json --platform ios \
+  --captured fastlane/screenshots --out fastlane/framed   # frame again, without a capture
 ```
 
 The lane does these steps:
@@ -17,8 +18,9 @@ The lane does these steps:
 2. `fastlane snapshot` builds the `ODR Screenshots` scheme once and launches
    the app once per screen and locale, with `-ODRScreenshot <screen>`. See
    `OpenDocumentReader/ScreenshotMode.swift`.
-3. `scripts/frame-screenshots.py` puts each capture on a device frame with a
-   headline from `fastlane/frames/frames.json`. It needs Pillow.
+3. [storeframe](https://github.com/andiwand/storeframe) puts each capture on a
+   device frame with a headline from `fastlane/frames/frames.json`. Install it
+   with `python3 -m pip install -r scripts/requirements.txt`.
 4. `scripts/store_screenshots.py` checks the framed set against the sizes the
    store accepts.
 
@@ -55,4 +57,5 @@ The two apps differ only in the edit. `-ODRScreenshot edit-lite` turns the Pro
 tools off in the Pro build, so Lite's edit is taken from the same build.
 `scripts/store_screenshots.py --stage DIR --app lite` puts that picture in
 place of `04-edit`, and each listing gets its own set. Both edits share the
-headline of `04-edit` in `fastlane/frames/frames.json`.
+headline of `04-edit` in `fastlane/frames/frames.json` (`04-edit-lite` is an
+alias of that screen).
