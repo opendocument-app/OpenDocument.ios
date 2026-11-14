@@ -1,0 +1,3 @@
+- Text documents now show their page headers and footers, and number headings and lists as LibreOffice does
+- Shapes and slides now show their gradients, patterns, background pictures, shadows and Fontwork text
+- Slides no longer show leftover "Click to edit" placeholder text

@@ -1,0 +1,3 @@
+- Dokumenty tekstowe pokazują teraz nagłówki i stopki stron, a nagłówki i listy numerują tak jak LibreOffice
+- Kształty i slajdy pokazują teraz gradienty, desenie, obrazy tła, cienie i tekst Fontwork
+- Na slajdach nie widać już zbędnego tekstu zastępczego „Kliknij, aby edytować”

@@ -1,0 +1,3 @@
+- Textdokument visar nu sidhuvuden och sidfötter och numrerar rubriker och listor som i LibreOffice
+- Former och presentationsbilder visar nu övertoningar, mönster, bakgrundsbilder, skuggor och Fontwork-text
+- Presentationsbilder visar inte längre kvarlämnad platshållartext som ”Klicka för att redigera”

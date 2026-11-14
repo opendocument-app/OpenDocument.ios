@@ -1,0 +1,3 @@
+- Metin belgeleri artık sayfa üst ve alt bilgilerini gösteriyor, başlıkları ve listeleri LibreOffice gibi numaralandırıyor
+- Şekiller ve slaytlar artık renk geçişlerini, desenlerini, arka plan resimlerini, gölgelerini ve Fontwork yazılarını gösteriyor
+- Slaytlarda artık geride kalan "Düzenlemek için tıklayın" yer tutucu metni görünmüyor

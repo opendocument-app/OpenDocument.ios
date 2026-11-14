@@ -1,0 +1,3 @@
+- I documenti di testo ora mostrano intestazioni e piè di pagina, e numerano titoli ed elenchi come fa LibreOffice
+- Forme e diapositive ora mostrano sfumature, motivi, immagini di sfondo, ombre e testo Fontwork
+- Nelle diapositive non resta più il testo segnaposto "Fai clic per modificare"
