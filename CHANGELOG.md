@@ -13,6 +13,23 @@ Rules:
   `Unreleased`.
 - Add the date and the compare link once the version tag exists.
 
+## Unreleased
+
+### Added
+
+- Text documents show their page headers and footers, and number headings and
+  lists as LibreOffice does.
+- Shapes and slides show their gradients, patterns, background pictures,
+  shadows and Fontwork text.
+
+### Fixed
+
+- Slides no longer show "Click to edit" placeholders from their master.
+
+### Changed
+
+- The engine is odrcore 7.8.0, up from 7.7.0.
+
 ## [1.51]
 
 ### Added
