@@ -1,0 +1,3 @@
+- Les documents texte affichent désormais les en-têtes et pieds de page, et numérotent les titres et les listes comme LibreOffice
+- Les formes et les diapositives affichent désormais leurs dégradés, motifs, images d'arrière-plan, ombres et textes Fontwork
+- Les diapositives n'affichent plus le texte d'espace réservé « Cliquez pour modifier » resté en place

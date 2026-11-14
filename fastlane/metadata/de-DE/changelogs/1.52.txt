@@ -1,0 +1,3 @@
+- Textdokumente zeigen jetzt ihre Kopf- und Fußzeilen und nummerieren Überschriften und Listen wie LibreOffice
+- Formen und Folien zeigen jetzt ihre Farbverläufe, Muster, Hintergrundbilder, Schatten und Fontwork-Texte
+- Folien zeigen keinen übrig gebliebenen Platzhaltertext „Zum Bearbeiten klicken“ mehr

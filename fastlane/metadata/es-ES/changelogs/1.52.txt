@@ -1,0 +1,3 @@
+- Los documentos de texto ya muestran sus encabezados y pies de página, y numeran los títulos y las listas como LibreOffice
+- Las formas y diapositivas ya muestran sus degradados, motivos, imágenes de fondo, sombras y texto Fontwork
+- Las diapositivas ya no muestran restos del texto de ejemplo «Haga clic para editar»

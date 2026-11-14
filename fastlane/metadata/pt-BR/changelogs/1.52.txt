@@ -1,0 +1,3 @@
+- Documentos de texto agora mostram cabeçalhos e rodapés de página, e numeram títulos e listas como o LibreOffice
+- Formas e slides agora mostram degradês, padrões, imagens de fundo, sombras e textos em Fontwork
+- Os slides não mostram mais o texto de exemplo "Clique para editar" que sobrava
