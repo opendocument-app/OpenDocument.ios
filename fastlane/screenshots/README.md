@@ -6,6 +6,7 @@ capture run writes the raw pictures to this directory and the framed set to
 are taken during the release run, from the build that goes out.
 
 ```sh
+python3 -m pip install -r scripts/requirements.txt   # storeframe and sampledoc
 bundle exec fastlane ios screenshots      # capture, then frame
 python3 -m storeframe frame fastlane/frames/frames.json --platform ios \
   --captured fastlane/screenshots --out fastlane/framed   # frame again, without a capture
@@ -14,7 +15,8 @@ python3 -m storeframe frame fastlane/frames/frames.json --platform ios \
 The lane does these steps:
 
 1. `scripts/make-screenshot-documents.py` writes the localized sample
-   documents. They are build output and go into Debug builds only.
+   documents with [sampledoc](https://github.com/opendocument-app/sampledoc).
+   They are build output and go into Debug builds only.
 2. `fastlane snapshot` builds the `ODR Screenshots` scheme once and launches
    the app once per screen and locale, with `-ODRScreenshot <screen>`. See
    `OpenDocumentReader/ScreenshotMode.swift`.

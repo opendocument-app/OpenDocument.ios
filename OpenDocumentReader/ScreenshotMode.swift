@@ -140,11 +140,16 @@ enum ScreenshotMode {
         let search: String
     }
 
+    /// The file's top level; it also carries the store locale table, which the app does not need.
+    private struct Names: Decodable {
+        let languages: [String: Details]
+    }
+
     private static func details() -> Details? {
         guard
             let url = Bundle.main.url(forResource: "screenshot-names", withExtension: "json"),
             let data = try? Data(contentsOf: url),
-            let all = try? JSONDecoder().decode([String: Details].self, from: data)
+            let all = try? JSONDecoder().decode(Names.self, from: data).languages
         else {
             assertionFailure("no screenshot-names.json bundled - run scripts/make-screenshot-documents.py")
 
