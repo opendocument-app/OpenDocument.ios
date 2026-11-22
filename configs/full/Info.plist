@@ -6,11 +6,110 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
+		<!-- Specific document families supply icons to the system browser. Keep the broad
+		     fallback declarations below so other supported formats remain available. -->
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Text</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.text</string>
+				<string>org.oasis-open.opendocument.text</string>
+				<string>org.oasis-open.opendocument.text-template</string>
+				<string>org.oasis-open.opendocument.text-flat-xml</string>
+				<string>org.oasis-open.opendocument.text-master</string>
+				<string>org.oasis-open.opendocument.text-master-template</string>
+				<string>com.microsoft.word.doc</string>
+				<string>com.microsoft.word.dot</string>
+				<string>org.openxmlformats.wordprocessingml.document</string>
+				<string>org.openxmlformats.wordprocessingml.document.macroenabled</string>
+				<string>org.openxmlformats.wordprocessingml.template</string>
+				<string>org.openxmlformats.wordprocessingml.template.macroenabled</string>
+				<string>com.apple.iwork.pages.pages</string>
+				<string>com.apple.iwork.pages.sffpages</string>
+			</array>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>DocumentText-small.png</string>
+				<string>DocumentText-small@2x.png</string>
+				<string>DocumentText-64.png</string>
+				<string>DocumentText-320.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Spreadsheet</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.spreadsheet</string>
+				<string>org.oasis-open.opendocument.spreadsheet</string>
+				<string>org.oasis-open.opendocument.spreadsheet-template</string>
+				<string>org.oasis-open.opendocument.spreadsheet-flat-xml</string>
+				<string>public.comma-separated-values-text</string>
+				<string>com.microsoft.excel.xlm</string>
+			</array>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>DocumentSpreadsheet-small.png</string>
+				<string>DocumentSpreadsheet-small@2x.png</string>
+				<string>DocumentSpreadsheet-64.png</string>
+				<string>DocumentSpreadsheet-320.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Presentation</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.presentation</string>
+				<string>org.oasis-open.opendocument.presentation</string>
+				<string>org.oasis-open.opendocument.presentation-template</string>
+				<string>org.oasis-open.opendocument.presentation-flat-xml</string>
+			</array>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>DocumentPresentation-small.png</string>
+				<string>DocumentPresentation-small@2x.png</string>
+				<string>DocumentPresentation-64.png</string>
+				<string>DocumentPresentation-320.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>PDF</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+			</array>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>DocumentPDF-small.png</string>
+				<string>DocumentPDF-small@2x.png</string>
+				<string>DocumentPDF-64.png</string>
+				<string>DocumentPDF-320.png</string>
+			</array>
+		</dict>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
 			<key>CFBundleTypeName</key>
-			<string>ODT</string>
+			<string>Archives</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
@@ -118,15 +217,107 @@
 	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
-	<!-- Formats odrcore renders that iOS has no type for. Without these the
-	     document browser resolves them to a dynamic type, which conforms to
-	     nothing we claim, and greys the file out. Imported rather than exported:
-	     none of them is ours. -->
+	<!-- OpenDocument icons and missing system types for formats odrcore renders.
+	     Imported rather than exported: none of these formats is ours. -->
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.text</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Text</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>odt</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.text</string>
+				</array>
+			</dict>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>DocumentText-small.png</string>
+				<string>DocumentText-small@2x.png</string>
+				<string>DocumentText-64.png</string>
+				<string>DocumentText-320.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.spreadsheet</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Spreadsheet</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ods</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.spreadsheet</string>
+				</array>
+			</dict>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>DocumentSpreadsheet-small.png</string>
+				<string>DocumentSpreadsheet-small@2x.png</string>
+				<string>DocumentSpreadsheet-64.png</string>
+				<string>DocumentSpreadsheet-320.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.oasis-open.opendocument.presentation</string>
+			<key>UTTypeDescription</key>
+			<string>OpenDocument Presentation</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>odp</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.oasis.opendocument.presentation</string>
+				</array>
+			</dict>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>DocumentPresentation-small.png</string>
+				<string>DocumentPresentation-small@2x.png</string>
+				<string>DocumentPresentation-64.png</string>
+				<string>DocumentPresentation-320.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
 			<string>org.oasis-open.opendocument.text-flat-xml</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>DocumentText-small.png</string>
+				<string>DocumentText-small@2x.png</string>
+				<string>DocumentText-64.png</string>
+				<string>DocumentText-320.png</string>
+			</array>
 			<key>UTTypeDescription</key>
 			<string>OpenDocument Text (Flat XML)</string>
 			<key>UTTypeConformsTo</key>
@@ -149,6 +340,13 @@
 		<dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.oasis-open.opendocument.presentation-flat-xml</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>DocumentPresentation-small.png</string>
+				<string>DocumentPresentation-small@2x.png</string>
+				<string>DocumentPresentation-64.png</string>
+				<string>DocumentPresentation-320.png</string>
+			</array>
 			<key>UTTypeDescription</key>
 			<string>OpenDocument Presentation (Flat XML)</string>
 			<key>UTTypeConformsTo</key>
@@ -171,6 +369,13 @@
 		<dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.oasis-open.opendocument.spreadsheet-flat-xml</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>DocumentSpreadsheet-small.png</string>
+				<string>DocumentSpreadsheet-small@2x.png</string>
+				<string>DocumentSpreadsheet-64.png</string>
+				<string>DocumentSpreadsheet-320.png</string>
+			</array>
 			<key>UTTypeDescription</key>
 			<string>OpenDocument Spreadsheet (Flat XML)</string>
 			<key>UTTypeConformsTo</key>
@@ -215,6 +420,13 @@
 		<dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.oasis-open.opendocument.text-master-template</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>DocumentText-small.png</string>
+				<string>DocumentText-small@2x.png</string>
+				<string>DocumentText-64.png</string>
+				<string>DocumentText-320.png</string>
+			</array>
 			<key>UTTypeDescription</key>
 			<string>OpenDocument Master Document Template</string>
 			<key>UTTypeConformsTo</key>
