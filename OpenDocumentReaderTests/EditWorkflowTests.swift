@@ -775,6 +775,21 @@ class EditWorkflowTests: XCTestCase {
 
         controller.toggleEdit(controller.editButton)
         waitForTools()
+
+        // The toolbar is ready before the formula module finishes loading.
+        let loaded = expectation(description: "formula module loaded")
+        controller.webview.callAsyncJavaScript(
+            "return await odr.editing.loadFormulas();", arguments: [:], in: nil, in: .page
+        ) { result in
+            switch result {
+            case .success(let value):
+                XCTAssertEqual(value as? Bool, true)
+            case .failure(let error):
+                XCTFail("loading formulas failed: \(error)")
+            }
+            loaded.fulfill()
+        }
+        wait(for: [loaded], timeout: 60)
     }
 
     /// Opens the cell editor, types `text` and presses Enter, as the reader does.
